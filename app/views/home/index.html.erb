@@ -387,7 +387,7 @@
     if((window.Hybrid && !window.Hybrid.sheet) || !window.Hybrid){
       $(".like").click(function(){
         var $this = $(this),
-        sdata = {id: "<%=@idToken%>", language: "<%=@current_language%>"};
+        sdata = {id: "<%=@idToken%>", language: "<%=@current_language%>", type: "web"};
         $this.hasClass("red-text") ? sdata["unlike"] = $this.data("name") : sdata["like"] = $this.data("name");
         $.ajax({
           url : "https://script.google.com/macros/s/AKfycbyWHxlrR0PTrhykLQUtd7JAagdezT4TzK3ICFwnj0MiwhNUrao/exec",
