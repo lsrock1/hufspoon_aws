@@ -112,7 +112,4 @@ class HomeController < ApplicationController
     end
   end
   
-  
 end
-
-# developer mail address lsrock1@naver.com

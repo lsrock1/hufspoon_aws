@@ -35,30 +35,22 @@
 </head>
 <body>
   <div class="navbar-extended-fixed main_nav">
-  <nav class="nav-extended">
-    <div class="nav-wrapper">
-      <ul id="slide-out" class="side-nav">
-        <%= yield :link%>
-        <li><a href="/posts">Q & A</a></li>
-        <li><a href="https://www.facebook.com/hufspoon/?ref=aymt_homepage_panel" >HUFSPOON PAGE</a></li>
-        <li><a class="modal-trigger" href="#modal1" >MONDAYSPOON</a></li>
-      </ul>
-      
-      <ul class="left hide-on-med-and-down">
-        <%=yield :link%>
-        <li><a href="/posts">Q & A</a></li>
-        <li><a href="https://www.facebook.com/hufspoon/?ref=aymt_homepage_panel">HUFSPOON PAGE</a></li>
-        <li><a class="modal-trigger" href="#modal1">MONDAYSPOON</a></li>
-      </ul>
-      
-      <a href=# data-activates="slide-out" class="button-collapse grey-text"><i class="material-icons">menu</i></a>
+    <nav class="nav-extended">
+      <div class="nav-wrapper">
+        <ul class="left">
+          <li><a href="/" style="height: 64px;"><%= image_tag("flag.png", style: "vertical-align: middle; max-height: 100%; width: 54px;")%></a></li>
+        </ul>
 
-      <a href="/" class="brand-logo center" ><%=image_tag 'title.png',class: :title%></a>
-      <%= yield :tabs%>
-      
-    </div>
-  </nav>
+        <a href="/rests" class="brand-logo center black-text">AHUFS</a>
+        <ul class="right">
+          <li><a><i class="material-icons opener">search</i></a></li>
+        </ul>
+        <%= yield :tabs%>
+        
+      </div>
+    </nav>
   </div>
+  <%=yield :search_form%>
 <%= yield %>
 
 </body>

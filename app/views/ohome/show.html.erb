@@ -1,138 +1,141 @@
-<%content_for :left do%>
-  <a href="<%if @back==-1%>/<%else%>/rests?q=<%=@back%><%end%>" class="grey-text"><i class="material-icons">undo</i></a>
-<%end%>
-<%content_for :search_form do%>
-  <div class="nav-wrapper nav_form">
-    <form action="/rests" class="white">
+<div class="card" style="margin-top: 0px;">
+  <nav style="display: none; position: absolute; top: 0px; width: 100%; height: 56px;" class="nav_form">
+    <form action="/rests">
       <div class="input-field">
         <input id="search" type="search" name="q" required>
-        <label for="search"><i class="material-icons">search</i></label>
+        <label for="q"><i class="material-icons">search</i></label>
         <i class="material-icons closer">close</i>
       </div>
     </form>
+  </nav>
+  <nav class="main_nav" style="position: absolute; top: 0px; width: 100%; opacity: 0.3; height: 56px">
+    <ul class="left">
+      <li><a href=""><i class="material-icons">undo</i></a></li>
+    </ul>
+    <ul class="right">
+      <li><a id="kakao-link-btn" href="javascript:;" style="height: 56px;" class="waves-effect waves-light right"><img height="56px;" src="//dev.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_small.png"/></a></li>
+      <li><a><i class="material-icons opener">search</i></a></li>
+    </ul>
+  </nav>
+  <%if @rest.picture!=""&&@rest.picture!=nil%>
+  <div class="carousel carousel-slider card-image" style="max-width: 100%; height: 200px;">
+    <%@rest.picture.split("http")[1..-1].each do |p|%>
+    <a class="carousel-item"><img src="http<%=p%>" height="200"></a>
+    <%end%>
   </div>
+  <%else%>
+  <div class="card-image">
+    <img src="https://s19.postimg.org/yqsm53ntd/always.png" height="200">
+  </div>
+  <%end%>
+  <div class="card-tabs">
+    <ul class="tabs tabs-fixed-width">
+      <li class="tab"><a class="active" href="#info">INFO</a></li>
+      <li class="tab"><a href="#dMap">MAP</a></li>
+    </ul>
+  </div>
+  <div class="card-content">
+    <div id="info">
+      <table>
+        <tbody class="aTable">
+          <tr>
+            <td colspan="2"><span class="card-title"><%=@rest.name%></span></td>
+          </tr>
+          <tr>
+            <td><i class="material-icons">schedule</i></td>
+            <td><%=@rest.open%></td>
+          </tr>
+          <tr>
+            <td><i class="material-icons">call</i></td>
+            <td><%=@rest.phone%></td>
+          </tr>
+          <tr>
+            <td><i class="material-icons">place</i></td>
+            <td><%=@rest.address%></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="dMap" style="position: relative">
+      <div id="map" style="height:300px;"></div>
+      <div id="roadView" style="display:none; height:330px;"></div>
+      <a class="waves-effect waves-light btn red lighten-2" style="position: absolute; top:5px;right:5px;" id="roadBtn" data-type="ROAD">ROAD</a>
+    </div>
+  </div>
+</div>
+
+<%if @picture_exist.length != 0%>
+<ul class="collapsible" data-collapsible="accordion">
+  <li>
+    <div class="collapsible-header active red-text text-lighten-3"><i class="material-icons">restaurant_menu</i>대표 메뉴(Signature Menu)</div>
+    <div class="collapsible-body" style="padding: 0px;">
+      <table>
+        <tbody>
+          <%(@picture_exist.length/2.0).ceil.times do |number|%>
+          <tr>
+          <%card=@picture_exist[number*2]%>
+          <%if card%>
+          <td style="width: 50%">
+            <div class="card pMenu">
+              <div class="card-image">
+                <img class="materialboxed showImg" src="<%=card.picture%>">
+              </div>
+              <div class="card-content">
+                <p class="center-align"><%=card.menuname%><br/><%=card.emenuname%><br/><%=card.cmenuname%><br/>
+                <span class="blue-text text-lighten-2"><%=number_with_delimiter(card.cost, :delimiter => ',')%> won</span>
+                </p>
+              </div>
+            </div>
+          </td>
+          <%end%>
+          <%card = @picture_exist[number*2+1]%>
+          <%if card%>
+          <td style="width: 50%">
+            <div class="card pMenu">
+              <div class="card-image">
+                <img class="materialboxed showImg" src="<%=card.picture%>">
+              </div>
+              <div class="card-content">
+                <p class="center-align"><%=card.menuname%><br/><%=card.emenuname%><br/><%=card.cmenuname%><br/>
+                <span class="blue-text text-lighten-2"><%=number_with_delimiter(card.cost, :delimiter => ',')%> won</span>
+                </p>
+              </div>
+            </div>
+          </td>
+          <%end%>
+          </tr>
+          <%end%>
+        </tbody>
+      </table>
+    </div>
+  </li>
+</ul>
+<%end%>
+<%@num.times do |m|%>
+  <ul class="collapsible" data-collapsible="accordion">
+    <li>
+      <div class="collapsible-header active red-text text-lighten-3"><i class="material-icons">restaurant_menu</i><%if @pages.blank?||@pages[m].blank?%>MENU<%else%><%=@pages[m]%><%end%></div>
+      <div class="collapsible-body" style="padding: 0px;">
+        <table class="bordered" style="font-size: 12px;">
+          <tbody>
+            <%@menuarray[m].each do|a|%>
+            <tr>
+              <td class="center" style="width: 70%">
+                <span class="k"><%=a.menuname%></span><br/>
+                <span class="e"><%=a.emenuname.titleize%></span><br/>
+                <span class="e"><%=a.cmenuname%></span><br/>
+                <%if a.content!=""%><span class="grey-text"><%=a.content%></span><%end%>
+              </td>
+              <td class="center blue-text text-lighten-2" style="width: 30%"><%=number_with_delimiter(a.cost, :delimiter => ',')%> won</td>
+            </tr>
+            <%end%>
+          </tbody>
+        </table>
+      </div>
+    </li>
+  </ul>
 <%end%>
 
-<div class="row">
-  <div class="col s12 m10 offset-m1 l8 offset-l2">
-    <div class="card">
-      <div class="card-content card_top">
-        <span class="card-title"><%=@rest.name%><a id="kakao-link-btn" href="javascript:;"class="waves-effect waves-light right"><img src="//dev.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_small.png"/></a></span>
-      </div>
-      <%if @rest.picture!=""&&@rest.picture!=nil%>
-      <div class="carousel carousel-slider card-image" style="max-width: 100%; height: 200px;">
-        <%@rest.picture.split("http")[1..-1].each do |p|%>
-        <a class="carousel-item"><img src="http<%=p%>" height="200"></a>
-        <%end%>
-      </div>
-      <%end%>
-      <div class="card-tabs">
-        <ul class="tabs tabs-fixed-width">
-          <li class="tab"><a class="active" href="#info">INFO</a></li>
-          <li class="tab"><a href="#dMap">MAP</a></li>
-        </ul>
-      </div>
-      <div class="card-content">
-        <div id="info">
-          <table>
-            <tbody class="aTable">
-              <tr>
-                <td><i class="material-icons">schedule</i></td>
-                <td><%=@rest.open%></td>
-              </tr>
-              <tr>
-                <td><i class="material-icons">call</i></td>
-                <td><%=@rest.phone%></td>
-              </tr>
-              <tr>
-                <td><i class="material-icons">place</i></td>
-                <td><%=@rest.address%></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div id="dMap" style="position: relative">
-          <div id="map" style="height:300px;"></div>
-          <div id="roadView" style="display:none; height:330px;"></div>
-          <a class="waves-effect waves-light btn red lighten-2" style="position: absolute; top:5px;right:5px;" id="roadBtn" data-type="ROAD">ROAD</a>
-        </div>
-      </div>
-    </div>
-  
-  <%if @picture_exist.length != 0%>
-    <ul class="collapsible" data-collapsible="accordion">
-      <li>
-        <div class="collapsible-header active red-text text-lighten-3"><i class="material-icons">restaurant_menu</i>대표 메뉴(Signature Menu)</div>
-        <div class="collapsible-body" style="padding: 0px;">
-          <table>
-            <tbody>
-              <%(@picture_exist.length/2.0).ceil.times do |number|%>
-              <tr>
-              <%card=@picture_exist[number*2]%>
-              <%if card%>
-              <td style="width: 50%">
-                <div class="card pMenu">
-                  <div class="card-image">
-                    <img class="materialboxed showImg" src="<%=card.picture%>">
-                  </div>
-                  <div class="card-content">
-                    <p class="center-align"><%=card.menuname%><br/><%=card.emenuname%><br/><%=card.cmenuname%><br/>
-                    <span class="blue-text text-lighten-2"><%=number_with_delimiter(card.cost, :delimiter => ',')%> won</span>
-                    </p>
-                  </div>
-                </div>
-              </td>
-              <%end%>
-              <%card = @picture_exist[number*2+1]%>
-              <%if card%>
-              <td style="width: 50%">
-                <div class="card pMenu">
-                  <div class="card-image">
-                    <img class="materialboxed showImg" src="<%=card.picture%>">
-                  </div>
-                  <div class="card-content">
-                    <p class="center-align"><%=card.menuname%><br/><%=card.emenuname%><br/><%=card.cmenuname%><br/>
-                    <span class="blue-text text-lighten-2"><%=number_with_delimiter(card.cost, :delimiter => ',')%> won</span>
-                    </p>
-                  </div>
-                </div>
-              </td>
-              <%end%>
-              </tr>
-              <%end%>
-            </tbody>
-          </table>
-        </div>
-      </li>
-    </ul>
-    <%end%>
-    <%@num.times do |m|%>
-      <ul class="collapsible" data-collapsible="accordion">
-        <li>
-          <div class="collapsible-header active red-text text-lighten-3"><i class="material-icons">restaurant_menu</i><%if @pages.blank?||@pages[m].blank?%>MENU<%else%><%=@pages[m]%><%end%></div>
-          <div class="collapsible-body" style="padding: 0px;">
-            <table class="bordered" style="font-size: 12px;">
-              <tbody>
-                <%@menuarray[m].each do|a|%>
-                <tr>
-                  <td class="center" style="width: 70%">
-                    <span class="k"><%=a.menuname%></span><br/>
-                    <span class="e"><%=a.emenuname.titleize%></span><br/>
-                    <span class="e"><%=a.cmenuname%></span><br/>
-                    <%if a.content!=""%><span class="grey-text"><%=a.content%></span><%end%>
-                  </td>
-                  <td class="center blue-text text-lighten-2" style="width: 30%"><%=number_with_delimiter(a.cost, :delimiter => ',')%> won</td>
-                </tr>
-                <%end%>
-              </tbody>
-            </table>
-          </div>
-        </li>
-      </ul>
-    <%end%>
-  </div>
-    
-</div>
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script src="//apis.daum.net/maps/maps3.js?apikey=23598cdf36f0c5f5bf1f1bfda70b8e80&libraries=services"></script>
 <script>
