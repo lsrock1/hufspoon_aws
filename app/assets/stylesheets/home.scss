@@ -1,0 +1,486 @@
+// Place all the styles related to the home controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+header {
+    background-color: #002D56;
+}
+
+header h1 {
+    margin: 0;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+
+footer {
+    background-color: #002D56;
+}
+
+footer h1 {
+    margin: 0;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+
+
+:focus {
+    outline: 0;
+}
+::-webkit-scrollbar { width: 0px;}
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    color: #555;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+    color: #00B7FF;
+}
+table#menu-list-table {
+  width: 1150px;
+  table-layout:fixed;
+}
+table#menu-list-table tr:nth-child(even) {
+  background-color: #eee;
+}
+table#menu-list-table tr:nth-child(odd) {
+  background-color: #fff;
+}
+table#menu-list-table th {
+  height: 40px;
+  color: white;
+  background-color: black;
+}
+
+table#menu-list-table td {
+  height: 40px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.little-round-corner {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.round-corner {
+    -webkit-border-radius: 22px;
+    -moz-border-radius: 22px;
+    border-radius: 22px;
+}
+.color-button {
+    -webkit-appearance: none;
+    border: none;
+    color: #ffffff;
+    font-size: 0.9em;
+    background: #33cc77;
+    text-decoration: none;
+}
+.plain-button {
+    -webkit-appearance: none;
+    color: #555;
+    font-size: 0.9em;
+    background: #ffffff;
+    border: solid #ccc 1px;
+    text-decoration: none;
+}
+.dialog-button {
+    padding: 6px 8px 5px 8px;
+}
+.call-button {
+    height: 26px;
+}
+.thick-button {
+    padding: 6px 0 5px 0
+}
+.big-button {
+    padding: 10px 20px 9px 20px;
+}
+.small-button {
+    padding: 6px 16px 5px 16px;
+}
+.x-small-button {
+    padding: 3px 6px 2px 6px;
+}
+.button-selected {
+    color: #fff;
+    background-color: #002d56;
+}
+.button-unselected {
+    color: #555;
+    background-color: #fff;
+}
+.enabled-button {
+    color: #555;
+    background-color: #ffffff;
+    font-size: 0.9em;
+    border: solid #ccc 1px;
+    text-decoration: none;
+    -webkit-appearance: none;
+}
+.disabled-button {
+    color: #999;
+    background-color: #cccccc;
+    font-size: 0.9em;
+    border: solid #ccc 1px;
+    text-decoration: none;
+    -webkit-appearance: none;
+}
+.content-bottom-rounded-body {
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 0 0 5px 5px;
+    -webkit-border-radius: 0 0 5px 5px;
+}
+/*****************notice views CSS****************/
+.tab-button {
+    height:36px;
+    display:table-cell;
+    vertical-align:middle;
+    color: #555;
+    text-decoration: none;
+    font-size: 1.0em;
+    background: #ffffff;
+    border: solid #fff 1px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    -webkit-appearance: none;
+    padding: 0 10px;
+}
+.notice-list-content-div {
+    z-index: 0;
+    position:relative;
+    width: 100%; top: -1px; left: 0;
+    background-color: #ffffff;
+    border:1px solid #ccc;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+.tab-selected {
+    color: #002d56;
+    border: solid #ccc 1px;
+    border-bottom-color: #fff;
+}
+.tab-unselected {
+    color: #999;
+    border: solid #fff 1px;
+    border-bottom-color: #ccc;
+}
+.notice-table tr.border_bottom td {
+    border-bottom: 1pt dashed #eee
+}
+#list-div {
+    position:absolute;
+    top: 10px; left: 10px; right: 10px;
+    border-width: 0;
+    background-color: #ffffff;
+}
+#content-div {
+    position:absolute;
+    top: 0; left: 0; right: 0; bottom: 50px;
+    border-width: 0;
+    background-color: #ffffff;
+}
+#navigation-div {
+    position:absolute; bottom: 0; left: 0; right: 0; height: 50px;
+    background-color: #cdedf6;
+    border-top:1px solid #71c7e1;
+}
+.footer-div {
+    height: 50px;
+    background-color: #cdedf6;
+    border-top:1px solid #71c7e1;
+}
+#notice-title-td {
+    width: 100%; height: 27px; background-color: #3a7dda;
+    color: #fff; font-size: 1.2em; text-align: left; vertical-align: bottom;
+    overflow: hidden;text-overflow: ellipsis;white-space: nowrap;
+}
+#notice-writer-div {
+    color: #fff; background-color: #3a7dda;
+    line-height: 13px; height: 13px;
+    width: 100%; font-size: 0.8em; text-align: right;
+    overflow: hidden;text-overflow: ellipsis;white-space: nowrap;
+}
+#notice-writer-name-div {
+    position: absolute;
+    bottom: 2px;
+    right: 10px;
+    overflow: hidden;text-overflow: ellipsis;white-space: nowrap;
+}
+.notice-attached-file-list-div {
+    clear: both;
+    color: #555; background-color: #c1e772;
+    line-height: 30px; height: 30px;
+    font-size: 0.8em;
+    overflow: hidden;text-overflow: ellipsis;white-space: nowrap;
+    border-top: 1pt dashed #eee
+}
+/*****************phone info views CSS****************/
+.container-div {
+    position:absolute;
+    top: 10px; left: 10px; right: 10px;
+    border-width: 0;
+    background-color: #ffffff;
+}
+.phone-content-div {
+    z-index: 0;
+    position:relative;
+    width: 100%; top: -1px; left: 0;
+    background-color: #ffffff;
+    border:1px solid #ccc;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+.group-item-border > td {
+    border-bottom: 1pt dashed #eee
+}
+.last-group-item-border > td {
+    border: 0;
+}
+.real-last-group-item-border > td {
+    border-bottom: 1pt double #aaa
+}
+.normal-item-border > td {
+    border-bottom: 1pt dashed #eee
+}
+.group-border > td {
+    border-bottom: 1pt solid #eee
+}
+.solid-border-tr > td {
+    border-bottom: 1pt solid #eee
+}
+.dashed-border-tr > td {
+    border-bottom: 1pt dashed #eee
+}
+.no-border-tr > td {
+    border: 0;
+}
+#spinner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    z-index: 1000;
+}
+#spinner rect {
+    fill: #76daff;
+}
+
+.hidden {
+    display: none;
+}
+.shown {
+    display: block;
+}
+/*****************traffic info views CSS****************/
+.tab-td {
+     border-top-left-radius: 5px;
+     border-top-right-radius: 5px;
+     -webkit-appearance: none;
+     font-size: 1.0em;
+     background: #ffffff;
+     text-decoration: none;
+     text-align: center;
+ }
+.traffic-content-div {
+    z-index: 0;
+    position:relative;
+    width: 100%; top: -1px; left: 0;
+    background-color: #ffffff;
+    border:1px solid #ccc;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+.bus-info-th {
+    text-align: center;
+    border: 1px solid #dddddd;
+    color: #ffffff;
+    font-size: 0.8em;
+    background-color: #57c0d4;
+    max-width: 0;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;
+}
+.bus-info-td {
+    text-align: center;
+    color: #555;
+    font-size: 0.8em;
+    background-color: #ffffff;
+    max-width: 0;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;
+}
+.subway-info-th {
+    text-align: center;
+    color: #ffffff;
+    font-size: 1.0em;
+    font-weight: bold;
+    background-color: #57c0d4;
+    max-width: 0;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;
+}
+.subway-info-td {
+    text-align: center;
+    color: #555;
+    font-size: 1.0em;
+    background-color: #ffffff;
+    max-width: 0;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;
+}
+/*****************salary info views CSS****************/
+.salary-info-th {
+    text-align: center;
+    color: #555;
+    font-size: 1.1em;
+    background-color: #c5d5ed;
+    max-width: 0;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;
+}
+.salary-info-td {
+    text-align: center;
+    color: #555;
+    font-size: 1.1em;
+    background-color: #f8f8f8;
+    max-width: 0;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;
+}
+/****************faculty class info CSS****************/
+.bottom-rounded-div {
+    overflow-y: scroll; border-bottom-right-radius: 4px;border-bottom-left-radius: 4px; background-color: #fbfbf5
+}
+.subject-main-info-td {
+    color: #333; font-size: 1.1em; font-weight: bold; vertical-align: bottom;
+    max-width: 0;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;
+}
+.subject-sub-info-td {
+    color: #777; font-size: 0.9em;
+    max-width: 0;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;
+}
+.time-table-subject-header-info-td {
+    color: #777; font-size: 0.7em; font-weight: bold;
+    max-width: 0;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;
+}
+.time-table-subject-main-info-td {
+    color: #333; font-size: 0.9em; font-weight: bold;
+    max-width: 0;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;
+}
+.time-table-subject-sub-info-td {
+    color: #555; font-size: 0.8em;
+    max-width: 0;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;
+}
+.inside-border-table {
+    border-color: #ccc; border-collapse: collapse; border-left-style: hidden; border-right-style: hidden; border-top-style: hidden; border-bottom-style: hidden
+}
+.small-yoil-td {
+    text-align: center; background-color: #e6edf6
+}
+.time-block {
+    height: 68px; padding: 0;
+}
+#view-transition-td {
+    font-size: 1.0em;
+    text-decoration: none;
+    text-align: right;
+}
+.popup-div {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0,0,0,0.8);
+    z-index: 200;
+    -webkit-transition: opacity 400ms ease-in;
+    -moz-transition: opacity 400ms ease-in;
+    transition: opacity 400ms ease-in;
+}
+.list-header-div {
+    background-color: #a5a5a5;
+    -webkit-border-radius: 10px 10px 0 0;
+    -moz-border-radius: 10px 10px 0 0;
+    border-radius: 10px 10px 0 0;
+    padding: 10px 20px;
+}
+.list-header-td {
+    color: #ffffff;
+    font-size: 1.2em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.list-body-div {
+    background-color: #fbfbf5;
+    padding: 20px;
+}
+.list-footer-div {
+    background-color: #eee;
+    -webkit-border-radius: 0 0 10px 10px;
+    -moz-border-radius: 0 0 10px 10px;
+    border-radius: 0 0 10px 10px;
+    padding: 10px 20px;
+}
+.student-main-info-td {
+    color: #333; font-size: 1.1em; font-weight: bold; text-align: right;
+    max-width: 0;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;
+}
+.student-sub-info-td {
+    color: #777; font-size: 1.0em; text-align: right;
+    max-width: 0;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;
+}
+.plan-main-info-td {
+    color: #4398e0; font-size: 1.2em; font-weight: bold; vertical-align: top; text-align: left; padding: 10px 0;
+    max-width: 0;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;
+}
+.plan-sub-info-td {
+    color: #777; font-size: 1.0em;vertical-align: top; text-align: left; padding: 10px 0;
+}
+/*****************write notification 모달 CSS****************/
+#write-noti-modal-div {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0,0,0,0.8);
+    z-index: 300;
+    -webkit-transition: opacity 400ms ease-in;
+    -moz-transition: opacity 400ms ease-in;
+    transition: opacity 400ms ease-in;
+}
+#write-noti {
+    position:fixed;
+    top: 25%;
+    left: 50%;
+    width: 16em;
+    height: 18em;
+    margin-top: -9em; /*set to a negative number 1/2 of your height*/
+    margin-left: -8em; /*set to a negative number 1/2 of your width*/
+}
+#write-noti-header-div {
+    background-color: #f95252;
+    -webkit-border-radius: 20px 20px 0 0;
+    -moz-border-radius: 20px 20px 0 0;
+    border-radius: 20px 20px 0 0;
+    padding: 0;
+    margin: 0;
+}
+.write-noti-body-block-div {
+    padding: 5px 15px 5px 10px;
+    -webkit-appearance: none;
+    text-align: center;
+}
+.modal-footer-div {
+    background-color: #eee;
+    -webkit-border-radius: 0 0 20px 20px;
+    -moz-border-radius: 0 0 20px 20px;
+    border-radius: 0 0 20px 20px;
+    padding: 10px 20px;
+}

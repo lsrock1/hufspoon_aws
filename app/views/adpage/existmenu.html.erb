@@ -1,0 +1,14 @@
+존재하는 메뉴입니다.
+<div>
+    <%=@ex_menu.kname%>
+</div>
+<div>
+    <%=@ex_menu.ename%>
+</div>
+<div>
+    <%=@ex_menu.ername%>
+</div>
+<form method="get" action="/rewrite/<%=@ex_menu.id%>">
+    <button>수정하기</button>
+</form>
+<a type="button" href="/insertmenu">돌아가기</a>

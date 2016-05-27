@@ -1,0 +1,71 @@
+
+<%= link_to "로그아웃", destroy_admin_session_path, method: :delete, data: { confirm: "Are you sure?" } %>
+<%= link_to 'Change Password', edit_admin_registration_path %>
+<div>
+<div>추가</div>
+<form action="/menulist" method="post">
+    <input type="text" name="kname" placeholder="한국이름">
+    <input type="text" name="ename" placeholder="영어로 뜻 풀이한 이름">
+    <input type="text" name="ername" placeholder="영어로 표현한 독음">
+    <button>저장</button>
+</form>
+<br>
+<br>
+<div>엑셀파일로 업로드</div>
+<form action="/excelinsert" method="post" enctype="multipart/form-data">
+    <input type="file" name="ex" size="20" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+    <button>저장</button>
+</form>
+<a href="/download">
+    <button>db 엑셀로 다운로드</button>
+</a>
+</div>
+<br>
+<br>
+    <table style="width:100%; border:1px solid; margin-bottom: 300px; text-align: center;">
+        <tr>
+            <th>순번</th>
+            <th>한국이름</th>
+            <th>영어 뜻 풀이</th>
+            <th>독음</th>
+            <th></th>
+            <th></th>
+        </tr>
+        <%num=1%>
+        <% @list.each do|l|%>
+        <tr>
+            <td><%=num%></td><%num=num+1%>
+            <td><%=l.kname%></td>
+            <td><%=l.ename%></td>
+            <td><%=l.ername%></td>
+            <td><button class="re" id="<%=l.id%>">수정</button></td>
+            <td><button class="del" id="<%=l.id%>">삭제</button></td>
+        </tr>
+        <%end%>
+    </table>
+    <form id="reform" method="get">
+        
+    </form>
+    <form id="delform" method="get">
+        
+    </form>
+<!--</div>-->
+<script>
+    $(".re").click(function(){
+        var thisid=$(this).attr("id");
+        $("#reform").attr("action","/rewrite/"+thisid);
+        $("#reform").submit();
+    });
+    $(".del").click(function(){
+        var thisid=$(this).attr("id");
+        $("#delform").attr("action","/delmenu/"+thisid);
+        
+        if (confirm("정말 삭제하시겠습니까?")==true){
+            $("#delform").submit();
+        }
+        else{
+            return;
+        }
+        
+    });
+</script>
