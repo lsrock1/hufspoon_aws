@@ -1,6 +1,6 @@
 
 <%= link_to "로그아웃", destroy_admin_session_path, method: :delete, data: { confirm: "Are you sure?" } %>
-<%= link_to 'Change Password', edit_admin_registration_path %>
+<a href="/"><h2>메인으로</h2></a>
 <div>
 <div>추가</div>
 <form action="/menulist" method="post">
@@ -20,6 +20,13 @@
     <button>db 엑셀로 다운로드</button>
 </a>
 </div>
+<br>
+<%if @list.kind_of?(Array)%>
+<a href="/insertmenu/1"><button>모든메뉴보기</button></a>
+<%else%>
+
+<a href="/insertmenu/2"><button>신메뉴만 보기</button></a>
+<%end%>
 <br>
 <br>
     <table style="width:100%; border:1px solid; margin-bottom: 300px; text-align: center;">

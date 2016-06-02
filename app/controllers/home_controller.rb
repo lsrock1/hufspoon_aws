@@ -15,12 +15,12 @@ class HomeController < ApplicationController
 
   
   def newadmin
-    if Admin.find_by(:email => "admin@hufs.ac.kr")!=nil
+    if Admin.find_by(:email => ENV["ADMIN_ID"])!=nil
       redirect_to :back
     else
     admin=Admin.new
-    admin.email="admin@hufs.ac.kr"
-    admin.password="12345678"
+    admin.email=ENV["ADMIN_ID"]
+    admin.password=ENV["ADMIN_PASS"]
     admin.save
     redirect_to "/"
     end
@@ -92,8 +92,10 @@ class HomeController < ApplicationController
               else
                 if Menulist.find_by(:kname => x.text)!=nil
                   @lunch1.push(Menulist.find_by(:kname => x.text).ename.to_s)
+                  
                 else
                   @lunch1.push(x.text)
+                  new_menu(x.text)
                 end
               end
             end
@@ -112,6 +114,7 @@ class HomeController < ApplicationController
                   @lunch2.push(Menulist.find_by(:kname => x.text).ename.to_s)
                 else
                   @lunch2.push(x.text)
+                  new_menu(x.text)
                 end
               end
             end
@@ -130,6 +133,7 @@ class HomeController < ApplicationController
                   @lunchnoodle.push(Menulist.find_by(:kname => x.text).ename.to_s)
                 else
                   @lunchnoodle.push(x.text)
+                  new_menu(x.text)
                 end
               end
             end
@@ -148,6 +152,7 @@ class HomeController < ApplicationController
                   @breakfast.push(Menulist.find_by(:kname => x.text).ename.to_s)
                 else
                   @breakfast.push(x.text)
+                  new_menu(x.text)
                 end
               end
             end
@@ -166,6 +171,7 @@ class HomeController < ApplicationController
                   @dinner.push(Menulist.find_by(:kname => x.text).ename.to_s)
                 else
                   @dinner.push(x.text)
+                  new_menu(x.text)
                 end
               end
             end
@@ -201,6 +207,7 @@ class HomeController < ApplicationController
                   @flunch.push(Menulist.find_by(:kname => x.text).ename.to_s)
                 else
                   @flunch.push(x.text)
+                  new_menu(x.text)
                 end
               end
             end
@@ -219,6 +226,7 @@ class HomeController < ApplicationController
                   @fdinner.push(Menulist.find_by(:kname => x.text).ename.to_s)
                 else
                   @fdinner.push(x.text)
+                  new_menu(x.text)
                 end
               end
             end
@@ -253,6 +261,7 @@ class HomeController < ApplicationController
                   @menua.push(Menulist.find_by(:kname => x.text).ename.to_s)
                 else
                   @menua.push(x.text)
+                  new_menu(x.text)
                 end
               end
             end
@@ -271,6 +280,7 @@ class HomeController < ApplicationController
                   @menub.push(Menulist.find_by(:kname => x.text).ename.to_s)
                 else
                   @menub.push(x.text)
+                  new_menu(x.text)
                 end
               end
             end

@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   
   post '/menulist' => 'adpage#existmenu'
   
-  get '/insertmenu' =>'adpage#dbmain'
+  get '/insertmenu/:id' =>'adpage#dbmain'
   get'/rewrite/:id' =>'adpage#rewrite'
   
   

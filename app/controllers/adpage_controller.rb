@@ -2,10 +2,16 @@ class AdpageController < ApplicationController
   before_action :require_login
   #########db관리메인페이지##################
   def dbmain
-   
-    
-     @list=Menulist.all
-    
+    instance=[]
+    @list=Menulist.all
+    unless params[:id].to_i==1
+      @list.each do|l|
+        if l.kname==l.ename
+          instance.push(l)
+        end
+      end
+     @list=instance
+    end
      
     
   end

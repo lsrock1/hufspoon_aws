@@ -7,4 +7,9 @@ class ApplicationController < ActionController::Base
       redirect_to "/admins/sign_in"
     end
   end
+  
+  def new_menu(a)
+    nmenu=Menulist.new(:kname => a,:ename => a)
+    nmenu.save
+  end
 end
