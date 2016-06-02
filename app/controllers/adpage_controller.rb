@@ -60,7 +60,7 @@ class AdpageController < ApplicationController
     remenu.ename=params[:ename]
     remenu.ername=params[:ername]
     remenu.save
-    redirect_to '/insertmenu'
+    redirect_to :back
     end
   end
   
