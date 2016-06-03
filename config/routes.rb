@@ -11,13 +11,13 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   
   
-  post '/menulist' => 'adpage#existmenu'
+  post '/menulist/:info' => 'adpage#existmenu'
   
   get '/insertmenu/:id' =>'adpage#dbmain'
-  get'/rewrite/:id' =>'adpage#rewrite'
+  get'/rewrite/:id/:info' =>'adpage#rewrite'
   
   
-  post '/remenulist/:id' => 'adpage#remenu'
+  post '/remenulist/:id/:info' => 'adpage#remenu'
   get '/delmenu/:id' =>'adpage#delmenu'
   post '/excelinsert' =>'adpage#filesave'
   

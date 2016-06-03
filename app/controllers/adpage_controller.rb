@@ -3,8 +3,9 @@ class AdpageController < ApplicationController
   #########db관리메인페이지##################
   def dbmain
     instance=[]
+    @info=params[:id]
     @list=Menulist.all
-    unless params[:id].to_i==1
+    unless @info.to_i==1
       @list.each do|l|
         if l.kname==l.ename
           instance.push(l)
@@ -18,6 +19,7 @@ class AdpageController < ApplicationController
   
   def rewrite
     id=params[:id]
+    @info=params[:info]
     @re_menu=Menulist.find(id)
   end
   
@@ -31,20 +33,23 @@ class AdpageController < ApplicationController
 
   #메뉴를 저장하는 페이지, 메뉴가 이미 존재하면 존재하는 메뉴를 보여줌
   def existmenu
-  
+    @info=params[:info]
+    #메뉴가 존재하면 그 메뉴를 찾아서 보여준다
     if Menulist.find_by(:kname => params[:kname])!=nil
       @ex_menu=Menulist.find_by(:kname => params[:kname])
-      
+    #메뉴가 존재하지 않으면 저장하되 안전성검사를 거친다   
     else  
-      if (params[:kname]=="")||(params[:ename]=="")||(params[:ername]=="")
+      #이름과 영어 뜻 중 하나라도 비어있으면 저장하지 않는다
+      if (params[:kname]=="")||(params[:ename]=="")
         redirect_to :back
+      #아닐 경우 저장하고 원래 페이지로 되돌아간다
       else
       newmenu=Menulist.new
       newmenu.kname=params[:kname]
       newmenu.ename=params[:ename]
       newmenu.ername=params[:ername]
       newmenu.save
-      redirect_to :back
+        redirect_to :back
       end
     end
   
@@ -52,7 +57,7 @@ class AdpageController < ApplicationController
   
   #메뉴 수정 페이지
   def remenu
-    if (params[:kname]=="")||(params[:ename]=="")||(params[:ername]=="")
+    if (params[:kname]=="")||(params[:ename]=="")
         redirect_to :back
     else
     remenu=Menulist.find(params[:id])
@@ -60,7 +65,11 @@ class AdpageController < ApplicationController
     remenu.ename=params[:ename]
     remenu.ername=params[:ername]
     remenu.save
-    redirect_to :back
+        if params[:info].to_i==1
+          redirect_to "/insertmenu/1"
+        else
+          redirect_to "/insertmenu/2"
+        end
     end
   end
   

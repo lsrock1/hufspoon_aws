@@ -3,7 +3,7 @@
 <a href="/"><h2>메인으로</h2></a>
 <div>
 <div>추가</div>
-<form action="/menulist" method="post">
+<form action="/menulist/<%=@info%>" method="post">
     <input type="text" name="kname" placeholder="한국이름">
     <input type="text" name="ename" placeholder="영어로 뜻 풀이한 이름">
     <input type="text" name="ername" placeholder="영어로 표현한 독음">
@@ -60,7 +60,7 @@
 <script>
     $(".re").click(function(){
         var thisid=$(this).attr("id");
-        $("#reform").attr("action","/rewrite/"+thisid);
+        $("#reform").attr("action","/rewrite/"+thisid+"/<%=@info%>");
         $("#reform").submit();
     });
     $(".del").click(function(){
