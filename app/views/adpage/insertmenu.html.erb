@@ -1,0 +1,21 @@
+<div class="container">
+    <h2>번역 추가가 필요합니다</h2>
+    <form action="/adpage/insertmenu" method="post">
+        <div class="form-group">
+          <label for="ex1">한글 메뉴</label>
+          <input class="form-control" name="kname"id="ex1" type="text" value="<%=@menuname%>">
+        </div>
+        <div class="form-group">
+          <label for="ex2">영어 뜻</label>
+          <input class="form-control" name="ename"id="ex2" type="text">
+        </div>
+        <div class="form-group">
+          <label for="ex3">영어 뜻</label>
+          <input class="form-control" name="ername"id="ex3" type="text">
+        </div>
+        <input style="display:none" name="content" value="<%=@content%>">
+        <input style="display:none" name="id" value="<%=@id%>">
+        <button class="btn btn-primary">저장</button>
+    </form>
+    <a href="/adpage/addmenu/<%=@id%>"><button class="btn btn=default">돌아가기</button></a>
+</div>

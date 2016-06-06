@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160518123349) do
+ActiveRecord::Schema.define(version: 20160603151621) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -31,10 +31,34 @@ ActiveRecord::Schema.define(version: 20160518123349) do
   add_index "admins", ["email"], name: "index_admins_on_email", unique: true
   add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
 
+  create_table "maps", force: :cascade do |t|
+    t.float    "lat"
+    t.float    "lon"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "menulists", force: :cascade do |t|
     t.string   "kname"
     t.string   "ername"
     t.string   "ename"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "rests", force: :cascade do |t|
+    t.integer  "map_id"
+    t.string   "name"
+    t.string   "food"
+    t.integer  "count",      default: 0
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "rmenus", force: :cascade do |t|
+    t.string   "menuname"
+    t.text     "content"
+    t.integer  "rest_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

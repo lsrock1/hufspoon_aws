@@ -9,11 +9,19 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
+  post '/addrest' =>'adpage#addrest'
+  get '/delrest/:id' =>'adpage#delrest'
   
+  #식당메뉴추가
+  get '/adpage/addmenu/:id' =>'adpage#addmenu'
+  post '/adpage/insertmenu' =>'adpage#insertmenu'
+  #식당메뉴삭제
+  get '/adpage/delrmenu/:id' =>'adpage#delrmenu'
   
   post '/menulist/:info' => 'adpage#existmenu'
   
   get '/insertmenu/:id' =>'adpage#dbmain'
+  get '/insertmap' =>'adpage#dbmain2'
   get'/rewrite/:id/:info' =>'adpage#rewrite'
   
   
@@ -26,7 +34,7 @@ Rails.application.routes.draw do
   
   get '/download' =>"adpage#download"
   
-  get '/test' =>'home#index'
+  get '/test/:id' =>'home#index'
   root 'home#testmenu'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

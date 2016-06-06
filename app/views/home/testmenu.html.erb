@@ -30,12 +30,14 @@
         <%else%>
 		
 		<div class="google_list">
-			<div class="caf_times"> <%=@breakfasttime%> / <%=@breakfastprice%></div>
-			<div class="caf_rep"><%=@breakfast.shift%></div>
+			<!--<div class="caf_times"> <%=@breakfasttime%> / <%=@breakfastprice%></div>-->
+			<div class="caf_rep"><%=@breakfasttime%> / <%=@breakfastprice%><br/><%=@breakfast.shift%></div>
 			<p><%@breakfast.each do |b|%> 
     			
     			  <%=b%>
-    			    
+    			    <%if b!=@breakfast[-1]%>
+    			            ,
+    			        <%end%>
     			
 			<%end%></p>
 			<p><%=@breakfastkcal%></p>
@@ -53,12 +55,14 @@
 		</div>
         <%else%>
 		<div class="google_list">
-			<div class="caf_times"> <%=@lunch1time%> / <%=@lunch1price%></div>
-			<div class="caf_rep"><%=@lunch1.shift%></div>
+			<!--<div class="caf_times"> <%=@lunch1time%> / <%=@lunch1price%></div>-->
+			<div class="caf_rep"><%=@lunch1time%> / <%=@lunch1price%><br/><%=@lunch1.shift%></div>
 			<p>
 			    <%@lunch1.each do |b|%> 
                     <%=b%>
-    			        
+    			 <%if b!=@lunch1[-1]%>
+    			            ,
+    			        <%end%>       
 			
 			    <%end%>
 			</p>
@@ -78,8 +82,8 @@
         <%else%>
 		
 		<div class="google_list">
-			<div class="caf_times"> <%=@lunch2time%> / <%=@lunch2price%></div>
-			<div class="caf_rep"><%=@lunch2.shift%></div>
+			<!--<div class="caf_times"> <%=@lunch2time%> / <%=@lunch2price%></div>-->
+			<div class="caf_rep"><%=@lunch2time%> / <%=@lunch2price%><br/><%=@lunch2.shift%></div>
 			<p><%@lunch2.each do |b|%> <%=b%><%if b!=@lunch2[-1]%>
     			            ,
     			        <%end%> <%end%></p>
@@ -99,8 +103,8 @@
         <%else%>
 
 		<div class="google_list">
-			<div class="caf_times"> <%=@lunchnoodletime%> / <%=@lunchnoodleprice%></div>
-			<div class="caf_rep"><%=@lunchnoodle.shift%></div>
+			<!--<div class="caf_times"> <%=@lunchnoodletime%> / <%=@lunchnoodleprice%></div>-->
+			<div class="caf_rep"><%=@lunchnoodletime%> / <%=@lunchnoodleprice%><br/><%=@lunchnoodle.shift%></div>
 			<p><%@lunchnoodle.each do |b|%> <%=b%><%if b!=@lunchnoodle[-1]%>
     			            ,
     			        <%end%> <%end%></p>
@@ -120,8 +124,8 @@
         <%else%>
 			
 		<div class="google_list">
-			<div class="caf_times"> <%=@dinnertime%> / <%=@dinnerprice%></div>
-			<div class="caf_rep"><%=@dinner.shift%></div>
+			<!--<div class="caf_times"> <%=@dinnertime%> / <%=@dinnerprice%></div>-->
+			<div class="caf_rep"><%=@dinnertime%> / <%=@dinnerprice%><br/><%=@dinner.shift%></div>
 			<p><%@dinner.each do |b|%> <%=b%> <%if b!=@dinner[-1]%>
     			            ,
     			        <%end%> <%end%></p>
@@ -146,12 +150,14 @@
         <%else%>
 		
 		<div class="google_list">
-			<div class="caf_times"> <%=@flunchtime%> / <%=@flunchprice%></div>
-			<div class="caf_rep"><%=@flunch.shift%></div>
+			<!--<div class="caf_times"> <%=@flunchtime%> / <%=@flunchprice%></div>-->
+			<div class="caf_rep"><%=@flunchtime%> / <%=@flunchprice%><br/><%=@flunch.shift%></div>
 			<p><%@flunch.each do |b|%> 
     			
     			  <%=b%>
-    			    
+    			    <%if b!=@flunch[-1]%>
+    			            ,
+    			        <%end%>
     			
 			<%end%></p>
 			<p><%=@flunchkcal%></p>
@@ -170,12 +176,14 @@
         <%else%>
 		
 		<div class="google_list">
-			<div class="caf_times"> <%=@fdinnertime%> / <%=@fdinnerprice%></div>
-			<div class="caf_rep"><%=@fdinner.shift%></div>
+			<!--<div class="caf_times"> <%=@fdinnertime%> / <%=@fdinnerprice%></div>-->
+			<div class="caf_rep"><%=@fdinnertime%> / <%=@fdinnerprice%><br/><%=@fdinner.shift%></div>
 			<p>
 			    <%@fdinner.each do |b|%> 
                     <%=b%>
-    			        
+    			        <%if b!=@fdinner[-1]%>
+    			            ,
+    			        <%end%>
 			
 			    <%end%>
 			</p>
@@ -201,12 +209,14 @@
         <%else%>
 		
 		<div class="google_list">
-			<div class="caf_times"> <%=@menuatime%> / <%=@menuaprice%></div>
-			<div class="caf_rep"><%=@menua.shift%></div>
+			<!--<div class="caf_times"> <%=@menuatime%> / <%=@menuaprice%></div>-->
+			<div class="caf_rep"><%=@menuatime%> / <%=@menuaprice%><br/><%=@menua.shift%></div>
 			<p><%@menua.each do |b|%> 
     			
     			  <%=b%>
-    			    
+    			    <%if b!=@menua[-1]%>
+    			            ,
+    			        <%end%>
     			
 			<%end%></p>
 			<p><%=@menuakcal%></p>
@@ -225,12 +235,14 @@
         <%else%>
 		
 		<div class="google_list">
-			<div class="caf_times"> <%=@menubtime%> / <%=@menubprice%></div>
-			<div class="caf_rep"><%=@menub.shift%></div>
+			<!--<div class="caf_times"> <%=@menubtime%> / <%=@menubprice%></div>-->
+			<div class="caf_rep"><%=@menubtime%> / <%=@menubprice%><br/><%=@menub.shift%></div>
 			<p>
 			    <%@menub.each do |b|%> 
                     <%=b%>
-    			        
+    			        <%if b!=@menub[-1]%>
+    			            ,
+    			        <%end%>
 			
 			    <%end%>
 			</p>

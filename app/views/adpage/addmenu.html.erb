@@ -1,0 +1,57 @@
+<div class="container">
+    <h2><%=@rest.name%></h2>
+    
+        <form action="/adpage/insertmenu" method="post">
+            <div class="form-group">
+              <label for="ex1">메뉴이름</label>
+              <input class="form-control" name="menuname"id="ex1" type="text">
+            </div>
+            <div class="form-group">
+              <label for="ex3">설명</label>
+              <textarea class="form-control" rows="3"name="content"id="ex3"></textarea>
+            </div>
+            <input style="display:none;" name="id" value="<%=@rest.id%>">
+            <button class="btn btn-primary">저장</button>
+        </form>
+    
+    <div class="table-responsive">
+        <table class="table">
+            <tr>
+                <th>한글 이름</th>
+                <th>영어 뜻</th>
+                <th>설명</th>
+                <th>삭제</th>
+            </tr>
+            <%@rest.rmenu.each do |r|%>
+            <tr>
+                <td><%=r.menuname%></td>
+                <td>
+                    <%if Menulist.find_by(:kname => r.menuname)!=nil%>
+                    <%=Menulist.find_by(:kname => r.menuname).ename%>
+                    <%else%>
+                    <%end%>
+                </td>
+                <td><%=r.content%></td>
+                <td><button class="del btn btn-default"id="<%=r.id%>">삭제</button></td>
+            </tr>
+            <%end%>
+        </table>
+        <form id="delform"style="display:none"method="get">
+            
+        </form>
+    </div>
+    <a type="button" href="/insertmenu/1"><button class="btn btn-default">돌아가기</button></a>
+</div>
+<script>
+    $(".del").click(function(){
+        var thisid=$(this).attr("id");
+        $("#delform").attr("action","/adpage/delrmenu/"+thisid);
+        
+        if (confirm("정말 삭제하시겠습니까?")==true){
+            $("#delform").submit();
+        }
+        else{
+            return;
+        }
+    })
+</script>

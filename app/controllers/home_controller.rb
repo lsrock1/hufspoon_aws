@@ -6,7 +6,10 @@ require 'write_xlsx'
 
 class HomeController < ApplicationController
   def index
-     
+     @id=params[:id]
+     unless @id=="0"
+       @re=Rest.find(@id)
+     end
   end
   
   def resetid
@@ -85,9 +88,9 @@ class HomeController < ApplicationController
           @lunch1time=@one.text.to_s[5..-1]
           n.xpath("./td/table/tr/td").each do|x|
             if x.text!=""
-              if innum==8
+              if x.text[-1]=="l"
                 @lunch1kcal=x.text
-              elsif innum==9
+              elsif x.text[-1]=="원"
                 @lunch1price=x.text
               else
                 if Menulist.find_by(:kname => x.text)!=nil
@@ -105,9 +108,9 @@ class HomeController < ApplicationController
           @lunch2time=@one.text.to_s[5..-1]
           n.xpath("./td/table/tr/td").each do|x|
             if x.text!=""
-              if innum==8
+              if x.text[-1]=="l"
                 @lunch2kcal=x.text
-              elsif innum==9
+              elsif x.text[-1]=="원"
                 @lunch2price=x.text
               else
                 if Menulist.find_by(:kname => x.text)!=nil
@@ -124,9 +127,9 @@ class HomeController < ApplicationController
         @lunchnoodletime=@one.text.to_s[5..-1]
           n.xpath("./td/table/tr/td").each do|x|
             if x.text!=""
-              if innum==8
+              if x.text[-1]=="l"
                 @lunchnoodlekcal=x.text
-              elsif innum==9
+              elsif x.text[-1]=="원"
                 @lunchnoodleprice=x.text
               else
                 if Menulist.find_by(:kname => x.text)!=nil
@@ -143,9 +146,9 @@ class HomeController < ApplicationController
           @breakfasttime=@one.text.to_s[2..-1]
           n.xpath("./td/table/tr/td").each do|x|
             if x.text!=""
-              if innum==8
+              if x.text[-1]=="l"
                 @breakfastkcal=x.text
-              elsif innum==9
+              elsif x.text[-1]=="원"
                 @breakfastprice=x.text
               else
                 if Menulist.find_by(:kname => x.text)!=nil
@@ -162,9 +165,9 @@ class HomeController < ApplicationController
           @dinnertime=@one.text.to_s[2..-1]
           n.xpath("./td/table/tr/td").each do|x|
             if x.text!=""
-              if innum==8
+              if x.text[-1]=="l"
                 @dinnerkcal=x.text
-              elsif innum==9
+              elsif x.text[-1]=="원"
                 @dinnerprice=x.text
               else
                 if Menulist.find_by(:kname => x.text)!=nil

@@ -1,0 +1,298 @@
+
+<%= link_to "로그아웃", destroy_admin_session_path, method: :delete, data: { confirm: "Are you sure?" } %>
+<a href="/"><h2>메인으로</h2></a> <a href="/insertmenu/1"><h2>번역관리</h2></a>
+
+        <div class="container">
+        <h3>식당추가</h3>
+        <div class="option">
+            <div>
+                <form onsubmit="searchPlaces(); return false;">
+                    키워드 : <input type="text" value="외대"id="keyword" size="15"> 
+                    <button type="submit">검색하기</button> 
+                </form>
+            </div>
+        </div>
+        <div style="width:100%; height:300px; overflow-y:scroll;"id="menu_wrap" class="bg_white">
+            
+            <hr>
+            <ul id="placesList"></ul>
+            <div id="pagination"></div>
+        </div>
+	    <form action="/addrest" method="post">
+                <input type="text" id="lat" name="lat" placeholder="위도">
+                <input type="text" id="lon"name="lon" placeholder="경도">
+                <input type="text" name="name" placeholder="식당이름">
+                <input type="text" name="food" placeholder="식당종류">
+            <button class="btn btn-primary">저장</button>
+        </form>
+        </div>
+        <br/>
+        
+        <div class="table-responsive">
+            <table class="table">
+                <tr>
+                    <th>순번</th>
+                    <th>위도</th>
+                    <th>경도</th>
+                    <th>식당이름</th>
+                    <th>식당종류</th>
+                    <th>수정</th>
+                    <th>삭제</th>
+                    <th>메뉴추가</th>
+                </tr>
+                <%num=1%>
+                <% @map.each do|m|%>
+                    <%m.rests.each do |r|%>
+                        <tr>
+                            <td><%=num%></td><%num=num+1%>
+                            <td><%=m.lat%></td>
+                            <td><%=m.lon%></td>
+                            <td><%=r.name%></td>
+                            <td><%=r.food%></td>
+                            <td><button class="mre" id="<%=r.id%>">수정</button></td>
+                            <td><button class="mdel" id="<%=r.id%>">삭제</button></td>
+                            <td><button class="madd" id="<%=r.id%>">추가</button></td>
+                        </tr>
+                    <%end%>
+                <%end%>
+            </table>
+        </div>
+        <!--테이블 끝-->
+        <form id="mreform" method="get">
+            
+        </form>
+        <form id="maddform" method="get">
+            
+        </form>
+        <form id="mdelform" method="get">
+            
+        </form>
+	
+
+<!--</div>-->
+<script src="https://spi.maps.daum.net/imap/map_js_init/postcode.v2.js"></script>
+<script src="//apis.daum.net/maps/maps3.js?apikey=23598cdf36f0c5f5bf1f1bfda70b8e80&libraries=services"></script>
+<script>
+
+    
+    // $(".mre").click(function(){
+    //     var thisid=$(this).attr("id");
+    //     $("#reform").attr("action","/rewrite/"+thisid+"/<%=@info%>");
+    //     $("#reform").submit();
+    // });
+    $(".madd").click(function(){
+       var thisid=$(this).attr("id");
+       $("#maddform").attr("action","/adpage/addmenu/"+thisid);
+       $("#maddform").submit();
+    });
+    $(".mdel").click(function(){
+        var thisid=$(this).attr("id");
+        $("#mdelform").attr("action","/delrest/"+thisid);
+        
+        if (confirm("정말 삭제하시겠습니까?")==true){
+            $("#mdelform").submit();
+        }
+        else{
+            return;
+        }
+        
+    });
+    	
+    	var ps = new daum.maps.services.Places();  
+
+
+        
+        // 키워드로 장소를 검색합니다
+        searchPlaces();
+        
+        // 키워드 검색을 요청하는 함수입니다
+        function searchPlaces() {
+        
+            var keyword = document.getElementById('keyword').value;
+        
+            if (!keyword.replace(/^\s+|\s+$/g, '')) {
+                alert('키워드를 입력해주세요!');
+                return false;
+            }
+        
+            // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
+            ps.keywordSearch( keyword, placesSearchCB); 
+        }
+        
+        // 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
+        function placesSearchCB(status, data, pagination) {
+            if (status === daum.maps.services.Status.OK) {
+        
+                // 정상적으로 검색이 완료됐으면
+                // 검색 목록과 마커를 표출합니다
+                displayPlaces(data.places);
+        
+                // 페이지 번호를 표출합니다
+                displayPagination(pagination);
+        
+            } else if (status === daum.maps.services.Status.ZERO_RESULT) {
+        
+                alert('검색 결과가 존재하지 않습니다.');
+                return;
+        
+            } else if (status === daum.maps.services.Status.ERROR) {
+        
+                alert('검색 결과 중 오류가 발생했습니다.');
+                return;
+        
+            }
+        }
+        // 검색 결과 목록과 마커를 표출하는 함수입니다
+    function displayPlaces(places) {
+    
+        var listEl = document.getElementById('placesList'), 
+        menuEl = document.getElementById('menu_wrap'),
+        fragment = document.createDocumentFragment(), 
+        
+        listStr = '';
+        
+        // 검색 결과 목록에 추가된 항목들을 제거합니다
+        removeAllChildNods(listEl);
+    
+    
+        
+        for ( var i=0; i<places.length; i++ ) {
+    
+            // 마커를 생성하고 지도에 표시합니다
+            var placePosition = new daum.maps.LatLng(places[i].latitude, places[i].longitude),
+                
+                itemEl = getListItem(i, places[i]); // 검색 결과 항목 Element를 생성합니다
+    
+            
+            
+            (function(places) {
+                
+    
+                itemEl.onclick =  function () {
+                    document.getElementById("lat").value=places.latitude;
+                    document.getElementById("lon").value=places.longitude;
+                };
+    
+                
+            })(places[i]);
+    
+    
+            fragment.appendChild(itemEl);
+        }
+    
+        // 검색결과 항목들을 검색결과 목록 Elemnet에 추가합니다
+        listEl.appendChild(fragment);
+        menuEl.scrollTop = 0;
+    
+        // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+        
+    }
+    
+    // 검색결과 항목을 Element로 반환하는 함수입니다
+    function getListItem(index, places) {
+    
+        var el = document.createElement('li'),
+        itemStr =           '<div class="info">' +
+                    '   <h5>' + places.title + '</h5>';
+    
+        if (places.newAddress) {
+            itemStr += '    <span>' + places.newAddress + '</span>' +
+                        '   <span class="jibun gray">' +  places.address  + '</span>';
+        } else {
+            itemStr += '    <span>' +  places.address  + '</span>'; 
+        }
+                     
+          itemStr += '  <span class="tel">' + places.phone  + '</span>' +
+                    '</div>';           
+    
+        el.innerHTML = itemStr;
+        el.className = 'item';
+    
+        return el;
+    }
+    
+    
+    
+    
+    // 검색결과 목록 하단에 페이지번호를 표시는 함수입니다
+    function displayPagination(pagination) {
+        var paginationEl = document.getElementById('pagination'),
+            fragment = document.createDocumentFragment(),
+            i; 
+    
+        // 기존에 추가된 페이지번호를 삭제합니다
+        while (paginationEl.hasChildNodes()) {
+            paginationEl.removeChild (paginationEl.lastChild);
+        }
+    
+        for (i=1; i<=pagination.last; i++) {
+            var el = document.createElement('a');
+            el.href = "#";
+            el.innerHTML = i;
+    
+            if (i===pagination.current) {
+                el.className = 'on';
+            } else {
+                el.onclick = (function(i) {
+                    return function() {
+                        pagination.gotoPage(i);
+                    }
+                })(i);
+            }
+    
+            fragment.appendChild(el);
+        }
+        paginationEl.appendChild(fragment);
+    }
+    
+    
+     // 검색결과 목록의 자식 Element를 제거하는 함수입니다
+    function removeAllChildNods(el) {   
+        while (el.hasChildNodes()) {
+            el.removeChild (el.lastChild);
+        }
+    }
+
+    
+    // //주소-좌표 변환 객체를 생성
+    // var geocoder = new daum.maps.services.Geocoder();
+    
+
+    // function sample5_execDaumPostcode() {
+    //     new daum.Postcode({
+    //         oncomplete: function(data) {
+    //             // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+    //             // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+    //             var fullAddr = data.address; // 최종 주소 변수
+    //             var extraAddr = ''; // 조합형 주소 변수
+
+    //             // 기본 주소가 도로명 타입일때 조합한다.
+    //             if(data.addressType === 'R'){
+    //                 //법정동명이 있을 경우 추가한다.
+    //                 if(data.bname !== ''){
+    //                     extraAddr += data.bname;
+    //                 }
+    //                 // 건물명이 있을 경우 추가한다.
+    //                 if(data.buildingName !== ''){
+    //                     extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+    //                 }
+    //                 // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
+    //                 fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+    //             }
+
+    //             // 주소 정보를 해당 필드에 넣는다.
+    //             document.getElementById("sample5_address").value = fullAddr;
+    //             // 주소로 좌표를 검색
+    //             geocoder.addr2coord(data.address, function(status, result) {
+    //                 // 정상적으로 검색이 완료됐으면
+    //                 if (status === daum.maps.services.Status.OK) {
+    //                     // 해당 주소에 대한 좌표를 받아서
+    //                     document.getElementById("lat").value=result.addr[0].lat;
+    //                     document.getElementById("lon").value= result.addr[0].lng;
+                        
+    //                 }
+    //             });
+    //         }
+    //     }).open();
+    // }
+</script>

@@ -1,62 +1,92 @@
 
 <%= link_to "로그아웃", destroy_admin_session_path, method: :delete, data: { confirm: "Are you sure?" } %>
-<a href="/"><h2>메인으로</h2></a>
-<div>
-<div>추가</div>
-<form action="/menulist/<%=@info%>" method="post">
-    <input type="text" name="kname" placeholder="한국이름">
-    <input type="text" name="ename" placeholder="영어로 뜻 풀이한 이름">
-    <input type="text" name="ername" placeholder="영어로 표현한 독음">
-    <button>저장</button>
-</form>
-<br>
-<br>
-<div>엑셀파일로 업로드</div>
-<form action="/excelinsert" method="post" enctype="multipart/form-data">
-    <input type="file" name="ex" size="20" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
-    <button>저장</button>
-</form>
-<a href="/download">
-    <button>db 엑셀로 다운로드</button>
-</a>
-</div>
-<br>
-<%if @list.kind_of?(Array)%>
-<a href="/insertmenu/1"><button>모든메뉴보기</button></a>
-<%else%>
+<a href="/"><h2>메인으로</h2></a><a href="/insertmap"><h2>식당메뉴관리</h2></a>
 
-<a href="/insertmenu/2"><button>신메뉴만 보기</button></a>
-<%end%>
-<br>
-<br>
-    <table style="width:100%; border:1px solid; margin-bottom: 300px; text-align: center;">
-        <tr>
-            <th>순번</th>
-            <th>한국이름</th>
-            <th>영어 뜻 풀이</th>
-            <th>독음</th>
-            <th></th>
-            <th></th>
-        </tr>
-        <%num=1%>
-        <% @list.each do|l|%>
-        <tr>
-            <td><%=num%></td><%num=num+1%>
-            <td><%=l.kname%></td>
-            <td><%=l.ename%></td>
-            <td><%=l.ername%></td>
-            <td><button class="re" id="<%=l.id%>">수정</button></td>
-            <td><button class="del" id="<%=l.id%>">삭제</button></td>
-        </tr>
-        <%end%>
-    </table>
-    <form id="reform" method="get">
+
+        <div class="container">
+        <h3>메뉴번역추가</h3>
         
-    </form>
-    <form id="delform" method="get">
+        <div class="row">
+            <form action="/menulist/<%=@info%>" method="post">
+                <div class="col-xs-4 form-group">
+                  <label for="ex1">한글이름</label>
+                  <input class="form-control" name="kname"id="ex1" type="text">
+                </div>
+                <div class="col-xs-4 form-group">
+                  <label for="ex2">영어 뜻</label>
+                  <input class="form-control" name="ename"id="ex2" type="text">
+                </div>
+                <div class="col-xs-4 form-group">
+                  <label for="ex3">영어 독음</label>
+                  <input class="form-control" name="ername"id="ex3" type="text">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-default">저장</button>
+                </div>
+            </form>
+        </div>
+        <br>
+        <br>
         
-    </form>
+        
+        <form action="/excelinsert" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="k">엑셀 파일 업로드</label>
+                <input id="k"type="file" name="ex" size="20" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+            </div>
+            <button class="btn btn-default">저장</button>
+        </form>
+        
+        <a href="/download">
+            <button class="btn btn-default">db 엑셀로 다운로드</button>
+        </a>
+        
+
+        <br>
+            <%if @list.kind_of?(Array)%>
+                <a href="/insertmenu/1"><button class="btn btn-default">모든메뉴보기</button></a>
+            <%else%>
+            
+                <a href="/insertmenu/2"><button class="btn btn-default">신메뉴만 보기</button></a>
+            <%end%>
+        </div>
+        <br>
+    
+        <br>
+        <div class="table-responsive">
+            <table class="table">
+                <tr>
+                    <th>순번</th>
+                    <th>한국이름</th>
+                    <th>영어 뜻 풀이</th>
+                    <th>독음</th>
+                    <th> </th>
+                    <th> </th>
+                </tr>
+                <%num=1%>
+                <% @list.each do|l|%>
+                <tr>
+                    <td><%=num%></td><%num=num+1%>
+                    <td><%=l.kname%></td>
+                    <td><%=l.ename%></td>
+                    <td><%=l.ername%></td>
+                    <td><button class="re" id="<%=l.id%>">수정</button></td>
+                    <td><button class="del" id="<%=l.id%>">삭제</button></td>
+                </tr>
+                <%end%>
+            </table>
+        </div>
+        <form id="reform" method="get">
+            
+        </form>
+        <form id="delform" method="get">
+            
+        </form>
+    
+
 <!--</div>-->
+<script src="https://spi.maps.daum.net/imap/map_js_init/postcode.v2.js"></script>
+<script src="//apis.daum.net/maps/maps3.js?apikey=23598cdf36f0c5f5bf1f1bfda70b8e80&libraries=services"></script>
 <script>
     $(".re").click(function(){
         var thisid=$(this).attr("id");
@@ -75,4 +105,6 @@
         }
         
     });
+    
+
 </script>
