@@ -72,6 +72,13 @@
     <script src="https://spi.maps.daum.net/imap/map_js_init/postcode.v2.js"></script>
     <script src="//apis.daum.net/maps/maps3.js?apikey=23598cdf36f0c5f5bf1f1bfda70b8e80&libraries=services"></script>
 	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-78572906-1', 'auto');
+  ga('send', 'pageview');
 		var container = document.getElementById('map');
 		var options = {
 			center: new daum.maps.LatLng(37.597415, 127.057824),
