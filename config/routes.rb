@@ -1,4 +1,3 @@
-require 'devise'
 Rails.application.routes.draw do
   
 
