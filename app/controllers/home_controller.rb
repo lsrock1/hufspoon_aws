@@ -5,16 +5,6 @@ require 'roo'
 require 'write_xlsx'
 
 class HomeController < ApplicationController
-  def index
-     @id=params[:id]
-     unless @id=="0"
-       @re=Rest.find(@id)
-     end
-  end
-  
-  def resetid
-  end
-  
 
   
   def newadmin
@@ -32,7 +22,7 @@ class HomeController < ApplicationController
 
 
   
-  def testmenu
+  def index
    mainadd="https://webs.hufs.ac.kr/jsp/HUFS/cafeteria/viewWeek.jsp"
     @time=Time.new.in_time_zone("Seoul")
     dd=@time.day

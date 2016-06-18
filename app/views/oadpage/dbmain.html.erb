@@ -1,6 +1,6 @@
 
 <%= link_to "로그아웃", destroy_admin_session_path, method: :delete, data: { confirm: "Are you sure?" } %>
-<a href="/"><h2>메인으로</h2></a> <a href="/insertmenu/1"><h2>번역관리</h2></a>
+<a href="/"><h2>메인으로</h2></a> <a href="/adpage/dbmain/1"><h2>번역관리</h2></a>
 
         <div class="container">
         <h3>식당추가</h3>
@@ -18,13 +18,15 @@
             <ul id="placesList"></ul>
             <div id="pagination"></div>
         </div>
-	    <form action="/addrest" method="post">
+	    <form id="mreform"action="/oadpage/addrest" method="post">
                 <input type="text" id="lat" name="lat" placeholder="위도">
                 <input type="text" id="lon"name="lon" placeholder="경도">
-                <input type="text" name="name" placeholder="식당이름">
-                <input type="text" name="food" placeholder="식당종류">
-            <button class="btn btn-primary">저장</button>
+                <input type="text" id="name"name="name" placeholder="식당이름">
+                <input type="text" id="food"name="food" placeholder="식당종류">
+            <button id="mrebut"class="btn btn-primary">저장</button>
+            
         </form>
+        <button style="display:none"id="mrecan"class="btn btn-default">수정취소</button>
         </div>
         <br/>
         
@@ -45,10 +47,10 @@
                     <%m.rests.each do |r|%>
                         <tr>
                             <td><%=num%></td><%num=num+1%>
-                            <td><%=m.lat%></td>
-                            <td><%=m.lon%></td>
-                            <td><%=r.name%></td>
-                            <td><%=r.food%></td>
+                            <td id="lat<%=r.id%>"><%=m.lat%></td>
+                            <td id="lon<%=r.id%>"><%=m.lon%></td>
+                            <td id="name<%=r.id%>"><%=r.name%></td>
+                            <td id="food<%=r.id%>"><%=r.food%></td>
                             <td><button class="mre" id="<%=r.id%>">수정</button></td>
                             <td><button class="mdel" id="<%=r.id%>">삭제</button></td>
                             <td><button class="madd" id="<%=r.id%>">추가</button></td>
@@ -58,9 +60,6 @@
             </table>
         </div>
         <!--테이블 끝-->
-        <form id="mreform" method="get">
-            
-        </form>
         <form id="maddform" method="get">
             
         </form>
@@ -75,19 +74,40 @@
 <script>
 
     
-    // $(".mre").click(function(){
-    //     var thisid=$(this).attr("id");
-    //     $("#reform").attr("action","/rewrite/"+thisid+"/<%=@info%>");
-    //     $("#reform").submit();
-    // });
+    $(".mre").click(function(){
+        $("#mrebut").html("수정하기");
+        $("#mrecan").show();
+        var thisid=$(this).attr("id");
+        var lat=$("#lat"+thisid).html();
+        $("#lat").attr("value",lat);
+        var lon=$("#lon"+thisid).html();
+        $("#lon").attr("value",lon);
+        var name=$("#name"+thisid).html();
+        $("#name").attr("value",name);
+        var food=$("#food"+thisid).html();
+        $("#food").attr("value",food);
+        
+        $("#mreform").attr("action","/oadpage/rewriterest/"+thisid);
+    });
+    
+    $("#mrecan").click(function(){
+        $(this).hide();
+        $("#mrebut").html("저장");
+        $("#lat").attr("value","");
+        $("#lon").html("value","");
+        $("#name").html("value","");
+        $("#food").html("value","");
+        $("#mreform").attr("action","/oadpage/addrest");
+    })
+    
     $(".madd").click(function(){
        var thisid=$(this).attr("id");
-       $("#maddform").attr("action","/adpage/addmenu/"+thisid);
+       $("#maddform").attr("action","/oadpage/addmenu_page/"+thisid);
        $("#maddform").submit();
     });
     $(".mdel").click(function(){
         var thisid=$(this).attr("id");
-        $("#mdelform").attr("action","/delrest/"+thisid);
+        $("#mdelform").attr("action","/oadpage/delrest/"+thisid);
         
         if (confirm("정말 삭제하시겠습니까?")==true){
             $("#mdelform").submit();
@@ -254,45 +274,4 @@
     }
 
     
-    // //주소-좌표 변환 객체를 생성
-    // var geocoder = new daum.maps.services.Geocoder();
-    
-
-    // function sample5_execDaumPostcode() {
-    //     new daum.Postcode({
-    //         oncomplete: function(data) {
-    //             // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-    //             // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-    //             var fullAddr = data.address; // 최종 주소 변수
-    //             var extraAddr = ''; // 조합형 주소 변수
-
-    //             // 기본 주소가 도로명 타입일때 조합한다.
-    //             if(data.addressType === 'R'){
-    //                 //법정동명이 있을 경우 추가한다.
-    //                 if(data.bname !== ''){
-    //                     extraAddr += data.bname;
-    //                 }
-    //                 // 건물명이 있을 경우 추가한다.
-    //                 if(data.buildingName !== ''){
-    //                     extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-    //                 }
-    //                 // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
-    //                 fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
-    //             }
-
-    //             // 주소 정보를 해당 필드에 넣는다.
-    //             document.getElementById("sample5_address").value = fullAddr;
-    //             // 주소로 좌표를 검색
-    //             geocoder.addr2coord(data.address, function(status, result) {
-    //                 // 정상적으로 검색이 완료됐으면
-    //                 if (status === daum.maps.services.Status.OK) {
-    //                     // 해당 주소에 대한 좌표를 받아서
-    //                     document.getElementById("lat").value=result.addr[0].lat;
-    //                     document.getElementById("lon").value= result.addr[0].lng;
-                        
-    //                 }
-    //             });
-    //         }
-    //     }).open();
-    // }
 </script>

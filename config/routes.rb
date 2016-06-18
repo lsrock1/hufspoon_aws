@@ -9,33 +9,40 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  post '/addrest' =>'adpage#addrest'
-  get '/delrest/:id' =>'adpage#delrest'
+  post '/oadpage/addrest' =>'oadpage#addrest'
+  get '/oadpage/delrest/:id' =>'oadpage#delrest'
   
   #식당메뉴추가
-  get '/adpage/addmenu/:id' =>'adpage#addmenu'
-  post '/adpage/insertmenu' =>'adpage#insertmenu'
+  get '/oadpage/addmenu_page/:id' =>'oadpage#addmenu_page'
+  post '/oadpage/addmenu' =>'oadpage#addmenu'
   #식당메뉴삭제
-  get '/adpage/delrmenu/:id' =>'adpage#delrmenu'
+  get '/oadpage/delmenu/:id' =>'oadpage#delmenu'
+  #식당메뉴수정
+  post '/oadpage/rewriterest/:id'=>"oadpage#rewriterest"
   
-  post '/menulist/:info' => 'adpage#existmenu'
+  post '/adpage/menulist/:info' => 'adpage#existmenu'
   
-  get '/insertmenu/:id' =>'adpage#dbmain'
-  get '/insertmap' =>'adpage#dbmain2'
-  get'/rewrite/:id/:info' =>'adpage#rewrite'
-  
-  
-  post '/remenulist/:id/:info' => 'adpage#remenu'
-  get '/delmenu/:id' =>'adpage#delmenu'
-  post '/excelinsert' =>'adpage#filesave'
+  #메인db페이지 두개
+  get '/adpage/dbmain/:id' =>'adpage#dbmain'
+  get '/oadpage/dbmain' =>'oadpage#dbmain'
   
   
-  get '/newadmin' =>"home#newadmin"
+  get'/adpage/rewritemenu/:id/:info' =>'adpage#rewritemenu'
   
+  
+  post '/adpage/remenulist/:id/:info' => 'adpage#remenu'
+  get '/adpage/delmenu/:id' =>'adpage#delmenu'
+  
+  
+  #아이디 생성
+  get '/home/newadmin' =>"home#newadmin"
+  #엑셀 다운로드
   get '/download' =>"adpage#download"
-  
-  get '/test/:id' =>'home#index'
-  root 'home#testmenu'
+  post '/excelinsert' =>'adpage#filesave'
+  #일반화면
+  get '/home/leftindex' =>'ohome#leftindex'
+  get '/home/rightindex/:id' =>'ohome#rightindex'
+  root 'home#index'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

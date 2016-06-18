@@ -1,0 +1,271 @@
+<header>
+  <br>
+  <br>
+  <br>
+  <br>
+  <font size="15" color="White" face="Impact"><center><p>HUFSPOON</p></center></font>
+  <br>
+  <ul class="nav nav-tabs nav-justified">
+    <li class="active"><a data-toggle="tab" href="#home">Searching</a></li>
+    <li ><a href="/home/rightindex/0">Menu</a></li>
+  </ul>
+</header>
+<div class="tab-content">
+	<!--여기서부터는 첫 번째 탭 입니다-->
+  <div id="home" class="tab-pane fade in active">
+    <div class="container">
+        <br/>
+        <br/>
+        
+                <div class="option">
+                        <div>
+                            <form onsubmit="searchPlaces(); return false;">
+                                keyword : <input type="text"  value="외대"id="keyword" size="15"> 
+                                <button type="submit">search</button> 
+                            </form>
+                        </div>
+                    </div>
+                <div style="width:100%; height:150px; overflow-y:scroll;"id="menu_wrap" class="bg_white">
+                    
+                    <hr>
+                    <ul id="placesList"></ul>
+                    <div id="pagination"></div>
+                </div>
+                <div class="well"id="map" style="width:100%;height:300px;"></div>
+	        </div>
+	        
+	    
+	
+	</div>
+
+  </div>
+
+<!--여기는 두번째 탭 내용입니다-->
+
+	
+</div>
+
+
+<footer>
+	<br>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                  <br>
+                    <center><font size="3" color="white">
+                    	<p>L I K E L I O N  X  H U F S</p>
+                    	<p>License | xndlrjf@gmail.com</p>
+                    	<a href="/insertmenu/1">
+                    	<% if admin_signed_in? %>
+                    		DB관리
+                    	<%else%>
+                       		admin
+                    	<%end%>
+                    	</a>
+                    	</font></center>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=23598cdf36f0c5f5bf1f1bfda70b8e80"></script>-->
+    <script src="https://spi.maps.daum.net/imap/map_js_init/postcode.v2.js"></script>
+    <script src="//apis.daum.net/maps/maps3.js?apikey=23598cdf36f0c5f5bf1f1bfda70b8e80&libraries=services"></script>
+	<script>
+		var container = document.getElementById('map');
+		var options = {
+			center: new daum.maps.LatLng(37.597415, 127.057824),
+			level: 3
+		};
+
+		var map = new daum.maps.Map(container, options);
+		var ps = new daum.maps.services.Places();  
+
+
+
+// 키워드로 장소를 검색합니다
+searchPlaces();
+
+// 키워드 검색을 요청하는 함수입니다
+function searchPlaces() {
+
+    var keyword = document.getElementById('keyword').value;
+
+    if (!keyword.replace(/^\s+|\s+$/g, '')) {
+        alert('키워드를 입력해주세요!');
+        return false;
+    }
+
+    // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
+    ps.keywordSearch( keyword, placesSearchCB); 
+}
+
+// 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
+function placesSearchCB(status, data, pagination) {
+    if (status === daum.maps.services.Status.OK) {
+
+        // 정상적으로 검색이 완료됐으면
+        // 검색 목록과 마커를 표출합니다
+        displayPlaces(data.places);
+
+        // 페이지 번호를 표출합니다
+        displayPagination(pagination);
+
+    } else if (status === daum.maps.services.Status.ZERO_RESULT) {
+
+        alert('검색 결과가 존재하지 않습니다.');
+        return;
+
+    } else if (status === daum.maps.services.Status.ERROR) {
+
+        alert('검색 결과 중 오류가 발생했습니다.');
+        return;
+
+    }
+}
+
+// 검색 결과 목록과 마커를 표출하는 함수입니다
+function displayPlaces(places) {
+
+    var listEl = document.getElementById('placesList'), 
+    menuEl = document.getElementById('menu_wrap'),
+    fragment = document.createDocumentFragment(), 
+    bounds = new daum.maps.LatLngBounds(), 
+    listStr = '';
+    
+    // 검색 결과 목록에 추가된 항목들을 제거합니다
+    removeAllChildNods(listEl);
+
+
+    
+    for ( var i=0; i<places.length; i++ ) {
+
+        // 마커를 생성하고 지도에 표시합니다
+        var placePosition = new daum.maps.LatLng(places[i].latitude, places[i].longitude),
+            
+            itemEl = getListItem(i, places[i], marker); // 검색 결과 항목 Element를 생성합니다
+
+        // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+        // LatLngBounds 객체에 좌표를 추가합니다
+        bounds.extend(placePosition);
+        
+        (function(places) {
+            
+
+            itemEl.onclick =  function () {
+                var moveLatLon = new daum.maps.LatLng(places.latitude, places.longitude);
+                map.setCenter(moveLatLon);
+                map.setLevel(3);
+            };
+
+            
+        })(places[i]);
+
+
+        fragment.appendChild(itemEl);
+    }
+
+    // 검색결과 항목들을 검색결과 목록 Elemnet에 추가합니다
+    listEl.appendChild(fragment);
+    menuEl.scrollTop = 0;
+
+    // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+    //map.setBounds(bounds);
+}
+
+// 검색결과 항목을 Element로 반환하는 함수입니다
+function getListItem(index, places) {
+
+    var el = document.createElement('li'),
+    itemStr =           '<div class="info">' +
+                '   <h5>' + places.title + '</h5>';
+
+    if (places.newAddress) {
+        itemStr += '    <span>' + places.newAddress + '</span>' +
+                    '   <span class="jibun gray">' +  places.address  + '</span>';
+    } else {
+        itemStr += '    <span>' +  places.address  + '</span>'; 
+    }
+                 
+      itemStr += '  <span class="tel">' + places.phone  + '</span>' +
+                '</div>';           
+
+    el.innerHTML = itemStr;
+    el.className = 'item';
+
+    return el;
+}
+
+
+
+
+// 검색결과 목록 하단에 페이지번호를 표시는 함수입니다
+function displayPagination(pagination) {
+    var paginationEl = document.getElementById('pagination'),
+        fragment = document.createDocumentFragment(),
+        i; 
+
+    // 기존에 추가된 페이지번호를 삭제합니다
+    while (paginationEl.hasChildNodes()) {
+        paginationEl.removeChild (paginationEl.lastChild);
+    }
+
+    for (i=1; i<=pagination.last; i++) {
+        var el = document.createElement('a');
+        el.href = "#";
+        el.innerHTML = i;
+
+        if (i===pagination.current) {
+            el.className = 'on';
+        } else {
+            el.onclick = (function(i) {
+                return function() {
+                    pagination.gotoPage(i);
+                }
+            })(i);
+        }
+
+        fragment.appendChild(el);
+    }
+    paginationEl.appendChild(fragment);
+}
+
+
+ // 검색결과 목록의 자식 Element를 제거하는 함수입니다
+function removeAllChildNods(el) {   
+    while (el.hasChildNodes()) {
+        el.removeChild (el.lastChild);
+    }
+}
+
+		var positions = [
+		    <%Map.all.each do |m|%>
+            {
+                 
+                latlng: new daum.maps.LatLng(<%=m.lat%>,<%=m.lon%>),
+                iwContent: '<%m.rests.each do |r|%><div><a style="text-align:center;" href="/home/rightindex/<%=r.id%>"><%=r.name%> 메뉴보기</a><div><%end%>',
+            },
+            <%end%>
+        ];
+    
+        for (var i = 0; i < positions.length; i ++) {
+        
+            var marker = new daum.maps.Marker({
+                map: map, // 마커를 표시할 지도
+                position: positions[i].latlng, // 마커를 표시할 위치
+                clickable: true
+            });
+            var infowindow = new daum.maps.InfoWindow({
+                removable : true,
+                position : positions[i].latlng, 
+                content : positions[i].iwContent
+            });
+            daum.maps.event.addListener(marker, 'click', makeClickListener(map, marker, infowindow));
+            
+        };
+        function makeClickListener(map, marker, infowindow) {
+            return function() {
+                infowindow.open(map, marker);
+            };
+        }
+	</script>

@@ -1,28 +1,28 @@
 
 <%= link_to "로그아웃", destroy_admin_session_path, method: :delete, data: { confirm: "Are you sure?" } %>
-<a href="/"><h2>메인으로</h2></a><a href="/insertmap"><h2>식당메뉴관리</h2></a>
+<a href="/"><h2>메인으로</h2></a><a href="/oadpage/dbmain"><h2>식당메뉴관리</h2></a><a href="/home/leftindex"><h2>테스트 중인 화면 보러가기!</h2></a>
 
 
         <div class="container">
         <h3>메뉴번역추가</h3>
         
         <div class="row">
-            <form action="/menulist/<%=@info%>" method="post">
-                <div class="col-xs-4 form-group">
+            <form action="/adpage/menulist/<%=@info%>" method="post">
+                <div class="form-group">
                   <label for="ex1">한글이름</label>
                   <input class="form-control" name="kname"id="ex1" type="text">
                 </div>
-                <div class="col-xs-4 form-group">
+                <div class="form-group">
                   <label for="ex2">영어 뜻</label>
                   <input class="form-control" name="ename"id="ex2" type="text">
                 </div>
-                <div class="col-xs-4 form-group">
+                <div class="form-group">
                   <label for="ex3">영어 독음</label>
                   <input class="form-control" name="ername"id="ex3" type="text">
                 </div>
-                <div class="form-group">
-                    <button class="btn btn-default">저장</button>
-                </div>
+                
+                <button class="btn btn-default">저장</button>
+                
             </form>
         </div>
         <br>
@@ -44,10 +44,10 @@
 
         <br>
             <%if @list.kind_of?(Array)%>
-                <a href="/insertmenu/1"><button class="btn btn-default">모든메뉴보기</button></a>
+                <a href="/adpage/dbmain/1"><button class="btn btn-default">모든메뉴보기</button></a>
             <%else%>
             
-                <a href="/insertmenu/2"><button class="btn btn-default">신메뉴만 보기</button></a>
+                <a href="/adpage/dbmain/2"><button class="btn btn-default">신메뉴만 보기</button></a>
             <%end%>
         </div>
         <br>
@@ -71,7 +71,7 @@
                     <td><%=l.ename%></td>
                     <td><%=l.ername%></td>
                     <td><button class="re" id="<%=l.id%>">수정</button></td>
-                    <td><button class="del" id="<%=l.id%>">삭제</button></td>
+                    <td><button class="del btn btn-warning" id="<%=l.id%>">삭제</button></td>
                 </tr>
                 <%end%>
             </table>
@@ -90,12 +90,12 @@
 <script>
     $(".re").click(function(){
         var thisid=$(this).attr("id");
-        $("#reform").attr("action","/rewrite/"+thisid+"/<%=@info%>");
+        $("#reform").attr("action","/adpage/rewritemenu/"+thisid+"/<%=@info%>");
         $("#reform").submit();
     });
     $(".del").click(function(){
         var thisid=$(this).attr("id");
-        $("#delform").attr("action","/delmenu/"+thisid);
+        $("#delform").attr("action","/adpage/delmenu/"+thisid);
         
         if (confirm("정말 삭제하시겠습니까?")==true){
             $("#delform").submit();

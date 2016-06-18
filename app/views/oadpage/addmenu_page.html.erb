@@ -1,7 +1,7 @@
 <div class="container">
     <h2><%=@rest.name%></h2>
     
-        <form action="/adpage/insertmenu" method="post">
+        <form action="/oadpage/addmenu" method="post">
             <div class="form-group">
               <label for="ex1">메뉴이름</label>
               <input class="form-control" name="menuname"id="ex1" type="text">
@@ -40,12 +40,12 @@
             
         </form>
     </div>
-    <a type="button" href="/insertmenu/1"><button class="btn btn-default">돌아가기</button></a>
+    <a type="button" href="/oadpage/dbmain"><button class="btn btn-default">돌아가기</button></a>
 </div>
 <script>
     $(".del").click(function(){
         var thisid=$(this).attr("id");
-        $("#delform").attr("action","/adpage/delrmenu/"+thisid);
+        $("#delform").attr("action","/oadpage/delmenu/"+thisid);
         
         if (confirm("정말 삭제하시겠습니까?")==true){
             $("#delform").submit();

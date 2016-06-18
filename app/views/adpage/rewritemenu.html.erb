@@ -1,0 +1,19 @@
+<div class="container">
+    <h2>수정해 주세요</h2>
+    <form action="/adpage/remenulist/<%=@re_menu.id%>/<%=@info%>" method="post">
+        <div class="form-group">
+            <label for="ex1">한글이름</label>
+            <input class="form-control" name="kname"id="ex1" type="text" value="<%=@re_menu.kname%>">
+        </div>
+        <div class="form-group">
+            <label for="ex2">영어 뜻</label>
+            <input class="form-control" name="ename"id="ex2" type="text" value="<%=@re_menu.ename%>">
+        </div>
+        <div class="form-group">
+            <label for="ex3">영어 독음</label>
+            <input class="form-control" name="ername"id="ex3" type="text" value="<%=@re_menu.ername%>">
+        </div>
+        <button class="btn btn-default">수정완료</button>
+    </form>
+
+</div>

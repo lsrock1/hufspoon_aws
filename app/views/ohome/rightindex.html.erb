@@ -1,0 +1,77 @@
+<header>
+  <br>
+  <br>
+  <br>
+  <br>
+  <font size="15" color="White" face="Impact"><center><p>HUFSPOON</p></center></font>
+  <br>
+  <ul class="nav nav-tabs nav-justified">
+    <li ><a href="/home/leftindex">Searching</a></li>
+    <li class="active"><a href="#menu1">Menu</a></li>
+  </ul>
+</header>
+<div class="tab-content">
+	<!--여기서부터는 첫 번째 탭 입니다-->
+    <div id="home" class="tab-pane fade">
+
+	   
+	</div>
+	<div id="menu1" class="tab-pane fade in active">
+	    <div class="container">
+	        <br>
+	        <br>
+	    <%if @id=="0"%>
+            <h1>click a restaurant</h1>
+        <%else%>
+            <table class="table">
+                <tr>
+                    <th>한글 이름</th>
+                    <th>영어 이름</th>
+                    <th>설명</th>
+                </tr>
+                <%@re.rmenu.each do|r|%>
+                <tr>
+                    <td><%=r.menuname%></td>
+                    <td>
+                        <%if Menulist.find_by(:kname => r.menuname)!=nil%>
+                        <%=Menulist.find_by(:kname => r.menuname).ename%>
+                        <%else%>
+                        <%end%>
+                    </td>
+                    <td><%=r.content%></td>
+                </tr>
+                <%end%>
+            </table>
+        <%end%>
+        </div>
+	</div>
+  </div>
+
+<!--여기는 두번째 탭 내용입니다-->
+
+	
+</div>
+
+
+<footer>
+	<br>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                  <br>
+                    <center><font size="3" color="white">
+                    	<p>L I K E L I O N  X  H U F S</p>
+                    	<p>License | xndlrjf@gmail.com</p>
+                    	<a href="/insertmenu/1">
+                    	<% if admin_signed_in? %>
+                    		DB관리
+                    	<%else%>
+                       		admin
+                    	<%end%>
+                    	</a>
+                    	</font></center>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </footer>

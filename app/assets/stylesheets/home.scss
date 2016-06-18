@@ -1,7 +1,47 @@
-// Place all the styles related to the home controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.google_subheader {
+		padding:0px;
+		margin:0px;
+		height : 36px;
+		border-bottom : 1px solid #dddddd;
+		background-color: #eeeeee;
+	}
+	.google_subheader h4{
+		padding-left:16px;
+		padding-top:10px;
+		margin:0px;
+		color : #777777;
+	}
 
+
+	.google_list {
+		padding:0px;
+		margin:0px;
+		height : 94px;
+		border-bottom : 1px solid #dddddd;
+	}
+	.google_list .caf_rep{
+		padding-left:16px;
+		padding-top:12px;
+		margin:0px;
+		color : #444444;
+		font-weight:bold;
+	}
+	.google_list .caf_times{
+		position:absolute;
+		right:5px;
+		margin:0px;
+		padding:10px;
+		padding-bottom:0px;
+		padding-top:14px;
+		font-size:12px;
+		color : #777777;
+	}
+	.google_list p{
+		padding-left:16px;
+		padding-right:16px;
+		font-size:9pt;
+		color : #777777;
+	}
 header {
     background-color: #002D56;
 }

@@ -18,11 +18,9 @@ class AdpageController < ApplicationController
     
   end
   
-  def dbmain2
-  @map=Map.all
-  end
   
-  def rewrite
+  
+  def rewritemenu
     id=params[:id]
     @info=params[:info]
     @re_menu=Menulist.find(id)
@@ -32,7 +30,9 @@ class AdpageController < ApplicationController
   #메뉴를 삭제하는 페이지
   def delmenu
     delmenu=Menulist.find(params[:id])
-    delmenu.destroy
+    if Rmenu.find_by(:menuname => delmenu.kname)==nil
+      delmenu.destroy
+    end
     redirect_to :back
   end
 
@@ -71,99 +71,14 @@ class AdpageController < ApplicationController
     remenu.ername=params[:ername]
     remenu.save
         if params[:info].to_i==1
-          redirect_to "/insertmenu/1"
+          redirect_to "/adpage/dbmain/1"
         else
-          redirect_to "/insertmenu/2"
+          redirect_to "/adpage/dbmain/2"
         end
     end
   end
   
-  ###################일반식단 관리 클래스들######################
-  #일반식당 추가 페이지
-  def addrest
-    find=Map.where(lat: params[:lat].to_f,lon: params[:lon].to_f)
-    
-    if find.length==1
-      find=Map.find_by(lat: params[:lat].to_f,lon: params[:lon].to_f)
-      if Rest.find_by(map_id: find.id.to_i,name: params[:name])!=nil
-        redirect_to :back
-      else
-        nrs=Rest.new
-        nrs.map_id=find.id.to_i
-        nrs.name=params[:name]
-        nrs.food=params[:food]
-        nrs.save
-        redirect_to :back
-      end
-    else
-      nm=Map.new
-      nm.lat=params[:lat].to_f
-      nm.lon=params[:lon].to_f
-      nm.save
-      nrs=Rest.new
-      nrs.map_id=nm.id
-      nrs.name=params[:name]
-      nrs.food=params[:food]
-      nrs.save
-      redirect_to :back
-    end
-    
-  end
-  
-  def delrest
-    drest=Rest.find(params[:id])
-    dmap=Map.find(drest.map_id)
-    if dmap.rests.length>=2
-      drest.destroy
-    else
-      dmap.destroy
-      drest.destroy
-    end
-    redirect_to :back
-  end
-  
-  def addmenu
-    @rest=Rest.find(params[:id])
-  end
-  
-  def insertmenu
-    #kname이 없을 경우(즉, 번역이 존재해서 메뉴가 곧바로 저장될 경우)
-    if params[:kname]==nil
-      if Menulist.find_by(:kname => params[:menuname])==nil
-        @menuname=params[:menuname]
-        @content=params[:content]
-        @id=params[:id]
-      else
-        newmenu=Rmenu.new
-        newmenu.rest_id=params[:id]
-        newmenu.content=params[:content]
-        newmenu.menuname=params[:menuname]
-        newmenu.save
-        redirect_to '/adpage/addmenu/'+params[:id]
-      end
-    #번역까지 저장 시
-    else
-      newtrans=Menulist.new
-      newtrans.kname=params[:kname]
-      newtrans.ername=params[:ername]
-      newtrans.ename=params[:ename]
-      newtrans.save
-      newmenu=Rmenu.new
-      newmenu.rest_id=params[:id]
-      newmenu.content=params[:content]
-      newmenu.menuname=params[:kname]
-      newmenu.save
-      redirect_to '/adpage/addmenu/'+params[:id]
-    end
-  end
-  
-  #식당 메뉴 삭제 클래스
-  def delrmenu
-    del=Rmenu.find(params[:id])
-    id=del.rest_id
-    del.destroy
-    redirect_to "/adpage/addmenu/"+id.to_s
-  end
+ 
   ###################엑셀 관련 클래스######################
   #db->엑셀
   def download

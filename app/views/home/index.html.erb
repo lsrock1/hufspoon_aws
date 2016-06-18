@@ -6,70 +6,254 @@
   <font size="15" color="White" face="Impact"><center><p>HUFSPOON</p></center></font>
   <br>
   <ul class="nav nav-tabs nav-justified">
-    <li class="active"><a data-toggle="tab" href="#home">Map</a></li>
-    <li><a data-toggle="tab" href="#menu1">Searching</a></li>
+    <!--<li role="presentation" class="active"><a href="#"><font size="3" face="Verdana">Humanities</font></a></li>-->
+    <!--<li role="presentation"><a href="#"><font size="3" face="Verdana">Faculty office</font></a></li>-->
+    <!--<li role="presentation"><a href="#"><font size="3" face="Verdana">Sky Lounge</font></a></li>-->
+    <li class="active"><a data-toggle="tab" href="#home">Humanities</a></li>
+  <li><a data-toggle="tab" href="#menu1">Faculty office</a></li>
+  <li><a data-toggle="tab" href="#menu2">Sky Lounge</a></li>
   </ul>
 </header>
 <div class="tab-content">
 	<!--여기서부터는 첫 번째 탭 입니다-->
   <div id="home" class="tab-pane fade in active">
-    <div class="container">
-        <br/>
-        <br/>
-        <div class="row">
-            <div class="col-md-6 col-xs-12">
-                <div class="option">
-                        <div>
-                            <form onsubmit="searchPlaces(); return false;">
-                                키워드 : <input type="text"  value="외대"id="keyword" size="15"> 
-                                <button type="submit">검색하기</button> 
-                            </form>
-                        </div>
-                    </div>
-                <div style="width:100%; height:300px; overflow-y:scroll;"id="menu_wrap" class="bg_white">
-                    
-                    <hr>
-                    <ul id="placesList"></ul>
-                    <div id="pagination"></div>
-                </div>
-                <div class="well"id="map" style="width:100%;height:300px;"></div>
-	        </div>
-	        <div class="col-md-6 col-xs-12">
-	            <%if @id=="0"%>
-	            <h1>click a restaurant</h1>
-	            <%else%>
-    	            <table class="table">
-    	                <tr>
-    	                    <th>한글 이름</th>
-    	                    <th>영어 이름</th>
-    	                    <th>설명</th>
-    	                </tr>
-    	                <%@re.rmenu.each do|r|%>
-    	                <tr>
-    	                    <td><%=r.menuname%></td>
-    	                    <td>
-    	                        <%if Menulist.find_by(:kname => r.menuname)!=nil%>
-                                <%=Menulist.find_by(:kname => r.menuname).ename%>
-                                <%else%>
-                                <%end%>
-                            </td>
-    	                    <td><%=r.content%></td>
-    	                </tr>
-    	                <%end%>
-    	            </table>
-	            <%end%>
-	        </div>
-	    </div>
-	
+    <div id="today-detail-div" style="position:relative; padding: 0;z-index: 10; border-top: 1px solid #dddddd;" >
+<!--table id="today-detail-table" class="hidden" width="100%" cellspacing="0" cellpadding="0"-->
+		<!--아침메뉴 시작-->
+		<div class="google_subheader" style="position:relative; padding: 0;z-index: 10; "> 
+			<h4>Breakfast</h4>
+		</div>	
+        <%if @breakfast==[] %>
+        <div class="google_list">
+			<div class="caf_rep"><%=@empty%></div>
+		</div>
+        <%else%>
+		
+		<div class="google_list">
+			<!--<div class="caf_times"> <%=@breakfasttime%> / <%=@breakfastprice%></div>-->
+			<div class="caf_rep"><%=@breakfasttime%> / <%=@breakfastprice%><br/><%=@breakfast.shift%></div>
+			<p><%@breakfast.each do |b|%> 
+    			
+    			  <%=b%>
+    			    <%if b!=@breakfast[-1]%>
+    			            ,
+    			        <%end%>
+    			
+			<%end%></p>
+			<p><%=@breakfastkcal%></p>
+		</div>
+		<%end%>
+		<!--아침메뉴 끝-->
+		
+		<!--점심메뉴 시작-->
+		<div class="google_subheader" style="position:relative; padding: 0;z-index: 10; "> 
+			<h4>Lunch 1</h4>
+		</div>
+        <%if @lunch1==[] %>
+        <div class="google_list">
+			<div class="caf_rep"><%=@empty%></div>
+		</div>
+        <%else%>
+		<div class="google_list">
+			<!--<div class="caf_times"> <%=@lunch1time%> / <%=@lunch1price%></div>-->
+			<div class="caf_rep"><%=@lunch1time%> / <%=@lunch1price%><br/><%=@lunch1.shift%></div>
+			<p>
+			    <%@lunch1.each do |b|%> 
+                    <%=b%>
+    			 <%if b!=@lunch1[-1]%>
+    			            ,
+    			        <%end%>       
+			
+			    <%end%>
+			</p>
+			<p><%=@lunch1kcal%></p>
+		</div>
+        <%end%>
+		<!--점심메뉴 끝-->
+		
+		<!--점심2 메뉴 시작-->
+		<div class="google_subheader" style="position:relative; padding: 0;z-index: 10; "> 
+			<h4>Lunch 2</h4>
+		</div>	
+        <%if @lunch2==[]%>
+        <div class="google_list">
+			<div class="caf_rep"><%=@empty%></div>
+		</div>
+        <%else%>
+		
+		<div class="google_list">
+			<!--<div class="caf_times"> <%=@lunch2time%> / <%=@lunch2price%></div>-->
+			<div class="caf_rep"><%=@lunch2time%> / <%=@lunch2price%><br/><%=@lunch2.shift%></div>
+			<p><%@lunch2.each do |b|%> <%=b%><%if b!=@lunch2[-1]%>
+    			            ,
+    			        <%end%> <%end%></p>
+			<p><%=@lunch2kcal%></p>
+		</div>
+        <%end%>
+		<!--점심2 메뉴 끝-->
+		
+		<!--점심 면 메뉴 시작-->
+		<div class="google_subheader" style="position:relative; padding: 0;z-index: 10; "> 
+			<h4>Lunch Noodle</h4>
+		</div>	
+        <%if @lunchnoodle==[]%>
+	        <div class="google_list">
+				<div class="caf_rep"><%=@empty%></div>
+			</div>
+        <%else%>
+
+		<div class="google_list">
+			<!--<div class="caf_times"> <%=@lunchnoodletime%> / <%=@lunchnoodleprice%></div>-->
+			<div class="caf_rep"><%=@lunchnoodletime%> / <%=@lunchnoodleprice%><br/><%=@lunchnoodle.shift%></div>
+			<p><%@lunchnoodle.each do |b|%> <%=b%><%if b!=@lunchnoodle[-1]%>
+    			            ,
+    			        <%end%> <%end%></p>
+			<p><%=@lunchnoodlekcal%></p>
+		</div>
+        <%end%>
+		<!--점심 면 메뉴 끝-->
+		
+		<!--저녁 메뉴 시작-->
+		<div class="google_subheader" style="position:relative; padding: 0;z-index: 10; "> 
+			<h4>Dinner</h4>
+		</div>
+        <%if @dinner==[]%>
+        <div class="google_list">
+			<div class="caf_rep"><%=@empty%></div>
+		</div>
+        <%else%>
+			
+		<div class="google_list">
+			<!--<div class="caf_times"> <%=@dinnertime%> / <%=@dinnerprice%></div>-->
+			<div class="caf_rep"><%=@dinnertime%> / <%=@dinnerprice%><br/><%=@dinner.shift%></div>
+			<p><%@dinner.each do |b|%> <%=b%> <%if b!=@dinner[-1]%>
+    			            ,
+    			        <%end%> <%end%></p>
+			<p><%=@dinnerkcal%></p>
+			</div>
+        <%end%>
+		<!--저녁메뉴 끝-->
+		</div>
 	</div>
-  </div>
 
 <!--여기는 두번째 탭 내용입니다-->
 	<div id="menu1" class="tab-pane fade">
-	    
+	    <div id="today-detail-div" style="position:relative; padding: 0;z-index: 10; border-top: 1px solid #dddddd;" >
+		<!--점심 메뉴-->
+		<div class="google_subheader" style="position:relative; padding: 0;z-index: 10; "> 
+			<h4>Lunch</h4>
+		</div>
+        <%if @flunch==[] %>
+	        <div class="google_list">
+				<div class="caf_rep"><%=@empty%></div>
+			</div>
+        <%else%>
+		
+		<div class="google_list">
+			<!--<div class="caf_times"> <%=@flunchtime%> / <%=@flunchprice%></div>-->
+			<div class="caf_rep"><%=@flunchtime%> / <%=@flunchprice%><br/><%=@flunch.shift%></div>
+			<p><%@flunch.each do |b|%> 
+    			
+    			  <%=b%>
+    			    <%if b!=@flunch[-1]%>
+    			            ,
+    			        <%end%>
+    			
+			<%end%></p>
+			<p><%=@flunchkcal%></p>
+		</div>
+		<%end%>
+		<!--점심 메뉴 끝-->
+		
+		<!--저녁 메뉴-->
+		<div class="google_subheader" style="position:relative; padding: 0;z-index: 10; "> 
+			<h4>Dinner</h4>
+		</div>	
+        <%if @fdinner==[] %>
+        <div class="google_list">
+			<div class="caf_rep"><%=@empty%></div>
+		</div>
+        <%else%>
+		
+		<div class="google_list">
+			<!--<div class="caf_times"> <%=@fdinnertime%> / <%=@fdinnerprice%></div>-->
+			<div class="caf_rep"><%=@fdinnertime%> / <%=@fdinnerprice%><br/><%=@fdinner.shift%></div>
+			<p>
+			    <%@fdinner.each do |b|%> 
+                    <%=b%>
+    			        <%if b!=@fdinner[-1]%>
+    			            ,
+    			        <%end%>
+			
+			    <%end%>
+			</p>
+			<p><%=@fdinnerkcal%></p>
+		</div>
+        <%end%>
+		<!--저녁메뉴 끝-->
+	
+		</div>
 	</div>
 	
-</div>
+	<!--세번째 탭 시작입니다-->
+	  <div id="menu2" class="tab-pane fade">
+	    <div id="today-detail-div" style="position:relative; padding: 0;z-index: 10; border-top: 1px solid #dddddd;" >
+		<!--메뉴a-->
+		<div class="google_subheader" style="position:relative; padding: 0;z-index: 10; "> 
+			<h4>Menu A</h4>
+		</div>
+        <%if @menua==[] %>
+	        <div class="google_list">
+				<div class="caf_rep"><%=@empty%></div>
+			</div>
+        <%else%>
+		
+		<div class="google_list">
+			<!--<div class="caf_times"> <%=@menuatime%> / <%=@menuaprice%></div>-->
+			<div class="caf_rep"><%=@menuatime%> / <%=@menuaprice%><br/><%=@menua.shift%></div>
+			<p><%@menua.each do |b|%> 
+    			
+    			  <%=b%>
+    			    <%if b!=@menua[-1]%>
+    			            ,
+    			        <%end%>
+    			
+			<%end%></p>
+			<p><%=@menuakcal%></p>
+		</div>
+		<%end%>
+		<!--메뉴a 끝-->
+		
+		<!--메뉴b-->
+		<div class="google_subheader" style="position:relative; padding: 0;z-index: 10; "> 
+			<h4>Menu B</h4>
+		</div>	
+        <%if @menub==[] %>
+        <div class="google_list">
+			<div class="caf_rep"><%=@empty%></div>
+		</div>
+        <%else%>
+		
+		<div class="google_list">
+			<!--<div class="caf_times"> <%=@menubtime%> / <%=@menubprice%></div>-->
+			<div class="caf_rep"><%=@menubtime%> / <%=@menubprice%><br/><%=@menub.shift%></div>
+			<p>
+			    <%@menub.each do |b|%> 
+                    <%=b%>
+    			        <%if b!=@menub[-1]%>
+    			            ,
+    			        <%end%>
+			
+			    <%end%>
+			</p>
+			<p><%=@menubkcal%></p>
+		</div>
+        <%end%>
+		<!--메뉴b 끝-->
+	
+		</div>
+	  </div>
+	</div>
 
 
 <footer>
@@ -81,7 +265,7 @@
                     <center><font size="3" color="white">
                     	<p>L I K E L I O N  X  H U F S</p>
                     	<p>License | xndlrjf@gmail.com</p>
-                    	<a href="/insertmenu/1">
+                    	<a href="/adpage/dbmain/1">
                     	<% if admin_signed_in? %>
                     		DB관리
                     	<%else%>
@@ -94,245 +278,13 @@
             </div>
         </div>
     </footer>
-    <!--<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=23598cdf36f0c5f5bf1f1bfda70b8e80"></script>-->
-    <script src="https://spi.maps.daum.net/imap/map_js_init/postcode.v2.js"></script>
-    <script src="//apis.daum.net/maps/maps3.js?apikey=23598cdf36f0c5f5bf1f1bfda70b8e80&libraries=services"></script>
-	<script>
-		var container = document.getElementById('map');
-		var options = {
-			center: new daum.maps.LatLng(37.597415, 127.057824),
-			level: 3
-		};
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-		var map = new daum.maps.Map(container, options);
-		var ps = new daum.maps.services.Places();  
+  ga('create', 'UA-78572906-1', 'auto');
+  ga('send', 'pageview');
 
-
-
-// 키워드로 장소를 검색합니다
-searchPlaces();
-
-// 키워드 검색을 요청하는 함수입니다
-function searchPlaces() {
-
-    var keyword = document.getElementById('keyword').value;
-
-    if (!keyword.replace(/^\s+|\s+$/g, '')) {
-        alert('키워드를 입력해주세요!');
-        return false;
-    }
-
-    // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
-    ps.keywordSearch( keyword, placesSearchCB); 
-}
-
-// 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
-function placesSearchCB(status, data, pagination) {
-    if (status === daum.maps.services.Status.OK) {
-
-        // 정상적으로 검색이 완료됐으면
-        // 검색 목록과 마커를 표출합니다
-        displayPlaces(data.places);
-
-        // 페이지 번호를 표출합니다
-        displayPagination(pagination);
-
-    } else if (status === daum.maps.services.Status.ZERO_RESULT) {
-
-        alert('검색 결과가 존재하지 않습니다.');
-        return;
-
-    } else if (status === daum.maps.services.Status.ERROR) {
-
-        alert('검색 결과 중 오류가 발생했습니다.');
-        return;
-
-    }
-}
-
-// 검색 결과 목록과 마커를 표출하는 함수입니다
-function displayPlaces(places) {
-
-    var listEl = document.getElementById('placesList'), 
-    menuEl = document.getElementById('menu_wrap'),
-    fragment = document.createDocumentFragment(), 
-    bounds = new daum.maps.LatLngBounds(), 
-    listStr = '';
-    
-    // 검색 결과 목록에 추가된 항목들을 제거합니다
-    removeAllChildNods(listEl);
-
-
-    
-    for ( var i=0; i<places.length; i++ ) {
-
-        // 마커를 생성하고 지도에 표시합니다
-        var placePosition = new daum.maps.LatLng(places[i].latitude, places[i].longitude),
-            
-            itemEl = getListItem(i, places[i], marker); // 검색 결과 항목 Element를 생성합니다
-
-        // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
-        // LatLngBounds 객체에 좌표를 추가합니다
-        bounds.extend(placePosition);
-        
-        (function(places) {
-            
-
-            itemEl.onclick =  function () {
-                var moveLatLon = new daum.maps.LatLng(places.latitude, places.longitude);
-                map.setCenter(moveLatLon);
-                map.setLevel(3);
-            };
-
-            
-        })(places[i]);
-
-
-        fragment.appendChild(itemEl);
-    }
-
-    // 검색결과 항목들을 검색결과 목록 Elemnet에 추가합니다
-    listEl.appendChild(fragment);
-    menuEl.scrollTop = 0;
-
-    // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
-    map.setBounds(bounds);
-}
-
-// 검색결과 항목을 Element로 반환하는 함수입니다
-function getListItem(index, places) {
-
-    var el = document.createElement('li'),
-    itemStr =           '<div class="info">' +
-                '   <h5>' + places.title + '</h5>';
-
-    if (places.newAddress) {
-        itemStr += '    <span>' + places.newAddress + '</span>' +
-                    '   <span class="jibun gray">' +  places.address  + '</span>';
-    } else {
-        itemStr += '    <span>' +  places.address  + '</span>'; 
-    }
-                 
-      itemStr += '  <span class="tel">' + places.phone  + '</span>' +
-                '</div>';           
-
-    el.innerHTML = itemStr;
-    el.className = 'item';
-
-    return el;
-}
-
-
-
-
-// 검색결과 목록 하단에 페이지번호를 표시는 함수입니다
-function displayPagination(pagination) {
-    var paginationEl = document.getElementById('pagination'),
-        fragment = document.createDocumentFragment(),
-        i; 
-
-    // 기존에 추가된 페이지번호를 삭제합니다
-    while (paginationEl.hasChildNodes()) {
-        paginationEl.removeChild (paginationEl.lastChild);
-    }
-
-    for (i=1; i<=pagination.last; i++) {
-        var el = document.createElement('a');
-        el.href = "#";
-        el.innerHTML = i;
-
-        if (i===pagination.current) {
-            el.className = 'on';
-        } else {
-            el.onclick = (function(i) {
-                return function() {
-                    pagination.gotoPage(i);
-                }
-            })(i);
-        }
-
-        fragment.appendChild(el);
-    }
-    paginationEl.appendChild(fragment);
-}
-
-
- // 검색결과 목록의 자식 Element를 제거하는 함수입니다
-function removeAllChildNods(el) {   
-    while (el.hasChildNodes()) {
-        el.removeChild (el.lastChild);
-    }
-}
-// 		여기까지 맵을 불러옴
-    //     var geocoder = new daum.maps.services.Geocoder();
-    // 	function sample5_execDaumPostcode() {
-    //         new daum.Postcode({
-    //             oncomplete: function(data) {
-    //                 // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-    //                 // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-    //                 var fullAddr = data.address; // 최종 주소 변수
-    //                 var extraAddr = ''; // 조합형 주소 변수
-    
-    //                 // 기본 주소가 도로명 타입일때 조합한다.
-    //                 if(data.addressType === 'R'){
-    //                     //법정동명이 있을 경우 추가한다.
-    //                     if(data.bname !== ''){
-    //                         extraAddr += data.bname;
-    //                     }
-    //                     // 건물명이 있을 경우 추가한다.
-    //                     if(data.buildingName !== ''){
-    //                         extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-    //                     }
-    //                     // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
-    //                     fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
-    //                 }
-    
-    //                 // 주소 정보를 해당 필드에 넣는다.
-    //                 document.getElementById("sample5_address").value = fullAddr;
-    //                 // 주소로 좌표를 검색
-    //                 geocoder.addr2coord(data.address, function(status, result) {
-    //                     // 정상적으로 검색이 완료됐으면
-    //                     if (status === daum.maps.services.Status.OK) {
-    //                         // 해당 주소에 대한 좌표를 받아서
-    //                         var coords = new daum.maps.LatLng(result.addr[0].lat, result.addr[0].lng);
-    //                         // 지도를 보여준다.
-    //                         container.style.display = "block";
-    //                         map.relayout();
-    //                         // 지도 중심을 변경한다.
-    //                         map.setCenter(coords);
-    //                     }
-    //                 });
-    //             }
-    //         }).open();
-    //     };
-		var positions = [
-		    <%Map.all.each do |m|%>
-            {
-                 
-                latlng: new daum.maps.LatLng(<%=m.lat%>,<%=m.lon%>),
-                iwContent: '<%m.rests.each do |r|%><div><a style="text-align:center;" href="/test/<%=r.id%>"><%=r.name%> 메뉴보기</a><div><%end%>',
-            },
-            <%end%>
-        ];
-    
-        for (var i = 0; i < positions.length; i ++) {
-        
-            var marker = new daum.maps.Marker({
-                map: map, // 마커를 표시할 지도
-                position: positions[i].latlng, // 마커를 표시할 위치
-                clickable: true
-            });
-            var infowindow = new daum.maps.InfoWindow({
-                removable : true,
-                position : positions[i].latlng, 
-                content : positions[i].iwContent
-            });
-            daum.maps.event.addListener(marker, 'click', makeClickListener(map, marker, infowindow));
-            
-        };
-        function makeClickListener(map, marker, infowindow) {
-            return function() {
-                infowindow.open(map, marker);
-            };
-        }
-	</script>
+</script>
