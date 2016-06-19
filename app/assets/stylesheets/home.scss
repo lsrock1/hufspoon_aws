@@ -1,3 +1,14 @@
+@media (max-width: 768px) {
+  .nav-justified > li {
+    display: table-cell;
+    width: 1%;
+  }
+  .nav-justified > li > a  {
+    border-bottom: 1px solid #ddd !important;
+    border-radius: 4px 4px 0 0 !important;
+    margin-bottom: 0 !important;
+  }
+}
 .google_subheader {
 		padding:0px;
 		margin:0px;
@@ -16,7 +27,7 @@
 	.google_list {
 		padding:0px;
 		margin:0px;
-		height : 94px;
+		height : 110px;
 		border-bottom : 1px solid #dddddd;
 	}
 	.google_list .caf_rep{
