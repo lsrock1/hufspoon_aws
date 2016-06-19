@@ -22,8 +22,11 @@ test:
 
 production: 
   <<: *default
-  #adapter: postgresql
-  #encoding: unicode
-  #host: localhost
-  #port: 5432
-  database: db/production.sqlite3
+  adapter: postgresql
+  encoding: unicode
+  database: <%= ENV['RDS_DB_NAME'] %>
+  username: <%= ENV['RDS_USERNAME'] %>
+  password: <%= ENV['RDS_PASSWORD'] %>
+  host: <%= ENV['RDS_HOSTNAME'] %>
+  port: <%= ENV['RDS_PORT'] %>
+  #database: db/production.sqlite3
