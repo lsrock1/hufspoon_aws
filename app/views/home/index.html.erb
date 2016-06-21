@@ -1,14 +1,8 @@
 <header>
   <br>
+  <h1 id="title">HUFSPOON</h1>
   <br>
-  <br>
-  <br>
-  <font size="15" color="White" face="Impact"><center><p>HUFSPOON</p></center></font>
-  <br>
-  <ul class="nav nav-tabs  nav-justified"style="font-size:9px;">
-    <!--<li role="presentation" class="active"><a href="#"><font size="3" face="Verdana">Humanities</font></a></li>-->
-    <!--<li role="presentation"><a href="#"><font size="3" face="Verdana">Faculty office</font></a></li>-->
-    <!--<li role="presentation"><a href="#"><font size="3" face="Verdana">Sky Lounge</font></a></li>-->
+  <ul class="nav nav-tabs  nav-justified"style="font-size:10px;">
     <li class="active"><a data-toggle="tab" href="#home">Humanities</a></li>
     <li><a data-toggle="tab" href="#menu1">Faculty office</a></li>
     <li><a data-toggle="tab" href="#menu2">Sky Lounge</a></li>
@@ -19,20 +13,21 @@
 	<!--여기서부터는 첫 번째 탭 입니다-->
   <div id="home" class="tab-pane fade in active">
     <div id="today-detail-div" style="position:relative; padding: 0;z-index: 10; border-top: 1px solid #dddddd;" >
-<!--table id="today-detail-table" class="hidden" width="100%" cellspacing="0" cellpadding="0"-->
 		<!--아침메뉴 시작-->
+		
+        <%if @breakfast==[] %>
+  <!--      <div class="google_list">-->
+		<!--	<div class="caf_rep"><%=@empty%></div>-->
+		<!--</div>-->
+        <%else%>
 		<div class="google_subheader" style="position:relative; padding: 0;z-index: 10; "> 
 			<h4>Breakfast</h4>
 		</div>	
-        <%if @breakfast==[] %>
-        <div class="google_list">
-			<div class="caf_rep"><%=@empty%></div>
-		</div>
-        <%else%>
-		
 		<div class="google_list">
-			<!--<div class="caf_times"> <%=@breakfasttime%> / <%=@breakfastprice%></div>-->
-			<div class="caf_rep"><%=@breakfasttime%> / <%=@breakfastprice%><br/><%=@breakfast.shift%></div>
+			<div class="caf_times"> <%=@breakfasttime%> / <%=@breakfastprice%></div>
+			<div class="caf_rep">
+				<%=@breakfast.shift%>
+			</div>
 			<p><%@breakfast.each do |b|%> 
     			
     			  <%=b%>
@@ -47,17 +42,17 @@
 		<!--아침메뉴 끝-->
 		
 		<!--점심메뉴 시작-->
-		<div class="google_subheader" style="position:relative; padding: 0;z-index: 10; "> 
+		
+        <%if @lunch1==[] %>
+        
+        <%else%>
+        
+        <div class="google_subheader" style="position:relative; padding: 0;z-index: 10; "> 
 			<h4>Lunch 1</h4>
 		</div>
-        <%if @lunch1==[] %>
-        <div class="google_list">
-			<div class="caf_rep"><%=@empty%></div>
-		</div>
-        <%else%>
 		<div class="google_list">
-			<!--<div class="caf_times"> <%=@lunch1time%> / <%=@lunch1price%></div>-->
-			<div class="caf_rep"><%=@lunch1time%> / <%=@lunch1price%><br/><%=@lunch1.shift%></div>
+			<div class="caf_times"> <%=@lunch1time%> / <%=@lunch1price%></div>
+			<div class="caf_rep"><%=@lunch1.shift%></div>
 			<p>
 			    <%@lunch1.each do |b|%> 
                     <%=b%>
@@ -73,18 +68,16 @@
 		<!--점심메뉴 끝-->
 		
 		<!--점심2 메뉴 시작-->
+		
+        <%if @lunch2==[]%>
+        
+        <%else%>
 		<div class="google_subheader" style="position:relative; padding: 0;z-index: 10; "> 
 			<h4>Lunch 2</h4>
 		</div>	
-        <%if @lunch2==[]%>
-        <div class="google_list">
-			<div class="caf_rep"><%=@empty%></div>
-		</div>
-        <%else%>
-		
 		<div class="google_list">
-			<!--<div class="caf_times"> <%=@lunch2time%> / <%=@lunch2price%></div>-->
-			<div class="caf_rep"><%=@lunch2time%> / <%=@lunch2price%><br/><%=@lunch2.shift%></div>
+			<div class="caf_times"> <%=@lunch2time%> / <%=@lunch2price%></div>
+			<div class="caf_rep"><%=@lunch2.shift%></div>
 			<p><%@lunch2.each do |b|%> <%=b%><%if b!=@lunch2[-1]%>
     			            ,
     			        <%end%> <%end%></p>
@@ -98,14 +91,12 @@
 			<h4>Lunch Noodle</h4>
 		</div>	
         <%if @lunchnoodle==[]%>
-	        <div class="google_list">
-				<div class="caf_rep"><%=@empty%></div>
-			</div>
+	        
         <%else%>
 
 		<div class="google_list">
-			<!--<div class="caf_times"> <%=@lunchnoodletime%> / <%=@lunchnoodleprice%></div>-->
-			<div class="caf_rep"><%=@lunchnoodletime%> / <%=@lunchnoodleprice%><br/><%=@lunchnoodle.shift%></div>
+			<div class="caf_times"> <%=@lunchnoodletime%> / <%=@lunchnoodleprice%></div>
+			<div class="caf_rep"><%=@lunchnoodle.shift%></div>
 			<p><%@lunchnoodle.each do |b|%> <%=b%><%if b!=@lunchnoodle[-1]%>
     			            ,
     			        <%end%> <%end%></p>
@@ -115,18 +106,16 @@
 		<!--점심 면 메뉴 끝-->
 		
 		<!--저녁 메뉴 시작-->
+		
+        <%if @dinner==[]%>
+        
+        <%else%>
 		<div class="google_subheader" style="position:relative; padding: 0;z-index: 10; "> 
 			<h4>Dinner</h4>
 		</div>
-        <%if @dinner==[]%>
-        <div class="google_list">
-			<div class="caf_rep"><%=@empty%></div>
-		</div>
-        <%else%>
-			
 		<div class="google_list">
-			<!--<div class="caf_times"> <%=@dinnertime%> / <%=@dinnerprice%></div>-->
-			<div class="caf_rep"><%=@dinnertime%> / <%=@dinnerprice%><br/><%=@dinner.shift%></div>
+			<div class="caf_times"> <%=@dinnertime%> / <%=@dinnerprice%></div>
+			<div class="caf_rep"><%=@dinner.shift%></div>
 			<p><%@dinner.each do |b|%> <%=b%> <%if b!=@dinner[-1]%>
     			            ,
     			        <%end%> <%end%></p>
@@ -141,18 +130,15 @@
 	<div id="menu1" class="tab-pane fade">
 	    <div id="today-detail-div" style="position:relative; padding: 0;z-index: 10; border-top: 1px solid #dddddd;" >
 		<!--점심 메뉴-->
-		<div class="google_subheader" style="position:relative; padding: 0;z-index: 10; "> 
+		
+        <%if @flunch==[] %>
+        <%else%>
+	    <div class="google_subheader" style="position:relative; padding: 0;z-index: 10; "> 
 			<h4>Lunch</h4>
 		</div>
-        <%if @flunch==[] %>
-	        <div class="google_list">
-				<div class="caf_rep"><%=@empty%></div>
-			</div>
-        <%else%>
-		
 		<div class="google_list">
-			<!--<div class="caf_times"> <%=@flunchtime%> / <%=@flunchprice%></div>-->
-			<div class="caf_rep"><%=@flunchtime%> / <%=@flunchprice%><br/><%=@flunch.shift%></div>
+			<div class="caf_times"> <%=@flunchtime%> / <%=@flunchprice%></div>
+			<div class="caf_rep"><%=@flunch.shift%></div>
 			<p><%@flunch.each do |b|%> 
     			
     			  <%=b%>
@@ -167,18 +153,15 @@
 		<!--점심 메뉴 끝-->
 		
 		<!--저녁 메뉴-->
+		
+        <%if @fdinner==[] %>
+        <%else%>
 		<div class="google_subheader" style="position:relative; padding: 0;z-index: 10; "> 
 			<h4>Dinner</h4>
 		</div>	
-        <%if @fdinner==[] %>
-        <div class="google_list">
-			<div class="caf_rep"><%=@empty%></div>
-		</div>
-        <%else%>
-		
 		<div class="google_list">
-			<!--<div class="caf_times"> <%=@fdinnertime%> / <%=@fdinnerprice%></div>-->
-			<div class="caf_rep"><%=@fdinnertime%> / <%=@fdinnerprice%><br/><%=@fdinner.shift%></div>
+			<div class="caf_times"> <%=@fdinnertime%> / <%=@fdinnerprice%></div>
+			<div class="caf_rep"><%=@fdinner.shift%></div>
 			<p>
 			    <%@fdinner.each do |b|%> 
                     <%=b%>
@@ -200,18 +183,15 @@
 	  <div id="menu2" class="tab-pane fade">
 	    <div id="today-detail-div" style="position:relative; padding: 0;z-index: 10; border-top: 1px solid #dddddd;" >
 		<!--메뉴a-->
+		
+        <%if @menua==[] %>
+        <%else%>
 		<div class="google_subheader" style="position:relative; padding: 0;z-index: 10; "> 
 			<h4>Menu A</h4>
 		</div>
-        <%if @menua==[] %>
-	        <div class="google_list">
-				<div class="caf_rep"><%=@empty%></div>
-			</div>
-        <%else%>
-		
 		<div class="google_list">
-			<!--<div class="caf_times"> <%=@menuatime%> / <%=@menuaprice%></div>-->
-			<div class="caf_rep"><%=@menuatime%> / <%=@menuaprice%><br/><%=@menua.shift%></div>
+			<div class="caf_times"> <%=@menuatime%> / <%=@menuaprice%></div>
+			<div class="caf_rep"><%=@menua.shift%></div>
 			<p><%@menua.each do |b|%> 
     			
     			  <%=b%>
@@ -226,18 +206,15 @@
 		<!--메뉴a 끝-->
 		
 		<!--메뉴b-->
+		
+        <%if @menub==[] %>
+        <%else%>
 		<div class="google_subheader" style="position:relative; padding: 0;z-index: 10; "> 
 			<h4>Menu B</h4>
 		</div>	
-        <%if @menub==[] %>
-        <div class="google_list">
-			<div class="caf_rep"><%=@empty%></div>
-		</div>
-        <%else%>
-		
 		<div class="google_list">
-			<!--<div class="caf_times"> <%=@menubtime%> / <%=@menubprice%></div>-->
-			<div class="caf_rep"><%=@menubtime%> / <%=@menubprice%><br/><%=@menub.shift%></div>
+			<div class="caf_times"> <%=@menubtime%> / <%=@menubprice%></div>
+			<div class="caf_rep"><%=@menub.shift%></div>
 			<p>
 			    <%@menub.each do |b|%> 
                     <%=b%>
@@ -263,7 +240,7 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                   <br>
-                    <center><font size="3" color="white">
+                    <div id="foo">
                     	<p>L I K E L I O N  X  H U F S</p>
                     	<p>License | xndlrjf@gmail.com</p>
                     	<a href="/adpage/dbmain/1">
@@ -273,7 +250,7 @@
                        		admin
                     	<%end%>
                     	</a>
-                    	</font></center>
+                      </div>
                     <br>
                 </div>
             </div>

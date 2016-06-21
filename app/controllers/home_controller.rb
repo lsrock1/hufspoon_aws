@@ -53,7 +53,7 @@ class HomeController < ApplicationController
     doc =Nokogiri::HTML(open(resultadd))
     @sky=doc.xpath("//html/body/form/table/tr")
     ###############스카이라운지 파싱##############
-    @empty="Cafeteria is not opend"
+    
     
     @breakfast=[]
     @lunch1=[]
@@ -75,13 +75,13 @@ class HomeController < ApplicationController
         @one=n.xpath("./td[@class='headerStyle']")
         
         if @one.text.to_s[0..4]=="중식(1)"
-          @lunch1time=@one.text.to_s[5..-1]
+          @lunch1time=@one.text.to_s[5..6]+":"+@one.text.to_s[7..11]+":"+@one.text.to_s[12..13]
           n.xpath("./td/table/tr/td").each do|x|
             if x.text!=""
               if x.text[-1]=="l"
                 @lunch1kcal=x.text
               elsif x.text[-1]=="원"
-                @lunch1price=x.text
+                @lunch1price=x.text[0..-2]+" won"
               else
                 if Menulist.find_by(:kname => x.text)!=nil
                   @lunch1.push(Menulist.find_by(:kname => x.text).ename.to_s)
@@ -95,13 +95,13 @@ class HomeController < ApplicationController
             innum=innum+1
           end
         elsif @one.text.to_s[0..4]=="중식(2)"
-          @lunch2time=@one.text.to_s[5..-1]
+          @lunch2time=@one.text.to_s[5..6]+":"+@one.text.to_s[7..11]+":"+@one.text.to_s[12..13]
           n.xpath("./td/table/tr/td").each do|x|
             if x.text!=""
               if x.text[-1]=="l"
                 @lunch2kcal=x.text
               elsif x.text[-1]=="원"
-                @lunch2price=x.text
+                @lunch2price=x.text[0..-2]+" won"
               else
                 if Menulist.find_by(:kname => x.text)!=nil
                   @lunch2.push(Menulist.find_by(:kname => x.text).ename.to_s)
@@ -114,13 +114,13 @@ class HomeController < ApplicationController
             innum=innum+1
           end
         elsif @one.text.to_s[0..4]=="중식(면)"
-        @lunchnoodletime=@one.text.to_s[5..-1]
+        @lunchnoodletime=@one.text.to_s[5..6]+":"+@one.text.to_s[7..11]+":"+@one.text.to_s[12..13]
           n.xpath("./td/table/tr/td").each do|x|
             if x.text!=""
               if x.text[-1]=="l"
                 @lunchnoodlekcal=x.text
               elsif x.text[-1]=="원"
-                @lunchnoodleprice=x.text
+                @lunchnoodleprice=x.text[0..-2]+" won"
               else
                 if Menulist.find_by(:kname => x.text)!=nil
                   @lunchnoodle.push(Menulist.find_by(:kname => x.text).ename.to_s)
@@ -133,13 +133,13 @@ class HomeController < ApplicationController
             innum=innum+1
           end
         elsif @one.text.to_s[0..1]=="조식"
-          @breakfasttime=@one.text.to_s[2..-1]
+          @breakfasttime=@one.text.to_s[2..3]+":"+@one.text.to_s[4..8]+":"+@one.text.to_s[9..10]
           n.xpath("./td/table/tr/td").each do|x|
             if x.text!=""
               if x.text[-1]=="l"
                 @breakfastkcal=x.text
               elsif x.text[-1]=="원"
-                @breakfastprice=x.text
+                @breakfastprice=x.text[0..-2]+" won"
               else
                 if Menulist.find_by(:kname => x.text)!=nil
                   @breakfast.push(Menulist.find_by(:kname => x.text).ename.to_s)
@@ -152,13 +152,13 @@ class HomeController < ApplicationController
             innum=innum+1
           end
         elsif @one.text.to_s[0..1]=="석식"
-          @dinnertime=@one.text.to_s[2..-1]
+          @dinnertime=@one.text.to_s[2..3]+":"+@one.text.to_s[4..8]+":"+@one.text.to_s[9..10]
           n.xpath("./td/table/tr/td").each do|x|
             if x.text!=""
               if x.text[-1]=="l"
                 @dinnerkcal=x.text
               elsif x.text[-1]=="원"
-                @dinnerprice=x.text
+                @dinnerprice=x.text[0..-2]+" won"
               else
                 if Menulist.find_by(:kname => x.text)!=nil
                   @dinner.push(Menulist.find_by(:kname => x.text).ename.to_s)
@@ -188,38 +188,50 @@ class HomeController < ApplicationController
         @one=n.xpath("./td[@class='headerStyle']")
         
         if @one.text.to_s[0..1]=="중식"
-          @flunchtime=@one.text.to_s[2..-1]
+          @flunchtime=@one.text.to_s[2..3]+":"+@one.text.to_s[4..8]+":"+@one.text.to_s[9..10]
           n.xpath("./td/table/tr/td").each do|x|
             if x.text!=""
               if x.text[-1]=="l"
                 @flunchkcal=x.text
               elsif x.text[-1]=="원"
-                @flunchprice=x.text
+                @flunchprice=x.text[0..-2]+" won"
               else
-                if Menulist.find_by(:kname => x.text)!=nil
-                  @flunch.push(Menulist.find_by(:kname => x.text).ename.to_s)
+                if x.text.to_s.index("(")!=nil
+                  xfirst=x.text.to_s.index("(")
+                  xfood=x.text.to_s[0..(xfirst-1)]
                 else
-                  @flunch.push(x.text)
-                  new_menu(x.text)
+                  xfood=x.text
+                end
+                if Menulist.find_by(:kname => xfood)!=nil
+                  @flunch.push(Menulist.find_by(:kname => xfood).ename.to_s)
+                else
+                  @flunch.push(xfood)
+                  new_menu(xfood)
                 end
               end
             end
             innum=innum+1
           end
         elsif @one.text.to_s[0..1]=="석식"
-          @fdinnertime=@one.text.to_s[2..-1]
+          @fdinnertime=@one.text.to_s[2..3]+":"+@one.text.to_s[4..8]+":"+@one.text.to_s[9..10]
           n.xpath("./td/table/tr/td").each do|x|
             if x.text!=""
               if x.text[-1]=="l"
                 @fdinnerkcal=x.text
               elsif x.text[-1]=="원"
-                @fdinnerprice=x.text
+                @fdinnerprice=x.text[0..-2]+" won"
               else
-                if Menulist.find_by(:kname => x.text)!=nil
-                  @fdinner.push(Menulist.find_by(:kname => x.text).ename.to_s)
+                if x.text.to_s.index("(")!=nil
+                  xfirst=x.text.to_s.index("(")
+                  xfood=x.text.to_s[0..(xfirst-1)]
                 else
-                  @fdinner.push(x.text)
-                  new_menu(x.text)
+                  xfood=x.text
+                end
+                if Menulist.find_by(:kname => xfood)!=nil
+                  @fdinner.push(Menulist.find_by(:kname => xfood).ename.to_s)
+                else
+                  @fdinner.push(xfood)
+                  new_menu(xfood)
                 end
               end
             end
@@ -242,38 +254,50 @@ class HomeController < ApplicationController
         @one=n.xpath("./td[@class='headerStyle']")
         
         if @one.text.to_s[0..2]=="메뉴A"
-          @menuatime=@one.text.to_s[3..-1]
+          @menuatime=@one.text.to_s[3..4]+":"+@one.text.to_s[5..9]+":"+@one.text.to_s[10..11]
           n.xpath("./td/table/tr/td").each do|x|
             if x.text!=""
               if x.text[-1]=="l"
                 @menuakcal=x.text
               elsif x.text[-1]=="원"
-                @menuaprice=x.text
+                @menuaprice=x.text[0..-2]+" won"
               else
-                if Menulist.find_by(:kname => x.text)!=nil
-                  @menua.push(Menulist.find_by(:kname => x.text).ename.to_s)
+                if x.text.to_s.index("(")!=nil
+                  xfirst=x.text.to_s.index("(")
+                  xfood=x.text.to_s[0..(xfirst-1)]
                 else
-                  @menua.push(x.text)
-                  new_menu(x.text)
+                  xfood=x.text
+                end
+                if Menulist.find_by(:kname => xfood)!=nil
+                  @menua.push(Menulist.find_by(:kname => xfood).ename.to_s)
+                else
+                  @menua.push(xfood)
+                  new_menu(xfood)
                 end
               end
             end
             innum=innum+1
           end
         elsif @one.text.to_s[0..2]=="메뉴B"
-          @menubtime=@one.text.to_s[3..-1]
+          @menubtime=@one.text.to_s[3..4]+":"+@one.text.to_s[5..9]+":"+@one.text.to_s[10..11]
           n.xpath("./td/table/tr/td").each do|x|
             if x.text!=""
               if x.text[-1]=="l"
                 @menubkcal=x.text
               elsif x.text[-1]=="원"
-                @menubprice=x.text
+                @menubprice=x.text[0..-2]+" won"
               else
-                if Menulist.find_by(:kname => x.text)!=nil
-                  @menub.push(Menulist.find_by(:kname => x.text).ename.to_s)
+                if x.text.to_s.index("(")!=nil
+                  xfirst=x.text.to_s.index("(")
+                  xfood=x.text.to_s[0..(xfirst-1)]
                 else
-                  @menub.push(x.text)
-                  new_menu(x.text)
+                  xfood=x.text
+                end
+                if Menulist.find_by(:kname => xfood)!=nil
+                  @menub.push(Menulist.find_by(:kname => xfood).ename.to_s)
+                else
+                  @menub.push(xfood)
+                  new_menu(xfood)
                 end
               end
             end

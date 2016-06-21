@@ -12,4 +12,6 @@ class ApplicationController < ActionController::Base
     nmenu=Menulist.new(:kname => a,:ename => a)
     nmenu.save
   end
+  
+  
 end
