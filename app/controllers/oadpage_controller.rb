@@ -67,12 +67,14 @@ class OadpageController < ApplicationController
       if Menulist.find_by(:kname => params[:menuname])==nil
         @menuname=params[:menuname]
         @content=params[:content]
+        @cost=params[:cost]
         @id=params[:id]
       else
         newmenu=Rmenu.new
         newmenu.rest_id=params[:id]
         newmenu.content=params[:content]
         newmenu.menuname=params[:menuname]
+        newmenu.cost=params[:cost]
         newmenu.save
         redirect_to '/oadpage/addmenu_page/'+params[:id]
       end
@@ -82,11 +84,14 @@ class OadpageController < ApplicationController
       newtrans.kname=params[:kname]
       newtrans.ername=params[:ername]
       newtrans.ename=params[:ename]
+      newtrans.cname=params[:cname]
+      newtrans.aname=params[:aname]
       newtrans.save
       newmenu=Rmenu.new
       newmenu.rest_id=params[:id]
       newmenu.content=params[:content]
       newmenu.menuname=params[:kname]
+      newmenu.cost=params[:cost]
       newmenu.save
       redirect_to '/oadpage/addmenu_page/'+params[:id]
     end

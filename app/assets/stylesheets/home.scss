@@ -7,6 +7,7 @@
     color: white;
     font-size: 3px;
     text-align: center;
+    height: auto;
 }
 @media (max-width: 768px) {
   .nav-justified > li {
@@ -39,6 +40,7 @@
 		margin:0px;
 		height : auto;
 		border-bottom : 1px solid #dddddd;
+		background-color: white;
 	}
 	.google_list .caf_rep{
 		padding-left:16px;
@@ -46,12 +48,14 @@
 		margin:0px;
 		color : #444444;
 		font-weight:bold;
+		
 	}
 	.google_list .caf_times{
 		padding-left:16px;
 		padding-top:12px;
 		margin:0px;
 		color : #444444;
+		font-size:9pt;
 	}
 	.google_list p{
 		padding-left:16px;
@@ -81,14 +85,14 @@ footer h1 {
 :focus {
     outline: 0;
 }
-// ::-webkit-scrollbar { width: 3px;}
+ //::-webkit-scrollbar { width: 3px;}
 
 ::-webkit-scrollbar {
     -webkit-appearance: none;
-    width: 7px;
+    width: 3px;
 }
 ::-webkit-scrollbar-thumb {
-    border-radius: 4px;
+    border-radius: 3px;
     background-color: rgba(0,0,0,.5);
     -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
 }
@@ -99,6 +103,7 @@ html, body {
     overflow: hidden;
     color: #555;
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    
 }
 
 a {

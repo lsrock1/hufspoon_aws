@@ -20,7 +20,14 @@
                   <label for="ex3">영어 독음</label>
                   <input class="form-control" name="ername"id="ex3" type="text">
                 </div>
-                
+                <div class="form-group">
+                  <label for="ex4">중국어</label>
+                  <input class="form-control" name="cname"id="ex4" type="text">
+                </div>
+                <div class="form-group">
+                  <label for="ex5">아랍어</label>
+                  <input class="form-control" name="aname"id="ex5" type="text">
+                </div>
                 <button class="btn btn-default">저장</button>
                 
             </form>
@@ -58,8 +65,10 @@
                 <tr>
                     <th>순번</th>
                     <th>한국이름</th>
-                    <th>영어 뜻 풀이</th>
+                    <th>영어</th>
                     <th>독음</th>
+                    <th>중국어</th>
+                    <th>아랍어</th>
                     <th> </th>
                     <th> </th>
                 </tr>
@@ -70,6 +79,8 @@
                     <td><%=l.kname%></td>
                     <td><%=l.ename%></td>
                     <td><%=l.ername%></td>
+                    <td><%=l.cname%></td>
+                    <td><%=l.aname%></td>
                     <td><button class="re" id="<%=l.id%>">수정</button></td>
                     <td><button class="del btn btn-warning" id="<%=l.id%>">삭제</button></td>
                 </tr>

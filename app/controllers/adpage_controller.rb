@@ -53,6 +53,8 @@ class AdpageController < ApplicationController
       newmenu.kname=params[:kname]
       newmenu.ename=params[:ename]
       newmenu.ername=params[:ername]
+      newmenu.cname=params[:cname]
+      newmenu.cname=params[:aname]
       newmenu.save
         redirect_to :back
       end
@@ -69,6 +71,8 @@ class AdpageController < ApplicationController
     remenu.kname=params[:kname]
     remenu.ename=params[:ename]
     remenu.ername=params[:ername]
+    remenu.cname=params[:cname]
+    remenu.aname=params[:aname]
     remenu.save
         if params[:info].to_i==1
           redirect_to "/adpage/dbmain/1"
@@ -90,6 +94,8 @@ class AdpageController < ApplicationController
       worksheet.write(num,0,a.kname)
       worksheet.write(num,1,a.ername)
       worksheet.write(num,2,a.ename)
+      worksheet.write(num,3,a.cname)
+      worksheet.write(num,4,a.aname)
       num=num+1
     end
       workbook.close
@@ -115,6 +121,8 @@ class AdpageController < ApplicationController
               exme=Menulist.find_by(:kname => s[0])
               exme.ename=s[2]
               exme.ername=s[1]
+              exme.cname=s[3]
+              exme.aname=s[4]
               exme.save
             else
               
@@ -122,6 +130,8 @@ class AdpageController < ApplicationController
               newme.kname=s[0]
               newme.ename=s[2]
               newme.ername=s[1]
+              newme.cname=s[3]
+              newme.aname=s[4]
               newme.save
               
             end
