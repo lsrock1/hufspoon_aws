@@ -42,6 +42,8 @@ ActiveRecord::Schema.define(version: 20160603151621) do
     t.string   "kname"
     t.string   "ername"
     t.string   "ename"
+    t.string   "cname"
+    t.string   "aname"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -59,6 +61,7 @@ ActiveRecord::Schema.define(version: 20160603151621) do
     t.string   "menuname"
     t.text     "content"
     t.integer  "rest_id"
+    t.integer  "cost"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
