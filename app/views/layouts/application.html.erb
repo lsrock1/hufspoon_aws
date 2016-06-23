@@ -19,7 +19,7 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
-<body style="<%if controller.controller_name=="home"||controller.controller_name=="ohome"%>background-color: #002D56;<%else%>overflow-y: scroll; -webkit-overflow-scrolling: touch;<%end%>">
+<body style="overflow-y: scroll; -webkit-overflow-scrolling: touch;<%if controller.controller_name=="home"||controller.controller_name=="ohome"%>background-color: #002D56;<%else%><%end%>">
 
 <%= yield %>
 
