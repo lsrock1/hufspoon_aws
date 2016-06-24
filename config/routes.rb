@@ -40,8 +40,8 @@ Rails.application.routes.draw do
   get '/download' =>"adpage#download"
   post '/excelinsert' =>'adpage#filesave'
   #일반화면
-  get '/home/leftindex' =>'ohome#leftindex'
-  get '/home/rightindex/:id' =>'ohome#rightindex'
+  get '/home/leftindex/:num/:dis/:lat/:lon' =>'ohome#leftindex', :constraints => { :lat => /.*/ ,:lon =>/.*/}
+  get '/home/rightindex/:id/:num/:lat/:lon' =>'ohome#rightindex', :constraints => { :lat => /.*/ , :lon => /.*/}
   root 'home#index'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
