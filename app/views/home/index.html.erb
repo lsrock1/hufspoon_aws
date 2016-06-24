@@ -87,13 +87,13 @@
 		<!--점심2 메뉴 끝-->
 		
 		<!--점심 면 메뉴 시작-->
-		<div class="google_subheader" style="position:relative; padding: 0;z-index: 10; "> 
-			<h4>Lunch Noodle</h4>
-		</div>	
+			
         <%if @lunchnoodle==[]%>
 	        
         <%else%>
-
+		<div class="google_subheader" style="position:relative; padding: 0;z-index: 10; "> 
+			<h4>Lunch Noodle</h4>
+		</div>
 		<div class="google_list">
 			<div class="caf_times"> <%=@lunchnoodletime%> / <%=@lunchnoodleprice%></div>
 			<div class="caf_rep"><%=@lunchnoodle.shift%></div>
@@ -242,7 +242,10 @@
                   
                     <div id="foo">
                     	<h4>L I K E L I O N  X  H U F S</h4>
-                    	<h4>License | xndlrjf@gmail.com</h4>
+                    	<h4>COPYRIGHT (C)</h4>
+                    	<h4>CONTACT : -- </h4>
+                    	<h4>CONTRIBUTOR</h4>
+                    	<h4> -- </h4>
                     	<a href="/adpage/dbmain/1">
                     	<% if admin_signed_in? %>
                     		DB관리
