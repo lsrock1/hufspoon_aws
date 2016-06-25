@@ -26,11 +26,11 @@
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
               <ul class="nav navbar-nav">
-                <li <%if @num=="0"%> class="active"<%end%>><a href="/home/leftindex/0/0/0/0">All</a></li>
-                <li <%if @num=="1"%> class="active"<%end%>><a href="/home/leftindex/1/0/0/0">Korean</a></li>
-                <li <%if @num=="2"%> class="active"<%end%>><a href="/home/leftindex/2/0/0/0">Japanese</a></li> 
-                <li <%if @num=="3"%> class="active"<%end%>><a href="/home/leftindex/3/0/0/0">Western</a></li>
-                <li <%if @num=="4"%> class="active"<%end%>><a href="/home/leftindex/4/0/0/0">Chinese</a></li>
+                <li <%if @num=="0"%> class="active"<%end%>><a href="/home/leftindex/0/<%=@dis%>/<%=@lat%>/<%=@lon%>">All</a></li>
+                <li <%if @num=="1"%> class="active"<%end%>><a href="/home/leftindex/1/<%=@dis%>/<%=@lat%>/<%=@lon%>">Korean</a></li>
+                <li <%if @num=="2"%> class="active"<%end%>><a href="/home/leftindex/2/<%=@dis%>/<%=@lat%>/<%=@lon%>">Japanese</a></li> 
+                <li <%if @num=="3"%> class="active"<%end%>><a href="/home/leftindex/3/<%=@dis%>/<%=@lat%>/<%=@lon%>">Western</a></li>
+                <li <%if @num=="4"%> class="active"<%end%>><a href="/home/leftindex/4/<%=@dis%>/<%=@lat%>/<%=@lon%>">Chinese</a></li>
               </ul>
             </div>
           </div>
@@ -46,7 +46,7 @@
         <div class="option">
           <div>
             <form onsubmit="searchPlaces(); return false;">
-              keyword : <input type="text"  value="hankuk university of foreign studies"id="keyword" size="15">
+              keyword : <input type="text"  value="hankuk university"id="keyword" size="15">
               <button type="submit">search</button>
             </form>
           </div>
