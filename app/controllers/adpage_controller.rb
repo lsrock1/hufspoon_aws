@@ -4,15 +4,18 @@ class AdpageController < ApplicationController
   def dbmain
     instance=[]
     
-    @info=params[:id]
+    @info=params[:id].to_i
     @list=Menulist.all
-    unless @info.to_i==1
+    @num=(@list.length/300)+1
+    if @info==0
       @list.each do|l|
         if l.kname==l.ename
           instance.push(l)
         end
       end
      @list=instance
+    else
+      @list=@list.all.order('kname ASC')[(@info-1)*300..300*(@info)-1]
     end
      
     

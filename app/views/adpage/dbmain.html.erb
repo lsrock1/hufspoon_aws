@@ -54,7 +54,7 @@
                 <a href="/adpage/dbmain/1"><button class="btn btn-default">모든메뉴보기</button></a>
             <%else%>
             
-                <a href="/adpage/dbmain/2"><button class="btn btn-default">신메뉴만 보기</button></a>
+                <a href="/adpage/dbmain/0"><button class="btn btn-default">신메뉴만 보기</button></a>
             <%end%>
         </div>
         <br>
@@ -72,10 +72,10 @@
                     <th> </th>
                     <th> </th>
                 </tr>
-                <%num=1%>
+                <%row=(@info-1)*300%>
                 <% @list.each do|l|%>
                 <tr>
-                    <td><%=num%></td><%num=num+1%>
+                    <td><%=row%></td><%row=row+1%>
                     <td><%=l.kname%></td>
                     <td><%=l.ename%></td>
                     <td><%=l.ername%></td>
@@ -87,6 +87,20 @@
                 <%end%>
             </table>
         </div>
+        
+        <nav style="text-align:center;">
+          <ul class="pagination pagination-lg">
+            <%@num.times do|n|%>
+                <%if @info==n+1%>
+                  <li class="page-item active">
+                    <a class="page-link" href="/adpage/dbmain/<%=n+1%>"><%=n+1%><span class="sr-only">(current)</span></a>
+                  </li>
+                <%else%>
+                  <li class="page-item"><a class="page-link" href="/adpage/dbmain/<%=n+1%>"><%=n+1%></a></li>
+                <%end%>
+            <%end%>
+          </ul>
+        </nav>
         <form id="reform" method="get">
             
         </form>
