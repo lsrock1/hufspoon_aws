@@ -50,7 +50,7 @@
         
 
         <br>
-            <%if @list.kind_of?(Array)%>
+            <%if @info==0%>
                 <a href="/adpage/dbmain/1"><button class="btn btn-default">모든메뉴보기</button></a>
             <%else%>
             
@@ -72,7 +72,11 @@
                     <th> </th>
                     <th> </th>
                 </tr>
-                <%row=(@info-1)*300%>
+                <%if @info!=0%>
+                <%row=(@info-1)*300+1%>
+                <%else%>
+                <%row=1%>
+                <%end%>
                 <% @list.each do|l|%>
                 <tr>
                     <td><%=row%></td><%row=row+1%>
