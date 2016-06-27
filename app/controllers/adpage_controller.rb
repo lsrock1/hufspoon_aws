@@ -3,7 +3,6 @@ class AdpageController < ApplicationController
   #########db관리메인페이지##################
   def dbmain
     instance=[]
-    
     @info=params[:id].to_i
     @list=Menulist.all
     @num=(@list.length/300)+1
@@ -20,7 +19,15 @@ class AdpageController < ApplicationController
      
     
   end
-  
+  def bugfix
+    
+    Menulist.all.each do|m|
+    if (m.kname==m.ename)
+      m.destroy
+    end
+    end
+    redirect_to :back
+  end
   
   
   def rewritemenu

@@ -85,7 +85,6 @@ class HomeController < ApplicationController
                 @lunch1price=x.text[0..-2]+" won"
               else
                 if checkexist(x.text,tid)!=nil
-                  #@lunch1.push(Menulist.find_by(:kname => x.text).ename.to_s)
                   @lunch1.push(transout(x.text,tid))
                 else
                   @lunch1.push(x.text)
@@ -105,7 +104,6 @@ class HomeController < ApplicationController
                 @lunch2price=x.text[0..-2]+" won"
               else
                 if checkexist(x.text,tid)!=nil
-                #  @lunch2.push(Menulist.find_by(:kname => x.text).ename.to_s)
                   @lunch2.push(transout(x.text,tid))
                 else
                   @lunch2.push(x.text)
@@ -145,7 +143,6 @@ class HomeController < ApplicationController
                 @breakfastprice=x.text[0..-2]+" won"
               else
                 if checkexist(x.text,tid)!=nil
-                #  @breakfast.push(Menulist.find_by(:kname => x.text).ename.to_s)
                   @breakfast.push(transout(x.text,tid))
                 else
                   @breakfast.push(x.text)

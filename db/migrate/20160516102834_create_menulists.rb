@@ -1,7 +1,7 @@
 class CreateMenulists < ActiveRecord::Migration
   def change
     create_table :menulists do |t|
-      t.string :kname
+      t.string :kname , unique: true
       t.string :ername
       t.string :ename
       t.string :jnamea#훈독
