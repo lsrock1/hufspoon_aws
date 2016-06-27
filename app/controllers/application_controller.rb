@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   end
   
   def new_menu(a)
-    nmenu=Menulist.new(:kname => a,:ename => a)
+    nmenu=Menulist.new(:kname => a,:ename => a,:ername => a, :jnamea => a,:cname => a,:cnameb => a,:aname => a)
     nmenu.save
   end
   
