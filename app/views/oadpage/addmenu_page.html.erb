@@ -24,7 +24,9 @@
                 <th>한글</th>
                 <th>독음</th>
                 <th>영어</th>
-                <th>중국어</th>
+                <th>일본어</th>
+                <th>중국어 간체</th>
+                <th>중국어 번체</th>
                 <th>아랍어</th>
                 <th>삭제</th>
             </tr>
@@ -32,12 +34,11 @@
             <tr>
                 <td><%=r.menuname%></td>
                 <td><%=Menulist.find_by(:kname => r.menuname).ername%></td>
-                <td>
-                    <%=Menulist.find_by(:kname => r.menuname).ename%>
-                </td>
+                <td><%=Menulist.find_by(:kname => r.menuname).ename%></td>
+                <td><%=Menulist.find_by(:kname => r.menuname).jnamea%></td>
                 <td><%=Menulist.find_by(:kname => r.menuname).cname%></td>
+                <td><%=Menulist.find_by(:kname => r.menuname).cnameb%></td>
                 <td><%=Menulist.find_by(:kname => r.menuname).aname%></td>
-                
                 <td><button class="del btn btn-default"id="<%=r.id%>">삭제</button></td>
             </tr>
             <tr>

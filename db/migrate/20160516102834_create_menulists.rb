@@ -4,7 +4,9 @@ class CreateMenulists < ActiveRecord::Migration
       t.string :kname
       t.string :ername
       t.string :ename
-      t.string :cname
+      t.string :jnamea#훈독
+      t.string :cname#간체
+      t.string :cnameb#번체
       t.string :aname
       t.timestamps null: false
     end

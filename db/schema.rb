@@ -42,7 +42,9 @@ ActiveRecord::Schema.define(version: 20160603151621) do
     t.string   "kname"
     t.string   "ername"
     t.string   "ename"
+    t.string   "jnamea"
     t.string   "cname"
+    t.string   "cnameb"
     t.string   "aname"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

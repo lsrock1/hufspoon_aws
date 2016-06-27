@@ -43,6 +43,7 @@ Rails.application.routes.draw do
   get '/home/leftindex/:num/:dis/:lat/:lon' =>'ohome#leftindex', :constraints => { :lat => /.*/ ,:lon =>/.*/}
   get '/home/rightindex/:id/:num/:lat/:lon' =>'ohome#rightindex', :constraints => { :lat => /.*/ , :lon => /.*/}
   root 'home#index'
+  get '/:id' =>'home#index'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

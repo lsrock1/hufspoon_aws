@@ -84,7 +84,9 @@ class OadpageController < ApplicationController
       newtrans.kname=params[:kname]
       newtrans.ername=params[:ername]
       newtrans.ename=params[:ename]
+      newtrans.jnamea=params[:jnamea]
       newtrans.cname=params[:cname]
+      newtrans.cnameb=params[:cnameb]
       newtrans.aname=params[:aname]
       newtrans.save
       newmenu=Rmenu.new
