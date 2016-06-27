@@ -30,6 +30,18 @@ class AdpageController < ApplicationController
   end
   
   #################메뉴 관리 클래스####################
+  #메뉴검색 페이지
+  def search
+    key=params[:keyword]
+    @info=params[:info]
+    @list=[]
+    Menulist.all.each do|e|
+      if e.kname.include? key
+        @list.push(e)
+      end
+    end
+  end
+  
   #메뉴를 삭제하는 페이지
   def delmenu
     delmenu=Menulist.find(params[:id])

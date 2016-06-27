@@ -1,0 +1,59 @@
+<div class="container puter">
+    <h3>메뉴번역추가</h3>
+    <a href="/adpage/dbmain/<%=@info%>"><button>돌아가기</button></a>
+    <div class="table-responsive">
+            <table class="table">
+                <tr>
+                    <th>순번</th>
+                    <th>한국이름</th>
+                    <th>영어</th>
+                    <th>독음</th>
+                    <th>일본어 훈독</th>
+                    <th>중국어 간체</th>
+                    <th>중국어 번체</th>
+                    <th>아랍어</th>
+                    <th> </th>
+                    <th> </th>
+                </tr>
+                
+                <% @list.each do|l|%>
+                <tr>
+                    <td><%=l.kname%></td>
+                    <td><%=l.ename%></td>
+                    <td><%=l.ername%></td>
+                    <td><%=l.jnamea%></td>
+                    <td><%=l.cname%></td>
+                    <td><%=l.cnameb%></td>
+                    <td><%=l.aname%></td>
+                    <td><button class="re" id="<%=l.id%>">수정</button></td>
+                    <td><button class="del btn btn-warning" id="<%=l.id%>">삭제</button></td>
+                </tr>
+                <%end%>
+            </table>
+        </div>
+</div>
+<form id="reform" method="get">
+            
+        </form>
+        <form id="delform" method="get">
+            
+        </form>
+<script>
+    $(".re").click(function(){
+        var thisid=$(this).attr("id");
+        $("#reform").attr("action","/adpage/rewritemenu/"+thisid+"/<%=@info%>");
+        $("#reform").submit();
+    });
+    $(".del").click(function(){
+        var thisid=$(this).attr("id");
+        $("#delform").attr("action","/adpage/delmenu/"+thisid);
+        
+        if (confirm("정말 삭제하시겠습니까?")==true){
+            $("#delform").submit();
+        }
+        else{
+            return;
+        }
+        
+    });
+</script>
