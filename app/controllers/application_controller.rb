@@ -9,8 +9,10 @@ class ApplicationController < ActionController::Base
   end
   
   def new_menu(a)
+    if Menulist.find_by(:kname =>a)==nil
     nmenu=Menulist.new(:kname => a,:ename => a,:ername => a, :jnamea => a,:cname => a,:cnameb => a,:aname => a)
     nmenu.save
+    end
   end
   
   #a는 텍스트 b는 id코드

@@ -85,7 +85,6 @@ class HomeController < ApplicationController
                 @lunch1price=x.text[0..-2]+" won"
               else
                 if checkexist(x.text,tid)!=nil
-                  @abcd=checkexist(x.text,tid)
                   @lunch1.push(transout(x.text,tid))
                 else
                   @lunch1.push(x.text)
