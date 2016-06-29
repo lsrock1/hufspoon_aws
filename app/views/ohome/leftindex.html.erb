@@ -78,10 +78,11 @@
                 <div class="col-lg-12 text-center">
                   <br>
                     <div id="foo">
+                        <h5><a href="/">home</a></h5>
                     	<h6>L I K E L I O N  X  H U F S</h6>
                     	<h6>COPYRIGHT (C)</h6>
                     	<h6>CONTACT : -- </h6>
-                    	<h6>CONTRIBUTOR</h6>
+                    	<h6><a data-toggle="modal" data-target="#myModal">CONTRIBUTOR</a></h6>
                     	<h6> -- </h6>
                     	<a href="/oadpage/dbmain">
                     	<% if admin_signed_in? %>
@@ -97,6 +98,40 @@
             </div>
         </div>
     </footer>
+    <div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+    <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">MondaySpoon</h4>
+        </div>
+        <div class="modal-body">
+          <div class="panel panel-default">
+			<div class="panel-heading">전진철 / JIN CHEOL JUHN</div>
+			<div class="panel-body">CFO / </div>
+		  </div>
+		  <div class="panel panel-default">
+			<div class="panel-heading">김소영 / SO YOUNG KIM</div>
+			<div class="panel-body">CDO</div>
+		  </div>
+		  <div class="panel panel-default">
+			<div class="panel-heading">이상록 / SANG ROK LEE</div>
+			<div class="panel-body">CTO</div>
+		  </div>
+		  <div class="panel panel-default">
+			<div class="panel-heading">이승준 / SEUNG JUN LEE</div>
+			<div class="panel-body">CMO (상암동 순정남)</div>
+		  </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
     <!--<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=23598cdf36f0c5f5bf1f1bfda70b8e80"></script>-->
     <script src="https://spi.maps.daum.net/imap/map_js_init/postcode.v2.js"></script>
     <script src="//apis.daum.net/maps/maps3.js?apikey=23598cdf36f0c5f5bf1f1bfda70b8e80&libraries=services"></script>

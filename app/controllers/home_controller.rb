@@ -200,7 +200,7 @@ class HomeController < ApplicationController
               else
                 if x.text.to_s.index("(")!=nil
                   xfirst=x.text.to_s.index("(")
-                  xfood=x.text.to_s[0..(xfirst-1)]
+                  xfood=x.text.to_s[0..(xfirst-1)].strip
                 else
                   xfood=x.text
                 end
@@ -226,7 +226,7 @@ class HomeController < ApplicationController
               else
                 if x.text.to_s.index("(")!=nil
                   xfirst=x.text.to_s.index("(")
-                  xfood=x.text.to_s[0..(xfirst-1)]
+                  xfood=x.text.to_s[0..(xfirst-1)].strip
                 else
                   xfood=x.text
                 end
@@ -268,7 +268,7 @@ class HomeController < ApplicationController
               else
                 if x.text.to_s.index("(")!=nil
                   xfirst=x.text.to_s.index("(")
-                  xfood=x.text.to_s[0..(xfirst-1)]
+                  xfood=x.text.to_s[0..(xfirst-1)].strip
                 else
                   xfood=x.text
                 end
@@ -293,7 +293,7 @@ class HomeController < ApplicationController
               else
                 if x.text.to_s.index("(")!=nil
                   xfirst=x.text.to_s.index("(")
-                  xfood=x.text.to_s[0..(xfirst-1)]
+                  xfood=x.text.to_s[0..(xfirst-1)].strip
                 else
                   xfood=x.text
                 end

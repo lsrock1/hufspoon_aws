@@ -19,15 +19,7 @@ class AdpageController < ApplicationController
      
     
   end
-  def bugfix
-    
-    Menulist.all.each do|m|
-    if (m.kname==m.ename)
-      m.destroy
-    end
-    end
-    redirect_to :back
-  end
+
   
   
   def rewritemenu

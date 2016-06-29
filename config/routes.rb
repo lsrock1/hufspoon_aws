@@ -29,7 +29,6 @@ Rails.application.routes.draw do
   
   get'/adpage/rewritemenu/:id/:info' =>'adpage#rewritemenu'
   
-  get '/bugfix' =>'adpage#bugfix'
   post '/adpage/remenulist/:id/:info' => 'adpage#remenu'
   get '/adpage/delmenu/:id' =>'adpage#delmenu'
   
