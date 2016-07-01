@@ -84,11 +84,12 @@ class HomeController < ApplicationController
               elsif x.text[-1]=="원"
                 @lunch1price=x.text[0..-2]+" won"
               else
-                if checkexist(x.text,tid)!=nil
-                  @lunch1.push(transout(x.text,tid))
+                xfood=x.text.strip
+                if checkexist(xfood,tid)!=nil
+                  @lunch1.push(transout(xfood,tid))
                 else
-                  @lunch1.push(x.text)
-                  new_menu(x.text)
+                  @lunch1.push(xfood)
+                  new_menu(xfood)
                 end
               end
             end
@@ -103,11 +104,12 @@ class HomeController < ApplicationController
               elsif x.text[-1]=="원"
                 @lunch2price=x.text[0..-2]+" won"
               else
-                if checkexist(x.text,tid)!=nil
-                  @lunch2.push(transout(x.text,tid))
+                xfood=x.text.strip
+                if checkexist(xfood,tid)!=nil
+                  @lunch2.push(transout(xfood,tid))
                 else
-                  @lunch2.push(x.text)
-                  new_menu(x.text)
+                  @lunch2.push(xfood)
+                  new_menu(xfood)
                 end
               end
             end
@@ -122,12 +124,12 @@ class HomeController < ApplicationController
               elsif x.text[-1]=="원"
                 @lunchnoodleprice=x.text[0..-2]+" won"
               else
-                if checkexist(x.text,tid)!=nil
-                 # @lunchnoodle.push(Menulist.find_by(:kname => x.text).ename.to_s)
-                  @lunchnoodle.push(transout(x.text,tid))
+                xfood=x.text.strip
+                if checkexist(xfood,tid)!=nil
+                  @lunchnoodle.push(transout(xfood,tid))
                 else
-                  @lunchnoodle.push(x.text)
-                  new_menu(x.text)
+                  @lunchnoodle.push(xfood)
+                  new_menu(xfood)
                 end
               end
             end
@@ -142,11 +144,12 @@ class HomeController < ApplicationController
               elsif x.text[-1]=="원"
                 @breakfastprice=x.text[0..-2]+" won"
               else
-                if checkexist(x.text,tid)!=nil
-                  @breakfast.push(transout(x.text,tid))
+                xfood=x.text.strip
+                if checkexist(xfood,tid)!=nil
+                  @breakfast.push(transout(xfood,tid))
                 else
-                  @breakfast.push(x.text)
-                  new_menu(x.text)
+                  @breakfast.push(xfood)
+                  new_menu(xfood)
                 end
               end
             end
@@ -161,12 +164,13 @@ class HomeController < ApplicationController
               elsif x.text[-1]=="원"
                 @dinnerprice=x.text[0..-2]+" won"
               else
-                if checkexist(x.text,tid)!=nil
+                xfood=x.text.strip
+                if checkexist(xfood,tid)!=nil
                   # @dinner.push(Menulist.find_by(:kname => x.text).ename.to_s)
-                  @dinner.push(transout(x.text,tid))
+                  @dinner.push(transout(xfood,tid))
                 else
-                  @dinner.push(x.text)
-                  new_menu(x.text)
+                  @dinner.push(xfood)
+                  new_menu(xfood)
                 end
               end
             end
@@ -202,10 +206,9 @@ class HomeController < ApplicationController
                   xfirst=x.text.to_s.index("(")
                   xfood=x.text.to_s[0..(xfirst-1)].strip
                 else
-                  xfood=x.text
+                  xfood=x.text.strip
                 end
                 if checkexist(xfood,tid)!=nil
-                  # @flunch.push(Menulist.find_by(:kname => xfood).ename.to_s)
                   @flunch.push(transout(xfood,tid))
                 else
                   @flunch.push(xfood)
@@ -228,10 +231,9 @@ class HomeController < ApplicationController
                   xfirst=x.text.to_s.index("(")
                   xfood=x.text.to_s[0..(xfirst-1)].strip
                 else
-                  xfood=x.text
+                  xfood=x.text.strip
                 end
                 if checkexist(xfood,tid)!=nil
-                  # @fdinner.push(Menulist.find_by(:kname => xfood).ename.to_s)
                   @fdinner.push(transout(xfood,tid))
                 else
                   @fdinner.push(xfood)
@@ -270,7 +272,7 @@ class HomeController < ApplicationController
                   xfirst=x.text.to_s.index("(")
                   xfood=x.text.to_s[0..(xfirst-1)].strip
                 else
-                  xfood=x.text
+                  xfood=x.text.strip
                 end
                 if checkexist(xfood,tid)!=nil
                   @menua.push(transout(xfood,tid))
@@ -295,7 +297,7 @@ class HomeController < ApplicationController
                   xfirst=x.text.to_s.index("(")
                   xfood=x.text.to_s[0..(xfirst-1)].strip
                 else
-                  xfood=x.text
+                  xfood=x.text.strip
                 end
                 if checkexist(xfood,tid)!=nil
                   @menub.push(transout(xfood,tid))
