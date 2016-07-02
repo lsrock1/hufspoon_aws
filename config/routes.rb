@@ -41,8 +41,21 @@ Rails.application.routes.draw do
   #일반화면
   get '/home/leftindex/:num/:dis/:lat/:lon' =>'ohome#leftindex', :constraints => { :lat => /.*/ ,:lon =>/.*/}
   get '/home/rightindex/:id/:num/:lat/:lon' =>'ohome#rightindex', :constraints => { :lat => /.*/ , :lon => /.*/}
-  root 'home#index'
+  
+  get '/board/out' =>'board#out'
+  get '/board/cremove/:id' => 'board#cremove'
+  post '/board/comment/:id' => 'board#comment'
+  get '/board/remove/:id' => 'board#remove'
+  get '/board/post/:id' =>'board#post'
+  get '/board/boardhome' =>'board#boardhome'
+  post '/board/boardhome' => 'board#boardhome'
+  get '/board/write' => 'board#writepage'
+  get '/board/hufslogin'=>'board#hufslogin'
+  get '/board/seepost' =>'board#seepost'
+  post '/board/save' => 'board#save'
+  
   get '/:id/:day' =>'home#index'
+  root 'home#index'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

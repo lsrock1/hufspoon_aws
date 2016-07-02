@@ -3,6 +3,7 @@ require 'open-uri'
 require 'uri'
 require 'roo'
 require 'write_xlsx'
+require 'net/https'
 
 class HomeController < ApplicationController
 
@@ -18,7 +19,8 @@ class HomeController < ApplicationController
     redirect_to "/"
     end
   end
-
+  
+  
 
 
   

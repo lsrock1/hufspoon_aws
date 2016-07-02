@@ -1,0 +1,84 @@
+<div class="container">
+    <a href="/board/seepost"><button class="btn btn-default">Back</button></a>
+    <div class="panel-group">
+      <div class="panel panel-default">
+        <div class="panel-heading"><%=@p.title%></div>
+        <div class="panel-body">
+            <%=@p.content%>
+            <br><br><%=@p.created_at.in_time_zone("Asia/Seoul").strftime("%Y/%m/%d  %H:%M:%S")%>
+            <%if @p.name=='admin'%>
+                <h6 style="color:#002D56;"><%=@p.name%>/<%=@p.level%></h6>
+            <%end%>
+            <%if admin_signed_in?||session[:num]==@p.num%>
+                <br><br><%=@p.num%>/<%=@p.name%>/<%=@p.level%>
+
+                <%if admin_signed_in?%>
+                    <br><button class="del btn btn-warning" id="<%=@p.id%>">삭제</button>
+                <%end%>
+            <%end%>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">코멘트 달기</div>
+        <div class="panel-body">
+            <form method="post" action="/board/comment/<%=@p.id%>">
+                <input name="name"value="<%=session[:name]%>" type="hidden">
+    		    <input name="level"value="<%=session[:level]%>" type="hidden">
+    		    <input name="num"value="<%=session[:num]%>" type="hidden">
+    		    <div class="form-group">
+    				<label for="ex2">content</label>
+    				<textarea id="ex2" name="content" rows="5" class="form-control"></textarea>
+    			</div>
+    			<button class="btn btn-class">작성</button>
+            </form>
+        </div>
+      </div>
+        <% @allcom.each do |a|%>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <%=a.content%>
+            <br><br><%=a.created_at.in_time_zone("Asia/Seoul").strftime("%Y/%m/%d  %H:%M:%S")%>
+            <%if a.name=='admin'%>
+                <h6 style="color:#002D56;"><%=a.name%>/<%=a.level%></h6>
+            <%end%>
+            <%if admin_signed_in?||session[:num]==@p.num%>
+                <br><br><%=a.num%>/<%=a.name%>/<%=a.level%>
+                <%if admin_signed_in?%>
+                    <br><button class="cdel btn btn-warning" id="<%=a.id%>">삭제</button>
+                <%end%>
+            <%end%>
+          </div>
+        </div>
+        <%end%>
+      </div>
+    </div>
+</div>
+<form id="delform" method="get">
+            
+</form>
+<script>
+    $(".del").click(function(){
+        var thisid=$(this).attr("id");
+        $("#delform").attr("action","/board/remove/"+thisid);
+        
+        if (confirm("정말 삭제하시겠습니까?")==true){
+            $("#delform").submit();
+        }
+        else{
+            return;
+        }
+        
+    });
+    $(".cdel").click(function(){
+        var thisid=$(this).attr("id");
+        $("#delform").attr("action","/board/cremove/"+thisid);
+        
+        if (confirm("정말 삭제하시겠습니까?")==true){
+            $("#delform").submit();
+        }
+        else{
+            return;
+        }
+        
+    });
+</script>

@@ -1,0 +1,21 @@
+<div class="container">
+    <a href="/board/boardhome"><button class="btn btn-default">Back</button></a>
+    <div class="table-responsive">
+        <table class="table">
+            <tr>
+                <th>작성자</th>
+                <th>제목</th>
+                <th>작성일</th>
+                <th>read</th>
+            </tr>
+            <% @allpost.each do|d|%>
+            <tr>
+                <td><%if admin_signed_in?||session[:num]==d.num%><%=d.name%><%end%></td>
+                <td><%=d.title%></td>
+                <td><%=d.created_at.in_time_zone("Asia/Seoul").strftime("%Y/%m/%d  %H:%M:%S")%></td>
+                <td><a href="/board/post/<%=d.id%>"><button class="btn btn-default">읽기</button></a></td>
+            </tr>
+            <%end%>
+        </table>
+    </div>
+</div>

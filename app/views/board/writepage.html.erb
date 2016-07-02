@@ -1,0 +1,25 @@
+
+<div class="container">
+	<div class="row">
+	
+		<!--<iframe  style="height:500px; width:500px;"name="hif"src="https://builder.hufs.ac.kr/user/popupLogin.action" id="main"></iframe>-->
+	  <form id="fs"name="filesend"method="post"action="/board/save">
+	     
+			<legend>write post</legend>
+			<input name="name"value="<%=session[:name]%>" type="hidden">
+		    <input name="level"value="<%=session[:level]%>" type="hidden">
+		    <input name="num"value="<%=session[:num]%>" type="hidden">
+		    <div class="form-group">
+			    <label for="ex1" >Title</label>
+				<input type="text" id="ex1" name="title" class="form-control" />
+			</div>
+			<div class="form-group">
+				<label for="ex2">content</label>
+				<textarea id="ex2" name="content" rows="5" class="form-control"></textarea>
+			</div>
+			<button class="btn btn-default">작성</button>
+			
+	  </form>
+	  <a href="/board/boardhome"><button class="btn btn-default">돌아가기</button></a>
+	</div>
+</div>
