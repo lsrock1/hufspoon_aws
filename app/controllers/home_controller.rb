@@ -32,13 +32,21 @@ class HomeController < ApplicationController
      @day=0;
    end
    mainadd="https://webs.hufs.ac.kr/jsp/HUFS/cafeteria/viewWeek.jsp"
+    @tday=Time.new.in_time_zone("Seoul")
     @time=Time.new.in_time_zone("Seoul")+@day.days
     dd=@time.day
     mm=@time.month
     
+    #선택한 날짜
     @y=@time.year
     @d=@time.day
     @m=@time.month
+    
+    #오늘의 날짜
+    @ty=@tday.year
+    @td=@tday.day
+    @tm=@tday.month
+    
     if dd<10 
         dd='0'+dd.to_s
     end
