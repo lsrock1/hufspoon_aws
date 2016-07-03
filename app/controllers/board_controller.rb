@@ -61,7 +61,7 @@ class BoardController < ApplicationController
       else
           np=Post.new(:num => @num,:level => @level, :name => @name, :content => content,:title => title)
           np.save
-          redirect_to '/board/seepost'
+          redirect_to '/board/seepost/1'
       end
   end
   
@@ -81,7 +81,7 @@ class BoardController < ApplicationController
         end
         
         delpost.destroy
-        redirect_to '/board/seepost'
+        redirect_to '/board/seepost/1'
      else
         redirect_to :back 
      end
@@ -95,9 +95,9 @@ class BoardController < ApplicationController
         delcomment.destroy
         
         redirect_to :back
-     else
+      else
         redirect_to :back 
-     end
+      end
   end
   
   def comment
@@ -107,7 +107,14 @@ class BoardController < ApplicationController
   end
   
   def seepost
-      @allpost=Post.all
+    @id=params[:id].to_i
+    @allpost=Post.all
+    @num=(@allpost.length/20)+1
+    if @id==0
+      @allpost=Post.where(:num => session[:num])
+    else
+      @allpost=Post.all.order('created_at DESC')[20*(@id-1)..20*@id-1]
+    end
   end
   
   def writepage

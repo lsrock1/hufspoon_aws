@@ -1,21 +1,43 @@
 <div class="container">
     <a href="/board/boardhome"><button class="btn btn-default">Back</button></a>
-    <div class="table-responsive">
-        <table class="table">
-            <tr>
-                <th>작성자</th>
-                <th>제목</th>
-                <th>작성일</th>
-                <th>read</th>
-            </tr>
+    <%if @id!=0%><a href="/board/seepost/0" class="btn btn-default" role="button">My Posts</a>
+    <%else%><a href="/board/seepost/1" class="btn btn-default" role="button">All Posts</a><%end%>
+    <div class="table-responsive" >
+        <table class="table" style="text-align:center;">
+            <thead >
+                <tr>
+                    <th style="text-align:center;">Number</th>
+                    <th style="text-align:center;">Title</th>
+                    <th style="text-align:center;">Date</th>
+                </tr>
+            </thead>
+            <%if @id!=0%>
+                <%row=@allpost.length+20*(@id-1)%>
+            <%else%>
+                <%row=@allpost.length%>
+            <%end%>
             <% @allpost.each do|d|%>
             <tr>
-                <td><%if admin_signed_in?||session[:num]==d.num%><%=d.name%><%end%></td>
-                <td><%=d.title%></td>
+                <td><%=row%></td><%row=row-1%>
+                <td><a href="/board/post/<%=d.id%>"><%=d.title%></a></td>
                 <td><%=d.created_at.in_time_zone("Asia/Seoul").strftime("%Y/%m/%d  %H:%M:%S")%></td>
-                <td><a href="/board/post/<%=d.id%>"><button class="btn btn-default">읽기</button></a></td>
             </tr>
             <%end%>
         </table>
     </div>
+    <%if @id!=0%>
+    <nav style="text-align:center;">
+      <ul class="pagination pagination-lg">
+        <%@num.times do|n|%>
+            <%if @id==n+1%>
+              <li class="page-item active">
+                <a class="page-link" href="/board/seepost/<%=n+1%>"><%=n+1%><span class="sr-only">(current)</span></a>
+              </li>
+            <%else%>
+              <li class="page-item"><a class="page-link" href="/board/seepost/<%=n+1%>"><%=n+1%></a></li>
+            <%end%>
+        <%end%>
+      </ul>
+    </nav>
+    <%end%>
 </div>

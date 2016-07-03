@@ -1,9 +1,28 @@
 <div class="container">
-    <p><%=session[:name]%></p>
-    <p><%=session[:level]%></p>
-    <p><%=session[:num]%></p>
-    <a href="/board/seepost"><button id="see" class="btn btn-default">글 보기</button></a>
-    <a href="/board/write"><button id="write"class="btn btn-default">글 쓰기</button></a>
-    <a href="/"><button class="btn btn-default">메뉴보러가기</button></a>
-    <a href="/board/out"><button class="btn btn-default">로그아웃</button></a>
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Position</th>
+                        <th>Student Number</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><%=session[:name]%></td>
+                    <td><%=session[:level]%></td>
+                    <td><%=session[:num]%></td>
+                  </tr>
+                </tbody>
+            </table>
+            <div class="list-group">
+              <a href="/board/seepost/1" class="list-group-item">글 보기</a>
+              <a href="/board/write" class="list-group-item">글 쓰기</a>
+              <a href="/" class="list-group-item">Home</a>
+              <a href="/board/out" class="list-group-item">Log out</a>
+            </div>
+        </div>
+    </div>
 </div>
