@@ -149,13 +149,13 @@
 					<%@snack.each do|s|%>
 					 
 					 <%if s!=@snack[0]%>
+					   <%snum+=s.length+3%>
 					   <%if snum>=34%>
 	    				<br>
 	    				<%snum=0%>
 	    				<%snum+=s.length+3%>
 	    			 <%else%>
 	    			  ,
-	    			  <%snum+=s.length+3%>
 	    			 <%end%>
 	    		 <%else%>
 	    		   <%snum+=s.length+3%>
