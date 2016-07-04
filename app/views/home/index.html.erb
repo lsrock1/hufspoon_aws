@@ -148,6 +148,9 @@
 					<%snum=1%>
 					<%@snack.each do|s|%>
 					 <%=s%>
+					 <%if s!=@snack[-1]%>
+	    				,
+	    		 <%end%>
 					 <%if snum==@snack.length/2%>
 					 <br>
 					 <%end%>
