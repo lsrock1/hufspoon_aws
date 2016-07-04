@@ -73,7 +73,7 @@ class HomeController < ApplicationController
     @sky=doc.xpath("//html/body/form/table/tr")
     ###############스카이라운지 파싱##############
     
-    
+    @snack=[]
     @breakfast=[]
     @lunch1=[]
     @lunch2=[]
@@ -86,6 +86,35 @@ class HomeController < ApplicationController
     @menua=[]
     @menub=[]
     ##############인문관식당 파싱 자료 분류#############
+    #snack
+    snack=@nice.xpath("./td[@class='listStyle2']").text
+    snack=snack.split()
+    snack.each do|s|
+      if s.index("(")!=nil
+        s=s.strip
+        s=s.gsub('*', '')
+        s=s.sub("원"," won")
+        sfirst=s.index("(")-1
+        food=s[0..sfirst]
+        food=food.split("/")
+        temp=""
+        num=0
+        food.each do |f|
+          if num!=0
+            temp=temp+"/"
+          end
+          if checkexist(f,tid)!=nil
+            temp=temp+transout(f,tid)
+          else
+            temp=temp+f
+            new_menu(f)
+          end
+          num+=1
+        end
+        @snack.push(temp+s[sfirst+1..-1])
+      end
+    end
+    
     num=0
     @nice.each do |n|
       innum=0

@@ -96,41 +96,67 @@
 		
 		<!--점심 면 메뉴 시작-->
 			
-        <%if @lunchnoodle==[]%>
-	        
-        <%else%>
-		<div class="google_subheader" style="position:relative; padding: 0;z-index: 10; "> 
-			<h4>Lunch Noodle</h4>
-		</div>
-		<div class="google_list">
-			<div class="caf_times"> <%=@lunchnoodletime%> / <%=@lunchnoodleprice%></div>
-			<div class="caf_rep"><%=@lunchnoodle.shift%></div>
-			<p><%@lunchnoodle.each do |b|%> <%=b%><%if b!=@lunchnoodle[-1]%>
-    			            ,
-    			        <%end%> <%end%></p>
-			<p><%=@lunchnoodlekcal%></p>
-		</div>
-        <%end%>
+    <%if @lunchnoodle==[]%>
+      
+    <%else%>
+			<div class="google_subheader" style="position:relative; padding: 0;z-index: 10; "> 
+				<h4>Lunch Noodle</h4>
+			</div>
+			<div class="google_list">
+				<div class="caf_times"> <%=@lunchnoodletime%> / <%=@lunchnoodleprice%></div>
+				<div class="caf_rep"><%=@lunchnoodle.shift%></div>
+				<p><%@lunchnoodle.each do |b|%> <%=b%><%if b!=@lunchnoodle[-1]%>
+	    			            ,
+	    			        <%end%> <%end%></p>
+				<p><%=@lunchnoodlekcal%></p>
+			</div>
+    <%end%>
 		<!--점심 면 메뉴 끝-->
 		
 		<!--저녁 메뉴 시작-->
 		
-        <%if @dinner==[]%>
+    <%if @dinner==[]%>
         
-        <%else%>
-		<div class="google_subheader" style="position:relative; padding: 0;z-index: 10; "> 
-			<h4>Dinner</h4>
-		</div>
-		<div class="google_list">
-			<div class="caf_times"> <%=@dinnertime%> / <%=@dinnerprice%></div>
-			<div class="caf_rep"><%=@dinner.shift%></div>
-			<p><%@dinner.each do |b|%> <%=b%> <%if b!=@dinner[-1]%>
-    			            ,
-    			        <%end%> <%end%></p>
-			<p><%=@dinnerkcal%></p>
+    <%else%>
+			<div class="google_subheader" style="position:relative; padding: 0;z-index: 10; "> 
+				<h4>Dinner</h4>
 			</div>
-        <%end%>
+			<div class="google_list">
+				<div class="caf_times"> <%=@dinnertime%> / <%=@dinnerprice%></div>
+				<div class="caf_rep"><%=@dinner.shift%></div>
+				<p>
+					<%@dinner.each do |b|%>
+						<%=b%> 
+						<%if b!=@dinner[-1]%>
+	    				,
+	    			<%end%>
+	    		<%end%>
+	    	</p>
+				<p><%=@dinnerkcal%></p>
+			</div>
+    <%end%>
 		<!--저녁메뉴 끝-->
+		
+		<!--스낵-->
+		<div class="google_subheader" style="position:relative; padding: 0;z-index: 10; "> 
+				<h4>Snack</h4>
+			</div>
+			<div class="google_list">
+				<div class="caf_times">09:00~18:40</div>
+				<div class="caf_rep"></div>
+				<p>
+					<%snum=1%>
+					<%@snack.each do|s|%>
+					 <%=s%>
+					 <%if snum==@snack.length/2%>
+					 <br>
+					 <%end%>
+					 <%snum+=1%>
+					<%end%>
+	    	</p>
+	    	<p></p>
+			</div>
+		<!--스낵끝-->
 		</div>
 	</div>
 
@@ -141,47 +167,46 @@
 		
         <%if @flunch==[] %>
         <%else%>
-	    <div class="google_subheader" style="position:relative; padding: 0;z-index: 10; "> 
-			<h4>Lunch</h4>
-		</div>
-		<div class="google_list">
-			<div class="caf_times"> <%=@flunchtime%> / <%=@flunchprice%></div>
-			<div class="caf_rep"><%=@flunch.shift%></div>
-			<p><%@flunch.each do |b|%> 
-    			
-    			  <%=b%>
-    			    <%if b!=@flunch[-1]%>
-    			            ,
-    			        <%end%>
-    			
-			<%end%></p>
-			<p><%=@flunchkcal%></p>
-		</div>
-		<%end%>
+			    <div class="google_subheader" style="position:relative; padding: 0;z-index: 10; "> 
+						<h4>Lunch</h4>
+					</div>
+					<div class="google_list">
+						<div class="caf_times"> <%=@flunchtime%> / <%=@flunchprice%></div>
+						<div class="caf_rep"><%=@flunch.shift%></div>
+						<p>
+							<%@flunch.each do |b|%> 
+		    			  <%=b%>
+		    			    <%if b!=@flunch[-1]%>
+  			            ,
+  			        <%end%>
+							<%end%>
+						</p>
+						<p><%=@flunchkcal%></p>
+					</div>
+				<%end%>
 		<!--점심 메뉴 끝-->
 		
 		<!--저녁 메뉴-->
 		
-        <%if @fdinner==[] %>
-        <%else%>
-		<div class="google_subheader" style="position:relative; padding: 0;z-index: 10; "> 
-			<h4>Dinner</h4>
-		</div>	
-		<div class="google_list">
-			<div class="caf_times"> <%=@fdinnertime%> / <%=@fdinnerprice%></div>
-			<div class="caf_rep"><%=@fdinner.shift%></div>
-			<p>
-			    <%@fdinner.each do |b|%> 
-                    <%=b%>
-    			        <%if b!=@fdinner[-1]%>
-    			            ,
-    			        <%end%>
-			
-			    <%end%>
-			</p>
-			<p><%=@fdinnerkcal%></p>
-		</div>
-        <%end%>
+	    <%if @fdinner==[] %>
+	    <%else%>
+				<div class="google_subheader" style="position:relative; padding: 0;z-index: 10; "> 
+					<h4>Dinner</h4>
+				</div>	
+				<div class="google_list">
+					<div class="caf_times"> <%=@fdinnertime%> / <%=@fdinnerprice%></div>
+					<div class="caf_rep"><%=@fdinner.shift%></div>
+					<p>
+				    <%@fdinner.each do |b|%> 
+              <%=b%>
+			        <%if b!=@fdinner[-1]%>
+			            ,
+			        <%end%>
+				    <%end%>
+					</p>
+					<p><%=@fdinnerkcal%></p>
+				</div>
+	    <%end%>
 		<!--저녁메뉴 끝-->
 	
 		</div>
@@ -192,49 +217,49 @@
 	    <div id="today-detail-div" style="position:relative; padding: 0;z-index: 10; border-top: 1px solid #dddddd;" >
 		<!--메뉴a-->
 		
-        <%if @menua==[] %>
-        <%else%>
-		<div class="google_subheader" style="position:relative; padding: 0;z-index: 10; "> 
-			<h4>Menu A</h4>
-		</div>
-		<div class="google_list">
-			<div class="caf_times"> <%=@menuatime%> / <%=@menuaprice%></div>
-			<div class="caf_rep"><%=@menua.shift%></div>
-			<p><%@menua.each do |b|%> 
-    			
-    			  <%=b%>
-    			    <%if b!=@menua[-1]%>
-    			            ,
-    			        <%end%>
-    			
-			<%end%></p>
-			<p><%=@menuakcal%></p>
-		</div>
-		<%end%>
+		    <%if @menua==[] %>
+		    <%else%>
+				<div class="google_subheader" style="position:relative; padding: 0;z-index: 10; "> 
+					<h4>Menu A</h4>
+				</div>
+				<div class="google_list">
+					<div class="caf_times"> <%=@menuatime%> / <%=@menuaprice%></div>
+					<div class="caf_rep"><%=@menua.shift%></div>
+					<p><%@menua.each do |b|%> 
+		    			
+		    			  <%=b%>
+		    			    <%if b!=@menua[-1]%>
+		    			            ,
+		    			        <%end%>
+		    			
+					<%end%></p>
+					<p><%=@menuakcal%></p>
+				</div>
+				<%end%>
 		<!--메뉴a 끝-->
 		
 		<!--메뉴b-->
 		
-        <%if @menub==[] %>
-        <%else%>
-		<div class="google_subheader" style="position:relative; padding: 0;z-index: 10; "> 
-			<h4>Menu B</h4>
-		</div>	
-		<div class="google_list">
-			<div class="caf_times"> <%=@menubtime%> / <%=@menubprice%></div>
-			<div class="caf_rep"><%=@menub.shift%></div>
-			<p>
-			    <%@menub.each do |b|%> 
-                    <%=b%>
-    			        <%if b!=@menub[-1]%>
-    			            ,
-    			        <%end%>
-			
-			    <%end%>
-			</p>
-			<p><%=@menubkcal%></p>
-		</div>
-        <%end%>
+		    <%if @menub==[] %>
+		    <%else%>
+					<div class="google_subheader" style="position:relative; padding: 0;z-index: 10; "> 
+						<h4>Menu B</h4>
+					</div>	
+					<div class="google_list">
+						<div class="caf_times"> <%=@menubtime%> / <%=@menubprice%></div>
+						<div class="caf_rep"><%=@menub.shift%></div>
+						<p>
+						    <%@menub.each do |b|%> 
+			                    <%=b%>
+			    			        <%if b!=@menub[-1]%>
+			    			            ,
+			    			        <%end%>
+						
+						    <%end%>
+						</p>
+						<p><%=@menubkcal%></p>
+					</div>
+		    <%end%>
 		<!--메뉴b 끝-->
 	
 		</div>
