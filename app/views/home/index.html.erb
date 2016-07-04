@@ -145,16 +145,23 @@
 				<div class="caf_times">09:00~18:40</div>
 				<div class="caf_rep"></div>
 				<p>
-					<%snum=1%>
+					<%snum=0%>
 					<%@snack.each do|s|%>
-					 <%=s%>
-					 <%if s!=@snack[-1]%>
-	    				,
+					 
+					 <%if s!=@snack[0]%>
+					   <%if snum>=34%>
+	    				<br>
+	    				<%snum=0%>
+	    				<%snum+=s.length+3%>
+	    			 <%else%>
+	    			  ,
+	    			  <%snum+=s.length+3%>
+	    			 <%end%>
+	    		 <%else%>
+	    		   <%snum+=s.length+3%>
 	    		 <%end%>
-					 <%if snum==@snack.length/2%>
-					 <br>
-					 <%end%>
-					 <%snum+=1%>
+	    		 
+	    		 <%=s%>
 					<%end%>
 	    	</p>
 	    	<p></p>
