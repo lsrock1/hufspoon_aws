@@ -17,10 +17,10 @@ class ApplicationController < ActionController::Base
   end
   
   def new_menu(a)
-    if Menulist.find_by(:kname =>a)==nil
+    
     nmenu=Menulist.new(:kname => a,:ename => a,:ername => a, :jnamea => a,:cname => a,:cnameb => a,:aname => a)
     nmenu.save
-    end
+    
   end
   
   #a는 텍스트 b는 id코드
@@ -39,38 +39,41 @@ class ApplicationController < ActionController::Base
   end
   
   def checkexist(kname,tid)
+    search=Menulist.find_by(:kname => kname)
     #한글 이름이 아예 저장이 안되어있으면 nil 반환
-    if Menulist.find_by(:kname => kname)==nil
+    if search==nil
       return nil
     end
     
+    
+    
     if tid==0 #영어
-      if Menulist.find_by(:kname => kname).ename.to_s.strip==""
-        return nil
+      if search.ename.to_s.strip==""||search.ename.to_s.strip==kname
+        return 0
       else
         return 1
       end
     elsif tid==1#일본어
-      if Menulist.find_by(:kname => kname).jnamea.to_s.strip==""
-        return nil
+      if search.jnamea.to_s.strip==""||search.jnamea.to_s.strip==kname
+        return 0
       else
         return 1
       end
     elsif tid==2#중국어 간체
-      if Menulist.find_by(:kname => kname).cname.to_s.strip==""
-        return nil
+      if search.cname.to_s.strip==""||search.cname.to_s.strip==kname
+        return 0
       else
         return 1
       end
     elsif tid==3#중국어 번체
-      if Menulist.find_by(:kname => kname).cnameb.to_s.strip==""
-        return nil
+      if search.cnameb.to_s.strip==""||search.to_s.strip==kname
+        return 0
       else
         return 1
       end
     else
-      if Menulist.find_by(:kname => kname).aname.to_s.strip==""
-        return nil
+      if search.aname.to_s.strip==""||search.aname.to_s.strip==kname
+        return 0
       else
         return 1
       end

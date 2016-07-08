@@ -111,7 +111,7 @@ class HomeController < ApplicationController
           end
           num+=1
         end
-        @snack.push(temp+s[sfirst+1..-1])
+        @snack.push(temp+" "+s[sfirst+1..-1])
       end
     end
     
@@ -132,8 +132,11 @@ class HomeController < ApplicationController
                 @lunch1price=x.text[0..-2]+" won"
               else
                 xfood=x.text.strip
-                if checkexist(xfood,tid)!=nil
+                judvar=checkexist(xfood,tid)
+                if judvar==1
                   @lunch1.push(transout(xfood,tid))
+                elsif judvar==0
+                  @lunch1.push(xfood)
                 else
                   @lunch1.push(xfood)
                   new_menu(xfood)
@@ -152,8 +155,11 @@ class HomeController < ApplicationController
                 @lunch2price=x.text[0..-2]+" won"
               else
                 xfood=x.text.strip
-                if checkexist(xfood,tid)!=nil
+                judvar=checkexist(xfood,tid)
+                if judvar==1
                   @lunch2.push(transout(xfood,tid))
+                elsif judvar==0
+                  @lunch2.push(xfood)
                 else
                   @lunch2.push(xfood)
                   new_menu(xfood)
@@ -172,8 +178,11 @@ class HomeController < ApplicationController
                 @lunchnoodleprice=x.text[0..-2]+" won"
               else
                 xfood=x.text.strip
-                if checkexist(xfood,tid)!=nil
+                judvar=checkexist(xfood,tid)
+                if judvar==1
                   @lunchnoodle.push(transout(xfood,tid))
+                elsif judvar==0
+                  @lunchnoodle.push(xfood)
                 else
                   @lunchnoodle.push(xfood)
                   new_menu(xfood)
@@ -192,8 +201,11 @@ class HomeController < ApplicationController
                 @breakfastprice=x.text[0..-2]+" won"
               else
                 xfood=x.text.strip
-                if checkexist(xfood,tid)!=nil
+                judvar=checkexist(xfood,tid)
+                if judvar==1
                   @breakfast.push(transout(xfood,tid))
+                elsif judvar==0
+                  @breakfast.push(xfood)
                 else
                   @breakfast.push(xfood)
                   new_menu(xfood)
@@ -212,9 +224,11 @@ class HomeController < ApplicationController
                 @dinnerprice=x.text[0..-2]+" won"
               else
                 xfood=x.text.strip
-                if checkexist(xfood,tid)!=nil
-                  # @dinner.push(Menulist.find_by(:kname => x.text).ename.to_s)
+                judvar=checkexist(xfood,tid)
+                if judvar==1
                   @dinner.push(transout(xfood,tid))
+                elsif judvar==0
+                  @dinner.push(xfood)
                 else
                   @dinner.push(xfood)
                   new_menu(xfood)
@@ -255,8 +269,11 @@ class HomeController < ApplicationController
                 else
                   xfood=x.text.strip
                 end
-                if checkexist(xfood,tid)!=nil
+                judvar=checkexist(xfood,tid)
+                if judvar==1
                   @flunch.push(transout(xfood,tid))
+                elsif judvar==0
+                  @flunch.push(xfood)
                 else
                   @flunch.push(xfood)
                   new_menu(xfood)
@@ -280,8 +297,11 @@ class HomeController < ApplicationController
                 else
                   xfood=x.text.strip
                 end
-                if checkexist(xfood,tid)!=nil
+                judvar=checkexist(xfood,tid)
+                if judvar==1
                   @fdinner.push(transout(xfood,tid))
+                elsif judvar==0
+                  @fdinner.push(xfood)
                 else
                   @fdinner.push(xfood)
                   new_menu(xfood)
@@ -321,8 +341,11 @@ class HomeController < ApplicationController
                 else
                   xfood=x.text.strip
                 end
-                if checkexist(xfood,tid)!=nil
+                judvar=checkexist(xfood,tid)
+                if judvar==1
                   @menua.push(transout(xfood,tid))
+                elsif judvar==0
+                  @menua.push(xfood)
                 else
                   @menua.push(xfood)
                   new_menu(xfood)
@@ -346,8 +369,11 @@ class HomeController < ApplicationController
                 else
                   xfood=x.text.strip
                 end
-                if checkexist(xfood,tid)!=nil
+                judvar=checkexist(xfood,tid)
+                if judvar==1
                   @menub.push(transout(xfood,tid))
+                elsif judvar==0
+                  @menub.push(xfood)
                 else
                   @menub.push(xfood)
                   new_menu(xfood)

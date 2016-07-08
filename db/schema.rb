@@ -35,7 +35,6 @@ ActiveRecord::Schema.define(version: 20160702115006) do
     t.string   "num"
     t.string   "name"
     t.string   "level"
-    t.string   "time"
     t.text     "content"
     t.integer  "post_id"
     t.datetime "created_at", null: false
@@ -65,7 +64,6 @@ ActiveRecord::Schema.define(version: 20160702115006) do
     t.string   "num"
     t.string   "name"
     t.string   "level"
-    t.string   "time"
     t.text     "content"
     t.string   "title"
     t.datetime "created_at", null: false
