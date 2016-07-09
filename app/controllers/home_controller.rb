@@ -36,7 +36,8 @@ class HomeController < ApplicationController
     @time=Time.new.in_time_zone("Seoul")+@day.days
     dd=@time.day
     mm=@time.month
-    
+    #요일
+    @w=@time.wday
     #선택한 날짜
     @y=@time.year
     @d=@time.day
