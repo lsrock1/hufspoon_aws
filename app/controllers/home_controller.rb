@@ -86,6 +86,18 @@ class HomeController < ApplicationController
     
     @menua=[]
     @menub=[]
+    
+    @breakfastingre=[]
+    @lunch1ingre=[]
+    @lunch2ingre=[]
+    @lunchnoodleingre=[]
+    @dinneringre=[]
+    
+    @flunchingre=[]
+    @fdinneringre=[]
+    
+    @menuaingre=[]
+    @menubingre=[]
     ##############인문관식당 파싱 자료 분류#############
     #snack
     snack=@nice.xpath("./td[@class='listStyle2']").text
@@ -104,8 +116,11 @@ class HomeController < ApplicationController
           if num!=0
             temp=temp+"/"
           end
-          if checkexist(f,tid)!=nil
+          judvar=checkexist(f,tid)
+          if judvar==1
             temp=temp+transout(f,tid)
+          elsif judvar==0
+            temp=temp+f
           else
             temp=temp+f
             new_menu(f)
@@ -126,8 +141,10 @@ class HomeController < ApplicationController
         if @one.text.to_s[0..4]=="중식(1)"
           @lunch1time=@one.text.to_s[5..6]+":"+@one.text.to_s[7..11]+":"+@one.text.to_s[12..13]
           n.xpath("./td/table/tr/td").each do|x|
-            if x.text!=""&&x.text.index(':')==nil
-              if x.text[-1]=="l"
+            if x.text!=""
+              if x.text.index(':')!=nil
+                @lunch1ingre.concat(makeingre(x.text,tid))
+              elsif x.text[-1]=="l"
                 @lunch1kcal=x.text
               elsif x.text[-1]=="원"
                 @lunch1price=x.text[0..-2]+" won"
@@ -149,8 +166,10 @@ class HomeController < ApplicationController
         elsif @one.text.to_s[0..4]=="중식(2)"
           @lunch2time=@one.text.to_s[5..6]+":"+@one.text.to_s[7..11]+":"+@one.text.to_s[12..13]
           n.xpath("./td/table/tr/td").each do|x|
-            if x.text!=""&&x.text.index(':')==nil
-              if x.text[-1]=="l"
+            if x.text!=""
+              if x.text.index(':')!=nil
+                @lunch2ingre.concat(makeingre(x.text,tid))
+              elsif x.text[-1]=="l"
                 @lunch2kcal=x.text
               elsif x.text[-1]=="원"
                 @lunch2price=x.text[0..-2]+" won"
@@ -172,8 +191,10 @@ class HomeController < ApplicationController
         elsif @one.text.to_s[0..4]=="중식(면)"
         @lunchnoodletime=@one.text.to_s[5..6]+":"+@one.text.to_s[7..11]+":"+@one.text.to_s[12..13]
           n.xpath("./td/table/tr/td").each do|x|
-            if x.text!=""&&x.text.index(':')==nil
-              if x.text[-1]=="l"
+            if x.text!=""
+              if x.text.index(':')!=nil
+                @lunchnoodleingre.concat(makeingre(x.text,tid))
+              elsif x.text[-1]=="l"
                 @lunchnoodlekcal=x.text
               elsif x.text[-1]=="원"
                 @lunchnoodleprice=x.text[0..-2]+" won"
@@ -195,8 +216,10 @@ class HomeController < ApplicationController
         elsif @one.text.to_s[0..1]=="조식"
           @breakfasttime=@one.text.to_s[2..3]+":"+@one.text.to_s[4..8]+":"+@one.text.to_s[9..10]
           n.xpath("./td/table/tr/td").each do|x|
-            if x.text!=""&&x.text.index(':')==nil
-              if x.text[-1]=="l"
+            if x.text!=""
+              if x.text.index(':')!=nil
+                @breakfastingre.concat(makeingre(x.text,tid))
+              elsif x.text[-1]=="l"
                 @breakfastkcal=x.text
               elsif x.text[-1]=="원"
                 @breakfastprice=x.text[0..-2]+" won"
@@ -218,8 +241,10 @@ class HomeController < ApplicationController
         elsif @one.text.to_s[0..1]=="석식"
           @dinnertime=@one.text.to_s[2..3]+":"+@one.text.to_s[4..8]+":"+@one.text.to_s[9..10]
           n.xpath("./td/table/tr/td").each do|x|
-            if x.text!=""&&x.text.index(':')==nil
-              if x.text[-1]=="l"
+            if x.text!=""
+              if x.text.index(':')!=nil
+                @dinneringre.concat(makeingre(x.text,tid))
+              elsif x.text[-1]=="l"
                 @dinnerkcal=x.text
               elsif x.text[-1]=="원"
                 @dinnerprice=x.text[0..-2]+" won"
@@ -268,6 +293,7 @@ class HomeController < ApplicationController
                 if x.text.to_s.index("(")!=nil
                   xfirst=x.text.to_s.index("(")
                   xfood=x.text.to_s[0..(xfirst-1)].strip
+                  @flunchingre.concat(makeingre(x.text[xfirst..-1],tid))
                 else
                   xfood=x.text.strip
                 end
@@ -296,6 +322,7 @@ class HomeController < ApplicationController
                 if x.text.to_s.index("(")!=nil
                   xfirst=x.text.to_s.index("(")
                   xfood=x.text.to_s[0..(xfirst-1)].strip
+                  @fdinneringre.concat(makeingre(x.text[xfirst..-1],tid))
                 else
                   xfood=x.text.strip
                 end
@@ -340,6 +367,7 @@ class HomeController < ApplicationController
                 if x.text.to_s.index("(")!=nil
                   xfirst=x.text.to_s.index("(")
                   xfood=x.text.to_s[0..(xfirst-1)].strip
+                  @menuaingre.concat(makeingre(x.text[xfirst..-1],tid))
                 else
                   xfood=x.text.strip
                 end
@@ -368,6 +396,7 @@ class HomeController < ApplicationController
                 if x.text.to_s.index("(")!=nil
                   xfirst=x.text.to_s.index("(")
                   xfood=x.text.to_s[0..(xfirst-1)].strip
+                  @menubingre.concat(makeingre(x.text[xfirst..-1],tid))
                 else
                   xfood=x.text.strip
                 end

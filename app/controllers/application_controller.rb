@@ -84,7 +84,30 @@ class ApplicationController < ActionController::Base
         return 1
       end
     end
-    
   end
+  
+  
+  def makeingre(string,tid)
+    returnvalue=[]
+    string=string.strip()
+    if string.index('(')!=nil
+      string=string[1..-2]
+    end
+    
+    string.split(',').each do |s|
+      ingre=s.split(':').first
+      existvalue=checkexist(ingre,tid)
+      if existvalue==0
+        returnvalue.append(ingre)
+      elsif existvalue==1
+        returnvalue.append(transout(ingre,tid))
+      else
+        returnvalue.append(ingre)
+        new_menu(ingre)
+      end
+    end
+    return returnvalue  
+  end
+  
   
 end

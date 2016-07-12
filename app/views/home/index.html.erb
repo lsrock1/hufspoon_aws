@@ -54,6 +54,16 @@
   		 <%=s.titleize%>
 		    <%end%>
 			</p>
+			<%if@breakfastingre!=nil%>
+					<p>
+						<%@breakfastingre.each do |e|%>
+							<%=e%>
+							<%if e!=@breakfastingre[-1]%>
+							,
+							<%end%>
+						<%end%>
+					</p>
+					<%end%>
 			<p><%=@breakfastkcal%></p>
 		</div>
 		<%end%>
@@ -92,6 +102,16 @@
     		 <%=s.titleize%>
 			    <%end%>
 			</p>
+			<%if@lunch1ingre!=nil%>
+				<p>
+					<%@lunch1ingre.each do |e|%>
+						<%=e%>
+						<%if e!=@lunch1ingre[-1]%>
+						,
+						<%end%>
+					<%end%>
+				</p>
+			<%end%>
 			<p><%=@lunch1kcal%></p>
 		</div>
         <%end%>
@@ -126,6 +146,16 @@
 	  		 		<%=s.titleize%>
 			    <%end%>
     		</p>
+    		<%if@lunch2ingre!=nil%>
+				<p>
+					<%@lunch2ingre.each do |e|%>
+						<%=e%>
+						<%if e!=@lunch2ingre[-1]%>
+						,
+						<%end%>
+					<%end%>
+				</p>
+			<%end%>
 			<p><%=@lunch2kcal%></p>
 		</div>
         <%end%>
@@ -161,6 +191,16 @@
     		 <%=s.titleize%>
 			    <%end%>
 	    	</p>
+	    	<%if@lunchnoodleingre!=nil%>
+				<p>
+					<%@lunchnoodleingre.each do |e|%>
+						<%=e%>
+						<%if e!=@lunchnoodleingre[-1]%>
+						,
+						<%end%>
+					<%end%>
+				</p>
+			<%end%>
 				<p><%=@lunchnoodlekcal%></p>
 			</div>
     <%end%>
@@ -189,13 +229,23 @@
 	    			 <%else%>
 	    			  ,
 	    			 <%end%>
-    		 <%else%>
-    		   <%snum+=s.length+3%>
-    		 <%end%>
-    		 
-    		 <%=s.titleize%>
-			    <%end%>
-	    	</p>
+	    		 <%else%>
+	    		   <%snum+=s.length+3%>
+	    		 <%end%>
+	    		 
+	    		 <%=s.titleize%>
+				    <%end%>
+		    	</p>
+		    	<%if@dinneringre!=nil%>
+					<p>
+						<%@dinneringre.each do |e|%>
+							<%=e%>
+							<%if e!=@dinneringre[-1]%>
+							,
+							<%end%>
+						<%end%>
+					</p>
+				<%end%>
 				<p><%=@dinnerkcal%></p>
 			</div>
     <%end%>
@@ -273,6 +323,16 @@
 			    		 <%=s.titleize%>
 							<%end%>
 						</p>
+					<%if@flunchingre!=nil%>
+					<p>
+						<%@flunchingre.each do |e|%>
+							<%=e%>
+							<%if e!=@flunchingre[-1]%>
+							,
+							<%end%>
+						<%end%>
+					</p>
+					<%end%>
 						<p><%=@flunchkcal%></p>
 					</div>
 				<%end%>
@@ -291,15 +351,15 @@
 					<p>
 						<%snum=0%>
 				    <%@fdinner.each do |s|%> 
-              <%if s!=@fdinner[0]%>
-								   <%snum+=s.length+3%>
-								   <%if snum>=34%>
-				    				<br>
-				    				<%snum=0%>
-				    				<%snum+=s.length+3%>
-				    			 <%else%>
-				    			  ,
-				    			 <%end%>
+              			<%if s!=@fdinner[0]%>
+							   <%snum+=s.length+3%>
+							   <%if snum>=34%>
+			    				<br>
+			    				<%snum=0%>
+			    				<%snum+=s.length+3%>
+			    			 <%else%>
+			    			  ,
+			    			 <%end%>
 			    		 <%else%>
 			    		   <%snum+=s.length+3%>
 			    		 <%end%>
@@ -307,6 +367,16 @@
 			    		 <%=s.titleize%>
 				    <%end%>
 					</p>
+					<%if@fdinneringre!=nil%>
+					<p>
+						<%@fdinneringre.each do |e|%>
+							<%=e%>
+							<%if e!=@fdinneringre[-1]%>
+							,
+							<%end%>
+						<%end%>
+					</p>
+					<%end%>
 					<p><%=@fdinnerkcal%></p>
 				</div>
 	    <%end%>
@@ -332,21 +402,31 @@
 						<%snum=0%>
 						<%@menua.each do |s|%> 
 		    			<%if s!=@menua[0]%>
-								   <%snum+=s.length+3%>
-								   <%if snum>=34%>
-				    				<br>
-				    				<%snum=0%>
-				    				<%snum+=s.length+3%>
-				    			 <%else%>
-				    			  ,
-				    			 <%end%>
-			    		 <%else%>
-			    		   <%snum+=s.length+3%>
-			    		 <%end%>
+						  <%snum+=s.length+3%>
+						  <%if snum>=34%>
+		    				<br>
+		    				<%snum=0%>
+		    				<%snum+=s.length+3%>
+		    			  <%else%>
+		    			   ,
+		    			  <%end%>
+			    		<%else%>
+			    		  <%snum+=s.length+3%>
+			    		<%end%>
 			    		 
 			    		 <%=s.titleize%>
 					  <%end%>
 					</p>
+					<%if@menuaingre!=nil%>
+					<p>
+						<%@menuaingre.each do |e|%>
+							<%=e%>
+							<%if e!=@menuaingre[-1]%>
+							,
+							<%end%>
+						<%end%>
+					</p>
+					<%end%>
 					<p><%=@menuakcal%></p>
 				</div>
 				<%end%>
@@ -381,6 +461,16 @@
 		    		 <%=s.titleize%>
 					    <%end%>
 					</p>
+					<%if@menubingre!=nil%>
+					<p>
+						<%@menubingre.each do |e|%>
+							<%=e%>
+							<%if e!=@menubingre[-1]%>
+							,
+							<%end%>
+						<%end%>
+					</p>
+					<%end%>
 					<p><%=@menubkcal%></p>
 				</div>
 		    <%end%>
