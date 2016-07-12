@@ -31,11 +31,10 @@ class AdpageController < ApplicationController
   #################메뉴 관리 클래스####################
   #메뉴검색 페이지
   def search
-    key=params[:keyword]
-    @info=params[:info]
+    @key=params[:keyword]
     @list=[]
     Menulist.all.each do|e|
-      if e.kname.include? key
+      if e.kname.include? @key
         @list.push(e)
       end
     end
@@ -80,6 +79,7 @@ class AdpageController < ApplicationController
   
   #메뉴 수정 페이지
   def remenu
+    @info=params[:info]
     if (params[:kname]=="")||(params[:ename]=="")
         redirect_to :back
     else
@@ -92,10 +92,12 @@ class AdpageController < ApplicationController
     remenu.cnameb=params[:cnameb]
     remenu.aname=params[:aname]
     remenu.save
-        if params[:info].to_i==1
+        if @info=="1"
           redirect_to "/adpage/dbmain/1"
+        elsif @info=="0"
+          redirect_to "/adpage/dbmain/0"
         else
-          redirect_to "/adpage/dbmain/2"
+          redirect_to "/adpage/search?keyword="+URI.encode(@info)
         end
     end
   end

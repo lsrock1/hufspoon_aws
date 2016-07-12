@@ -65,7 +65,7 @@
         
         <div class="container search" style="display:none;">
             <div class="row">
-                <form action="/adpage/search/<%=@info%>" method="get">
+                <form action="/adpage/search" method="get">
                     <div class="form-group">
                       <label for="ex1">찾을 메뉴</label>
                       <input class="form-control" name="keyword"id="ex1" type="text">
@@ -104,19 +104,21 @@
                 <%else%>
                 <%row=1%>
                 <%end%>
-                <% @list.each do|l|%>
-                <tr>
-                    <td><%=row%></td><%row=row+1%>
-                    <td><%=l.kname%></td>
-                    <td><%=l.ename%></td>
-                    <td><%=l.ername%></td>
-                    <td><%=l.jnamea%></td>
-                    <td><%=l.cname%></td>
-                    <td><%=l.cnameb%></td>
-                    <td><%=l.aname%></td>
-                    <td><button class="re" id="<%=l.id%>">수정</button></td>
-                    <td><button class="del btn btn-warning" id="<%=l.id%>">삭제</button></td>
-                </tr>
+                <%if @list!=nil%>
+                    <% @list.each do|l|%>
+                    <tr>
+                        <td><%=row%></td><%row=row+1%>
+                        <td><%=l.kname%></td>
+                        <td><%=l.ename%></td>
+                        <td><%=l.ername%></td>
+                        <td><%=l.jnamea%></td>
+                        <td><%=l.cname%></td>
+                        <td><%=l.cnameb%></td>
+                        <td><%=l.aname%></td>
+                        <td><button class="re" id="<%=l.id%>">수정</button></td>
+                        <td><button class="del btn btn-warning" id="<%=l.id%>">삭제</button></td>
+                    </tr>
+                    <%end%>
                 <%end%>
             </table>
         </div>

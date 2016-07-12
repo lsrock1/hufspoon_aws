@@ -32,7 +32,7 @@ Rails.application.routes.draw do
   post '/adpage/remenulist/:id/:info' => 'adpage#remenu'
   get '/adpage/delmenu/:id' =>'adpage#delmenu'
   
-  get '/adpage/search/:info' =>"adpage#search"
+  get '/adpage/search' =>"adpage#search"
   #아이디 생성
   get '/home/newadmin' =>"home#newadmin"
   #엑셀 다운로드
