@@ -33,6 +33,8 @@ class ApplicationController < ActionController::Base
       return Menulist.find_by(:kname => a).cname.to_s
     elsif b==3# 중국어 번체
       return Menulist.find_by(:kname => a).cnameb.to_s
+    elsif b==4#한국어
+      return a
     else #아랍어
       return Menulist.find_by(:kname => a).aname.to_s
     end  
@@ -43,9 +45,13 @@ class ApplicationController < ActionController::Base
     #한글 이름이 아예 저장이 안되어있으면 nil 반환
     if search==nil
       return nil
+    elsif tid==4#한국어
+      return 1
     end
     
-    
+    #return 0은 번역이 있지만 해당 언어가 비어있거나 한국어일 경우
+    #1은 번역이 있는 경우
+    #nil은 번역 자체가 없는 경우
     
     if tid==0 #영어
       if search.ename.to_s.strip==""||search.ename.to_s.strip==kname
