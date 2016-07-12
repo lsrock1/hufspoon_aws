@@ -126,7 +126,7 @@ class HomeController < ApplicationController
         if @one.text.to_s[0..4]=="중식(1)"
           @lunch1time=@one.text.to_s[5..6]+":"+@one.text.to_s[7..11]+":"+@one.text.to_s[12..13]
           n.xpath("./td/table/tr/td").each do|x|
-            if x.text!=""
+            if x.text!=""&&x.text.index(':')==nil
               if x.text[-1]=="l"
                 @lunch1kcal=x.text
               elsif x.text[-1]=="원"
@@ -149,7 +149,7 @@ class HomeController < ApplicationController
         elsif @one.text.to_s[0..4]=="중식(2)"
           @lunch2time=@one.text.to_s[5..6]+":"+@one.text.to_s[7..11]+":"+@one.text.to_s[12..13]
           n.xpath("./td/table/tr/td").each do|x|
-            if x.text!=""
+            if x.text!=""&&x.text.index(':')==nil
               if x.text[-1]=="l"
                 @lunch2kcal=x.text
               elsif x.text[-1]=="원"
@@ -172,7 +172,7 @@ class HomeController < ApplicationController
         elsif @one.text.to_s[0..4]=="중식(면)"
         @lunchnoodletime=@one.text.to_s[5..6]+":"+@one.text.to_s[7..11]+":"+@one.text.to_s[12..13]
           n.xpath("./td/table/tr/td").each do|x|
-            if x.text!=""
+            if x.text!=""&&x.text.index(':')==nil
               if x.text[-1]=="l"
                 @lunchnoodlekcal=x.text
               elsif x.text[-1]=="원"
@@ -195,7 +195,7 @@ class HomeController < ApplicationController
         elsif @one.text.to_s[0..1]=="조식"
           @breakfasttime=@one.text.to_s[2..3]+":"+@one.text.to_s[4..8]+":"+@one.text.to_s[9..10]
           n.xpath("./td/table/tr/td").each do|x|
-            if x.text!=""
+            if x.text!=""&&x.text.index(':')==nil
               if x.text[-1]=="l"
                 @breakfastkcal=x.text
               elsif x.text[-1]=="원"
@@ -218,7 +218,7 @@ class HomeController < ApplicationController
         elsif @one.text.to_s[0..1]=="석식"
           @dinnertime=@one.text.to_s[2..3]+":"+@one.text.to_s[4..8]+":"+@one.text.to_s[9..10]
           n.xpath("./td/table/tr/td").each do|x|
-            if x.text!=""
+            if x.text!=""&&x.text.index(':')==nil
               if x.text[-1]=="l"
                 @dinnerkcal=x.text
               elsif x.text[-1]=="원"
@@ -259,6 +259,7 @@ class HomeController < ApplicationController
           @flunchtime=@one.text.to_s[2..3]+":"+@one.text.to_s[4..8]+":"+@one.text.to_s[9..10]
           n.xpath("./td/table/tr/td").each do|x|
             if x.text!=""
+              
               if x.text[-1]=="l"
                 @flunchkcal=x.text
               elsif x.text[-1]=="원"
