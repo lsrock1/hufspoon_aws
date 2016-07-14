@@ -33,7 +33,7 @@
                 <td id="cost<%=r.id%>"><%=r.cost%></td>
                 <td style="display:none" id="content<%=r.id%>"><%=r.content%></td>
                 <td><a href="/adpage/rewritemenu/<%=Menulist.find_by(:kname =>r.menuname).id%>/-<%=@rest.id%>"><button class="btn btn-default">번역</button></a></td>
-                <td><a><button class="mre btn btn-default" id="<%=r.id%>">수정</button></a></td>
+                <td><button class="mre btn btn-default" id="<%=r.id%>">수정</button></td>
                 <td><button class="del btn btn-default"id="<%=r.id%>">삭제</button></td>
             </tr>
             <tr>

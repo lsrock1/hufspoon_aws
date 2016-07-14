@@ -132,7 +132,7 @@ class OadpageController < ApplicationController
   end
   
   def rewritemenu
-    if Menulist.find_by(:kname => :menuname)==nil
+    if Menulist.find_by(:kname => params[:menuname])==nil
       redirect_to :back
     else
     remenu=Rmenu.find(params[:id])

@@ -32,7 +32,7 @@
                     <td><%=r.menuname%></td>
                     <td>
                         <%if Menulist.find_by(:kname => r.menuname)!=nil%>
-                        <%=Menulist.find_by(:kname => r.menuname).ename%>
+                        <%=Menulist.find_by(:kname => r.menuname).ename.titleize%>
                         <%else%>
                         <%end%>
                     </td>
