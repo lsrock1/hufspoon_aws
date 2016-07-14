@@ -39,6 +39,11 @@
         <button type="button" class="btn btn-default btn-lg opener">
           <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> Map
         </button>
+        <a href="/home/leftindex/<%=@num%>/3/0/0">
+          <button type="button" class="btn btn-default btn-lg">
+            <span class="glyphicon glyphicon-random" aria-hidden="true"></span> Random
+          </button>
+        </a>
         <br/>
         <br/>
         
@@ -295,7 +300,15 @@ function placesSearchCB(status, data, pagination) {
       infowindow.open(map, marker);
     };
   }
-  <%if @num=="0"%>
+  <%if @israndom=="1"%>
+    
+    var positions=[    
+        {
+          latlng: new daum.maps.LatLng(<%=@lat%>,<%=@lon%>),
+          iwContent: '<div><a style="text-align:center;" href="/home/rightindex/<%=@randid%>/<%=@num%>/<%=@lat%>/<%=@lon%>"><%=@randname%></a></div>'
+        }
+      ];
+  <%elsif @num=="0"%>
   	var positions = [
       <%Map.all.each do |m|%>
         {

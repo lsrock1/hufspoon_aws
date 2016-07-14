@@ -1,7 +1,7 @@
 <div class="container">
     <h2><%=@rest.name%></h2>
     
-        <form action="/oadpage/addmenu" method="post">
+        <form id="mreform"action="/oadpage/addmenu" method="post">
             <div class="form-group">
               <label for="ex1">메뉴이름</label>
               <input class="form-control" name="menuname"id="ex1" type="text">
@@ -14,31 +14,26 @@
               <label for="ex4">가격</label>
               <input class="form-control" type="text"name="cost"id="ex4">
             </div>
-            <input style="display:none;" name="id" value="<%=@rest.id%>">
-            <button class="btn btn-primary">저장</button>
+            <input type="hidden" name="backid" value="<%=@rest.id%>">
+            <button id="mrebut"class="btn btn-primary">저장</button>
         </form>
-    
+        <button style="display:none"id="mrecan"class="btn btn-default">수정취소</button>
     <div class="table-responsive">
         <table class="table">
             <tr>
                 <th>한글</th>
-                <th>독음</th>
-                <th>영어</th>
-                <th>일본어</th>
-                <th>중국어 간체</th>
-                <th>중국어 번체</th>
-                <th>아랍어</th>
+                <th>가격</th>
+                <th>번역보기</th>
+                <th>수정</th>
                 <th>삭제</th>
             </tr>
             <%@rest.rmenu.each do |r|%>
             <tr>
-                <td><%=r.menuname%></td>
-                <td><%=Menulist.find_by(:kname => r.menuname).ername%></td>
-                <td><%=Menulist.find_by(:kname => r.menuname).ename%></td>
-                <td><%=Menulist.find_by(:kname => r.menuname).jnamea%></td>
-                <td><%=Menulist.find_by(:kname => r.menuname).cname%></td>
-                <td><%=Menulist.find_by(:kname => r.menuname).cnameb%></td>
-                <td><%=Menulist.find_by(:kname => r.menuname).aname%></td>
+                <td id="name<%=r.id%>"><%=r.menuname%></td>
+                <td id="cost<%=r.id%>"><%=r.cost%></td>
+                <td style="display:none" id="content<%=r.id%>"><%=r.content%></td>
+                <td><a href="/adpage/rewritemenu/<%=Menulist.find_by(:kname =>r.menuname).id%>/-<%=@rest.id%>"><button class="btn btn-default">번역</button></a></td>
+                <td><a><button class="mre btn btn-default" id="<%=r.id%>">수정</button></a></td>
                 <td><button class="del btn btn-default"id="<%=r.id%>">삭제</button></td>
             </tr>
             <tr>
@@ -63,5 +58,26 @@
         else{
             return;
         }
+    })
+    $(".mre").click(function(){
+        $("#mrebut").html("수정하기");
+        $("#mrecan").show();
+        var thisid=$(this).attr("id");
+        var name=$("#name"+thisid).html();
+        $("#ex1").attr("value",name);
+        var cost=$("#cost"+thisid).html();
+        $("#ex4").attr("value",cost);
+        var content=$("#content"+thisid).html();
+        $("#ex3").attr("value",content);
+        
+        $("#mreform").attr("action","/oadpage/rewritemenu/"+thisid);
+    });
+    $("#mrecan").click(function(){
+        $(this).hide();
+        $("#mrebut").html("저장");
+        $("#ex1").attr("value","");
+        $("#ex3").attr("value","");
+        $("#ex4").attr("value","");
+        $("#mreform").attr("action","/oadpage/addmenu");
     })
 </script>

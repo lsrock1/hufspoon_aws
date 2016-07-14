@@ -68,15 +68,15 @@ class OadpageController < ApplicationController
         @menuname=params[:menuname]
         @content=params[:content]
         @cost=params[:cost]
-        @id=params[:id]
+        @backid=params[:backid]
       else
         newmenu=Rmenu.new
-        newmenu.rest_id=params[:id]
+        newmenu.rest_id=params[:backid]
         newmenu.content=params[:content]
         newmenu.menuname=params[:menuname]
         newmenu.cost=params[:cost]
         newmenu.save
-        redirect_to '/oadpage/addmenu_page/'+params[:id]
+        redirect_to '/oadpage/addmenu_page/'+params[:backid]
       end
     #번역까지 저장 시
     else
@@ -90,12 +90,12 @@ class OadpageController < ApplicationController
       newtrans.aname=params[:aname]
       newtrans.save
       newmenu=Rmenu.new
-      newmenu.rest_id=params[:id]
+      newmenu.rest_id=params[:backid]
       newmenu.content=params[:content]
       newmenu.menuname=params[:kname]
       newmenu.cost=params[:cost]
       newmenu.save
-      redirect_to '/oadpage/addmenu_page/'+params[:id]
+      redirect_to '/oadpage/addmenu_page/'+params[:backid]
     end
   end
   #식당 수정
@@ -129,5 +129,18 @@ class OadpageController < ApplicationController
     id=del.rest_id
     del.destroy
     redirect_to "/oadpage/addmenu_page/"+id.to_s
+  end
+  
+  def rewritemenu
+    if Menulist.find_by(:kname => :menuname)==nil
+      redirect_to :back
+    else
+    remenu=Rmenu.find(params[:id])
+    remenu.menuname=params[:menuname]
+    remenu.content=params[:content]
+    remenu.cost=params[:cost]
+    remenu.save
+    redirect_to "/oadpage/addmenu_page/"+params[:backid]
+    end
   end
 end

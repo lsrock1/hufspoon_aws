@@ -95,7 +95,12 @@ class ApplicationController < ActionController::Base
     end
     
     string.split(',').each do |s|
-      ingre=s.split(':').first
+      if s.index(';')!=nil
+        mark=';'  
+      else
+        mark=':'
+      end
+      ingre=s.split(mark).first
       existvalue=checkexist(ingre,tid)
       if existvalue==0
         returnvalue.append(ingre)
@@ -109,5 +114,12 @@ class ApplicationController < ActionController::Base
     return returnvalue  
   end
   
-  
+  def isint(str)
+    
+    i=Integer(str) 
+    return i 
+    rescue 
+    return nil
+  end
+
 end

@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   post '/oadpage/addrest' =>'oadpage#addrest'
   get '/oadpage/delrest/:id' =>'oadpage#delrest'
-  
+  post '/oadpage/rewritemenu/:id' =>'oadpage#rewritemenu'
   #식당메뉴추가
   get '/oadpage/addmenu_page/:id' =>'oadpage#addmenu_page'
   post '/oadpage/addmenu' =>'oadpage#addmenu'
@@ -32,7 +32,7 @@ Rails.application.routes.draw do
   post '/adpage/remenulist/:id/:info' => 'adpage#remenu'
   get '/adpage/delmenu/:id' =>'adpage#delmenu'
   
-  get '/adpage/search' =>"adpage#search"
+  get '/adpage/search/:id' =>"adpage#search"
   #아이디 생성
   get '/home/newadmin' =>"home#newadmin"
   #엑셀 다운로드

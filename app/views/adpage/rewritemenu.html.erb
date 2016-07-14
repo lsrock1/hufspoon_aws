@@ -31,12 +31,14 @@
         </div>
         <button class="btn btn-default">수정완료</button>
     </form>
-    <%if @info=="1"%>
-        <a href="/adpage/dbmain/1"><button class="btn btn-default">돌아가기</button></a>
-    <%elsif @info=="0"%>
-        <a href="/adpage/dbmain/0"><button class="btn btn-default">돌아가기</button></a>
+    <%if @intinfo!=nil%>
+        <%if @intinfo>=0%>
+        <a href="/adpage/dbmain/<%=@info%>"><button class="btn btn-default">돌아가기</button></a>
+        <%else%>
+        <a href="/oadpage/addmenu_page/<%=(@intinfo*-1).to_s%>"><button class="btn btn-default">돌아가기</button></a>
+        <%end%>
     <%else%>
-        <a href="/adpage/search?keyword=<%=@info%>"><button class="btn btn-default">돌아가기</button></a>
-       <%end%>
+        <a href="/adpage/search/0?keyword=<%=@info%>"><button class="btn btn-default">돌아가기</button></a>
+    <%end%>
         
 </div>

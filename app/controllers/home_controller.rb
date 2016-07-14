@@ -420,7 +420,20 @@ class HomeController < ApplicationController
       num=num+1
     end
     ###############################스카이라운지 파싱 끝######################
+        @breakfastingre=@breakfastingre.uniq
+    @lunch1ingre=@lunch1ingre.uniq
+    @lunch2ingre=@lunch2ingre.uniq
+    @lunchnoodleingre=@lunchnoodleingre.uniq
+    @dinneringre=@dinneringre.uniq
+    
+    @flunchingre=@flunchingre.uniq
+    @fdinneringre=@fdinneringre.uniq
+    
+    @menuaingre=@menuaingre.uniq
+    @menubingre=@menubingre.uniq
   end
+  
+  
 end
 
 # developer mail address lsrock1@naver.com

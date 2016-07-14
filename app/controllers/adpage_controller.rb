@@ -25,12 +25,14 @@ class AdpageController < ApplicationController
   def rewritemenu
     id=params[:id]
     @info=params[:info]
+    @intinfo=isint(@info)
     @re_menu=Menulist.find(id)
   end
   
   #################메뉴 관리 클래스####################
   #메뉴검색 페이지
   def search
+    @info=params[:id]
     @key=params[:keyword]
     @list=[]
     Menulist.all.each do|e|
@@ -80,6 +82,7 @@ class AdpageController < ApplicationController
   #메뉴 수정 페이지
   def remenu
     @info=params[:info]
+    @intinfo=isint(@info)
     if (params[:kname]=="")||(params[:ename]=="")
         redirect_to :back
     else
@@ -92,12 +95,14 @@ class AdpageController < ApplicationController
     remenu.cnameb=params[:cnameb]
     remenu.aname=params[:aname]
     remenu.save
-        if @info=="1"
-          redirect_to "/adpage/dbmain/1"
-        elsif @info=="0"
-          redirect_to "/adpage/dbmain/0"
+        if @intinfo!=nil
+          if @intinfo>=0
+            redirect_to "/adpage/dbmain/"+@info
+          else
+            redirect_to "/oadpage/addmenu_page/"+((@intinfo*-1).to_s)
+          end
         else
-          redirect_to "/adpage/search?keyword="+URI.encode(@info)
+          redirect_to "/adpage/search/0?keyword="+URI.encode(@info)
         end
     end
   end
