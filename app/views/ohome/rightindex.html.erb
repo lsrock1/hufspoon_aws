@@ -22,11 +22,14 @@
             <h2><%=@re.name%></h2>
             <p>Searching을 누르면 식당이 표시된 지도로 돌아갈 수 있습니다</p>
             <table class="table menu">
+              <thead>
                 <tr>
                     <th>Korean</th>
                     <th>English</th>
                     <th>Price</th>
                 </tr>
+                </thead>
+                <tbody>
                 <%@re.rmenu.each do|r|%>
                 <tr class="detail">
                     <td><%=r.menuname%></td>
@@ -42,11 +45,13 @@
                   <td><%=r.content%></td>
                 </tr>
                 <%end%>
+                </tbody>
             </table>
+            <a id="kakao-link-btn" href="javascript:;" style="color:black;">
+              <img src="//dev.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png"/> 카카오톡으로 공유하기
+            </a>
         <%end%>
-        <a id="kakao-link-btn" href="javascript:;" style="color:black;">
-          <img src="//dev.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png"/>카카오톡으로 공유하기
-        </a>
+        
         
         <br>
         <br>
@@ -70,15 +75,9 @@
                     <div id="foo">
                       <h5><a href="/">home</a></h5>
                     	<h6>L I K E L I O N  X  H U F S</h6>
-                    	<h6>CONTACT : mondayspoon@gmail.com </h6>
+                    	<h6 class="email">CONTACT : mondayspoon@gmail.com </h6>
                     	<h6><a data-toggle="modal" data-target="#myModal"onclick="ga('send', 'event','contributor', '버튼클릭', 'rightindex');">CONTRIBUTOR</a></h6>
-                    	<a href="/oadpage/dbmain">
-                    	<% if admin_signed_in? %>
-                    		DB관리
-                    	<%else%>
-                       		admin
-                    	<%end%>
-                    	</a>
+                    	
                     	</div>
                     <br>
                 </div>
@@ -96,29 +95,27 @@
         </div>
         <div class="modal-body">
           <div class="panel panel-default">
-			<div class="panel-heading">전진철 / JIN CHEOL JUHN</div>
-			<div class="panel-body">CFO  </div>
-		  </div>
-		  <div class="panel panel-default">
-			<div class="panel-heading">김소영 / SO YOUNG KIM</div>
-			<div class="panel-body">CDO</div>
-		  </div>
-		  <div class="panel panel-default">
-			<div class="panel-heading">이상록 / SANG ROK LEE</div>
-			<div class="panel-body">CTO</div>
-		  </div>
-		  <div class="panel panel-default">
-			<div class="panel-heading">이승준 / SEUNG JUN LEE</div>
-			<div class="panel-body">CMO (상암동 순정남)</div>
-		  </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      			<div class="panel-heading">전진철 / JIN CHEOL JUHN</div>
+      			<div class="panel-body">CFO  </div>
+    		  </div>
+    		  <div class="panel panel-default">
+      			<div class="panel-heading">김소영 / SO YOUNG KIM</div>
+      			<div class="panel-body">CDO</div>
+    		  </div>
+    		  <div class="panel panel-default">
+      			<div class="panel-heading">이상록 / SANG ROK LEE</div>
+      			<div class="panel-body">CTO</div>
+    		  </div>
+    		  <div class="panel panel-default">
+      			<div class="panel-heading">이승준 / SEUNG JUN LEE</div>
+      			<div class="panel-body">CMO (상암동 순정남)</div>
+    		  </div>
         </div>
       </div>
 
     </div>
   </div>
+  <%if @id!="0"%>
   <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script>
   // $( ".detail" ).click(function() {
@@ -132,7 +129,7 @@
     // // 카카오톡 링크 버튼을 생성합니다. 처음 한번만 호출하면 됩니다.
     Kakao.Link.createTalkLinkButton({
       container: '#kakao-link-btn',
-      label: '폰에서 메뉴 확인하세요!',
+      label: '<%=@re.name%> 메뉴 확인하세요!',
       image: {
         src: 'https://s3.ap-northeast-2.amazonaws.com/elasticbeanstalk-ap-northeast-2-850152653970/nail.jpg',
         width: '300',
@@ -145,3 +142,4 @@
     });
   //]]>
 </script>
+<%end%>

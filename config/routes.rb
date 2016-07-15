@@ -41,6 +41,8 @@ Rails.application.routes.draw do
   #일반화면
   get '/home/leftindex/:num/:dis/:lat/:lon' =>'ohome#leftindex', :constraints => { :lat => /.*/ ,:lon =>/.*/}
   get '/home/rightindex/:id/:num/:lat/:lon' =>'ohome#rightindex', :constraints => { :lat => /.*/ , :lon => /.*/}
+  post '/home/search' => 'ohome#search'
+  
   
   get '/board/out' =>'board#out'
   get '/board/cremove/:id' => 'board#cremove'

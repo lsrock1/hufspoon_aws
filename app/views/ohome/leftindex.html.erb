@@ -47,25 +47,47 @@
         <button type="button" class="btn btn-default search">
             <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search
         </button>
+        
         <br/>
+        <div id="searchbutton" style="display:none;">
+          <button type="button" class="btn btn-default restsearch">
+              <span class="glyphicon glyphicon-globe" aria-hidden="true"></span> By keyword
+          </button>
+          <button type="button" class="btn btn-default menusearch">
+              <span class="glyphicon glyphicon-cutlery" aria-hidden="true"></span> By Menu
+          </button>
+        </div>
         <br/>
         
-        <div id="searchsection" style="display:none;">
-          <div class="option" >
-            <div>
-              <form onsubmit="searchPlaces(); return false;">
-                keyword : <input type="text"  value="hankuk university"id="keyword" size="15">
-                <button type="submit">search by name</button> 
-              </form>
+        
+          <div id="restsearchsection" style="display:none;">
+            <div class="option" >
+              <div>
+                <form onsubmit="searchPlaces(); return false;">
+                  keyword : <input type="text"  value="hankuk university"id="keyword" size="15">
+                  <button type="submit">search</button> 
+                </form>
+                <div class="well well-sm">Search and Click on the list below</div>
+              </div>
+            </div>
+            
+            <div style="width:100%; height:110px; overflow-y:scroll;"id="menu_wrap" class="bg_white">
+              <hr>
+              <ul id="placesList"></ul>
+              <div id="pagination"></div>
             </div>
           </div>
           
-          <div style="width:100%; height:130px; overflow-y:scroll;"id="menu_wrap" class="bg_white">
-            <hr>
-            <ul id="placesList"></ul>
-            <div id="pagination"></div>
+          <div id="menusearchsection" style="display:none;">
+            <form action="/home/search" method="post"class="form-inline">
+              <div class="form-group">
+                <label for="exampleInputName2">Menu Name</label>
+                <input type="text" class="form-control" name="keyword"id="exampleInputName2" placeholder="Delicious!">
+              </div>
+              <button type="submit" class="btn btn-default">Search</button>
+            </form>
           </div>
-        </div>
+        
         
         <div id="mapsection" <%if @dis=="0"%>style="display:none;"<%end%>>
           <div class="well"id="map" style="width:100%;height:300px;"></div>
@@ -92,15 +114,9 @@
                     <div id="foo">
                         <h5><a href="/">home</a></h5>
                     	<h6>L I K E L I O N  X  H U F S</h6>
-                    	<h6>CONTACT : mondayspoon@gmail.com </h6>
+                    	<h6 class="email">CONTACT : mondayspoon@gmail.com </h6>
                     	<h6><a data-toggle="modal" data-target="#myModal"onclick="ga('send', 'event','contributor', '버튼클릭', 'leftindex');">CONTRIBUTOR</a></h6>
-                    	<a href="/oadpage/dbmain">
-                    	<% if admin_signed_in? %>
-                    		DB관리
-                    	<%else%>
-                       		admin
-                    	<%end%>
-                    	</a>
+                    	
                     </div>
                     	
                     <br>
@@ -119,24 +135,21 @@
         </div>
         <div class="modal-body">
           <div class="panel panel-default">
-			<div class="panel-heading">전진철 / JIN CHEOL JUHN</div>
-			<div class="panel-body">CFO </div>
-		  </div>
-		  <div class="panel panel-default">
-			<div class="panel-heading">김소영 / SO YOUNG KIM</div>
-			<div class="panel-body">CDO</div>
-		  </div>
-		  <div class="panel panel-default">
-			<div class="panel-heading">이상록 / SANG ROK LEE</div>
-			<div class="panel-body">CTO</div>
-		  </div>
-		  <div class="panel panel-default">
-			<div class="panel-heading">이승준 / SEUNG JUN LEE</div>
-			<div class="panel-body">CMO (상암동 순정남)</div>
-		  </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      			<div class="panel-heading">전진철 / JIN CHEOL JUHN</div>
+      			<div class="panel-body">CFO </div>
+    		  </div>
+    		  <div class="panel panel-default">
+      			<div class="panel-heading">김소영 / SO YOUNG KIM</div>
+      			<div class="panel-body">CDO</div>
+    		  </div>
+    		  <div class="panel panel-default">
+      			<div class="panel-heading">이상록 / SANG ROK LEE</div>
+      			<div class="panel-body">CTO</div>
+    		  </div>
+    		  <div class="panel panel-default">
+      			<div class="panel-heading">이승준 / SEUNG JUN LEE</div>
+      			<div class="panel-body">CMO (상암동 순정남)</div>
+    		  </div>
         </div>
       </div>
 
@@ -153,12 +166,36 @@
     });
   });
 $( ".search" ).click(function() {
-    $( "#searchsection" ).slideToggle( "slow", function() {
+    $( "#searchbutton" ).slideToggle( "slow", function() {
     // Animation complete.
+    if($("#restsearchsection").is(":visible")){
+      $("#restsearchsection").slideUp();
+    }
+    if($("#menusearchsection").is(":visible")){
+      $("#menusearchsection").slideUp();
+    }
     });
   });
-
-
+$(".restsearch").click(function(){
+  $( "#restsearchsection" ).slideToggle( "slow", function() {
+    if($("#mapsection").is(":hidden")){
+      $("#mapsection").slideDown();
+    }
+    if($("#menusearchsection").is(":visible")){
+      $("#menusearchsection").slideUp();
+    }
+    map.relayout();
+    });
+  })
+$(".menusearch").click(function(){
+  $( "#menusearchsection" ).slideToggle( "slow", function() {
+    
+    if($("#restsearchsection").is(":visible")){
+      $("#restsearchsection").slideUp();
+    }
+    map.relayout();
+    });
+  })
 
 // 키워드 검색을 요청하는 함수입니다
 function searchPlaces() {
@@ -343,7 +380,7 @@ function placesSearchCB(status, data, pagination) {
         	var container = document.getElementById('map');
       		var options = {
       			center: new daum.maps.LatLng(<%if @lat=="0"%>37.597415, 127.057824<%else%><%=@lat%>,<%=@lon%><%end%>),
-      			level: <%if @israndom=="1"%>1<%else%>3<%end%>
+      			level: <%if @israndom=="1"||@lat!="0"%>1<%else%>3<%end%>
       		};
       
       		var map = new daum.maps.Map(container, options);

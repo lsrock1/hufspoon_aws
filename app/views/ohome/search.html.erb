@@ -1,0 +1,86 @@
+<header>
+  <br>
+  <h1 id="title"><a href="/home/leftindex/0/0/0/0" style="color:white;">HUFSPOON</a></h1>
+  <br>
+  <ul class="nav nav-tabs nav-justified">
+    <li ><a href="/home/leftindex/0/0/0/0">Searching</a></li>
+    <li ><a href="/home/rightindex/0/0/0/0">Menu</a></li>
+  </ul>
+</header>
+
+    <div style="background-color:white;">
+        <div class="container">
+            <h3>You can eat <%=@keyword%> in this restaurants</h3>
+            <div class="table-responsive">
+                <table class="table menu">
+                  <thead>
+                    <tr>
+                        <th>Restaurant Name</th>
+                        <th>Type</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <%@result.each do|r|%>
+                            <%@map=Map.find(r.map_id)%>
+                            <tr class="detail ">
+                                <td><a href="/home/rightindex/<%=r.id%>/0/<%=@map.lat%>/<%=@map.lon%>"><%=r.name%></a></td>
+                                <td>
+                                    <%=r.food%>
+                                </td>
+                            </tr>
+                        <%end%>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <footer>
+	<br>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                  <br>
+                    <div id="foo">
+                        <h5><a href="/">home</a></h5>
+                    	<h6>L I K E L I O N  X  H U F S</h6>
+                    	<h6 class="email">CONTACT : mondayspoon@gmail.com </h6>
+                    	<h6><a data-toggle="modal" data-target="#myModal"onclick="ga('send', 'event','contributor', '버튼클릭', 'leftindex');">CONTRIBUTOR</a></h6>
+                    	
+                    </div>
+                    	
+                    <br>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+    <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">MondaySpoon</h4>
+        </div>
+        <div class="modal-body">
+          <div class="panel panel-default">
+      			<div class="panel-heading">전진철 / JIN CHEOL JUHN</div>
+      			<div class="panel-body">CFO </div>
+    		  </div>
+    		  <div class="panel panel-default">
+      			<div class="panel-heading">김소영 / SO YOUNG KIM</div>
+      			<div class="panel-body">CDO</div>
+    		  </div>
+    		  <div class="panel panel-default">
+      			<div class="panel-heading">이상록 / SANG ROK LEE</div>
+      			<div class="panel-body">CTO</div>
+    		  </div>
+    		  <div class="panel panel-default">
+      			<div class="panel-heading">이승준 / SEUNG JUN LEE</div>
+      			<div class="panel-body">CMO (상암동 순정남)</div>
+    		  </div>
+        </div>
+      </div>
+
+    </div>
+  </div>

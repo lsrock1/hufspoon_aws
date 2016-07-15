@@ -68,5 +68,14 @@ class OhomeController < ApplicationController
     
   end
   
+  def search
+    key=params[:keyword]
+    @keyword=key
+    all=Rmenu.where("menuname like ?", "%" + key + "%")
+    result=all.map {|i| i.rest_id }
+    result=result.uniq
+    
+    @result=Rest.where(id: result)
+  end
   
 end
