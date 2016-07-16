@@ -3,7 +3,7 @@
   <h1 id="title"><a href="/home/leftindex/0/0/0/0" style="color:white;">HUFSPOON</a></h1>
   <br>
   <ul class="nav nav-tabs nav-justified">
-    <li ><a href="/home/leftindex/<%=@num%>/1/<%=@lat%>/<%=@lon%>">Searching</a></li>
+    <li ><a href="/home/leftindex/<%=@num%>/1/<%=@lat%>/<%=@lon%>?beforeid=<%=@id%>">Searching</a></li>
     <li class="active"><a href="#menu1">Menu</a></li>
   </ul>
 </header>
@@ -21,25 +21,24 @@
         <%else%>
             <h2><%=@re.name%></h2>
             <p>Searching을 누르면 식당이 표시된 지도로 돌아갈 수 있습니다</p>
+            <button class="btn btn-default korean ">한국어</button>
+            <button class="btn btn-default english ">English</button>
             <table class="table menu">
               <thead>
                 <tr>
-                    <th>Korean</th>
-                    <th>English</th>
+                    <th>Menuname</th>
                     <th>Price</th>
                 </tr>
                 </thead>
                 <tbody>
                 <%@re.rmenu.each do|r|%>
-                <tr class="detail">
+                <tr class="kname">
                     <td><%=r.menuname%></td>
-                    <td>
-                        <%if Menulist.find_by(:kname => r.menuname)!=nil%>
-                        <%=Menulist.find_by(:kname => r.menuname).ename.titleize%>
-                        <%else%>
-                        <%end%>
-                    </td>
                     <td><%=r.cost%> won</td>
+                </tr>
+                <tr class="ename"style="display:none;">
+                  <td><%=Menulist.find_by(:kname => r.menuname).ename.titleize%></td>
+                  <td><%=r.cost%> won</td>
                 </tr>
                 <tr style="display:none;">
                   <td><%=r.content%></td>
@@ -122,7 +121,14 @@
   //   $( this ).next().slideToggle( "slow", function() {
   //   });
   // });
-
+  $(".korean").click(function(){
+    $(".kname").show();
+    $(".ename").hide();
+  })
+  $(".english").click(function(){
+    $(".ename").show();
+    $('.kname').hide();
+  })
   //<![CDATA[
     // // 사용할 앱의 JavaScript 키를 설정해 주세요.
     Kakao.init('3a6d3b6e790c8028083ec1a6888a0868');

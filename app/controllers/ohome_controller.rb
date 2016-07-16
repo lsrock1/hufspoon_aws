@@ -10,6 +10,7 @@ class OhomeController < ApplicationController
   end
   
   def leftindex
+    @beforeid=params[:beforeid]
     @israndom="0"
     @dis=params[:dis]
     @num=params[:num] #음식종류별 화면

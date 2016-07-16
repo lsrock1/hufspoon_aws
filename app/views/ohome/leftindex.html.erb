@@ -4,7 +4,7 @@
   <br>
   <ul class="nav nav-tabs nav-justified">
     <li class="active"><a data-toggle="tab" href="#home">Searching</a></li>
-    <li ><a href="/home/rightindex/0/0/0/0">Menu</a></li>
+    <li ><a <%if @beforeid==0||@beforeid==nil%>href="/home/rightindex/0/0/0/0"<%else%>href="/home/rightindex/<%=@beforeid%>/<%=@num%>/<%=@lat%>/<%=@lon%>"<%end%>>Menu</a></li>
   </ul>
 </header>
   <div class="tab-content">

@@ -41,7 +41,7 @@
 <script>
     $(".re").click(function(){
         var thisid=$(this).attr("id");
-        $("#reform").attr("action","/adpage/rewritemenu/"+thisid+"/<%=URI.encode(@key)%>");
+        $("#reform").attr("action","/adpage/rewritemenu/"+thisid+"/<%if @key!="/"%><%=URI.encode(@key)%><%else%>%2F<%end%>");
         $("#reform").submit();
     });
     $(".del").click(function(){
