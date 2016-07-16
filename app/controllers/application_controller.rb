@@ -121,5 +121,58 @@ class ApplicationController < ActionController::Base
     rescue 
     return nil
   end
-
+  
+  def spliter(xfood,tid)
+    result_string=""
+    if xfood.index("&")!=nil
+      divide=xfood.split("&")
+      result=[]
+      divide.each do |d|
+        judvar=checkexist(d,tid)
+        if judvar==nil
+          result.push(d)
+          new_menu(d)
+        elsif judvar==1
+          result.push(transout(d,tid))
+        else
+          result.push(d)
+        end
+      end
+      result_string=result.join("&")
+    elsif xfood.index("/")!=nil
+      divide=xfood.split("/")
+      result=[]
+      divide.each do |d|
+        judvar=checkexist(d,tid)
+        if judvar==nil
+          result.push(d)
+          new_menu(d)
+        elsif judvar==1
+          result.push(transout(d,tid))
+        else
+          result.push(d)
+        end
+      end
+      result_string=result.join("/")
+    else
+      divide=xfood.split("-")
+      result=[]
+      divide.each do |d|
+        judvar=checkexist(d,tid)
+        if judvar==nil
+          result.push(d)
+          new_menu(d)
+        elsif judvar==1
+          result.push(transout(d,tid))
+        else
+          result.push(d)
+        end
+      end
+      result_string=result.join("-")
+    end
+    
+    return result_string
+  end
+  
+  
 end

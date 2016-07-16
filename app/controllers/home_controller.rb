@@ -297,14 +297,20 @@ class HomeController < ApplicationController
                 else
                   xfood=x.text.strip
                 end
-                judvar=checkexist(xfood,tid)
-                if judvar==1
-                  @flunch.push(transout(xfood,tid))
-                elsif judvar==0
-                  @flunch.push(xfood)
+                
+                #메뉴가 이상한 문자로 엮여있을 경우
+                if xfood.index("&")!=nil||xfood.index("/")!=nil||xfood.index("-")
+                  @flunch.push(spliter(xfood,tid))
                 else
-                  @flunch.push(xfood)
-                  new_menu(xfood)
+                  judvar=checkexist(xfood,tid)
+                  if judvar==1
+                    @flunch.push(transout(xfood,tid))
+                  elsif judvar==0
+                    @flunch.push(xfood)
+                  else
+                    @flunch.push(xfood)
+                    new_menu(xfood)
+                  end
                 end
               end
             end
@@ -326,14 +332,19 @@ class HomeController < ApplicationController
                 else
                   xfood=x.text.strip
                 end
-                judvar=checkexist(xfood,tid)
-                if judvar==1
-                  @fdinner.push(transout(xfood,tid))
-                elsif judvar==0
-                  @fdinner.push(xfood)
+                
+                if xfood.index("&")!=nil||xfood.index("/")!=nil||xfood.index("-")
+                  @fdinner.push(spliter(xfood,tid))
                 else
-                  @fdinner.push(xfood)
-                  new_menu(xfood)
+                  judvar=checkexist(xfood,tid)
+                  if judvar==1
+                    @fdinner.push(transout(xfood,tid))
+                  elsif judvar==0
+                    @fdinner.push(xfood)
+                  else
+                    @fdinner.push(xfood)
+                    new_menu(xfood)
+                  end
                 end
               end
             end
@@ -371,14 +382,18 @@ class HomeController < ApplicationController
                 else
                   xfood=x.text.strip
                 end
-                judvar=checkexist(xfood,tid)
-                if judvar==1
-                  @menua.push(transout(xfood,tid))
-                elsif judvar==0
-                  @menua.push(xfood)
+                if xfood.index("&")!=nil||xfood.index("/")!=nil||xfood.index("-")
+                  @flunch.push(spliter(xfood,tid))
                 else
-                  @menua.push(xfood)
-                  new_menu(xfood)
+                  judvar=checkexist(xfood,tid)
+                  if judvar==1
+                    @menua.push(transout(xfood,tid))
+                  elsif judvar==0
+                    @menua.push(xfood)
+                  else
+                    @menua.push(xfood)
+                    new_menu(xfood)
+                  end
                 end
               end
             end
@@ -400,14 +415,18 @@ class HomeController < ApplicationController
                 else
                   xfood=x.text.strip
                 end
-                judvar=checkexist(xfood,tid)
-                if judvar==1
-                  @menub.push(transout(xfood,tid))
-                elsif judvar==0
-                  @menub.push(xfood)
+                if xfood.index("&")!=nil||xfood.index("/")!=nil||xfood.index("-")
+                  @flunch.push(spliter(xfood,tid))
                 else
-                  @menub.push(xfood)
-                  new_menu(xfood)
+                  judvar=checkexist(xfood,tid)
+                  if judvar==1
+                    @menub.push(transout(xfood,tid))
+                  elsif judvar==0
+                    @menub.push(xfood)
+                  else
+                    @menub.push(xfood)
+                    new_menu(xfood)
+                  end
                 end
               end
             end
