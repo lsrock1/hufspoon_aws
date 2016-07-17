@@ -20,6 +20,10 @@ class BoardController < ApplicationController
             redirect_to '/board/hufslogin'
         elsif id==nil||pwd==nil
             redirect_to '/board/hufslogin'
+        elsif id==ENV["caf_id"]&&ENV["caf_pwd"]
+            session[:name]="admin"
+            session[:num]="0"
+            session[:level]="영양사님"
         else
             @agent = Mechanize.new
             @agent.get('http://builder.hufs.ac.kr/user/indexMain.action?command=&siteId=haksa') do | home_page |
