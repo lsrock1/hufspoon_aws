@@ -545,10 +545,8 @@
     $( "#datepicker" ).datepicker({
 	    	onSelect: function(dateText, inst) { 
 	      var dateAsString = dateText; //the first parameter of this function
-	      var dateAsObject = $(this).datepicker( 'getDate' ); //the getDate method
-	      var timeDiff= dateAsObject-new Date(<%=@ty%>+"-"+<%=@tm%>+"-"+<%=@td%>);
-	      var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
-	      window.location.href="/<%=@id%>/"+String(diffDays);
+	      
+	      window.location.href="/<%=@id%>/"+dateText.slice(6,10)+dateText.slice(0,2)+dateText.slice(3,5);
 	      }
     	}
     )

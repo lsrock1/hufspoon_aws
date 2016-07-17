@@ -27,37 +27,34 @@ class HomeController < ApplicationController
   def index
    tid=params[:id].to_i
    @id=tid
-   @day=params[:day].to_i
-   if @day==nil
-     @day=0;
-   end
+   @day=params[:day]
+   
+   
    mainadd="https://webs.hufs.ac.kr/jsp/HUFS/cafeteria/viewWeek.jsp"
-    @tday=Time.new.in_time_zone("Seoul")
-    @time=Time.new.in_time_zone("Seoul")+@day.days
-    dd=@time.day
-    mm=@time.month
-    #요일
+    if @day==nil
+     @time=Time.new.in_time_zone("Seoul")
+     dd=@time.day
+     mm=@time.month
+      if dd<10 
+        dd='0'+dd.to_s
+      end
+        
+      if mm<10 
+          mm='0'+mm.to_s
+      end 
+     today=@time.year.to_s+mm.to_s+dd.to_s
+    else
+      today=params[:day]
+      @time=Date.parse(today) 
+    end
+    
+    # #요일
     @w=@time.wday
     #선택한 날짜
     @y=@time.year
     @d=@time.day
     @m=@time.month
     
-    #오늘의 날짜
-    @ty=@tday.year
-    @td=@tday.day
-    @tm=@tday.month
-    
-    if dd<10 
-        dd='0'+dd.to_s
-    end
-      
-    if mm<10 
-        mm='0'+mm.to_s
-    end 
-    
-    today=@time.year.to_s+mm.to_s+dd.to_s
-    @today=today
     resultadd=mainadd+"?startDt="+today+"&endDt="+today+"&caf_name="+URI.encode("인문관식당")+"&caf_id=h101"
     doc = Nokogiri::HTML(open(resultadd))
     @nice=doc.xpath("//html/body/form/table/tr")
