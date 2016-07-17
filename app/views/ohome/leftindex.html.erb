@@ -39,11 +39,11 @@
         <button type="button" class="btn btn-default opener">
           <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> Map
         </button>
-        <a href="/home/leftindex/<%=@num%>/3/0/0">
-          <button type="button" class="btn btn-default">
+        <!--<a href="/home/leftindex/<%=@num%>/3/0/0">-->
+          <button type="button" class="btn btn-default random">
             <span class="glyphicon glyphicon-random" aria-hidden="true"></span> Random
           </button>
-        </a>
+        <!--</a>-->
         <button type="button" class="btn btn-default search">
             <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search
         </button>
@@ -159,6 +159,19 @@
     <script src="https://spi.maps.daum.net/imap/map_js_init/postcode.v2.js"></script>
     <script src="//apis.daum.net/maps/maps3.js?apikey=23598cdf36f0c5f5bf1f1bfda70b8e80&libraries=services"></script>
 	<script>
+	var markers=[];
+	
+	
+  
+	$(".random").click(function(){
+	  if (!$("#mapsection").is(":visible")){
+	    $("#mapsection").slideDown();
+	    map.relayout();
+	  }
+	  hideMarkers();
+	  randomit();
+	  
+	})
   $( ".opener" ).click(function() {
     $( "#mapsection" ).slideToggle( "slow", function() {
       map.relayout();
@@ -349,15 +362,7 @@ function placesSearchCB(status, data, pagination) {
       infowindow.open(map, marker);
     };
   }
-  <%if @israndom=="1"%>
-    
-    var positions=[    
-        {
-          latlng: new daum.maps.LatLng(<%=@lat%>,<%=@lon%>),
-          iwContent: '<div><a style="text-align:center;" href="/home/rightindex/<%=@randid%>/<%=@num%>/<%=@lat%>/<%=@lon%>"><%=@randname%></a></div>'
-        }
-      ];
-  <%elsif @num=="0"%>
+  <%if @num=="0"%>
   	var positions = [
       <%Map.all.each do |m|%>
         {
@@ -380,7 +385,7 @@ function placesSearchCB(status, data, pagination) {
         	var container = document.getElementById('map');
       		var options = {
       			center: new daum.maps.LatLng(<%if @lat=="0"%>37.597415, 127.057824<%else%><%=@lat%>,<%=@lon%><%end%>),
-      			level: <%if @israndom=="1"||@lat!="0"%>1<%else%>3<%end%>
+      			level: <%if @lat!="0"%>1<%else%>3<%end%>
       		};
       
       		var map = new daum.maps.Map(container, options);
@@ -390,20 +395,42 @@ function placesSearchCB(status, data, pagination) {
       
       // 키워드로 장소를 검색합니다
     searchPlaces();
-        for (var i = 0; i < positions.length; i ++) {
+    for (var i = 0; i < positions.length; i ++) {
+    
+        var marker = new daum.maps.Marker({
+            map: map, // 마커를 표시할 지도
+            position: positions[i].latlng, // 마커를 표시할 위치
+            clickable: true
+        });
+        var infowindow = new daum.maps.InfoWindow({
+            removable : true,
+            position : positions[i].latlng, 
+            content : positions[i].iwContent
+        });
+        daum.maps.event.addListener(marker, 'click', makeClickListener(map, marker, infowindow));
+        markers.push(marker);
         
-            var marker = new daum.maps.Marker({
-                map: map, // 마커를 표시할 지도
-                position: positions[i].latlng, // 마커를 표시할 위치
-                clickable: true
-            });
-            var infowindow = new daum.maps.InfoWindow({
-                removable : true,
-                position : positions[i].latlng, 
-                content : positions[i].iwContent
-            });
-            daum.maps.event.addListener(marker, 'click', makeClickListener(map, marker, infowindow));
-            
-        };
-  
+    };
+    function randomit(){
+      index=Math.floor(Math.random()*positions.length);
+      var marker = new daum.maps.Marker({
+          map: map, // 마커를 표시할 지도
+          position: positions[index].latlng, // 마커를 표시할 위치
+          clickable: true
+      });
+      var infowindow = new daum.maps.InfoWindow({
+          removable : true,
+          position : positions[index].latlng, 
+          content : positions[index].iwContent
+      });
+      daum.maps.event.addListener(marker, 'click', makeClickListener(map, marker, infowindow));
+      map.setCenter(positions[index].latlng);
+      markers.push(marker);
+      
+  	};
+    function hideMarkers() {
+      for (var i = 0; i < markers.length; i++) {
+          markers[i].setMap(null);
+      }        
+    }
 	</script>

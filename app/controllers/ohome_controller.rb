@@ -31,10 +31,10 @@ class OhomeController < ApplicationController
        temp=[]
        string=[]
        restaurants=m.rests.where(:food => n)
-       if m.rests.where(:food => n).length>0 #한식,중식,일식으로 레스토랑 검색
+       if restaurants.length>0 #한식,중식,일식으로 레스토랑 검색
          temp.append(m.lat)
          temp.append(m.lon)
-         m.rests.where(:food => n).each do|e|
+         restaurants.each do|e|
           string.append([e.id,e.name])
          end
          temp.append(string)
@@ -44,28 +44,28 @@ class OhomeController < ApplicationController
     end
     
 
-    if @dis=="3"
-      if @num=="0"
-       offset = rand( Rest.count)
-       randomrest = Rest.offset(offset).first
+    # if @dis=="3"
+    #   if @num=="0"
+    #   offset = rand( Rest.count)
+    #   randomrest = Rest.offset(offset).first
        
-      else
-        randomrest=Rest.where(:food => n)
-        offset=rand(randomrest.count)
-        randomrest=randomrest.offset(offset).first
+    #   else
+    #     randomrest=Rest.where(:food => n)
+    #     offset=rand(randomrest.count)
+    #     randomrest=randomrest.offset(offset).first
         
         
-      end
-      if randomrest!=nil
-      randmap=Map.find(randomrest.map_id)
-      @lat=randmap.lat
-      @lon=randmap.lon
-      @randid=randomrest.id
-      @randname=randomrest.name
-      end
-      @dis="1"
-      @israndom="1"
-    end
+    #   end
+    #   if randomrest!=nil
+    #   randmap=Map.find(randomrest.map_id)
+    #   @lat=randmap.lat
+    #   @lon=randmap.lon
+    #   @randid=randomrest.id
+    #   @randname=randomrest.name
+    #   end
+    #   @dis="1"
+    #   @israndom="1"
+    # end
     
   end
   
