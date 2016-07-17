@@ -47,7 +47,7 @@ class HomeController < ApplicationController
       today=params[:day]
       @time=Date.parse(today) 
     end
-    
+    @day=today
     # #요일
     @w=@time.wday
     #선택한 날짜
