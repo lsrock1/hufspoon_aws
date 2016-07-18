@@ -33,7 +33,7 @@
                 </thead>
                 <tbody>
                 <%@re.rmenu.each do|r|%>
-                <tr class="kname <%if r.pagenum==nil||r.pagenum==0%>1<%else%><%=r.pagenum%><%end%>" <%if r.pagenum!=1&&r.pagenum!=0%>style="display:none;"<%end%>>
+                <tr class="kname <%if r.pagenum==nil||r.pagenum==0%>1<%else%><%=r.pagenum%><%end%>" <%if r.pagenum!=1&&r.pagenum!=0&&r.pagenum!=nil%>style="display:none;"<%end%>>
                     <td><%=r.menuname%></td>
                     <td><%=r.cost%> won</td>
                 </tr>

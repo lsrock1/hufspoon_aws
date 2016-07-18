@@ -11,6 +11,10 @@ class OhomeController < ApplicationController
   
   def leftindex
     @beforeid=params[:beforeid]
+    if @beforeid!=nil&&@beforeid!="0"
+      @beforemark=Rest.find(@beforeid)
+      @beforemap=Map.find(@beforemark.map_id)
+    end
     @israndom="0"
     @dis=params[:dis]
     @num=params[:num] #음식종류별 화면
