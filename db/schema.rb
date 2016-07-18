@@ -84,8 +84,9 @@ ActiveRecord::Schema.define(version: 20160702115006) do
     t.text     "content"
     t.integer  "rest_id"
     t.integer  "cost"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "pagenum",    default: 0
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
 end

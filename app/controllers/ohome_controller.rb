@@ -25,6 +25,12 @@ class OhomeController < ApplicationController
       n="양식"
     elsif @num=="4" #chinese
       n="중식"
+    elsif @num=="5"
+     n="치킨"
+    elsif @num=="6"
+    n="고기"
+    elsif @num=="7"
+     n="분식/면"
     end
     if @num!="0"
       Map.all.each do|m|

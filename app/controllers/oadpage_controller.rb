@@ -69,12 +69,14 @@ class OadpageController < ApplicationController
         @content=params[:content]
         @cost=params[:cost]
         @backid=params[:backid]
+        @pagenum=params[:pagenum]
       else
         newmenu=Rmenu.new
         newmenu.rest_id=params[:backid]
         newmenu.content=params[:content]
         newmenu.menuname=params[:menuname]
         newmenu.cost=params[:cost]
+        newmenu.pagenum=params[:pagenum]
         newmenu.save
         redirect_to '/oadpage/addmenu_page/'+params[:backid]
       end
@@ -94,6 +96,7 @@ class OadpageController < ApplicationController
       newmenu.content=params[:content]
       newmenu.menuname=params[:kname]
       newmenu.cost=params[:cost]
+      newmenu.pagenum=params[:pagenum]
       newmenu.save
       redirect_to '/oadpage/addmenu_page/'+params[:backid]
     end
@@ -139,6 +142,7 @@ class OadpageController < ApplicationController
     remenu.menuname=params[:menuname]
     remenu.content=params[:content]
     remenu.cost=params[:cost]
+    remenu.pagenum=params[:pagenum]
     remenu.save
     redirect_to "/oadpage/addmenu_page/"+params[:backid]
     end

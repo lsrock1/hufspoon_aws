@@ -19,7 +19,6 @@
               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
-                <span class="icon-bar"></span> 
                 <span class="icon-bar"></span>
               </button>
               <a class="navbar-brand">Select</a>
@@ -31,6 +30,9 @@
                 <li <%if @num=="2"%> class="active"<%end%>><a href="/home/leftindex/2/<%=@dis%>/<%=@lat%>/<%=@lon%>">Japanese</a></li> 
                 <li <%if @num=="3"%> class="active"<%end%>><a href="/home/leftindex/3/<%=@dis%>/<%=@lat%>/<%=@lon%>">Western</a></li>
                 <li <%if @num=="4"%> class="active"<%end%>><a href="/home/leftindex/4/<%=@dis%>/<%=@lat%>/<%=@lon%>">Chinese</a></li>
+                <li <%if @num=="5"%> class="active"<%end%>><a href="/home/leftindex/5/<%=@dis%>/<%=@lat%>/<%=@lon%>">Chicken</a></li>
+                <li <%if @num=="6"%> class="active"<%end%>><a href="/home/leftindex/6/<%=@dis%>/<%=@lat%>/<%=@lon%>">Meat</a></li>
+                <li <%if @num=="7"%> class="active"<%end%>><a href="/home/leftindex/7/<%=@dis%>/<%=@lat%>/<%=@lon%>">School Food/Noodle</a></li>
               </ul>
             </div>
           </div>
@@ -160,7 +162,7 @@
     <script src="//apis.daum.net/maps/maps3.js?apikey=23598cdf36f0c5f5bf1f1bfda70b8e80&libraries=services"></script>
 	<script>
 	var markers=[];
-	
+	var windows=[];
 	
   
 	$(".random").click(function(){
@@ -409,7 +411,7 @@ function placesSearchCB(status, data, pagination) {
         });
         daum.maps.event.addListener(marker, 'click', makeClickListener(map, marker, infowindow));
         markers.push(marker);
-        
+        windows.push(infowindow);
     };
     function randomit(){
       index=Math.floor(Math.random()*positions.length);
@@ -426,11 +428,12 @@ function placesSearchCB(status, data, pagination) {
       daum.maps.event.addListener(marker, 'click', makeClickListener(map, marker, infowindow));
       map.setCenter(positions[index].latlng);
       markers.push(marker);
-      
+      windows.push(infowindow);
   	};
     function hideMarkers() {
       for (var i = 0; i < markers.length; i++) {
           markers[i].setMap(null);
+          windows[i].setMap(null);
       }        
     }
 	</script>

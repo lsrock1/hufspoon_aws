@@ -7,8 +7,12 @@
               <input class="form-control" name="menuname"id="ex1" type="text">
             </div>
             <div class="form-group">
-              <label for="ex3">설명</label>
-              <textarea class="form-control" rows="3"name="content"id="ex3"></textarea>
+              <label for="ex2">설명</label>
+              <textarea class="form-control" rows="3"name="content"id="ex2"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="ex3">페이지</label>
+              <input class="form-control" name="pagenum"id="ex3" type="text">
             </div>
             <div class="form-group">
               <label for="ex4">가격</label>
@@ -23,6 +27,7 @@
             <tr>
                 <th>한글</th>
                 <th>가격</th>
+                <th>페이지</th>
                 <th>번역보기</th>
                 <th>수정</th>
                 <th>삭제</th>
@@ -32,12 +37,10 @@
                 <td id="name<%=r.id%>"><%=r.menuname%></td>
                 <td id="cost<%=r.id%>"><%=r.cost%></td>
                 <td style="display:none" id="content<%=r.id%>"><%=r.content%></td>
+                <th id="pagenum<%=r.id%>"><%=r.pagenum%></th>
                 <td><a href="/adpage/rewritemenu/<%=Menulist.find_by(:kname =>r.menuname).id%>/-<%=@rest.id%>"><button class="btn btn-default">번역</button></a></td>
                 <td><button class="mre btn btn-default" id="<%=r.id%>">수정</button></td>
                 <td><button class="del btn btn-default"id="<%=r.id%>">삭제</button></td>
-            </tr>
-            <tr>
-                <%=r.content%>
             </tr>
             <%end%>
         </table>
@@ -65,17 +68,20 @@
         var thisid=$(this).attr("id");
         var name=$("#name"+thisid).html();
         $("#ex1").attr("value",name);
+        
+        var content=$("#content"+thisid).html();
+        $("#ex2").attr("value",content);
+        var pagenum=$("#pagenum"+thisid).html();
+        $("#ex3").attr("value",pagenum);
         var cost=$("#cost"+thisid).html();
         $("#ex4").attr("value",cost);
-        var content=$("#content"+thisid).html();
-        $("#ex3").attr("value",content);
-        
         $("#mreform").attr("action","/oadpage/rewritemenu/"+thisid);
     });
     $("#mrecan").click(function(){
         $(this).hide();
         $("#mrebut").html("저장");
         $("#ex1").attr("value","");
+        $("#ex2").attr("value","");
         $("#ex3").attr("value","");
         $("#ex4").attr("value","");
         $("#mreform").attr("action","/oadpage/addmenu");

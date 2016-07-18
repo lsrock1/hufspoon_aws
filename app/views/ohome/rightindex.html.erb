@@ -21,6 +21,7 @@
         <%else%>
             <h2><%=@re.name%></h2>
             <p>Searching을 누르면 식당이 표시된 지도로 돌아갈 수 있습니다</p>
+            
             <button class="btn btn-default korean ">한국어</button>
             <button class="btn btn-default english ">English</button>
             <table class="table menu">
@@ -32,11 +33,11 @@
                 </thead>
                 <tbody>
                 <%@re.rmenu.each do|r|%>
-                <tr class="kname">
+                <tr class="kname <%if r.pagenum==nil||r.pagenum==0%>1<%else%><%=r.pagenum%><%end%>" <%if r.pagenum!=1%>style="display:none;"<%end%>>
                     <td><%=r.menuname%></td>
                     <td><%=r.cost%> won</td>
                 </tr>
-                <tr class="ename"style="display:none;">
+                <tr class="ename <%if r.pagenum==nil||r.pagenum==0%>1<%else%><%=r.pagenum%><%end%>"style="display:none;">
                   <td><%=Menulist.find_by(:kname => r.menuname).ename.titleize%></td>
                   <td><%=r.cost%> won</td>
                 </tr>
@@ -46,6 +47,13 @@
                 <%end%>
                 </tbody>
             </table>
+            <nav style="text-align:center;">
+            <ul class="pagination">
+              
+            </ul>
+            </nav>
+            <br>
+            <p>상기 메뉴와 가격은 변경으로 인해 실제와 다를 수 있습니다</p>
             <a id="kakao-link-btn" href="javascript:;" style="color:black;">
               <img src="//dev.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png"/> 카카오톡으로 공유하기
             </a>
@@ -121,13 +129,48 @@
   //   $( this ).next().slideToggle( "slow", function() {
   //   });
   // });
+  var whatlanguage=0;//0:한국어 1:영어
+  var whatpage=1;
+  var max=<%if @re.rmenu.maximum("pagenum")!=nil%><%=@re.rmenu.maximum("pagenum")%><%else%>0<%end%>;
+  $( document ).ready(function() {
+  // Handler for .ready() called.
+  
+   for(var i=1;i<max+1;i++){
+     var k=i.toString();
+     if(i==1){
+       $( ".pagination" ).append( "<li class='active pagechange'><a>"+k+"</a></li>" );
+     }else{
+       $( ".pagination" ).append( "<li class='pagechange'><a>"+k+"</a></li>" );
+     }
+     
+   }
+   $(".pagechange").click(function(){
+    var page=$(this).children("a").html();
+    $(".pagechange").removeClass("active");
+    $(this).addClass("active");
+    $(this).addClass();
+    if(whatlanguage==0){
+      $(".kname").hide();
+      $(".kname."+page).show();
+      whatpage=Number(page);
+    }
+    else{
+      $(".ename").hide();
+      $(".ename."+page).show();
+      whatpage=Number(page);
+    }
+  })
+  });
+  
   $(".korean").click(function(){
-    $(".kname").show();
+    $(".kname."+whatpage).show();
     $(".ename").hide();
+    whatlanguage=0;
   })
   $(".english").click(function(){
-    $(".ename").show();
+    $(".ename."+whatpage).show();
     $('.kname').hide();
+    whatlanguage=1;
   })
   //<![CDATA[
     // // 사용할 앱의 JavaScript 키를 설정해 주세요.

@@ -48,7 +48,7 @@ class BoardController < ApplicationController
               session[:num]=@num
               session[:level]=@level
             else
-              redirect_to'/home/hufslogin'
+              redirect_to'/board/hufslogin'
             end
         end
     end
