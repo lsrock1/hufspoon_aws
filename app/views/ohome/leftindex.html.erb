@@ -43,7 +43,7 @@
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
               <ul class="nav navbar-nav">
-                <li <%if @num=="0"%> class="active"<%end%>><a href="/home/leftindex/0/<%=@dis%>/<%=@lat%>/<%=@lon%>">All</a></li>
+                <li <%if @num=="0"%> class="active"<%end%>><a href="/home/leftindex/0/<%=@dis%>/<%=@lat%>/<%=@lon%>">Today</a></li>
                 <li <%if @num=="1"%> class="active"<%end%>><a href="/home/leftindex/1/<%=@dis%>/<%=@lat%>/<%=@lon%>">Korean</a></li>
                 <li <%if @num=="2"%> class="active"<%end%>><a href="/home/leftindex/2/<%=@dis%>/<%=@lat%>/<%=@lon%>">Japanese</a></li> 
                 <li <%if @num=="3"%> class="active"<%end%>><a href="/home/leftindex/3/<%=@dis%>/<%=@lat%>/<%=@lon%>">Western</a></li>
@@ -113,12 +113,12 @@
           <div class="well"id="map" style="width:100%;height:300px;"></div>
         </div>
         <br>
-        <div class="table-responsive">
-          <h6 style="text-align:center;">Today's Restaurant for You</h6>
+        <div <%if (@beforeid==nil||@beforeid=="0")&&@num=="0"%><%else%>style="display:none;"<%end%>class="table-responsive">
+          <h3 style="text-align:center;">Real-time recommendation for You</h6>
           <table class="table">
             <thead>
               <tr>
-                <th>name</th>
+                <th>Restaurant</th>
               </tr>
             </thead>
             <tbody class="choose">
@@ -541,14 +541,15 @@ $(".menusearch").click(function(){
             position: positions[index].latlng, // 마커를 표시할 위치
             clickable: true
           });
+          var look=positions[index].iwContent.indexOf("</a>");
+          var iwcontent = positions[index].iwContent.substring(0, look+4);
           (function(iwcontent,position) {
             daum.maps.event.addListener(marker, 'click', function() {
             displayPlaceInfo(iwcontent,position);
             });
-          })(positions[index].iwContent,positions[index].latlng);
+          })(iwcontent,positions[index].latlng);
           markers.push(marker);
-          var look=positions[index].iwContent.indexOf("</a>");
-          var iwcontent = positions[index].iwContent.substring(0, look+4);
+          
           $(".choose").append('<tr><td>'+iwcontent+'</td></tr>');
           temp.push(index);
         }
