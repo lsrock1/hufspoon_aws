@@ -146,12 +146,24 @@ class AdpageController < ApplicationController
           unless (s[0].to_s=="")||(s[2].to_s=="")
             if Menulist.find_by(:kname => s[0])!=nil
               exme=Menulist.find_by(:kname => s[0])
-              exme.ename=s[2]
+              if s[2]!=""
+               exme.ename=s[2]
+              end
+              if s[1]!=""
               exme.ername=s[1]
+              end
+              if s[3]!=""
               exme.jnamea=s[3]
+              end
+              if s[4]!=""
               exme.cname=s[4]
+              end
+              if s[5]!=""
               exme.cnameb=s[5]
+              end
+              if s[6]!=""
               exme.aname=s[6]
+              end
               exme.save
             else
               

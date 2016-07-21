@@ -82,6 +82,8 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.4)
       mime-types (>= 1.16, < 4)
+    materialize-sass (0.97.6)
+      sass (~> 3.3)
     mechanize (2.1.1)
       domain_name (~> 0.5, >= 0.5.1)
       net-http-digest_auth (~> 1.1, >= 1.1.1)
@@ -197,6 +199,7 @@ DEPENDENCIES
   devise
   jbuilder (~> 2.0)
   jquery-rails
+  materialize-sass
   mechanize
   nokogiri
   pg
@@ -212,4 +215,4 @@ DEPENDENCIES
   write_xlsx
 
 BUNDLED WITH
-   1.12.1
+   1.12.5

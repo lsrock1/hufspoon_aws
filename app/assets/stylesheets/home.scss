@@ -1,36 +1,37 @@
+
 .email {
     pointer-events: none !important;
     color: white;
 }
-#datepicker-container{
-  text-align:center;
-}
-#datepicker-center{
-  display:inline-block;
-  margin:0 auto;
-}
-#title{
+// #datepicker-container{
+//   text-align:center;
+// }
+// #datepicker-center{
+//   display:inline-block;
+//   margin:0 auto;
+// }
+// #title{
 
-    color: White;
-    text-align: center;
-}
-#foo{
-    color: white;
-    font-size: 3px;
-    text-align: center;
-    height: auto;
-}
-@media (max-width: 768px) {
-  .nav-justified > li {
-    display: table-cell;
-    width: 1%;
-  }
-  .nav-justified > li > a  {
-    border-bottom: 1px solid #ddd !important;
-    border-radius: 4px 4px 0 0 !important;
-    margin-bottom: 0 !important;
-  }
-}
+//     color: White;
+//     text-align: center;
+// }
+// #foo{
+//     color: white;
+//     font-size: 3px;
+//     text-align: center;
+//     height: auto;
+// }
+// @media (max-width: 768px) {
+//   .nav-justified > li {
+//     display: table-cell;
+//     width: 1%;
+//   }
+//   .nav-justified > li > a  {
+//     border-bottom: 1px solid #ddd !important;
+//     border-radius: 4px 4px 0 0 !important;
+//     margin-bottom: 0 !important;
+//   }
+// }
 .google_subheader {
 		padding:0px;
 		margin:0px;
@@ -74,28 +75,28 @@
 		font-size:9pt;
 		color : #777777;
 	}
-header {
-    background-color: #002D56;
-}
+// header {
+//     background-color: #002D56;
+// }
 
-header h1 {
-    margin: 0;
-}
+// header h1 {
+//     margin: 0;
+// }
 
-footer {
-    background-color: #002D56;
-}
+// footer {
+//     background-color: #002D56;
+// }
 
-footer h1 {
-    margin: 0;
-}
-
-
+// footer h1 {
+//     margin: 0;
+// }
 
 
-:focus {
-    outline: 0;
-}
+
+
+// :focus {
+//     outline: 0;
+// }
 // ::-webkit-scrollbar { width: 3px;}
 
 ::-webkit-scrollbar {
@@ -107,17 +108,17 @@ footer h1 {
     background-color: rgba(0,0,0,.5);
     -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
 }
-html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    overflow: hidden;
-    color: #555;
-    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+// html, body {
+//     margin: 0;
+//     padding: 0;
+//     height: 100%;
+//     overflow: hidden;
+//     color: #555;
+//     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
     
-}
+// }
 
-a {
-    color: #00B7FF;
-}
+// a {
+//     color: #00B7FF;
+// }
 

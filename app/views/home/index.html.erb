@@ -1,208 +1,298 @@
-<header>
-  <br>
-  <h1 id="title"><a href="/" style="color:white;">HUFSPOON</a></h1>
-  
-	  <div style="text-align:center"><a role="button" class="btn btn-primary" id="dateopen"><%=@y%> / <%=@m%> / <%=@d%></a></div>
-
-  <div style="background-color:white;"id="date"></div>
-  <div style="display:none;"id="datepicker-container">
-	  <div id="datepicker-center">
-	    <div id="datepicker"></div>
-	  </div>
-	</div>
-  <br>
-  <ul class="nav nav-tabs  nav-justified" style="font-size:10px;">
-    <li class="active"><a data-toggle="tab" href="#home">Humanities</a></li>
-    <li><a data-toggle="tab" href="#menu1">Faculty office</a></li>
-    <li><a data-toggle="tab" href="#menu2">Sky Lounge</a></li>
-  </div>
-  </ul>
-</header>
-<div class="tab-content">
-	<!--여기서부터는 첫 번째 탭 입니다-->
-  <div id="home" class="tab-pane fade in active">
-    <div id="today-detail-div" style="position:relative; padding: 0;z-index: 10; border-top: 1px solid #dddddd;" >
-		<!--아침메뉴 시작-->
-		
+<nav>
+    <div class="nav-wrapper"  >
+    <ul id="slide-out" class="side-nav ">
+      <li class="no-padding">
+        <ul class="collapsible collapsible-accordion">
+          <li>
+            <a class="collapsible-header">Language<i class="material-icons right">arrow_drop_down</i></a>
+            <div class="collapsible-body">
+              <ul>
+                <li><a href="/0/<%=@day%>">English</a></li>
+                <li><a href="/4/<%=@day%>">한국어</a></li>
+                <li><a href="/1/<%=@day%>">日本語</a></li>
+                <li><a href="/2/<%=@day%>">简写</a></li>
+                <li><a href="/3/<%=@day%>">繁体</a></li>
+                <li>العربية</li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </li>
+      
+      <li><a class="represent_side">Date</a></li>
+      <li class="no-padding">
+        <ul class="collapsible collapsible-accordion">
+          <li>
+            <a class="collapsible-header">Q & A<i class="material-icons right">arrow_drop_down</i></a>
+            <div class="collapsible-body">
+              <ul>
+                <li><a href="/board/hufslogin">HufsBoard</a></li>
+                <li><a class="modal-trigger"href="#modal1">Mondayspoon</a></li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </li>
+      
+    </ul>
+    
+    <ul class="right hide-on-med-and-down ">
+      
+      <li><a class="dropdown-button" data-activates="dropdown1">Language<i class="material-icons right">arrow_drop_down</i></a></li>
+      <ul id='dropdown1' class='dropdown-content'>
+        <li><a href="/0/<%=@day%>">English</a></li>
+        <li><a href="/4/<%=@day%>">한국어</a></li>
+        <li><a href="/1/<%=@day%>">日本語</a></li>
+        <li><a href="/2/<%=@day%>">简写</a></li>
+        <li><a href="/3/<%=@day%>">繁体</a></li>
+      </ul>
+      <li><a class="representer">Date</a></li>
+      <li><a class="dropdown-button" data-activates="dropdown2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Q&A&nbsp;&nbsp;&nbsp;&nbsp;<i class="material-icons right">arrow_drop_down</i></a></li>
+      <ul id='dropdown2' class='dropdown-content'>
+        <li><a href="/board/hufslogin">HufsBoard</a></li>
+        <li><a class="modal-trigger"href="#modal1">Mondayspoon</a></li>
+      </ul>
+    </ul>
+    <a href="#!" class="brand-logo" >HUFSPOON</a>
+    <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+    </div>
+</nav>
+<p style="text-align:center;" class="grey-text"><%=@y%> / <%=@m%> / <%=@d%><input style="display:none;" id="datepicker" type="date"/></p>
+ <div class="row">
+    <div class="col s12">
+      <ul class="tabs " >
+        <li class="tab col s3 "><a href="#test1">Humanities</a></li>
+        <li class="tab col s3"><a href="#test2">Faculty Office</a></li>
+        <li class="tab col s3"><a href="#test4" >Sky Lounge</a></li>
+      </ul>
+    </div>
+    <div id="test1" class="col s12">
+        <!--아침메뉴 시작-->
         <%if @breakfast==[] %>
         
         <%else%>
-		<div class="google_subheader" style="position:relative; padding: 0;z-index: 10; "> 
-			<h4>Breakfast</h4>
-		</div>	
-		<div class="google_list">
-			<div class="caf_times"> <%=@breakfasttime%> / <%=@breakfastprice%></div>
-			<div class="caf_rep">
-				<%=@breakfast.shift.titleize%>
-			</div>
-			<p>
-				<%snum=0%>
-		    <%@breakfast.each do |s|%> 
-              <%if s!=@breakfast[0]%>
-				   <%snum+=s.length+3%>
-				   <%if snum>=34%>
-    				<br>
-    				<%snum=0%>
-    				<%snum+=s.length+3%>
-    			 <%else%>
-    			  ,
-    			 <%end%>
-  		 <%else%>
-  		   <%snum+=s.length+3%>
-  		 <%end%>
-  		 
-  		 <%=s.titleize%>
-		    <%end%>
-			</p>
-			<%if@breakfastingre!=nil%>
-					<p>
-						<%@breakfastingre.each do |e|%>
-							<%=e.titleize%>
-							<%if e!=@breakfastingre[-1]%>
-							,
-							<%end%>
-						<%end%>
-					</p>
-					<%end%>
-			<p><%=@breakfastkcal%></p>
-		</div>
-		<%end%>
 		<!--아침메뉴 끝-->
-		
-		<!--점심메뉴 시작-->
-		
-        <%if @lunch1==[] %>
+      <div class="row">
+        <div class="col s12 m8 offset-m2 l6 offset-l3">
+          <div class="card">
+            <div class="card-content  ">
+              <span class="card-title">Breakfast</span>
+              <div class="divider"></div>
+              <div class="section">
+              <p><div class="caf_times"> <%=@breakfasttime%> / <%=@breakfastprice%></div><br>
+                 <div class="caf_rep">
+    				<%=@breakfast.shift.titleize%>
+    			</div>
+    			<p>
+    				<%snum=0%>
+    		    <%@breakfast.each do |s|%> 
+                  <%if s!=@breakfast[0]%>
+    				   <%snum+=s.length+3%>
+    				   <%if snum>=34%>
+        				<br>
+        				<%snum=0%>
+        				<%snum+=s.length+3%>
+        			 <%else%>
+        			  ,
+        			 <%end%>
+      		 <%else%>
+      		   <%snum+=s.length+3%>
+      		 <%end%>
+      		 
+      		 <%=s.titleize%>
+    		    <%end%>
+    			</p>
+    			</div>
+    			<div class="divider"></div>
+    			<div class="section">
+        			<%if@breakfastingre!=nil%>
+    					<p>
+    						<%@breakfastingre.each do |e|%>
+    							<%=e.titleize%>
+    							<%if e!=@breakfastingre[-1]%>
+    							,
+    							<%end%>
+    						<%end%>
+    					</p>
+    					<%end%>
+    			<p><%=@breakfastkcal%></p>
+    			</div>
+              </p>
+              
+            </div>
+          </div>
+        </div>
+      </div> 
+      <%end%>
+      
+      <%if @lunch1==[] %>
         
         <%else%>
-        
-        <div class="google_subheader" style="position:relative; padding: 0;z-index: 10; "> 
-			<h4>Lunch 1</h4>
-		</div>
-		<div class="google_list">
-			<div class="caf_times"> <%=@lunch1time%> / <%=@lunch1price%></div>
-			<div class="caf_rep">
-				<%=@lunch1.shift.titleize%>
-			</div>
-			<p>
-			    <%snum=0%>
-			    <%@lunch1.each do |s|%> 
-                <%if s!=@lunch1[0]%>
-				   <%snum+=s.length+3%>
-				   <%if snum>=34%>
-    				<br>
-    				<%snum=0%>
-    				<%snum+=s.length+3%>
-    			 <%else%>
-    			  ,
-    			 <%end%>
-    		 <%else%>
-    		   <%snum+=s.length+3%>
-    		 <%end%>
-    		 
-    		 <%=s.titleize%>
-			    <%end%>
-			</p>
-			<%if@lunch1ingre!=nil%>
-				<p>
-					<%@lunch1ingre.each do |e|%>
-						<%=e.titleize%>
-						<%if e!=@lunch1ingre[-1]%>
-						,
-						<%end%>
-					<%end%>
-				</p>
-			<%end%>
-			<p><%=@lunch1kcal%></p>
-		</div>
+        <div class="row">
+        <div class="col s12 m8 offset-m2 l6 offset-l3">
+          <div class="card">
+            <div class="card-content  ">
+              
+              <span class="card-title">Lunch 1</span>
+              <div class="divider"></div>
+              <div class="section">
+              <p>
+                  <div class="caf_times"> <%=@lunch1time%> / <%=@lunch1price%></div><br>
+                  <div class="caf_rep">
+            				<%=@lunch1.shift.titleize%>
+            			</div>
+          			<p>
+          			    <%snum=0%>
+          			    <%@lunch1.each do |s|%> 
+                          <%if s!=@lunch1[0]%>
+          				   <%snum+=s.length+3%>
+          				   <%if snum>=34%>
+              				<br>
+              				<%snum=0%>
+              				<%snum+=s.length+3%>
+              			 <%else%>
+              			  ,
+              			 <%end%>
+              		 <%else%>
+              		   <%snum+=s.length+3%>
+              		 <%end%>
+              		 
+              		 <%=s.titleize%>
+          			    <%end%>
+          			</p>
+          			</div>
+          			<div class="divider"></div>
+          			<div class="section">
+          			<%if@lunch1ingre!=nil%>
+          			
+          				<p>
+          					<%@lunch1ingre.each do |e|%>
+          						<%=e.titleize%>
+          						<%if e!=@lunch1ingre[-1]%>
+          						,
+          						<%end%>
+          					<%end%>
+          				</p>
+          			<%end%>
+          			<p><%=@lunch1kcal%></p>
+          			</div>
+          		
+              </p>
+            </div>
+          </div>
+        </div>
+        </div>
         <%end%>
 		<!--점심메뉴 끝-->
-		
-		<!--점심2 메뉴 시작-->
+      
+      <!--점심2 메뉴 시작-->
 		
         <%if @lunch2==[]%>
         
         <%else%>
-		<div class="google_subheader" style="position:relative; padding: 0;z-index: 10; "> 
-			<h4>Lunch 2</h4>
-		</div>	
-		<div class="google_list">
-			<div class="caf_times"> <%=@lunch2time%> / <%=@lunch2price%></div>
-			<div class="caf_rep"><%=@lunch2.shift.titleize%></div>
-			<p>
-				<%snum=0%>
-		    	<%@lunch2.each do |s|%> 
-			      	<%if s!=@lunch2[0]%>
-				    	<%snum+=s.length+3%>
-					    <%if snum>=34%>
-							  <br>
-							<%snum=0%>
-							<%snum+=s.length+3%>
-					 	<%else%>
-					  		,
-					 	<%end%>
-		  		 	<%else%>
-		  		   		<%snum+=s.length+3%>
-		  		 	<%end%>
-	  		 		<%=s.titleize%>
-			    <%end%>
-    		</p>
-    		<%if@lunch2ingre!=nil%>
-				<p>
-					<%@lunch2ingre.each do |e|%>
-						<%=e.titleize%>
-						<%if e!=@lunch2ingre[-1]%>
-						,
-						<%end%>
-					<%end%>
-				</p>
-			<%end%>
-			<p><%=@lunch2kcal%></p>
-		</div>
-        <%end%>
+        <div class="row">
+        <div class="col s12 m8 offset-m2 l6 offset-l3">
+          <div class="card">
+            <div class="card-content  ">
+              <span class="card-title">Lunch 2</span>
+              <div class="divider"></div>
+              <p>
+                <div class="section">
+                  <div class="caf_times"> <%=@lunch2time%> / <%=@lunch2price%></div><br>
+                  <div class="caf_rep"><%=@lunch2.shift.titleize%></div>
+                  <p>	
+                  <%snum=0%>
+        		    	<%@lunch2.each do |s|%> 
+        			      	<%if s!=@lunch2[0]%>
+        				    	<%snum+=s.length+3%>
+        					    <%if snum>=34%>
+        							  <br>
+        							<%snum=0%>
+        							<%snum+=s.length+3%>
+        					 	<%else%>
+        					  		,
+        					 	<%end%>
+        		  		 	<%else%>
+        		  		   		<%snum+=s.length+3%>
+        		  		 	<%end%>
+        	  		 		<%=s.titleize%>
+        			    <%end%>
+            		</p>
+            		</div>
+            		<div class="divider"></div>
+            		<div class="section">
+            		<%if@lunch2ingre!=nil%>
+        				<p>
+        					<%@lunch2ingre.each do |e|%>
+        						<%=e.titleize%>
+        						<%if e!=@lunch2ingre[-1]%>
+        						,
+        						<%end%>
+        					<%end%>
+        				</p>
+        			<%end%>
+        			<p><%=@lunch2kcal%></p>
+        			</div>
+        			</p>
+            </div>
+          </div>
+        </div>
+      </div> 
+      <%end%>
 		<!--점심2 메뉴 끝-->
 		
-		<!--점심 면 메뉴 시작-->
-			
-    <%if @lunchnoodle==[]%>
+		<%if @lunchnoodle==[]%>
       
     <%else%>
-			<div class="google_subheader" style="position:relative; padding: 0;z-index: 10; "> 
-				<h4>Lunch Noodle</h4>
-			</div>
-			<div class="google_list">
-				<div class="caf_times"> <%=@lunchnoodletime%> / <%=@lunchnoodleprice%></div>
-				<div class="caf_rep"><%=@lunchnoodle.shift.titleize%></div>
-				<p>
-					<%snum=0%>
-			    <%@lunchnoodle.each do |s|%> 
-                <%if s!=@lunchnoodle[0]%>
-					   <%snum+=s.length+3%>
-					   <%if snum>=34%>
-	    				<br>
-	    				<%snum=0%>
-	    				<%snum+=s.length+3%>
-	    			 <%else%>
-	    			  ,
-	    			 <%end%>
-    		 <%else%>
-    		   <%snum+=s.length+3%>
-    		 <%end%>
-    		 
-    		 <%=s.titleize%>
-			    <%end%>
-	    	</p>
-	    	<%if@lunchnoodleingre!=nil%>
-				<p>
-					<%@lunchnoodleingre.each do |e|%>
-						<%=e.titleize%>
-						<%if e!=@lunchnoodleingre[-1]%>
-						,
-						<%end%>
-					<%end%>
-				</p>
-			<%end%>
-				<p><%=@lunchnoodlekcal%></p>
-			</div>
+    <div class="row">
+        <div class="col s12 m8 offset-m2 l6 offset-l3">
+          <div class="card">
+            <div class="card-content  ">
+              <span class="card-title">Lunch Noodle</span>
+              <div class="divider"></div>
+              <p>
+                <div class="section">
+                  <div class="caf_times"> <%=@lunchnoodletime%> / <%=@lunchnoodleprice%></div><br>
+          				<div class="caf_rep"><%=@lunchnoodle.shift.titleize%></div>
+          				<p>
+          					<%snum=0%>
+          			    <%@lunchnoodle.each do |s|%> 
+                          <%if s!=@lunchnoodle[0]%>
+          					   <%snum+=s.length+3%>
+          					   <%if snum>=34%>
+          	    				<br>
+          	    				<%snum=0%>
+          	    				<%snum+=s.length+3%>
+          	    			 <%else%>
+          	    			  ,
+          	    			 <%end%>
+              		 <%else%>
+              		   <%snum+=s.length+3%>
+              		 <%end%>
+              		 
+              		 <%=s.titleize%>
+          			    <%end%>
+          	    	</p>
+                </div>
+                <div class="divider"></div>
+                <div class="section">
+                  <%if@lunchnoodleingre!=nil%>
+          				<p>
+          					<%@lunchnoodleingre.each do |e|%>
+          						<%=e.titleize%>
+          						<%if e!=@lunchnoodleingre[-1]%>
+          						,
+          						<%end%>
+          					<%end%>
+          				</p>
+          			<%end%>
+          				<p><%=@lunchnoodlekcal%></p>
+                </div>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div> 
     <%end%>
 		<!--점심 면 메뉴 끝-->
 		
@@ -211,45 +301,58 @@
     <%if @dinner==[]%>
         
     <%else%>
-			<div class="google_subheader" style="position:relative; padding: 0;z-index: 10; "> 
-				<h4>Dinner</h4>
-			</div>
-			<div class="google_list">
-				<div class="caf_times"> <%=@dinnertime%> / <%=@dinnerprice%></div>
-				<div class="caf_rep"><%=@dinner.shift.titleize%></div>
-				<p>
-					<%snum=0%>
-			    <%@dinner.each do |s|%> 
-                <%if s!=@dinner[0]%>
-					   <%snum+=s.length+3%>
-					   <%if snum>=34%>
-	    				<br>
-	    				<%snum=0%>
-	    				<%snum+=s.length+3%>
-	    			 <%else%>
-	    			  ,
-	    			 <%end%>
-	    		 <%else%>
-	    		   <%snum+=s.length+3%>
-	    		 <%end%>
-	    		 
-	    		 <%=s.titleize%>
-				    <%end%>
-		    	</p>
-		    	<%if@dinneringre!=nil%>
-					<p>
-						<%@dinneringre.each do |e|%>
-							<%=e.titleize%>
-							<%if e!=@dinneringre[-1]%>
-							,
-							<%end%>
-						<%end%>
-					</p>
-				<%end%>
-				<p><%=@dinnerkcal%></p>
-			</div>
+    <div class="row">
+        <div class="col s12 m8 offset-m2 l6 offset-l3">
+          <div class="card">
+            <div class="card-content  ">
+              <span class="card-title">Dinner</span>
+              <div class="divider"></div>
+              <p>
+                <div class="section">
+          				<div class="caf_times"> <%=@dinnertime%> / <%=@dinnerprice%></div><br>
+          				<div class="caf_rep"><%=@dinner.shift.titleize%></div>
+          				<p>
+        					<%snum=0%>
+        			    <%@dinner.each do |s|%> 
+                        <%if s!=@dinner[0]%>
+        					   <%snum+=s.length+3%>
+        					   <%if snum>=34%>
+        	    				<br>
+        	    				<%snum=0%>
+        	    				<%snum+=s.length+3%>
+        	    			 <%else%>
+        	    			  ,
+        	    			 <%end%>
+        	    		 <%else%>
+        	    		   <%snum+=s.length+3%>
+        	    		 <%end%>
+        	    		 
+        	    		 <%=s.titleize%>
+        				    <%end%>
+        		    	</p>
+                </div>
+                <div class="divider"></div>
+                <div class="section">
+                  <%if@dinneringre!=nil%>
+        					<p>
+        						<%@dinneringre.each do |e|%>
+        							<%=e.titleize%>
+        							<%if e!=@dinneringre[-1]%>
+        							,
+        							<%end%>
+        						<%end%>
+        					</p>
+        				<%end%>
+        				<p><%=@dinnerkcal%></p>
+                </div>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     <%end%>
 		<!--저녁메뉴 끝-->
+		
 		<%if @w==0%>
 			<div class="google_subheader" style="position:relative; padding: 0;z-index: 10; "> 
 				
@@ -258,298 +361,354 @@
 			</div>
 		<%else%>
 		<!--스낵-->
-		  <div class="google_subheader" style="position:relative; padding: 0;z-index: 10; "> 
-				<h4>Snack</h4>
-			</div>
-			<div class="google_list">
-				<%if @w!=0&&@w!=6%><div class="caf_times">09:00~18:40</div><%end%>
-				<div class="caf_rep"></div>
-				<p>
-					<%snum=0%>
-					<%@snack.each do|s|%>
-					 
-					 <%if s!=@snack[0]%>
-					   <%snum+=s.length+3%>
-					   <%if snum>=34%>
-	    				<br>
-	    				<%snum=0%>
-	    				<%snum+=s.length+3%>
-	    			 <%else%>
-	    			  ,
-	    			 <%end%>
-	    		 <%else%>
-	    		   <%snum+=s.length+3%>
-	    		 <%end%>
-	    		 
-	    		 <%=s.titleize%>
-					<%end%>
-	    	</p>
-	    	<p></p>
-			</div>
+		<div class="row">
+        <div class="col s12 m8 offset-m2 l6 offset-l3">
+          <div class="card">
+            <div class="card-content  ">
+              <span class="card-title">Snack</span>
+              <div class="divider"></div>
+              <p>
+                <div class="section"><%if @w!=0&&@w!=6%><div class="caf_times">09:00~18:40</div><%end%></div>
+                <p>
+      					<%snum=0%>
+      					<%@snack.each do|s|%>
+      					 
+      					 <%if s!=@snack[0]%>
+      					   <%snum+=s.length+3%>
+      					   <%if snum>=34%>
+      	    				<br>
+      	    				<%snum=0%>
+      	    				<%snum+=s.length+3%>
+      	    			 <%else%>
+      	    			  ,
+      	    			 <%end%>
+      	    		 <%else%>
+      	    		   <%snum+=s.length+3%>
+      	    		 <%end%>
+      	    		 
+      	    		 <%=s.titleize%>
+      					<%end%>
+      	    	</p>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div> 
 			<%end%>
-		<!--스낵끝-->
-		</div>
-	</div>
-
-<!--여기는 두번째 탭 내용입니다-->
-	<div id="menu1" class="tab-pane fade">
-	    <div id="today-detail-div" style="position:relative; padding: 0;z-index: 10; border-top: 1px solid #dddddd;" >
-		<!--점심 메뉴-->
-		
-        <%if @flunch==[] %>
+			<!--스넥끝-->
+    </div>
+    <!--test1 끝-->
+    
+    <div id="test2" class="col s12">
+      <%if @flunch==[] %>
         <%else%>
-			    <div class="google_subheader" style="position:relative; padding: 0;z-index: 10; "> 
-						<h4>Lunch</h4>
-					</div>
-					<div class="google_list">
-						<div class="caf_times"> <%=@flunchtime%> / <%=@flunchprice%></div>
-						<div class="caf_rep"><%=@flunch.shift.titleize%></div>
-						<p>
-							<%snum=0%>
-							<%@flunch.each do |s|%> 
-		    			  <%if s!=@flunch[0]%>
-								   <%snum+=s.length+3%>
-								   <%if snum>=34%>
-				    				<br>
-				    				<%snum=0%>
-				    				<%snum+=s.length+3%>
-				    			 <%else%>
-				    			  ,
-				    			 <%end%>
-			    		 <%else%>
-			    		   <%snum+=s.length+3%>
-			    		 <%end%>
-			    		 
-			    		 <%=s.titleize%>
-							<%end%>
-						</p>
-					<%if@flunchingre!=nil%>
-					<p>
-						<%@flunchingre.each do |e|%>
-							<%=e.titleize%>
-							<%if e!=@flunchingre[-1]%>
-							,
-							<%end%>
-						<%end%>
-					</p>
-					<%end%>
-						<p><%=@flunchkcal%></p>
-					</div>
+        <div class="row">
+        <div class="col s12 m8 offset-m2 l6 offset-l3">
+          <div class="card">
+            <div class="card-content  ">
+              <span class="card-title">Lunch</span>
+              <div class="divider"></div>
+              <p>
+                <div class="section">
+                  <div class="caf_times"> <%=@flunchtime%> / <%=@flunchprice%></div><br>
+      						<div class="caf_rep"><%=@flunch.shift.titleize%></div>
+      						<p>
+    							<%snum=0%>
+    							<%@flunch.each do |s|%> 
+    		    			  <%if s!=@flunch[0]%>
+    								   <%snum+=s.length+3%>
+    								   <%if snum>=34%>
+    				    				<br>
+    				    				<%snum=0%>
+    				    				<%snum+=s.length+3%>
+    				    			 <%else%>
+    				    			  ,
+    				    			 <%end%>
+    			    		 <%else%>
+    			    		   <%snum+=s.length+3%>
+    			    		 <%end%>
+    			    		 
+    			    		 <%=s.titleize%>
+    							<%end%>
+    						</p>
+                </div>
+                <div class="divider"></div>
+                <div class="section">
+                  <%if@flunchingre!=nil%>
+        					<p>
+        						<%@flunchingre.each do |e|%>
+        							<%=e.titleize%>
+        							<%if e!=@flunchingre[-1]%>
+        							,
+        							<%end%>
+        						<%end%>
+        					</p>
+        					<%end%>
+        						<p><%=@flunchkcal%></p>
+                </div>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div> 
 				<%end%>
 		<!--점심 메뉴 끝-->
 		
-		<!--저녁 메뉴-->
+			<!--저녁 메뉴-->
 		
 	    <%if @fdinner==[] %>
 	    <%else%>
-				<div class="google_subheader" style="position:relative; padding: 0;z-index: 10; "> 
-					<h4>Dinner</h4>
-				</div>	
-				<div class="google_list">
-					<div class="caf_times"> <%=@fdinnertime%> / <%=@fdinnerprice%></div>
-					<div class="caf_rep"><%=@fdinner.shift.titleize%></div>
-					<p>
-						<%snum=0%>
-				    <%@fdinner.each do |s|%> 
-              			<%if s!=@fdinner[0]%>
-							   <%snum+=s.length+3%>
-							   <%if snum>=34%>
-			    				<br>
-			    				<%snum=0%>
-			    				<%snum+=s.length+3%>
-			    			 <%else%>
-			    			  ,
-			    			 <%end%>
-			    		 <%else%>
-			    		   <%snum+=s.length+3%>
-			    		 <%end%>
-			    		 
-			    		 <%=s.titleize%>
-				    <%end%>
-					</p>
-					<%if@fdinneringre!=nil%>
-					<p>
-						<%@fdinneringre.each do |e|%>
-							<%=e.titleize%>
-							<%if e!=@fdinneringre[-1]%>
-							,
-							<%end%>
-						<%end%>
-					</p>
-					<%end%>
-					<p><%=@fdinnerkcal%></p>
-				</div>
+	    <div class="row">
+        <div class="col s12 m8 offset-m2 l6 offset-l3">
+          <div class="card">
+            <div class="card-content  ">
+              <span class="card-title">Dinner</span>
+              <div class="divider"></div>
+              <p>
+                <div class="section">
+                  <div class="caf_times"> <%=@fdinnertime%> / <%=@fdinnerprice%></div><br>
+        					<div class="caf_rep"><%=@fdinner.shift.titleize%></div>
+        					<p>
+      						<%snum=0%>
+      				    <%@fdinner.each do |s|%> 
+                    			<%if s!=@fdinner[0]%>
+      							   <%snum+=s.length+3%>
+      							   <%if snum>=34%>
+      			    				<br>
+      			    				<%snum=0%>
+      			    				<%snum+=s.length+3%>
+      			    			 <%else%>
+      			    			  ,
+      			    			 <%end%>
+      			    		 <%else%>
+      			    		   <%snum+=s.length+3%>
+      			    		 <%end%>
+      			    		 
+      			    		 <%=s.titleize%>
+      				    <%end%>
+      					</p>
+                </div>
+                <div class="divider"></div>
+                <div class="section">
+                  <%if@fdinneringre!=nil%>
+        					<p>
+        						<%@fdinneringre.each do |e|%>
+        							<%=e.titleize%>
+        							<%if e!=@fdinneringre[-1]%>
+        							,
+        							<%end%>
+        						<%end%>
+        					</p>
+        					<%end%>
+        					<p><%=@fdinnerkcal%></p>
+                </div>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
 	    <%end%>
 		<!--저녁메뉴 끝-->
-	
-		</div>
-	</div>
-	
-	<!--세번째 탭 시작입니다-->
-	  <div id="menu2" class="tab-pane fade">
-	    <div id="today-detail-div" style="position:relative; padding: 0;z-index: 10; border-top: 1px solid #dddddd;" >
-		<!--메뉴a-->
-		
-		    <%if @menua==[] %>
+    </div>
+    <!--test2끝-->
+    <div id="test4" class="col s12">
+    <%if @menua==[] %>
 		    <%else%>
-				<div class="google_subheader" style="position:relative; padding: 0;z-index: 10; "> 
-					<h4>Menu A</h4>
-				</div>
-				<div class="google_list">
-					<div class="caf_times"> <%=@menuatime%> / <%=@menuaprice%></div>
-					<div class="caf_rep"><%=@menua.shift.titleize%></div>
-					<p>
-						<%snum=0%>
-						<%@menua.each do |s|%> 
-		    			<%if s!=@menua[0]%>
-						  <%snum+=s.length+3%>
-						  <%if snum>=34%>
-		    				<br>
-		    				<%snum=0%>
-		    				<%snum+=s.length+3%>
-		    			  <%else%>
-		    			   ,
-		    			  <%end%>
-			    		<%else%>
-			    		  <%snum+=s.length+3%>
-			    		<%end%>
-			    		 
-			    		 <%=s.titleize%>
-					  <%end%>
-					</p>
-					<%if@menuaingre!=nil%>
-					<p>
-						<%@menuaingre.each do |e|%>
-							<%=e.titleize%>
-							<%if e!=@menuaingre[-1]%>
-							,
-							<%end%>
-						<%end%>
-					</p>
-					<%end%>
-					<p><%=@menuakcal%></p>
-				</div>
-				<%end%>
+		    <div class="row">
+        <div class="col s12 m8 offset-m2 l6 offset-l3">
+          <div class="card">
+            <div class="card-content  ">
+              <span class="card-title">Menu A</span>
+              <div class="divider"></div>
+              <p>
+                <div class="section">
+                  <div class="caf_times"> <%=@menuatime%> / <%=@menuaprice%></div><br>
+        					<div class="caf_rep"><%=@menua.shift.titleize%></div>
+        					<p>
+      						<%snum=0%>
+      						<%@menua.each do |s|%> 
+      		    			<%if s!=@menua[0]%>
+      						  <%snum+=s.length+3%>
+      						  <%if snum>=34%>
+      		    				<br>
+      		    				<%snum=0%>
+      		    				<%snum+=s.length+3%>
+      		    			  <%else%>
+      		    			   ,
+      		    			  <%end%>
+      			    		<%else%>
+      			    		  <%snum+=s.length+3%>
+      			    		<%end%>
+      			    		 
+      			    		 <%=s.titleize%>
+      					  <%end%>
+      					</p>
+                </div>
+                <div class="divider"></div>
+                <div class="section">
+                  <%if@menuaingre!=nil%>
+        					<p>
+        						<%@menuaingre.each do |e|%>
+        							<%=e.titleize%>
+        							<%if e!=@menuaingre[-1]%>
+        							,
+        							<%end%>
+        						<%end%>
+        					</p>
+        					<%end%>
+        					<p><%=@menuakcal%></p>
+                </div>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+		<%end%>
 		<!--메뉴a 끝-->
 		
 		<!--메뉴b-->
 		
 		    <%if @menub==[] %>
 		    <%else%>
-				<div class="google_subheader" style="position:relative; padding: 0;z-index: 10; "> 
-					<h4>Menu B</h4>
-				</div>	
-				<div class="google_list">
-					<div class="caf_times"> <%=@menubtime%> / <%=@menubprice%></div>
-					<div class="caf_rep"><%=@menub.shift.titleize%></div>
-					<p>
-						<%snum=0%>
-					    <%@menub.each do |s|%> 
-		                <%if s!=@menub[0]%>
-							   <%snum+=s.length+3%>
-							   <%if snum>=34%>
-			    				<br>
-			    				<%snum=0%>
-			    				<%snum+=s.length+3%>
-			    			 <%else%>
-			    			  ,
-			    			 <%end%>
-		    		 <%else%>
-		    		   <%snum+=s.length+3%>
-		    		 <%end%>
-		    		 
-		    		 <%=s.titleize%>
-					    <%end%>
-					</p>
-					<%if@menubingre!=nil%>
-					<p>
-						<%@menubingre.each do |e|%>
-							<%=e.titleize%>
-							<%if e!=@menubingre[-1]%>
-							,
-							<%end%>
-						<%end%>
-					</p>
-					<%end%>
-					<p><%=@menubkcal%></p>
-				</div>
-		    <%end%>
-		<!--메뉴b 끝-->
-	
-		</div>
-	  </div>
-	</div>
-
-
-<footer>
-	<br>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                  
-                    <div id="foo">
-                    	<h6><a href="/0/<%=@day%>">English</a> / <a href="/4/<%=@day%>">한국어</a> / <a href="/1/<%=@day%>">日本語</a> / <a href="/2/<%=@day%>">简写</a> / <a href="/3/<%=@day%>">繁体</a> / العربية</h6>
-                    	<h5><a href="/home/leftindex/0/0/0/0">Restaurants around Hufs</a></h5>
-                    	<h6>L I K E L I O N  X  H U F S</h6>
-                    	<h6> <a href="/board/hufslogin">FEEDBACK BOARD</a></h6>
-                    	<h6 class="email">CONTACT : mondayspoon@gmail.com</h6>
-                    	<h6><a data-toggle="modal" data-target="#myModal" onclick="ga('send', 'event','contributor', '버튼클릭', 'index');">CONTRIBUTOR</a></h6>
-                    	
-                      </div>
-                    <br>
+		    <div class="row">
+        <div class="col s12 m8 offset-m2 l6 offset-l3">
+          <div class="card">
+            <div class="card-content  ">
+              <span class="card-title">Menu B</span>
+              <div class="divider"></div>
+              <p>
+                <div class="section">
+                  <div class="caf_times"> <%=@menubtime%> / <%=@menubprice%></div><br>
+        					<div class="caf_rep"><%=@menub.shift.titleize%></div>
+        					<p>
+      						<%snum=0%>
+      					    <%@menub.each do |s|%> 
+      		                <%if s!=@menub[0]%>
+      							   <%snum+=s.length+3%>
+      							   <%if snum>=34%>
+      			    				<br>
+      			    				<%snum=0%>
+      			    				<%snum+=s.length+3%>
+      			    			 <%else%>
+      			    			  ,
+      			    			 <%end%>
+      		    		 <%else%>
+      		    		   <%snum+=s.length+3%>
+      		    		 <%end%>
+      		    		 
+      		    		 <%=s.titleize%>
+      					    <%end%>
+      					</p>
                 </div>
+                <div class="divider"></div>
+                <div class="section">
+                  <%if@menubingre!=nil%>
+        					<p>
+        						<%@menubingre.each do |e|%>
+        							<%=e.titleize%>
+        							<%if e!=@menubingre[-1]%>
+        							,
+        							<%end%>
+        						<%end%>
+        					</p>
+        					<%end%>
+        					<p><%=@menubkcal%></p>
+                </div>
+              </p>
             </div>
+          </div>
         </div>
-    </footer>
-  <div id="myModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-
-    <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">MondaySpoon</h4>
-        </div>
-        <div class="modal-body">
-          <div class="panel panel-default">
-			<div class="panel-heading">전진철 / JIN CHEOL JUHN</div>
-			<div class="panel-body">CFO </div>
-		  </div>
-		  <div class="panel panel-default">
-			<div class="panel-heading">김소영 / SO YOUNG KIM</div>
-			<div class="panel-body">CDO</div>
-		  </div>
-		  <div class="panel panel-default">
-			<div class="panel-heading">이상록 / SANG ROK LEE</div>
-			<div class="panel-body">CTO</div>
-		  </div>
-		  <div class="panel panel-default">
-			<div class="panel-heading">이승준 / SEUNG JUN LEE</div>
-			<div class="panel-body">CMO (상암동 순정남)</div>
-		  </div>
-        </div>
-      </div>
-
+      </div> 
+		<%end%>
+    <!--메뉴b 끝-->
     </div>
+    <!--test4 끝-->
   </div>
-    <!-- Left and right controls -->
-  
+    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+    <a class="btn-floating btn-large red">
+      <i class="large material-icons">local_dining</i>
+    </a>
+    </div>
+    
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            
+          <h4 style="inline:block;">
+              Mondayspoon
+              
+          </h4>
+          <div class="fixed-action-btn" style="top: 15px; right: 24px;">
+            <a class="btn-floating btn-small red closebtn">
+                <i class="small material-icons">clear</i>
+            </a>
+          </div>
+          <p>email: mondayspoon@gmail.com</p>
+          <div class="divider"></div>
+          <div class="section">
+            <h5>전진철</h5>
+          </div>
+          
+          <div class="divider"></div>
+          <div class="section">
+            <h5>이소영</h5>
+          </div>
+          
+          <div class="divider"></div>
+          <div class="section">
+            <h5>이상록</h5>
+          </div>
+          
+          <div class="divider"></div>
+          <div class="section">
+            <h5>이승준</h5>
+          </div>
+        </div>
+    </div>
+    
 <script>
-
-  $( "#dateopen" ).click(function() {
-    $( "#datepicker-container" ).slideToggle( "slow", function() {
-    // Animation complete.
+$(".button-collapse").sideNav();
+  $('.collapsible').collapsible();
+  $('.dropdown-button').dropdown({
+      inDuration: 300,
+      outDuration: 225,
+      constrain_width: true, // Does not change width of dropdown to that of the activator
+      hover: false, // Activate on hover
+      gutter: 0, // Spacing from edge
+      belowOrigin: true, // Displays dropdown below the button
+      alignment: 'left' // Displays dropdown with edge aligned to the left of button
+    }
+  );
+  $('.modal-trigger').leanModal();
+  var $input =  $('#datepicker').pickadate({
+    format: 'yyyymmdd',
+    onSet: function(e) {
+      if (e.select) {
+        window.location.href="/<%=@id%>/"+picker.get();
+        //alert(picker.get());
+        this.close();
+      } else {
+        
+      }
+    },
+    onClose: function(){
+        $(document.activeElement).blur()
+    }
     });
-  });
-  $(function() {
-    $( "#datepicker" ).datepicker({
-	    	onSelect: function(dateText, inst) { 
-	      var dateAsString = dateText; //the first parameter of this function
-	      
-	      window.location.href="/<%=@id%>/"+dateText.slice(6,10)+dateText.slice(0,2)+dateText.slice(3,5);
-	      }
-    	}
-    )
-  });
-  
+    var picker = $input.pickadate('picker');
+  $(".representer").click(function(){
+    picker.open();
+    event.stopPropagation();
+    event.preventDefault();
+  })
+  $(".represent_side").click(function(){
+    event.stopPropagation();
+    $('.button-collapse').sideNav('hide');
+    
+    picker.open();
+    event.stopPropagation();
+    event.preventDefault();
+  })
+  $(".closebtn").click(function(){
+      $('#modal1').closeModal();
+  })
 </script>

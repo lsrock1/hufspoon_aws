@@ -1,17 +1,4 @@
-// // Place all the styles related to the ohome controller here.
-// // They will automatically be included in application.css.
-// // You can use Sass (SCSS) here: http://sass-lang.com/
-// @media (max-width: 768px) {
-//   .nav-justified > li {
-//     display: table-cell;
-//     width: 1%;
-//   }
-//   .nav-justified > li > a  {
-//     border-bottom: 1px solid #ddd !important;
-//     border-radius: 4px 4px 0 0 !important;
-//     margin-bottom: 0 !important;
-//   }
-// }
+
 .placeinfo_wrap {position:absolute;bottom:28px;left:-90px;width:180px;}
 .placeinfo {position:relative;width:100%;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;padding-bottom: 10px;background: #fff;}
 .placeinfo:nth-of-type(n) {border:0; box-shadow:0px 1px 2px #888;}
