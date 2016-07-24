@@ -20,6 +20,15 @@ class AdpageController < ApplicationController
     
   end
 
+  def bugfix
+    Menulist.all.each do |a|
+      if a.ename==""&&a.ername==""&&a.jnamea==""&&a.cname==""&&a.cnameb==""&&a.aname==""
+        a.destroy
+        elsif a.ename==""&&a.ername==""&&a.jnamea==""&&a.cnameb==""&&a.aname==""
+        a.destroy
+      end
+    end
+  end
   
   
   def rewritemenu
@@ -144,24 +153,24 @@ class AdpageController < ApplicationController
       sheet1 = xlsx.sheet(0)
         sheet1.each do |s|
           unless (s[0].to_s=="")
-            if Menulist.find_by(:kname => s[0])!=nil
-              exme=Menulist.find_by(:kname => s[0])
-              if s[2]!=""
+            if Menulist.find_by(:kname => s[0].strip)!=nil
+              exme=Menulist.find_by(:kname => s[0].strip)
+              if s[2]!=""&&s[2]!=nil
                exme.ename=s[2]
               end
-              if s[1]!=""
+              if s[1]!=""&&s[1]!=nil
               exme.ername=s[1]
               end
-              if s[3]!=""
+              if s[3]!=""&&s[3]!=nil
               exme.jnamea=s[3]
               end
-              if s[4]!=""
+              if s[4]!=""&&s[4]!=nil
               exme.cname=s[4]
               end
-              if s[5]!=""
+              if s[5]!=""&&s[5]!=nil
               exme.cnameb=s[5]
               end
-              if s[6]!=""
+              if s[6]!=""&&s[6]!=nil
               exme.aname=s[6]
               end
               exme.save
