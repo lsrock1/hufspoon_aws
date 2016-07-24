@@ -28,6 +28,7 @@ class AdpageController < ApplicationController
         a.destroy
       end
     end
+    redirect_to :back
   end
   
   
