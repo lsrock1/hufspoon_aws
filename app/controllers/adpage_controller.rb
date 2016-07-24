@@ -22,13 +22,15 @@ class AdpageController < ApplicationController
 
   def bugfix
     Menulist.all.each do |a|
-      if a.ename==""&&a.ername==""&&a.jnamea==""&&a.cname==""&&a.cnameb==""&&a.aname==""
+      if a.ename==nil&&a.ername==nil&&a.jnamea==nil&&a.cnameb==nil&&a.aname==nil
+        a.destroy
+        elsif a.ename==""&&a.ername==""&&a.jnamea==""&&a.cnameb==""&&a.aname==""&&a.cname==""
         a.destroy
         elsif a.ename==""&&a.ername==""&&a.jnamea==""&&a.cnameb==""&&a.aname==""
         a.destroy
       end
     end
-    redirect_to :back
+    redirect_to '/adpage/dbmain/1'
   end
   
   
