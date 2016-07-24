@@ -29,7 +29,14 @@ class HomeController < ApplicationController
    @id=tid
    @day=params[:day]
    
-   
+   #루트로 접속하면 번역은 0이고 데이는 nil이 된다
+   if @id==0&&@day==nil
+     if cookies[:my_language]!=nil
+       tid=cookies[:my_language].to_i
+       @id=cookies[:my_language].to_i
+     end
+   end
+   cookies[:my_language]=tid
    mainadd="https://webs.hufs.ac.kr/jsp/HUFS/cafeteria/viewWeek.jsp"
     if @day==nil
      @time=Time.new.in_time_zone("Seoul")

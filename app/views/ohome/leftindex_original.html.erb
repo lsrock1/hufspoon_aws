@@ -1,0 +1,577 @@
+<header>
+  <br>
+  <h1 id="title"><a href="/home/leftindex/0/0/0/0" style="color:white;">HUFSPOON</a></h1>
+  <br>
+  <ul class="nav nav-tabs nav-justified">
+    <li class="active"><a data-toggle="tab" href="#home">Searching</a></li>
+    <li ><a <%if @beforeid==0||@beforeid==nil%>href="/home/rightindex/0/0/0/0"<%else%>href="/home/rightindex/<%=@beforeid%>/<%=@num%>/<%=@lat%>/<%=@lon%>"<%end%>>Menu</a></li>
+  </ul>
+</header>
+  <div class="tab-content">
+	<!--여기서부터는 첫 번째 탭 입니다-->
+    <div id="home" class="tab-pane fade in active"style="background-color:white;">
+      <div class="container">
+        <br/>
+        <br/>
+        <nav class="navbar navbar-default">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand">
+                <%if @num=="0"%>
+                  Category
+                <%elsif @num=="1"%>
+                  Korean
+                <%elsif @num=="2"%>
+                  Japanese
+                <%elsif @num=="3"%>
+                  Western
+                <%elsif @num=="4"%>
+                  Chinese
+                <%elsif @num=="5"%>
+                  Chicken
+                <%elsif @num=="6"%>
+                  Meat
+                <%elsif @num=="7"%>
+                  School Food/Noodle
+                <%end%>
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+              <ul class="nav navbar-nav">
+                <li <%if @num=="0"%> class="active"<%end%>><a href="/home/leftindex/0/0/<%=@lat%>/<%=@lon%>">Today</a></li>
+                <li <%if @num=="1"%> class="active"<%end%>><a href="/home/leftindex/1/1/<%=@lat%>/<%=@lon%>">Korean</a></li>
+                <li <%if @num=="2"%> class="active"<%end%>><a href="/home/leftindex/2/1/<%=@lat%>/<%=@lon%>">Japanese</a></li> 
+                <li <%if @num=="3"%> class="active"<%end%>><a href="/home/leftindex/3/1/<%=@lat%>/<%=@lon%>">Western</a></li>
+                <li <%if @num=="4"%> class="active"<%end%>><a href="/home/leftindex/4/1/<%=@lat%>/<%=@lon%>">Chinese</a></li>
+                <li <%if @num=="5"%> class="active"<%end%>><a href="/home/leftindex/5/1/<%=@lat%>/<%=@lon%>">Chicken</a></li>
+                <li <%if @num=="6"%> class="active"<%end%>><a href="/home/leftindex/6/1/<%=@lat%>/<%=@lon%>">Meat</a></li>
+                <li <%if @num=="7"%> class="active"<%end%>><a href="/home/leftindex/7/1/<%=@lat%>/<%=@lon%>">School Food/Noodle</a></li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+        
+        <button type="button" class="btn btn-primary opener">
+          <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> Open Map
+        </button>
+        <!--<a href="/home/leftindex/<%=@num%>/3/0/0">-->
+          <button type="button" class="btn btn-danger random">
+            <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Random
+          </button>
+        <button type="button" class="btn btn-default search">
+            <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search
+        </button>
+        <!--</a>-->
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="input-group">
+              <div class="input-group-btn">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu name <span class="caret"></span></button>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">Menu name</a></li>
+                    <li><a href="#">Keyword</a></li>
+                  </ul>
+              </div>
+              <input type="text" class="form-control" placeholder="Search for...">
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="button">Go!</button>
+              </span>
+            </div>
+          </div>
+        </div>
+        
+        
+        <br/>
+        <div id="searchbutton" style="display:none;">
+          <button type="button" class="btn btn-default restsearch">
+              <span class="glyphicon glyphicon-globe" aria-hidden="true"></span> By keyword
+          </button>
+          <button type="button" class="btn btn-default menusearch">
+              <span class="glyphicon glyphicon-cutlery" aria-hidden="true"></span> By Menu
+          </button>
+        </div>
+        <br/>
+        
+        
+          <div id="restsearchsection" style="display:none;">
+            <div class="option" >
+              <div>
+                <form onsubmit="searchPlaces(); return false;">
+                  keyword : <input type="text"  value="hankuk university"id="keyword" size="15">
+                  <button type="submit">search</button> 
+                </form>
+                <div class="well well-sm">Search and Click on the list below</div>
+              </div>
+            </div>
+            
+            <div style="width:100%; height:110px; overflow-y:scroll;"id="menu_wrap" class="bg_white">
+              <hr>
+              <ul id="placesList"></ul>
+              <div id="pagination"></div>
+            </div>
+          </div>
+          
+          <div id="menusearchsection" style="display:none;">
+            <form action="/home/search" method="post"class="form-inline">
+              <div class="form-group">
+                <label for="exampleInputName2">Menu Name</label>
+                <input type="text" class="form-control" name="keyword"id="exampleInputName2" placeholder="Delicious!">
+              </div>
+              <button type="submit" class="btn btn-default">Search</button>
+            </form>
+          </div>
+        
+        
+        <div id="mapsection" <%if @dis=="0"%>style="display:none;"<%end%>>
+          <div class="well"id="map" style="width:100%;height:300px;"></div>
+        </div>
+        <br>
+        <div <%if (@beforeid==nil||@beforeid=="0")&&@num=="0"%><%else%>style="display:none;"<%end%>class="table-responsive">
+          <h3 style="text-align:center;">Restaurants for You</h6>
+          <table class="table">
+            <tbody class="choose" style="text-align:center;">
+            </tbody>
+          </table>
+        </div>  
+        <br/>
+        <br/>
+        
+	  </div>
+    </div>
+  </div>
+
+<!--여기는 두번째 탭 내용입니다-->
+
+	
+</div>
+
+
+<footer>
+	<br>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                  <br>
+                    <div id="foo">
+                        <h5><a href="/">home</a></h5>
+                    	<h6>L I K E L I O N  X  H U F S</h6>
+                    	<h6 class="email">CONTACT : mondayspoon@gmail.com </h6>
+                    	<h6><a data-toggle="modal" data-target="#myModal"onclick="ga('send', 'event','contributor', '버튼클릭', 'leftindex');">CONTRIBUTOR</a></h6>
+                    	
+                    </div>
+                    	
+                    <br>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+    <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">MondaySpoon</h4>
+        </div>
+        <div class="modal-body">
+          <div class="panel panel-default">
+      			<div class="panel-heading">전진철 / JIN CHEOL JUHN</div>
+      			<div class="panel-body">CFO </div>
+    		  </div>
+    		  <div class="panel panel-default">
+      			<div class="panel-heading">김소영 / SO YOUNG KIM</div>
+      			<div class="panel-body">CDO</div>
+    		  </div>
+    		  <div class="panel panel-default">
+      			<div class="panel-heading">이상록 / SANG ROK LEE</div>
+      			<div class="panel-body">CTO</div>
+    		  </div>
+    		  <div class="panel panel-default">
+      			<div class="panel-heading">이승준 / SEUNG JUN LEE</div>
+      			<div class="panel-body">CMO (상암동 순정남)</div>
+    		  </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+    <!--<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=23598cdf36f0c5f5bf1f1bfda70b8e80"></script>-->
+    <script src="https://spi.maps.daum.net/imap/map_js_init/postcode.v2.js"></script>
+    <script src="//apis.daum.net/maps/maps3.js?apikey=23598cdf36f0c5f5bf1f1bfda70b8e80&libraries=services"></script>
+	<script>
+	var placeOverlay = new daum.maps.CustomOverlay({zIndex:1}), 
+    contentNode = document.createElement('div');
+	var markers=[1];
+	var container = document.getElementById('map');
+	var options = {
+		center: new daum.maps.LatLng(<%if @lat=="0"%>37.597415, 127.057824<%else%><%=@lat%>,<%=@lon%><%end%>),
+		level: <%if @lat!="0"%>1<%else%>3<%end%>
+	};
+
+	var map = new daum.maps.Map(container, options);
+	var ps = new daum.maps.services.Places();  
+      // 키워드로 장소를 검색합니다
+  searchPlaces();
+  // 커스텀 오버레이의 컨텐츠 노드에 css class를 추가합니다 
+  contentNode.className = 'placeinfo_wrap';
+  
+  // 커스텀 오버레이의 컨텐츠 노드에 mousedown, touchstart 이벤트가 발생했을때
+  // 지도 객체에 이벤트가 전달되지 않도록 이벤트 핸들러로 daum.maps.event.preventMap 메소드를 등록합니다 
+  addEventHandle(contentNode, 'mousedown', daum.maps.event.preventMap);
+  addEventHandle(contentNode, 'touchstart', daum.maps.event.preventMap);
+  
+  // 커스텀 오버레이 컨텐츠를 설정합니다
+  placeOverlay.setContent(contentNode);  
+  function addEventHandle(target, type, callback) {
+    if (target.addEventListener) {
+        target.addEventListener(type, callback);
+    } else {
+        target.attachEvent('on' + type, callback);
+    }
+}
+	$(".random").click(function(){
+	  if (!$("#mapsection").is(":visible")){
+	    $("#mapsection").slideDown();
+	    map.relayout();
+	  }
+	  hideMarkers();
+	  //removeMarker();
+	  randomit();
+	  
+	})
+  $( ".opener" ).click(function() {
+    $( "#mapsection" ).slideToggle( "slow", function() {
+      map.relayout();
+    // Animation complete.
+    });
+  });
+$( ".search" ).click(function() {
+    $( "#searchbutton" ).slideToggle( "slow", function() {
+    // Animation complete.
+    if($("#restsearchsection").is(":visible")){
+      $("#restsearchsection").slideUp();
+    }
+    if($("#menusearchsection").is(":visible")){
+      $("#menusearchsection").slideUp();
+    }
+    });
+  });
+$(".restsearch").click(function(){
+  $( "#restsearchsection" ).slideToggle( "slow", function() {
+    if($("#mapsection").is(":hidden")){
+      $("#mapsection").slideDown();
+    }
+    if($("#menusearchsection").is(":visible")){
+      $("#menusearchsection").slideUp();
+    }
+    map.relayout();
+    });
+  })
+$(".menusearch").click(function(){
+  $( "#menusearchsection" ).slideToggle( "slow", function() {
+    
+    if($("#restsearchsection").is(":visible")){
+      $("#restsearchsection").slideUp();
+    }
+    map.relayout();
+    });
+  })
+
+// 키워드 검색을 요청하는 함수입니다
+  function searchPlaces() {
+  
+      var keyword = document.getElementById('keyword').value;
+  
+      if (!keyword.replace(/^\s+|\s+$/g, '')) {
+          alert('키워드를 입력해주세요!');
+          return false;
+      }
+  
+      // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
+      ps.keywordSearch( keyword, placesSearchCB); 
+  }
+
+// 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
+  function placesSearchCB(status, data, pagination) {
+      if (status === daum.maps.services.Status.OK) {
+  
+          // 정상적으로 검색이 완료됐으면
+          // 검색 목록과 마커를 표출합니다
+          displayPlaces(data.places);
+  
+          // 페이지 번호를 표출합니다
+          displayPagination(pagination);
+  
+      } else if (status === daum.maps.services.Status.ZERO_RESULT) {
+  
+          alert('검색 결과가 존재하지 않습니다.');
+          return;
+  
+      } else if (status === daum.maps.services.Status.ERROR) {
+  
+          alert('검색 결과 중 오류가 발생했습니다.');
+          return;
+  
+      }
+  }
+
+// 검색 결과 목록과 마커를 표출하는 함수입니다
+  function displayPlaces(places) {
+
+    var listEl = document.getElementById('placesList'), 
+    menuEl = document.getElementById('menu_wrap'),
+    fragment = document.createDocumentFragment(), 
+    bounds = new daum.maps.LatLngBounds(), 
+    listStr = '';
+    
+    // 검색 결과 목록에 추가된 항목들을 제거합니다
+    removeAllChildNods(listEl);
+
+
+    
+    for ( var i=0; i<places.length; i++ ) {
+
+        // 마커를 생성하고 지도에 표시합니다
+        var placePosition = new daum.maps.LatLng(places[i].latitude, places[i].longitude),
+            
+            itemEl = getListItem(i, places[i], marker); // 검색 결과 항목 Element를 생성합니다
+
+        // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+        // LatLngBounds 객체에 좌표를 추가합니다
+        
+        
+        (function(places) {
+            
+
+            itemEl.onclick =  function () {
+                var moveLatLon = new daum.maps.LatLng(places.latitude, places.longitude);
+                map.setCenter(moveLatLon);
+                map.setLevel(3);
+            };
+
+            
+        })(places[i]);
+
+
+        fragment.appendChild(itemEl);
+    }
+
+    // 검색결과 항목들을 검색결과 목록 Elemnet에 추가합니다
+    listEl.appendChild(fragment);
+    menuEl.scrollTop = 0;
+
+    // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+    //map.setBounds(bounds);
+  }
+
+// 검색결과 항목을 Element로 반환하는 함수입니다
+  function getListItem(index, places) {
+  
+      var el = document.createElement('li'),
+      itemStr =           '<div class="info">' +
+                  '   <h5>' + places.title + '</h5>';
+  
+      if (places.newAddress) {
+          itemStr += '    <span>' + places.newAddress + '</span>' +
+                      '   <span class="jibun gray">' +  places.address  + '</span>';
+      } else {
+          itemStr += '    <span>' +  places.address  + '</span>'; 
+      }
+                   
+        itemStr += '  <span class="tel">' + places.phone  + '</span>' +
+                  '</div>';           
+  
+      el.innerHTML = itemStr;
+      el.className = 'item';
+  
+      return el;
+  }
+// 검색결과 목록 하단에 페이지번호를 표시는 함수입니다
+  function displayPagination(pagination) {
+      var paginationEl = document.getElementById('pagination'),
+          fragment = document.createDocumentFragment(),
+          i; 
+  
+      // 기존에 추가된 페이지번호를 삭제합니다
+      while (paginationEl.hasChildNodes()) {
+          paginationEl.removeChild (paginationEl.lastChild);
+      }
+  
+      for (i=1; i<=pagination.last; i++) {
+          var el = document.createElement('a');
+          el.href = "#";
+          el.innerHTML = i;
+  
+          if (i===pagination.current) {
+              el.className = 'on';
+          } else {
+              el.onclick = (function(i) {
+                  return function() {
+                      pagination.gotoPage(i);
+                  }
+              })(i);
+          }
+  
+          fragment.appendChild(el);
+      }
+      paginationEl.appendChild(fragment);
+  }
+
+
+ // 검색결과 목록의 자식 Element를 제거하는 함수입니다
+  function removeAllChildNods(el) {   
+    while (el.hasChildNodes()) {
+      el.removeChild (el.lastChild);
+    }
+  }
+  function makeClickListener(map, marker, infowindow) {
+    return function() {
+      infowindow.open(map, marker);
+    };
+  }
+  
+  <%if @num=="0"%>
+  	var positions = [
+      <%Map.all.each do |m|%>
+        {
+          latlng: new daum.maps.LatLng(<%=m.lat%>,<%=m.lon%>),
+          iwContent: '<%m.rests.each do |r|%><a class="title" href="/home/rightindex/<%=r.id%>/<%=@num%>/<%=m.lat%>/<%=m.lon%>" target="_self"><%=r.name%></a><%end%>',
+        },
+      <%end%>];
+  <%else%>
+    var positions = [
+      <%@all.each do |m|%>
+        {
+             
+            latlng: new daum.maps.LatLng(<%=m[0]%>,<%=m[1]%>),
+            iwContent: '<%m[2].each do |r|%><a class="title" href="/home/rightindex/<%=r[0]%>/<%=@num%>/<%=m[0]%>/<%=m[1]%>"><%=r[1]%></a><%end%>',
+            
+        },
+      <%end%>];
+  <%end%>
+  
+  
+  //모든마커를 표시합니다
+  
+    for (var i = 0; i < positions.length; i ++) {
+    
+        var marker = new daum.maps.Marker({
+            map: map, // 마커를 표시할 지도
+            position: positions[i].latlng, // 마커를 표시할 위치
+            clickable: true
+        });
+        (function(iwcontent,position) {
+                daum.maps.event.addListener(marker, 'click', function() {
+                    displayPlaceInfo(iwcontent,position);
+                });
+            })(positions[i].iwContent,positions[i].latlng);
+        markers.push(marker);
+    };
+  
+  
+  //positions에 저장되어있는 마커 중 하나만 무작위로 꺼내 표시합니다
+    function randomit(){
+      index=Math.floor(Math.random()*positions.length);
+      var marker = new daum.maps.Marker({
+          map: map, // 마커를 표시할 지도
+          position: positions[index].latlng, // 마커를 표시할 위치
+          clickable: true
+      });
+      var look=positions[index].iwContent.indexOf("</a>");
+      var iwcontent = positions[index].iwContent.substring(0, look+4);
+      (function(iwcontent,position) {
+                daum.maps.event.addListener(marker, 'click', function() {
+                    displayPlaceInfo(iwcontent,position);
+                });
+            })(iwcontent,positions[index].latlng);
+        markers.push(marker);
+        map.setCenter(positions[index].latlng);
+  	};
+  	
+  	//모든 마커를 숨깁니다
+    function hideMarkers() {
+      var len=markers.length-1;
+      overlayclose();
+      for (var i = len; i > 0; i--) {
+          markers[i].setMap(null);
+          markers.pop();
+      }        
+    }
+    
+    function displayPlaceInfo (iwcontent,position) {
+        var content = '<div class="placeinfo">'+iwcontent+
+                        '<span>'+
+                        '<span style="text-align: right;" onclick="overlayclose();" class="glyphicon glyphicon-remove" aria-hidden="true"></span>'+
+                        '</a></span></div>'+
+                        '<div class="after"></div>';
+        contentNode.innerHTML = content;
+        placeOverlay.setPosition(position);
+        placeOverlay.setMap(map);  
+    }
+    function overlayclose(){
+      placeOverlay.setMap(null);
+    }
+    <%if @beforeid!=nil&&@beforeid!="0"%>
+      //이전에 menu에서 이동해왔다면 하나의 마커만을 표시한다
+      hideMarkers();
+      var information={
+          latlng: new daum.maps.LatLng(<%=@beforemap.lat%>,<%=@beforemap.lon%>),
+          iwContent: '<a class="title" href="/home/rightindex/<%=@beforeid%>/<%=@num%>/<%=@beforemap.lat%>/<%=@beforemap.lon%>"><%=@beforemark.name%></a>',
+        }
+      var marker = new daum.maps.Marker({
+          map: map, // 마커를 표시할 지도
+          position: information.latlng, // 마커를 표시할 위치
+          clickable: true
+      });
+      (function(iwcontent,position) {
+                daum.maps.event.addListener(marker, 'click', function() {
+                    displayPlaceInfo(iwcontent,position);
+                });
+            })(information.iwContent,information.latlng);
+      
+      markers.push(marker);
+    <%elsif @num=="0"%>
+      hideMarkers();
+      var temp=[];
+      var len=0;
+      if(positions.length<5){
+          len=positions.length;
+        }
+        else{
+          len=5;
+        }
+      for(var i=0; i<len;i++){
+        index=Math.floor(Math.random()*positions.length);
+        if(temp.indexOf(index)==-1){
+          var marker = new daum.maps.Marker({
+            map: map, // 마커를 표시할 지도
+            position: positions[index].latlng, // 마커를 표시할 위치
+            clickable: true
+          });
+          var look=positions[index].iwContent.indexOf("</a>");
+          var iwcontent = positions[index].iwContent.substring(0, look+4);
+          (function(iwcontent,position) {
+            daum.maps.event.addListener(marker, 'click', function() {
+            displayPlaceInfo(iwcontent,position);
+            });
+          })(iwcontent,positions[index].latlng);
+          markers.push(marker);
+          
+          $(".choose").append('<tr><td>'+iwcontent+'</td></tr>');
+          temp.push(index);
+        }
+        else{
+          i--;
+        }
+      }
+        
+        
+      
+    <%end%>
+	</script>
