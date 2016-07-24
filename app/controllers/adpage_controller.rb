@@ -143,7 +143,7 @@ class AdpageController < ApplicationController
       xlsx = Roo::Spreadsheet.open('public/public/db.xlsx')
       sheet1 = xlsx.sheet(0)
         sheet1.each do |s|
-          unless (s[0].to_s=="")||(s[2].to_s=="")
+          unless (s[0].to_s=="")
             if Menulist.find_by(:kname => s[0])!=nil
               exme=Menulist.find_by(:kname => s[0])
               if s[2]!=""
