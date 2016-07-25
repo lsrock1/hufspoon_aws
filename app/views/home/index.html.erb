@@ -32,7 +32,7 @@
         <div class="col s12 m8 offset-m2 l6 offset-l3">
           <div class="card">
             <div class="card-content  ">
-              <span class="card-title">Breakfast</span><div class="right"><a class="waves-effect waves-light btn like <%if cookies[@breakfast_main.kname.to_sym]=="1"||session[@breakfast_main.kname.to_sym]=="1"%>red<%end%>"id="<%=@breakfast_main.id%>" onclick="ga('send', 'event','<%=@breakfast_main.kname%>' , '버튼', '외대');"><i class="material-icons">thumb_up</i>&nbsp;&nbsp;<%=@breakfast_main.u_like%> like</a></div>
+              <span class="card-title">Breakfast</span>
               <div class="divider"></div>
               <div class="section">
               <p><div class="caf_times"> <%=@breakfasttime%> / <%=@breakfastprice%></div><br>
@@ -61,6 +61,7 @@
     			</div>
     			<div class="divider"></div>
     			<div class="section">
+    			  <div class="right"><a class="waves-effect waves-light btn like <%if cookies[@breakfast_main.kname.to_sym]=="1"||session[@breakfast_main.kname.to_sym]=="1"%>red<%end%>"id="<%=@breakfast_main.id%>" onclick="ga('send', 'event','<%=@breakfast_main.kname%>' , '버튼', '외대');"><i class="material-icons">thumb_up</i>&nbsp;&nbsp;<%=@breakfast_main.u_like%></a></div>
         			<%if@breakfastingre!=nil%>
     					<p>
     						<%@breakfastingre.each do |e|%>
@@ -89,7 +90,7 @@
           <div class="card">
             <div class="card-content  ">
               
-              <span class="card-title">Lunch 1</span><div class="right"><a class="waves-effect waves-light btn like <%if cookies[@lunch1_main.kname.to_sym]=="1"||session[@lunch1_main.kname.to_sym]=="1"%>red<%end%>"id="<%=@lunch1_main.id%>"onclick="ga('send', 'event','<%=@lunch1_main.kname%>' , '버튼', '외대');"><i class="material-icons">thumb_up</i>&nbsp;&nbsp;<%=@lunch1_main.u_like%> like</a></div>
+              <span class="card-title">Lunch 1</span>
               <div class="divider"></div>
               <div class="section">
               <p>
@@ -119,6 +120,7 @@
           			</div>
           			<div class="divider"></div>
           			<div class="section">
+          			  <div class="right"><a class="waves-effect waves-light btn like <%if cookies[@lunch1_main.kname.to_sym]=="1"||session[@lunch1_main.kname.to_sym]=="1"%>red<%end%>"id="<%=@lunch1_main.id%>"onclick="ga('send', 'event','<%=@lunch1_main.kname%>' , '버튼', '외대');"><i class="material-icons">thumb_up</i>&nbsp;&nbsp;<%=@lunch1_main.u_like%></a></div>
           			<%if@lunch1ingre!=nil%>
           			
           				<p>
@@ -150,7 +152,7 @@
         <div class="col s12 m8 offset-m2 l6 offset-l3">
           <div class="card">
             <div class="card-content  ">
-              <span class="card-title">Lunch 2</span><div class="right"><a class="waves-effect waves-light btn like <%if cookies[@lunch2_main.kname.to_sym]=="1"||session[@lunch2_main.kname.to_sym]=="1"%>red<%end%>"id="<%=@lunch2_main.id%>" onclick="ga('send', 'event','<%=@lunch2_main.kname%>' , '버튼', '외대');"><i class="material-icons">thumb_up</i>&nbsp;&nbsp;<%=@lunch2_main.u_like%> like</a></div>
+              <span class="card-title">Lunch 2</span>
               <div class="divider"></div>
               <p>
                 <div class="section">
@@ -177,6 +179,7 @@
             		</div>
             		<div class="divider"></div>
             		<div class="section">
+            		  <div class="right"><a class="waves-effect waves-light btn like <%if cookies[@lunch2_main.kname.to_sym]=="1"||session[@lunch2_main.kname.to_sym]=="1"%>red<%end%>"id="<%=@lunch2_main.id%>" onclick="ga('send', 'event','<%=@lunch2_main.kname%>' , '버튼', '외대');"><i class="material-icons">thumb_up</i>&nbsp;&nbsp;<%=@lunch2_main.u_like%></a></div>
             		<%if@lunch2ingre!=nil%>
         				<p>
         					<%@lunch2ingre.each do |e|%>
@@ -204,7 +207,7 @@
         <div class="col s12 m8 offset-m2 l6 offset-l3">
           <div class="card">
             <div class="card-content  ">
-              <span class="card-title">Lunch Noodles</span><div class="right"><a class="waves-effect waves-light btn like <%if cookies[@lunchnoodle_main.kname.to_sym]=="1"||session[@lunchnoodle_main.kname.to_sym]=="1"%>red<%end%>"id="<%=@lunchnoodle_main.id%>" onclick="ga('send', 'event','<%=@lunchnoodle_main.kname%>' , '버튼', '외대');"><i class="material-icons">thumb_up</i>&nbsp;&nbsp;<%=@lunchnoodle_main.u_like%> like</a></div>
+              <span class="card-title">Lunch Noodles</span>
               <div class="divider"></div>
               <p>
                 <div class="section">
@@ -232,6 +235,7 @@
                 </div>
                 <div class="divider"></div>
                 <div class="section">
+                  <div class="right"><a class="waves-effect waves-light btn like <%if cookies[@lunchnoodle_main.kname.to_sym]=="1"||session[@lunchnoodle_main.kname.to_sym]=="1"%>red<%end%>"id="<%=@lunchnoodle_main.id%>" onclick="ga('send', 'event','<%=@lunchnoodle_main.kname%>' , '버튼', '외대');"><i class="material-icons">thumb_up</i>&nbsp;&nbsp;<%=@lunchnoodle_main.u_like%></a></div>
                   <%if@lunchnoodleingre!=nil%>
           				<p>
           					<%@lunchnoodleingre.each do |e|%>
@@ -261,7 +265,7 @@
         <div class="col s12 m8 offset-m2 l6 offset-l3">
           <div class="card">
             <div class="card-content  ">
-              <span class="card-title">Dinner</span><div class="right"><a class="waves-effect waves-light btn like <%if cookies[@dinner_main.kname.to_sym]=="1"||session[@dinner_main.kname.to_sym]=="1"%>red<%end%>"id="<%=@dinner_main.id%>" onclick="ga('send', 'event','<%=@dinner_main.kname%>' , '버튼', '외대');"><i class="material-icons">thumb_up</i>&nbsp;&nbsp;<%=@dinner_main.u_like%> like</a></div>
+              <span class="card-title">Dinner</span>
               <div class="divider"></div>
               <p>
                 <div class="section">
@@ -289,6 +293,7 @@
                 </div>
                 <div class="divider"></div>
                 <div class="section">
+                  <div class="right"><a class="waves-effect waves-light btn like <%if cookies[@dinner_main.kname.to_sym]=="1"||session[@dinner_main.kname.to_sym]=="1"%>red<%end%>"id="<%=@dinner_main.id%>" onclick="ga('send', 'event','<%=@dinner_main.kname%>' , '버튼', '외대');"><i class="material-icons">thumb_up</i>&nbsp;&nbsp;<%=@dinner_main.u_like%></a></div>
                   <%if@dinneringre!=nil%>
         					<p>
         						<%@dinneringre.each do |e|%>
@@ -367,7 +372,7 @@
         <div class="col s12 m8 offset-m2 l6 offset-l3">
           <div class="card">
             <div class="card-content  ">
-              <span class="card-title">Lunch</span><div class="right"><a class="waves-effect waves-light btn like <%if cookies[@flunch_main.kname.to_sym]=="1"||session[@flunch_main.kname.to_sym]=="1"%>red<%end%>" id="<%=@flunch_main.id%>" onclick="ga('send', 'event','<%=@flunch_main.kname%>' , '버튼', '외대');"><i class="material-icons">thumb_up</i>&nbsp;&nbsp;<%=@flunch_main.u_like%> like</a></div>
+              <span class="card-title">Lunch</span>
               <div class="divider"></div>
               <p>
                 <div class="section">
@@ -395,6 +400,7 @@
                 </div>
                 <div class="divider"></div>
                 <div class="section">
+                  <div class="right"><a class="waves-effect waves-light btn like <%if cookies[@flunch_main.kname.to_sym]=="1"||session[@flunch_main.kname.to_sym]=="1"%>red<%end%>" id="<%=@flunch_main.id%>" onclick="ga('send', 'event','<%=@flunch_main.kname%>' , '버튼', '외대');"><i class="material-icons">thumb_up</i>&nbsp;&nbsp;<%=@flunch_main.u_like%></a></div>
                   <%if@flunchingre!=nil%>
         					<p>
         						<%@flunchingre.each do |e|%>
@@ -423,7 +429,7 @@
         <div class="col s12 m8 offset-m2 l6 offset-l3">
           <div class="card">
             <div class="card-content  ">
-              <span class="card-title">Dinner</span><div class="right"><a class="waves-effect waves-light btn like <%if cookies[@fdinner_main.kname.to_sym]=="1"||session[@fdinner_main.kname.to_sym]=="1"%>red<%end%>" id="<%=@fdinner_main.id%>" onclick="ga('send', 'event','<%=@fdinner_main.kname%>' , '버튼', '외대');"><i class="material-icons">thumb_up</i>&nbsp;&nbsp;<%=@fdinner_main.u_like%> like</a></div>
+              <span class="card-title">Dinner</span>
               <div class="divider"></div>
               <p>
                 <div class="section">
@@ -451,6 +457,7 @@
                 </div>
                 <div class="divider"></div>
                 <div class="section">
+                  <div class="right"><a class="waves-effect waves-light btn like <%if cookies[@fdinner_main.kname.to_sym]=="1"||session[@fdinner_main.kname.to_sym]=="1"%>red<%end%>" id="<%=@fdinner_main.id%>" onclick="ga('send', 'event','<%=@fdinner_main.kname%>' , '버튼', '외대');"><i class="material-icons">thumb_up</i>&nbsp;&nbsp;<%=@fdinner_main.u_like%></a></div>
                   <%if@fdinneringre!=nil%>
         					<p>
         						<%@fdinneringre.each do |e|%>
@@ -479,7 +486,7 @@
         <div class="col s12 m8 offset-m2 l6 offset-l3">
           <div class="card">
             <div class="card-content  ">
-              <span class="card-title">Menu A </span><div class="right"><a class="waves-effect waves-light btn like <%if cookies[@menua_main.kname.to_sym]=="1"||session[@menua_main.kname.to_sym]=="1"%>red<%end%>" id="<%=@menua_main.id%>" onclick="ga('send', 'event','<%=@menua_main.kname%>' , '버튼', '외대');"><i class="material-icons">thumb_up</i>&nbsp;&nbsp;<%=@menua_main.u_like%> like</a></div>
+              <span class="card-title">Menu A </span>
               <div class="divider"></div>
               <p>
                 <div class="section">
@@ -507,6 +514,7 @@
                 </div>
                 <div class="divider"></div>
                 <div class="section">
+                  <div class="right"><a class="waves-effect waves-light btn like <%if cookies[@menua_main.kname.to_sym]=="1"||session[@menua_main.kname.to_sym]=="1"%>red<%end%>" id="<%=@menua_main.id%>" onclick="ga('send', 'event','<%=@menua_main.kname%>' , '버튼', '외대');"><i class="material-icons">thumb_up</i>&nbsp;&nbsp;<%=@menua_main.u_like%></a></div>
                   <%if@menuaingre!=nil%>
         					<p>
         						<%@menuaingre.each do |e|%>
@@ -536,7 +544,7 @@
         <div class="col s12 m8 offset-m2 l6 offset-l3">
           <div class="card">
             <div class="card-content  ">
-              <span class="card-title">Menu B</span><a class="waves-effect waves-light btn like <%if cookies[@menub_main.kname.to_sym]=="1"||session[@menub_main.kname.to_sym]=="1"%>red<%end%>" id="<%=@menub_main.id%>" onclick="ga('send', 'event','<%=@menub_main.kname%>' , '버튼', '외대');"><i class="material-icons">thumb_up</i>&nbsp;&nbsp;<%=@menub_main.u_like%> like</a>
+              <span class="card-title">Menu B</span>
               <div class="divider"></div>
               <p>
                 <div class="section">
@@ -564,6 +572,7 @@
                 </div>
                 <div class="divider"></div>
                 <div class="section">
+                  <a class="waves-effect waves-light btn like <%if cookies[@menub_main.kname.to_sym]=="1"||session[@menub_main.kname.to_sym]=="1"%>red<%end%>" id="<%=@menub_main.id%>" onclick="ga('send', 'event','<%=@menub_main.kname%>' , '버튼', '외대');"><i class="material-icons">thumb_up</i>&nbsp;&nbsp;<%=@menub_main.u_like%></a>
                   <%if@menubingre!=nil%>
         					<p>
         						<%@menubingre.each do |e|%>
@@ -689,7 +698,7 @@ $('.modal-trigger').leanModal();
       success: function(data)  {
         //$(this).html(toString(data.like));
       //$(this).html("&nbsp&nbsp"+data.like+" like");
-      $("#"+did).html("<i class='material-icons'>thumb_up</i>&nbsp;&nbsp;"+data.like+" like</a></div>");
+      $("#"+did).html("<i class='material-icons'>thumb_up</i>&nbsp;&nbsp;"+data.like+"</a></div>");
       if($("#"+did).hasClass("red")){
         $("#"+did).removeClass("red");
       }
