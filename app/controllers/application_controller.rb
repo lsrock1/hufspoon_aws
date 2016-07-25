@@ -174,5 +174,23 @@ class ApplicationController < ActionController::Base
     return result_string
   end
   
+  def how_like(xfood,order)
+    #order가 1이면 증가시킴
+    if xfood.index("&")!=nil
+       divide=xfood.split("&")
+       
+    elsif xfood.index("/")!=nil
+       divide=xfood.split("/")
+    else
+       divide=xfood.split("-")
+    end
+    result=Menulist.find_by(:kname => divide[0])
+    if order==1
+     
+      result.u_like=result.u_like+1
+      result.save
+    end
+    return result
+  end
   
 end

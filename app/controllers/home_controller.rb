@@ -20,7 +20,28 @@ class HomeController < ApplicationController
     end
   end
   
-  
+  def like
+    id=params[:id]
+    @menu=Menulist.find(id)
+    if cookies[@menu.kname.to_sym]=="1"||session[@menu.kname.to_sym]=="1"#좋아요
+      cookies[@menu.kname.to_sym]=0
+      if cookies[@menu.kname.to_sym]==nil
+        session[@menu.kname.to_sym]=0
+      end
+      @menu.u_like-=1
+      @menu.save
+    else
+      @menu.u_like+=1
+      cookies[@menu.kname.to_sym]=1
+      if cookies[@menu.kname.to_sym]!="1"
+        session[@menu.kname.to_sym]=1
+      end
+      @menu.save
+    end
+    respond_to do |format|
+      format.json { render :json => { :like => @menu.u_like } }
+    end
+  end
 
 
   
@@ -114,24 +135,25 @@ class HomeController < ApplicationController
         sfirst=s.index("(")-1
         food=s[0..sfirst]
         food=food.split("/")
-        temp=""
-        num=0
+        
+        
         food.each do |f|
-          if num!=0
-            temp=temp+"/"
-          end
+          # if num!=0
+          #   temp=temp+"/"
+          # end
+          temp=""
           judvar=checkexist(f,tid)
           if judvar==1
-            temp=temp+transout(f,tid)
+            temp=transout(f,tid)
           elsif judvar==0
-            temp=temp+f
+            temp=f
           else
-            temp=temp+f
+            temp=f
             new_menu(f)
           end
-          num+=1
+          @snack.push(temp+" "+s[sfirst+1..-1])
         end
-        @snack.push(temp+" "+s[sfirst+1..-1])
+        
       end
     end
     
@@ -154,6 +176,9 @@ class HomeController < ApplicationController
                 @lunch1price=x.text[0..-2]+" won"
               else
                 xfood=x.text.strip
+                if innum==0
+                  @lunch1_main=Menulist.find_by(:kname => xfood)
+                end
                 judvar=checkexist(xfood,tid)
                 if judvar==1
                   @lunch1.push(transout(xfood,tid))
@@ -179,6 +204,9 @@ class HomeController < ApplicationController
                 @lunch2price=x.text[0..-2]+" won"
               else
                 xfood=x.text.strip
+                if innum==0
+                  @lunch2_main=Menulist.find_by(:kname => xfood)
+                end
                 judvar=checkexist(xfood,tid)
                 if judvar==1
                   @lunch2.push(transout(xfood,tid))
@@ -204,6 +232,9 @@ class HomeController < ApplicationController
                 @lunchnoodleprice=x.text[0..-2]+" won"
               else
                 xfood=x.text.strip
+                if innum==0
+                  @lunchnoodle_main=Menulist.find_by(:kname => xfood)
+                end
                 judvar=checkexist(xfood,tid)
                 if judvar==1
                   @lunchnoodle.push(transout(xfood,tid))
@@ -229,6 +260,9 @@ class HomeController < ApplicationController
                 @breakfastprice=x.text[0..-2]+" won"
               else
                 xfood=x.text.strip
+                if innum==0
+                  @breakfast_main=Menulist.find_by(:kname => xfood)
+                end
                 judvar=checkexist(xfood,tid)
                 if judvar==1
                   @breakfast.push(transout(xfood,tid))
@@ -254,6 +288,9 @@ class HomeController < ApplicationController
                 @dinnerprice=x.text[0..-2]+" won"
               else
                 xfood=x.text.strip
+                if innum==0
+                  @dinner_main=Menulist.find_by(:kname => xfood)
+                end
                 judvar=checkexist(xfood,tid)
                 if judvar==1
                   @dinner.push(transout(xfood,tid))
@@ -305,7 +342,13 @@ class HomeController < ApplicationController
                 #메뉴가 이상한 문자로 엮여있을 경우
                 if xfood.index("&")!=nil||xfood.index("/")!=nil||xfood.index("-")
                   @flunch.push(spliter(xfood,tid))
+                  if innum==0
+                    @flundh_main=how_like(xfood,0)
+                  end
                 else
+                  if innum==0
+                    @flundh_main=Menulist.find_by(:kname => xfood)
+                  end
                   judvar=checkexist(xfood,tid)
                   if judvar==1
                     @flunch.push(transout(xfood,tid))
@@ -339,7 +382,13 @@ class HomeController < ApplicationController
                 
                 if xfood.index("&")!=nil||xfood.index("/")!=nil||xfood.index("-")
                   @fdinner.push(spliter(xfood,tid))
+                  if innum==0
+                    @fdinner_main=how_like(xfood,0)
+                  end
                 else
+                  if innum==0
+                    @fdinner_main=Menulist.find_by(:kname => xfood)
+                  end
                   judvar=checkexist(xfood,tid)
                   if judvar==1
                     @fdinner.push(transout(xfood,tid))
@@ -386,9 +435,16 @@ class HomeController < ApplicationController
                 else
                   xfood=x.text.strip
                 end
+                
                 if xfood.index("&")!=nil||xfood.index("/")!=nil||xfood.index("-")
-                  @flunch.push(spliter(xfood,tid))
+                  @menua.push(spliter(xfood,tid))
+                  if innum==0
+                    @menua_main=how_like(xfood,0)
+                  end
                 else
+                  if innum==0
+                    @menua_main=Menulist.find_by(:kname => xfood)
+                  end
                   judvar=checkexist(xfood,tid)
                   if judvar==1
                     @menua.push(transout(xfood,tid))
@@ -416,12 +472,20 @@ class HomeController < ApplicationController
                   xfirst=x.text.to_s.index("(")
                   xfood=x.text.to_s[0..(xfirst-1)].strip
                   @menubingre.concat(makeingre(x.text[xfirst..-1],tid))
+                  
                 else
                   xfood=x.text.strip
                 end
+                
                 if xfood.index("&")!=nil||xfood.index("/")!=nil||xfood.index("-")
                   @flunch.push(spliter(xfood,tid))
+                  if innum==0
+                    @menua_main=how_like(xfood,0)
+                  end
                 else
+                  if innum==0
+                    @menub_main=Menulist.find_by(:kname => xfood)
+                  end
                   judvar=checkexist(xfood,tid)
                   if judvar==1
                     @menub.push(transout(xfood,tid))
@@ -454,6 +518,18 @@ class HomeController < ApplicationController
     
     @menuaingre=@menuaingre.uniq
     @menubingre=@menubingre.uniq
+    
+    @breakfast_main=Menulist.find_by(:kname => @breakfast[0])
+    
+    @lunch2_main=Menulist.find_by(:kname => @lunch2[0])
+    @lunchnoodle_main=Menulist.find_by(:kname => @lunchnoodle[0])
+    @dinner_main=Menulist.find_by(:kname => @dinner[0])
+    
+    @flunch_main=Menulist.find_by(:kname => @flunch[0])
+    @fdinner_main=Menulist.find_by(:kname => @fdinner[0])
+    
+    @menua_main=Menulist.find_by(:kname => @menua[0])
+    @menub_main=Menulist.find_by(:kname => @menub[0])
   end
   
   

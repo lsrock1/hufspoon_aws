@@ -56,8 +56,9 @@ ActiveRecord::Schema.define(version: 20160702115006) do
     t.string   "cname"
     t.string   "cnameb"
     t.string   "aname"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "u_like",     default: 0
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "posts", force: :cascade do |t|

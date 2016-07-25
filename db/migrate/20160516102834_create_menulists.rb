@@ -8,6 +8,7 @@ class CreateMenulists < ActiveRecord::Migration
       t.string :cname#간체
       t.string :cnameb#번체
       t.string :aname
+      t.integer :u_like, default: 0
       t.timestamps null: false
     end
   end
