@@ -3,11 +3,13 @@
     <ul id="slide-out" class="side-nav ">
       <li><a href="/board/hufslogin">HufsBoard</a></li>
       <li><a class="modal-trigger"href="#modal1">Mondayspoon</a></li>
+      <li><a class="modal-trigger-map"href="#modal2">Where</a></li>
     </ul>
     
     <ul class="left hide-on-med-and-down ">
         <li><a href="/board/hufslogin">HufsBoard</a></li>
         <li><a class="modal-trigger"href="#modal1">Mondayspoon</a></li>
+        <li><a class="modal-trigger-map"href="#modal2">Where</a></li>
     </ul>
     <a href="/" class="brand-logo center" >HUFSPOON</a>
     <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
@@ -61,7 +63,7 @@
     			</div>
     			<div class="divider"></div>
     			<div class="section">
-    			  <div class="right"><a class="waves-effect waves-light btn like <%if cookies[@breakfast_main.kname.to_sym]=="1"||session[@breakfast_main.kname.to_sym]=="1"%>red<%end%>"id="<%=@breakfast_main.id%>" onclick="ga('send', 'event','<%=@breakfast_main.kname%>' , '버튼', '외대');"><i class="material-icons">thumb_up</i>&nbsp;&nbsp;<%=@breakfast_main.u_like%></a></div>
+    			  <div class="right"><a class="waves-effect waves-light btn like <%if cookies[@breakfast_main.kname.to_sym]=="1"||session[@breakfast_main.kname.to_sym]=="1"%>red lighten-3<%end%>"id="<%=@breakfast_main.id%>" <%if cookies[@breakfast_main.kname.to_sym]==nil&&session[@breakfast_main.kname.to_sym]==nil%>onclick="ga('send', 'event','<%=@breakfast_main.kname%>' , '버튼', '외대');"<%end%>><i class="material-icons">favorite</i>&nbsp;&nbsp;<%=@breakfast_main.u_like%></a></div>
         			<%if@breakfastingre!=nil%>
     					<p>
     						<%@breakfastingre.each do |e|%>
@@ -120,7 +122,7 @@
           			</div>
           			<div class="divider"></div>
           			<div class="section">
-          			  <div class="right"><a class="waves-effect waves-light btn like <%if cookies[@lunch1_main.kname.to_sym]=="1"||session[@lunch1_main.kname.to_sym]=="1"%>red<%end%>"id="<%=@lunch1_main.id%>"onclick="ga('send', 'event','<%=@lunch1_main.kname%>' , '버튼', '외대');"><i class="material-icons">thumb_up</i>&nbsp;&nbsp;<%=@lunch1_main.u_like%></a></div>
+          			  <div class="right"><a class="waves-effect waves-light btn like <%if cookies[@lunch1_main.kname.to_sym]=="1"||session[@lunch1_main.kname.to_sym]=="1"%>red lighten-3<%end%>"id="<%=@lunch1_main.id%>" <%if cookies[@lunch1_main.kname.to_sym]==nil&&session[@lunch1_main.kname.to_sym]==nil%>onclick="ga('send', 'event','<%=@lunch1_main.kname%>' , '버튼', '외대');"<%end%>><i class="material-icons">favorite</i>&nbsp;&nbsp;<%=@lunch1_main.u_like%></a></div>
           			<%if@lunch1ingre!=nil%>
           			
           				<p>
@@ -179,7 +181,7 @@
             		</div>
             		<div class="divider"></div>
             		<div class="section">
-            		  <div class="right"><a class="waves-effect waves-light btn like <%if cookies[@lunch2_main.kname.to_sym]=="1"||session[@lunch2_main.kname.to_sym]=="1"%>red<%end%>"id="<%=@lunch2_main.id%>" onclick="ga('send', 'event','<%=@lunch2_main.kname%>' , '버튼', '외대');"><i class="material-icons">thumb_up</i>&nbsp;&nbsp;<%=@lunch2_main.u_like%></a></div>
+            		  <div class="right"><a class="waves-effect waves-light btn like <%if cookies[@lunch2_main.kname.to_sym]=="1"||session[@lunch2_main.kname.to_sym]=="1"%>red lighten-3<%end%>"id="<%=@lunch2_main.id%>" <%if cookies[@lunch2_main.kname.to_sym]==nil&&session[@lunch2_main.kname.to_sym]==nil%>onclick="ga('send', 'event','<%=@lunch2_main.kname%>' , '버튼', '외대');"<%end%>><i class="material-icons">favorite</i>&nbsp;&nbsp;<%=@lunch2_main.u_like%></a></div>
             		<%if@lunch2ingre!=nil%>
         				<p>
         					<%@lunch2ingre.each do |e|%>
@@ -235,7 +237,7 @@
                 </div>
                 <div class="divider"></div>
                 <div class="section">
-                  <div class="right"><a class="waves-effect waves-light btn like <%if cookies[@lunchnoodle_main.kname.to_sym]=="1"||session[@lunchnoodle_main.kname.to_sym]=="1"%>red<%end%>"id="<%=@lunchnoodle_main.id%>" onclick="ga('send', 'event','<%=@lunchnoodle_main.kname%>' , '버튼', '외대');"><i class="material-icons">thumb_up</i>&nbsp;&nbsp;<%=@lunchnoodle_main.u_like%></a></div>
+                  <div class="right"><a class="waves-effect waves-light btn like <%if cookies[@lunchnoodle_main.kname.to_sym]=="1"||session[@lunchnoodle_main.kname.to_sym]=="1"%>red lighten-3<%end%>"id="<%=@lunchnoodle_main.id%>" <%if cookies[@lunchnoodle_main.kname.to_sym]==nil&&session[@lunchnoodle_main.kname.to_sym]==nil%>onclick="ga('send', 'event','<%=@lunchnoodle_main.kname%>' , '버튼', '외대');"<%end%>><i class="material-icons">favorite</i>&nbsp;&nbsp;<%=@lunchnoodle_main.u_like%></a></div>
                   <%if@lunchnoodleingre!=nil%>
           				<p>
           					<%@lunchnoodleingre.each do |e|%>
@@ -293,7 +295,7 @@
                 </div>
                 <div class="divider"></div>
                 <div class="section">
-                  <div class="right"><a class="waves-effect waves-light btn like <%if cookies[@dinner_main.kname.to_sym]=="1"||session[@dinner_main.kname.to_sym]=="1"%>red<%end%>"id="<%=@dinner_main.id%>" onclick="ga('send', 'event','<%=@dinner_main.kname%>' , '버튼', '외대');"><i class="material-icons">thumb_up</i>&nbsp;&nbsp;<%=@dinner_main.u_like%></a></div>
+                  <div class="right"><a class="waves-effect waves-light btn like <%if cookies[@dinner_main.kname.to_sym]=="1"||session[@dinner_main.kname.to_sym]=="1"%>red lighten-3<%end%>"id="<%=@dinner_main.id%>" <%if cookies[@dinner_main.kname.to_sym]==nil&&session[@dinner_main.kname.to_sym]==nil%>onclick="ga('send', 'event','<%=@dinner_main.kname%>' , '버튼', '외대');"<%end%>><i class="material-icons">favorite</i>&nbsp;&nbsp;<%=@dinner_main.u_like%></a></div>
                   <%if@dinneringre!=nil%>
         					<p>
         						<%@dinneringre.each do |e|%>
@@ -400,7 +402,7 @@
                 </div>
                 <div class="divider"></div>
                 <div class="section">
-                  <div class="right"><a class="waves-effect waves-light btn like <%if cookies[@flunch_main.kname.to_sym]=="1"||session[@flunch_main.kname.to_sym]=="1"%>red<%end%>" id="<%=@flunch_main.id%>" onclick="ga('send', 'event','<%=@flunch_main.kname%>' , '버튼', '외대');"><i class="material-icons">thumb_up</i>&nbsp;&nbsp;<%=@flunch_main.u_like%></a></div>
+                  <div class="right"><a class="waves-effect waves-light btn like <%if cookies[@flunch_main.kname.to_sym]=="1"||session[@flunch_main.kname.to_sym]=="1"%>red lighten-3<%end%>" id="<%=@flunch_main.id%>"<%if cookies[@flunch_main.kname.to_sym]==nil&&session[@flunch_main.kname.to_sym]==nil%> onclick="ga('send', 'event','<%=@flunch_main.kname%>' , '버튼', '외대');"<%end%>><i class="material-icons">favorite</i>&nbsp;&nbsp;<%=@flunch_main.u_like%></a></div>
                   <%if@flunchingre!=nil%>
         					<p>
         						<%@flunchingre.each do |e|%>
@@ -457,7 +459,7 @@
                 </div>
                 <div class="divider"></div>
                 <div class="section">
-                  <div class="right"><a class="waves-effect waves-light btn like <%if cookies[@fdinner_main.kname.to_sym]=="1"||session[@fdinner_main.kname.to_sym]=="1"%>red<%end%>" id="<%=@fdinner_main.id%>" onclick="ga('send', 'event','<%=@fdinner_main.kname%>' , '버튼', '외대');"><i class="material-icons">thumb_up</i>&nbsp;&nbsp;<%=@fdinner_main.u_like%></a></div>
+                  <div class="right"><a class="waves-effect waves-light btn like <%if cookies[@fdinner_main.kname.to_sym]=="1"||session[@fdinner_main.kname.to_sym]=="1"%>red lighten-3<%end%>" id="<%=@fdinner_main.id%>" <%if cookies[@fdinner_main.kname.to_sym]==nil&&session[@fdinner_main.kname.to_sym]==nil%>onclick="ga('send', 'event','<%=@fdinner_main.kname%>' , '버튼', '외대');"<%end%>><i class="material-icons">favorite</i>&nbsp;&nbsp;<%=@fdinner_main.u_like%></a></div>
                   <%if@fdinneringre!=nil%>
         					<p>
         						<%@fdinneringre.each do |e|%>
@@ -514,7 +516,7 @@
                 </div>
                 <div class="divider"></div>
                 <div class="section">
-                  <div class="right"><a class="waves-effect waves-light btn like <%if cookies[@menua_main.kname.to_sym]=="1"||session[@menua_main.kname.to_sym]=="1"%>red<%end%>" id="<%=@menua_main.id%>" onclick="ga('send', 'event','<%=@menua_main.kname%>' , '버튼', '외대');"><i class="material-icons">thumb_up</i>&nbsp;&nbsp;<%=@menua_main.u_like%></a></div>
+                  <div class="right"><a class="waves-effect waves-light btn like <%if cookies[@menua_main.kname.to_sym]=="1"||session[@menua_main.kname.to_sym]=="1"%>red lighten-3<%end%>" id="<%=@menua_main.id%>" <%if cookies[@menua_main.kname.to_sym]==nil&&session[@menua_main.kname.to_sym]==nil%>onclick="ga('send', 'event','<%=@menua_main.kname%>' , '버튼', '외대');"<%end%>><i class="material-icons">favorite</i>&nbsp;&nbsp;<%=@menua_main.u_like%></a></div>
                   <%if@menuaingre!=nil%>
         					<p>
         						<%@menuaingre.each do |e|%>
@@ -572,7 +574,7 @@
                 </div>
                 <div class="divider"></div>
                 <div class="section">
-                  <a class="waves-effect waves-light btn like <%if cookies[@menub_main.kname.to_sym]=="1"||session[@menub_main.kname.to_sym]=="1"%>red<%end%>" id="<%=@menub_main.id%>" onclick="ga('send', 'event','<%=@menub_main.kname%>' , '버튼', '외대');"><i class="material-icons">thumb_up</i>&nbsp;&nbsp;<%=@menub_main.u_like%></a>
+                  <a class="waves-effect waves-light btn like <%if cookies[@menub_main.kname.to_sym]=="1"||session[@menub_main.kname.to_sym]=="1"%>red lighten-3<%end%>" id="<%=@menub_main.id%>" <%if cookies[@menub_main.kname.to_sym]==nil&&session[@menub_main.kname.to_sym]==nil%>onclick="ga('send', 'event','<%=@menub_main.kname%>' , '버튼', '외대');"<%end%>><i class="material-icons">favorite</i>&nbsp;&nbsp;<%=@menub_main.u_like%></a>
                   <%if@menubingre!=nil%>
         					<p>
         						<%@menubingre.each do |e|%>
@@ -656,13 +658,25 @@
         </div>
     </div>
     
+      <div id="modal2" class="modal">
+        <div class="modal-content">
+          <img class="responsive-img" src="https://s3.ap-northeast-2.amazonaws.com/elasticbeanstalk-ap-northeast-2-850152653970/map.png">
+        </div>
+      </div>
+         
 <script>
 $(".button-collapse").sideNav();
 $('.modal-trigger').leanModal();
+$('.modal-trigger-map').leanModal();
   $('.modal-trigger').click(function(){
     $('.button-collapse').sideNav('hide');
     $('.modal-trigger').leanModal();
   })
+  $('.modal-trigger-map').click(function(){
+    $('.button-collapse').sideNav('hide');
+    $('.modal-trigger-map').leanModal();
+  })
+  
   var $input =  $('#datepicker').pickadate({
     format: 'yyyymmdd',
     onSet: function(e) {
@@ -698,13 +712,17 @@ $('.modal-trigger').leanModal();
       success: function(data)  {
         //$(this).html(toString(data.like));
       //$(this).html("&nbsp&nbsp"+data.like+" like");
-      $("#"+did).html("<i class='material-icons'>thumb_up</i>&nbsp;&nbsp;"+data.like+"</a></div>");
+      $("#"+did).html("<i class='material-icons'>favorite</i>&nbsp;&nbsp;"+data.like+"</a></div>");
+      
+      $("#"+did).removeAttr("onlick");
       if($("#"+did).hasClass("red")){
-        $("#"+did).removeClass("red");
+        $("#"+did).removeClass("red lighten-3");
+        
       }
       else{
-        $("#"+did).addClass("red");
+        $("#"+did).addClass("red lighten-3");
       }
+      
       //alert("dfs");
       }
     })
