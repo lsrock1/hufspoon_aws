@@ -122,7 +122,7 @@
           			</div>
           			<div class="divider"></div>
           			<div class="section">
-          			  <div class="right"><a class="waves-effect waves-light btn like <%if cookies[@lunch1_main.kname.to_sym]=="1"||session[@lunch1_main.kname.to_sym]=="1"%>red lighten-3<%end%>"id="<%=@lunch1_main.id%>" <%if cookies[@lunch1_main.kname.to_sym]==nil&&session[@lunch1_main.kname.to_sym]==nil%>onclick="ga('send', 'event','<%=@lunch1_main.kname%>' , '버튼', '외대');"<%end%>><i class="material-icons">favorite</i>&nbsp;&nbsp;<%=@lunch1_main.u_like%></a></div>
+          			  <div class="right"><a class="waves-effect waves-light btn like <%if cookies[@lunch1_main.kname.to_sym]=="1"||session[@lunch1_main.kname.to_sym]=="1"%>red lighten-3 <%end%>"id="<%=@lunch1_main.id%>" <%if cookies[@lunch1_main.kname.to_sym]==nil&&session[@lunch1_main.kname.to_sym]==nil%>onclick="ga('send', 'event','<%=@lunch1_main.kname%>' , '버튼', '외대');"<%end%>><i class="material-icons">favorite</i>&nbsp;&nbsp;<%=@lunch1_main.u_like%></a></div>
           			<%if@lunch1ingre!=nil%>
           			
           				<p>
@@ -717,7 +717,6 @@ $('.modal-trigger-map').leanModal();
       $("#"+did).removeAttr("onlick");
       if($("#"+did).hasClass("red")){
         $("#"+did).removeClass("red lighten-3");
-        
       }
       else{
         $("#"+did).addClass("red lighten-3");

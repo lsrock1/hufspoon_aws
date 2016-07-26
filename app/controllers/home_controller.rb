@@ -24,7 +24,7 @@ class HomeController < ApplicationController
     id=params[:id]
     @menu=Menulist.find(id)
     if cookies[@menu.kname.to_sym]=="1"||session[@menu.kname.to_sym]=="1"#좋아요
-      cookies[@menu.kname.to_sym]=0
+      cookies.permanent[@menu.kname.to_sym]=0
       if cookies[@menu.kname.to_sym]==nil
         session[@menu.kname.to_sym]=0
       end
@@ -32,7 +32,7 @@ class HomeController < ApplicationController
       @menu.save
     else
       @menu.u_like+=1
-      cookies[@menu.kname.to_sym]=1
+      cookies.permanent[@menu.kname.to_sym]=1
       if cookies[@menu.kname.to_sym]!="1"
         session[@menu.kname.to_sym]=1
       end
@@ -57,7 +57,7 @@ class HomeController < ApplicationController
        @id=cookies[:my_language].to_i
      end
    end
-   cookies[:my_language]=tid
+   cookies.permanent[:my_language]=tid
    mainadd="https://webs.hufs.ac.kr/jsp/HUFS/cafeteria/viewWeek.jsp"
     if @day==nil
      @time=Time.new.in_time_zone("Seoul")
