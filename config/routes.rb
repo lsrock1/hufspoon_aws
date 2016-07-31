@@ -18,7 +18,6 @@ Rails.application.routes.draw do
   get '/oadpage/delmenu/:id' =>'oadpage#delmenu'
   #식당메뉴수정
   post '/oadpage/rewriterest/:id'=>"oadpage#rewriterest"
-  
   post '/adpage/menulist/:info' => 'adpage#existmenu'
   
   #메인db페이지 두개
@@ -48,10 +47,9 @@ Rails.application.routes.draw do
   post '/board/comment/:id' => 'board#comment'
   get '/board/remove/:id' => 'board#remove'
   get '/board/post/:id' =>'board#post'
-  get '/board/boardhome' =>'board#boardhome'
-  post '/board/boardhome' => 'board#boardhome'
   get '/board/write' => 'board#writepage'
   get '/board/hufslogin'=>'board#hufslogin'
+  post '/board/hufslogin'=>'board#hufslogin'
   get '/board/seepost/:id' =>'board#seepost'
   post '/board/save' => 'board#save'
   

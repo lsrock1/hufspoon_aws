@@ -1,15 +1,15 @@
 <nav>
     <div class="nav-wrapper"  >
     <ul id="slide-out" class="side-nav ">
-      <li><a href="/board/hufslogin">HufsBoard</a></li>
+      <li><a href="/board/seepost/1">Spoon Board</a></li>
       <li><a class="modal-trigger"href="#modal1">Mondayspoon</a></li>
-      <li><a class="modal-trigger-map"href="#modal2">Where</a></li>
+      <li><a class="modal-trigger-map"href="#modal2">Map</a></li>
     </ul>
     
     <ul class="left hide-on-med-and-down ">
-        <li><a href="/board/hufslogin">HufsBoard</a></li>
+        <li><a href="/board/seepost/1">Spoon Board</a></li>
         <li><a class="modal-trigger"href="#modal1">Mondayspoon</a></li>
-        <li><a class="modal-trigger-map"href="#modal2">Where</a></li>
+        <li><a class="modal-trigger-map"href="#modal2">Map</a></li>
     </ul>
     <a href="/" class="brand-logo center" >HUFSPOON</a>
     <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
@@ -26,7 +26,7 @@
     </div>
     <div id="test1" class="col s12">
         <!--아침메뉴 시작-->
-        <%if @breakfast==[] %>
+        <%if @breakfastprice==nil %>
         
         <%else%>
 		<!--아침메뉴 끝-->
@@ -37,7 +37,7 @@
               <span class="card-title">Breakfast</span>
               <div class="divider"></div>
               <div class="section">
-              <p><div class="caf_times"> <%=@breakfasttime%> / <%=@breakfastprice%></div><br>
+              <p><div class="caf_times"> <%=@breakfasttime%> / <%=@breakfastprice%></div>
                  <div class="caf_rep">
     				<%=@breakfast.shift.titleize%>
     			</div>
@@ -84,7 +84,7 @@
       </div> 
       <%end%>
       
-      <%if @lunch1==[] %>
+      <%if @lunch1price==nil %>
         
         <%else%>
         <div class="row">
@@ -96,7 +96,7 @@
               <div class="divider"></div>
               <div class="section">
               <p>
-                  <div class="caf_times"> <%=@lunch1time%> / <%=@lunch1price%></div><br>
+                  <div class="caf_times"> <%=@lunch1time%> / <%=@lunch1price%></div>
                   <div class="caf_rep">
             				<%=@lunch1.shift.titleize%>
             			</div>
@@ -147,7 +147,7 @@
       
       <!--점심2 메뉴 시작-->
 		
-        <%if @lunch2==[]||@lunch2[0]=="외국어로 메뉴를"%>
+        <%if @lunch2price==nil%>
         
         <%else%>
         <div class="row">
@@ -158,7 +158,7 @@
               <div class="divider"></div>
               <p>
                 <div class="section">
-                  <div class="caf_times"> <%=@lunch2time%> / <%=@lunch2price%></div><br>
+                  <div class="caf_times"> <%=@lunch2time%> / <%=@lunch2price%></div>
                   <div class="caf_rep"><%=@lunch2.shift.titleize%></div>
                   <p>	
                   <%snum=0%>
@@ -202,7 +202,7 @@
       <%end%>
 		<!--점심2 메뉴 끝-->
 		
-		<%if @lunchnoodle==[]%>
+		<%if @lunchnoodleprice==nil%>
       
     <%else%>
     <div class="row">
@@ -213,7 +213,7 @@
               <div class="divider"></div>
               <p>
                 <div class="section">
-                  <div class="caf_times"> <%=@lunchnoodletime%> / <%=@lunchnoodleprice%></div><br>
+                  <div class="caf_times"> <%=@lunchnoodletime%> / <%=@lunchnoodleprice%></div>
           				<div class="caf_rep"><%=@lunchnoodle.shift.titleize%></div>
           				<p>
           					<%snum=0%>
@@ -260,7 +260,7 @@
 		
 		<!--저녁 메뉴 시작-->
 		
-    <%if @dinner==[]%>
+    <%if @dinnerprice==nil%>
         
     <%else%>
     <div class="row">
@@ -271,7 +271,7 @@
               <div class="divider"></div>
               <p>
                 <div class="section">
-          				<div class="caf_times"> <%=@dinnertime%> / <%=@dinnerprice%></div><br>
+          				<div class="caf_times"> <%=@dinnertime%> / <%=@dinnerprice%></div>
           				<div class="caf_rep"><%=@dinner.shift.titleize%></div>
           				<p>
         					<%snum=0%>
@@ -368,7 +368,7 @@
     <!--test1 끝-->
     
     <div id="test2" class="col s12">
-      <%if @flunch==[] %>
+      <%if @flunchprice==nil %>
         <%else%>
         <div class="row">
         <div class="col s12 m8 offset-m2 l6 offset-l3">
@@ -378,7 +378,7 @@
               <div class="divider"></div>
               <p>
                 <div class="section">
-                  <div class="caf_times"> <%=@flunchtime%> / <%=@flunchprice%></div><br>
+                  <div class="caf_times"> <%=@flunchtime%> / <%=@flunchprice%></div>
       						<div class="caf_rep"><%=@flunch.shift.titleize%></div>
       						<p>
     							<%snum=0%>
@@ -425,7 +425,7 @@
 		
 			<!--저녁 메뉴-->
 		
-	    <%if @fdinner==[] %>
+	    <%if @fdinnerprice==nil %>
 	    <%else%>
 	    <div class="row">
         <div class="col s12 m8 offset-m2 l6 offset-l3">
@@ -435,7 +435,7 @@
               <div class="divider"></div>
               <p>
                 <div class="section">
-                  <div class="caf_times"> <%=@fdinnertime%> / <%=@fdinnerprice%></div><br>
+                  <div class="caf_times"> <%=@fdinnertime%> / <%=@fdinnerprice%></div>
         					<div class="caf_rep"><%=@fdinner.shift.titleize%></div>
         					<p>
       						<%snum=0%>
@@ -482,7 +482,7 @@
     </div>
     <!--test2끝-->
     <div id="test4" class="col s12">
-    <%if @menua==[] %>
+    <%if @menuaprice==nil %>
 		    <%else%>
 		    <div class="row">
         <div class="col s12 m8 offset-m2 l6 offset-l3">
@@ -492,7 +492,7 @@
               <div class="divider"></div>
               <p>
                 <div class="section">
-                  <div class="caf_times"> <%=@menuatime%> / <%=@menuaprice%></div><br>
+                  <div class="caf_times"> <%=@menuatime%> / <%=@menuaprice%></div>
         					<div class="caf_rep"><%=@menua.shift.titleize%></div>
         					<p>
       						<%snum=0%>
@@ -540,7 +540,7 @@
 		
 		<!--메뉴b-->
 		
-		    <%if @menub==[] %>
+		    <%if @menubprice==nil %>
 		    <%else%>
 		    <div class="row">
         <div class="col s12 m8 offset-m2 l6 offset-l3">
@@ -550,7 +550,7 @@
               <div class="divider"></div>
               <p>
                 <div class="section">
-                  <div class="caf_times"> <%=@menubtime%> / <%=@menubprice%></div><br>
+                  <div class="caf_times"> <%=@menubtime%> / <%=@menubprice%></div>
         					<div class="caf_rep"><%=@menub.shift.titleize%></div>
         					<p>
       						<%snum=0%>
@@ -601,7 +601,7 @@
       <div class="fixed-action-btn horizontal click-to-toggle" style="bottom: 14px; right: 14px;">
         <a class="btn-floating btn-large red">
           <%if @id==0%>
-          En
+          EN
           <%elsif @id==1%>
           日本
           <%elsif @id==2%>
@@ -613,7 +613,7 @@
           <%end%>
         </a>
         <ul>
-          <%if @id!=0%><li><a class="btn-floating teal accent-2" style="text-align:center;" href="/0/<%=@day%>">En</a></li><%end%>
+          <%if @id!=0%><li><a class="btn-floating teal accent-2" style="text-align:center;" href="/0/<%=@day%>">EN</a></li><%end%>
           <%if @id!=4%><li><a class="btn-floating brown "style="text-align:center;" href="/4/<%=@day%>">한글</a></li><%end%>
           <%if @id!=1%><li><a class="btn-floating yellow darken-1"style="text-align:center;" href="/1/<%=@day%>">日本</a></li><%end%>
           <%if @id!=2%><li><a class="btn-floating green" style="text-align:center;" href="/2/<%=@day%>">简写</a></li><%end%>

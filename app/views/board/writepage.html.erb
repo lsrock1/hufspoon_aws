@@ -6,20 +6,25 @@
 	  <form id="fs"name="filesend"method="post"action="/board/save">
 	     
 			<legend>Write Post</legend>
+			<%if session[:level]!=nil%>
 			<input name="name"value="<%=session[:name]%>" type="hidden">
 		    <input name="level"value="<%=session[:level]%>" type="hidden">
 		    <input name="num"value="<%=session[:num]%>" type="hidden">
-		    <div class="form-group">
-			    <label for="ex1" >Title</label>
+		    <%end%>
+		    <div class="input-field">
+				<label for="ex1" >Title</label>
 				<input type="text" id="ex1" name="title" class="form-control" />
 			</div>
-			<div class="form-group">
+			<div class="input-field">
+				<textarea id="ex2" name="content" class="materialize-textarea"></textarea>
 				<label for="ex2">Content</label>
-				<textarea id="ex2" name="content" rows="5" class="form-control"></textarea>
 			</div>
 			<button class="btn btn-default">Send</button>
 			
 	  </form>
-	  <a href="/board/boardhome"><button class="btn btn-default">Back</button></a>
+	  <a href="/board/seepost/1"><button class="btn btn-default">Back</button></a>
 	</div>
 </div>
+<script>
+  $('#ex2').trigger('autoresize');
+</script>
