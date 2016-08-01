@@ -668,6 +668,7 @@
 $(".button-collapse").sideNav();
 $('.modal-trigger').leanModal();
 $('.modal-trigger-map').leanModal();
+
   $('.modal-trigger').click(function(){
     $('.button-collapse').sideNav('hide');
     $('.modal-trigger').leanModal();
@@ -676,7 +677,6 @@ $('.modal-trigger-map').leanModal();
     $('.button-collapse').sideNav('hide');
     $('.modal-trigger-map').leanModal();
   })
-  
   var $input =  $('#datepicker').pickadate({
     format: 'yyyymmdd',
     onSet: function(e) {

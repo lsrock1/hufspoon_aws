@@ -29,10 +29,8 @@ Rails.application.routes.draw do
   
   
   get'/adpage/rewritemenu/:id/:info' =>'adpage#rewritemenu'
-  
   post '/adpage/remenulist/:id/:info' => 'adpage#remenu'
   get '/adpage/delmenu/:id' =>'adpage#delmenu'
-  
   get '/adpage/search/:id' =>"adpage#search"
   #아이디 생성
   get '/home/newadmin' =>"home#newadmin"
@@ -43,7 +41,7 @@ Rails.application.routes.draw do
   get '/home/leftindex/:num/:dis/:lat/:lon' =>'ohome#leftindex', :constraints => { :lat => /.*/ ,:lon =>/.*/}
   get '/home/rightindex/:id/:num/:lat/:lon' =>'ohome#rightindex', :constraints => { :lat => /.*/ , :lon => /.*/}
   post '/home/search' => 'ohome#search'
-  
+  get '/home/oindex' =>"ohome#index"
   
   get '/board/out' =>'board#out'
   get '/board/cremove/:id' => 'board#cremove'

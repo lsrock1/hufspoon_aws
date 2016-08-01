@@ -9,6 +9,9 @@ class OhomeController < ApplicationController
     end
   end
   
+  def index
+  end
+  
   def leftindex
     @beforeid=params[:beforeid]
     if @beforeid!=nil&&@beforeid!="0"
