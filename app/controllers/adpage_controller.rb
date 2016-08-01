@@ -33,6 +33,10 @@ class AdpageController < ApplicationController
     redirect_to '/adpage/dbmain/1'
   end
   
+  def out
+    session.clear
+    redirect_to "/"
+  end
   
   def rewritemenu
     id=params[:id]

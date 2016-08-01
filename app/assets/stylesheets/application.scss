@@ -42,28 +42,28 @@ $primary-color: color("blue", "lighten-2") !default;
 #pagination {margin:10px auto;text-align: center;}
 #pagination a {display:inline-block;margin-right:10px;}
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
-
-	.caf_rep{
-		padding-left:16px;
-		padding-top:12px;
-		margin:0px;
-		color : #444444;
-		font-weight:bold;
-		
-	}
-	.caf_times{
-		padding-left:16px;
-		padding-top:12px;
-		margin:0px;
-		color : #444444;
-		font-size:9pt;
-	}
-	.card p{
-		padding-left:16px;
-		padding-right:16px;
-		font-size:9pt;
-		color : #777777;
-	}
+.card-time{
+	padding-left:16px;
+	padding-top:12px;
+	margin:0px;
+}
+.caf_rep{
+	padding-left:16px;
+	padding-top:12px;
+	margin:0px;
+	font-weight:bold;
+	
+}
+.caf_times{
+	padding-left:16px;
+	margin:0px;
+	font-size:9pt;
+}
+.card p{
+	padding-left:16px;
+	padding-right:16px;
+	font-size:9pt;
+}
 ::-webkit-scrollbar {
     -webkit-appearance: none;
     width: 3px;
