@@ -73,6 +73,9 @@ $primary-color: color("blue", "lighten-2") !default;
     background-color: rgba(0,0,0,.5);
     -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
 }
+.nav_form{
+	display:none;
+}
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.

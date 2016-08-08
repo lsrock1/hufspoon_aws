@@ -25,3 +25,46 @@
       </form>
     </div>
 </nav>
+<div class="row">
+  <div class="col s12 m8 offset-m2 l6 offset-l3">
+    <div class="carousel carousel-slider center" style="height:400px;">
+      <div class="carousel-fixed-item center">
+      </div>
+      
+      <div class="carousel-item red"href="#one!">
+        
+        <h2 style="z-index:999;">First Panel</h2>
+        <p> This is your first panel</p>
+        <img src="https://s3.ap-northeast-2.amazonaws.com/elasticbeanstalk-ap-northeast-2-850152653970/nail.jpg">
+      </div>
+      <div class="carousel-item amber white-text" href="#two!">
+        <h2>Second Panel</h2>
+        <p class="white-text">This is your second panel</p>
+      </div>
+      <div class="carousel-item green white-text" href="#three!">
+        <h2>Third Panel</h2>
+        <p class="white-text">This is your third panel</p>
+      </div>
+      <div class="carousel-item blue white-text" href="#four!">
+        <h2>Fourth Panel</h2>
+        <p class="white-text">This is your fourth panel</p>
+      </div>
+    </div>
+  </div>
+</div>
+  <script>
+    $(".opener").click(function(){
+    $(".main_nav").hide();
+    $(".nav_form").fadeIn();
+    document.getElementById("search").focus();
+  })
+  $(".closer").click(function(){
+    $(".nav_form").hide();
+    $(".main_nav").fadeIn();
+  })
+    $(document).ready(function(){
+      $('.carousel.carousel-slider').carousel({full_width: true, indicators: true});
+      $('.materialboxed').materialbox();
+    });
+   // 
+  </script>

@@ -4,6 +4,7 @@ require 'uri'
 require 'roo'
 require 'write_xlsx'
 require 'net/https'
+require "resolv-replace.rb"
 
 class HomeController < ApplicationController
 

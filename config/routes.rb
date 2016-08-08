@@ -41,7 +41,7 @@ Rails.application.routes.draw do
   get '/home/leftindex/:num/:dis/:lat/:lon' =>'ohome#leftindex', :constraints => { :lat => /.*/ ,:lon =>/.*/}
   get '/home/rightindex/:id/:num/:lat/:lon' =>'ohome#rightindex', :constraints => { :lat => /.*/ , :lon => /.*/}
   post '/home/search' => 'ohome#search'
-  get '/home/oindex' =>"ohome#index"
+  get '/home/index' =>"ohome#index"
   
   get '/board/out' =>'board#out'
   get '/board/cremove/:id' => 'board#cremove'
