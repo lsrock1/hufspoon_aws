@@ -179,7 +179,7 @@ class HomeController < ApplicationController
           end
         end
           
-        innum=+innum
+        innum=1+innum
       end
     end
     
@@ -215,7 +215,7 @@ class HomeController < ApplicationController
           end
         end
           
-        innum=+innum
+        innum=1+innum
       end
     end
     
@@ -249,7 +249,7 @@ class HomeController < ApplicationController
           end
         end
           
-        innum=+innum
+        innum=1+innum
       end
     end
     
@@ -282,7 +282,7 @@ class HomeController < ApplicationController
           end
         end
           
-        innum=+innum
+        innum=1+innum
       end
     end
     
@@ -315,7 +315,7 @@ class HomeController < ApplicationController
           end
         end
           
-        innum=+innum
+        innum=1+innum
       end
     end
     
@@ -362,7 +362,7 @@ class HomeController < ApplicationController
             end
           end
         end
-        innum=+innum
+        innum=1+innum
       end
     end
     
@@ -408,7 +408,7 @@ class HomeController < ApplicationController
             end
           end
         end
-        innum=+innum
+        innum=innum+1
       end
     end
     
@@ -454,6 +454,7 @@ class HomeController < ApplicationController
             end
           end
         end
+        innum=1+innum
       end
     end
     
@@ -499,10 +500,11 @@ class HomeController < ApplicationController
             end
           end
         end
+        innum=innum+1
       end
     end
     
-        @breakfastingre=@breakfastingre.uniq
+    @breakfastingre=@breakfastingre.uniq
     @lunch1ingre=@lunch1ingre.uniq
     @lunch2ingre=@lunch2ingre.uniq
     @lunchnoodleingre=@lunchnoodleingre.uniq
