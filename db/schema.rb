@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160702115006) do
+ActiveRecord::Schema.define(version: 20160808150046) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -31,6 +31,13 @@ ActiveRecord::Schema.define(version: 20160702115006) do
   add_index "admins", ["email"], name: "index_admins_on_email", unique: true
   add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
 
+  create_table "breakfasts", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "date"
+    t.string   "menu"
+  end
+
   create_table "comments", force: :cascade do |t|
     t.string   "num"
     t.string   "name"
@@ -41,11 +48,67 @@ ActiveRecord::Schema.define(version: 20160702115006) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "dinners", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "date"
+    t.string   "menu"
+  end
+
+  create_table "fdinners", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "date"
+    t.string   "menu"
+  end
+
+  create_table "flunches", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "date"
+    t.string   "menu"
+  end
+
+  create_table "lunch1s", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "date"
+    t.string   "menu"
+  end
+
+  create_table "lunch2s", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "date"
+    t.string   "menu"
+  end
+
+  create_table "lunchnoodles", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "date"
+    t.string   "menu"
+  end
+
   create_table "maps", force: :cascade do |t|
     t.float    "lat"
     t.float    "lon"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "menuas", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "date"
+    t.string   "menu"
+  end
+
+  create_table "menubs", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "date"
+    t.string   "menu"
   end
 
   create_table "menulists", force: :cascade do |t|
@@ -88,6 +151,13 @@ ActiveRecord::Schema.define(version: 20160702115006) do
     t.integer  "pagenum",    default: 0
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+  end
+
+  create_table "snacks", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "date"
+    t.string   "menu"
   end
 
 end

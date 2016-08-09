@@ -193,4 +193,150 @@ class ApplicationController < ActionController::Base
     return result
   end
   
+  
+  def parsing_func(today)
+    mainadd="https://webs.hufs.ac.kr/jsp/HUFS/cafeteria/viewWeek.jsp"
+    resultadd=mainadd+"?startDt="+today+"&endDt="+today+"&caf_name="+URI.encode("인문관식당")+"&caf_id=h101"
+    doc = Nokogiri::HTML(open(resultadd))
+    humanity=doc.xpath("//html/body/form/table/tr")
+    ###################인문관식당 파싱##########################
+    
+    resultadd=mainadd+"?startDt="+today+"&endDt="+today+"&caf_name="+URI.encode("교수회관식당")+"&caf_id=h102"
+    doc =Nokogiri::HTML(open(resultadd))
+    faculty=doc.xpath("//html/body/form/table/tr")
+    ###################교수회관 파싱##############
+    
+    
+    resultadd=mainadd+"?startDt="+today+"&endDt="+today+"&caf_name="+URI.encode("스카이라운지")+"&caf_id=h103"
+    doc =Nokogiri::HTML(open(resultadd))
+    sky=doc.xpath("//html/body/form/table/tr")
+    ###############스카이라운지 파싱##############
+    
+    
+    ##############인문관식당 파싱 자료 분류#############
+    #snack
+    snack=humanity.xpath("./td[@class='listStyle2']").text
+    snack=snack.split()
+    snack_form=""
+    snack.each do|s|
+      if s.index("(")!=nil
+        snack_form=snack_form+"$"+s.strip
+        
+      end
+    end
+    Snack.new(:date => today,:menu => snack_form).save
+    num=0
+    humanity.each do |n|
+      unless num==0 
+      
+        humanity_list=n.xpath("./td[@class='headerStyle']")
+        
+        if humanity_list.text.to_s[0..4]=="중식(1)"
+          #시간 저장
+          lunch1=humanity_list.text.to_s[5..6]+":"+humanity_list.text.to_s[7..11]+":"+humanity_list.text.to_s[12..13]
+          
+          n.xpath("./td/table/tr/td").each do|x|
+            if x.text!=""
+              lunch1=lunch1+"$"+x.text
+            end
+          end
+          Lunch1.new(:date => today,:menu =>lunch1).save
+        elsif humanity_list.text.to_s[0..4]=="중식(2)"
+          lunch2=humanity_list.text.to_s[5..6]+":"+humanity_list.text.to_s[7..11]+":"+humanity_list.text.to_s[12..13]
+          n.xpath("./td/table/tr/td").each do|x|
+            if x.text!=""
+              lunch2=lunch2+"$"+x.text
+            end
+          end
+          Lunch2.new(:date => today,:menu => lunch2).save
+        elsif humanity_list.text.to_s[0..4]=="중식(면)"
+        lunchnoodle= humanity_list.text.to_s[5..6]+":"+humanity_list.text.to_s[7..11]+":"+humanity_list.text.to_s[12..13]
+          n.xpath("./td/table/tr/td").each do|x|
+            if x.text!=""
+              lunchnoodle=lunchnoodle+"$"+x.text
+            end
+          end
+          Lunchnoodle.new(:date => today,:menu =>lunchnoodle).save
+        elsif humanity_list.text.to_s[0..1]=="조식"
+          breakfast = humanity_list.text.to_s[2..3]+":"+humanity_list.text.to_s[4..8]+":"+humanity_list.text.to_s[9..10]
+          n.xpath("./td/table/tr/td").each do|x|
+            if x.text!=""
+              breakfast=breakfast+"$"+x.text
+            end
+          end
+          Breakfast.new(:date => today,:menu => breakfast).save
+        elsif humanity_list.text.to_s[0..1]=="석식"
+          dinner= humanity_list.text.to_s[2..3]+":"+humanity_list.text.to_s[4..8]+":"+humanity_list.text.to_s[9..10]
+          n.xpath("./td/table/tr/td").each do|x|
+            if x.text!=""
+              dinner=dinner+"$"+x.text
+            end
+          end
+          Dinner.new(:date =>today,:menu =>dinner).save
+        end
+        
+      end
+      num=num+1
+    end
+    ################인문관식당 파싱 분석 끝####################
+    
+    ###################교수회관식당 파싱 분석 시작##############
+    num=0
+    faculty.each do |n|
+      unless num==0 ||num==3
+      
+        faculty_list=n.xpath("./td[@class='headerStyle']")
+        
+        if faculty_list.text.to_s[0..1]=="중식"
+          flunch = faculty_list.text.to_s[2..3]+":"+faculty_list.text.to_s[4..8]+":"+faculty_list.text.to_s[9..10]
+          n.xpath("./td/table/tr/td").each do|x|
+            if x.text!=""
+              flunch=flunch+"$"+x.text
+            end
+          end
+          Flunch.new(:date => today, :menu =>flunch).save
+        elsif faculty_list.text.to_s[0..1]=="석식"
+          fdinner= faculty_list.text.to_s[2..3]+":"+faculty_list.text.to_s[4..8]+":"+faculty_list.text.to_s[9..10]
+          n.xpath("./td/table/tr/td").each do|x|
+            if x.text!=""
+              fdinner=fdinner+"$"+x.text
+            end
+          end
+          Fdinner.new(:date => today,:menu =>fdinner).save
+        end
+      end
+      num=num+1
+    end
+    ####################3교수회관 끝################
+    
+    #####################스카이라운지 시작#################
+    num=0
+    sky.each do |n|
+      unless num==0 ||num==3
+      
+        sky_list=n.xpath("./td[@class='headerStyle']")
+        
+        if sky_list.text.to_s[0..2]=="메뉴A"
+          menua=sky_list.text.to_s[3..4]+":"+sky_list.text.to_s[5..9]+":"+sky_list.text.to_s[10..11]
+          n.xpath("./td/table/tr/td").each do|x|
+            if x.text!=""
+              menua=menua+"$"+x.text
+            end
+          end
+          Menua.new(:date => today,:menu =>menua).save
+        elsif sky_list.text.to_s[0..2]=="메뉴B"
+          menub=sky_list.text.to_s[3..4]+":"+sky_list.text.to_s[5..9]+":"+sky_list.text.to_s[10..11]
+          n.xpath("./td/table/tr/td").each do|x|
+            if x.text!=""
+              menub=menub+"$"+x.text
+            end
+          end
+          Menub.new(:date =>today,:menu => menub).save
+        end
+      end
+      num=num+1
+    end
+    ###############################스카이라운지 파싱 끝######################
+    
+  end
 end
