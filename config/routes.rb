@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
   get'/adpage/out' =>'adpage#out'
   get '/like' => 'home#like'
-  # You can have the root of your site routed with "root"
+  
   post '/oadpage/addrest' =>'oadpage#addrest'
   get '/oadpage/delrest/:id' =>'oadpage#delrest'
   post '/oadpage/rewritemenu/:id' =>'oadpage#rewritemenu'
@@ -27,7 +27,7 @@ Rails.application.routes.draw do
   get '/adpage/dbmain/:id' =>'adpage#dbmain'
   get '/oadpage/dbmain' =>'oadpage#dbmain'
   
-  
+  get '/adpage/newtrans/:info' => 'adpage#newtrans'
   get'/adpage/rewritemenu/:id/:info' =>'adpage#rewritemenu'
   post '/adpage/remenulist/:id/:info' => 'adpage#remenu'
   get '/adpage/delmenu/:id' =>'adpage#delmenu'
@@ -42,6 +42,7 @@ Rails.application.routes.draw do
   get '/home/rightindex/:id/:num/:lat/:lon' =>'ohome#rightindex', :constraints => { :lat => /.*/ , :lon => /.*/}
   post '/home/search' => 'ohome#search'
   get '/home/index' =>"ohome#index"
+  
   
   get '/board/out' =>'board#out'
   get '/board/cremove/:id' => 'board#cremove'

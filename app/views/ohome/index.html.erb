@@ -25,29 +25,45 @@
       </form>
     </div>
 </nav>
+<br>
 <div class="row">
   <div class="col s12 m8 offset-m2 l6 offset-l3">
-    <div class="carousel carousel-slider center" style="height:400px;">
-      <div class="carousel-fixed-item center">
-      </div>
+    <div class="carousel carousel-slider">
+      <a class="carousel-item" href="#one!"><img src="http://lorempixel.com/800/400/food/1"></a>
+      <a class="carousel-item" href="#two!"><img src="http://lorempixel.com/800/400/food/2"></a>
+      <a class="carousel-item" href="#three!"><img src="http://lorempixel.com/800/400/food/3"></a>
+      <a class="carousel-item" href="#four!"><img src="http://lorempixel.com/800/400/food/4"></a>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col s12 m8 offset-m2 l6 offset-l3">
+    <div class="card-panel center">
+      <span>오늘 뭐먹지?</span>
       
-      <div class="carousel-item red"href="#one!">
-        
-        <h2 style="z-index:999;">First Panel</h2>
-        <p> This is your first panel</p>
-        <img src="https://s3.ap-northeast-2.amazonaws.com/elasticbeanstalk-ap-northeast-2-850152653970/nail.jpg">
+    </div>
+  </div>
+  <div class="col s12 m8 offset-m2 l6 offset-l3">
+    <div class="row">
+      <div class=" col s3 m3 l3 center" style="padding-left:0px; padding-right:0px;">
+        <div class="card-panel">
+          한식
+        </div>
       </div>
-      <div class="carousel-item amber white-text" href="#two!">
-        <h2>Second Panel</h2>
-        <p class="white-text">This is your second panel</p>
+      <div class=" col s3 m3 l3 center" style="padding-left:0px; padding-right:0px;">
+        <div class="card-panel">
+          일식
+        </div>
       </div>
-      <div class="carousel-item green white-text" href="#three!">
-        <h2>Third Panel</h2>
-        <p class="white-text">This is your third panel</p>
+      <div class=" col s3 m3 l3 center" style="padding-left:0px; padding-right:0px;">
+        <div class="card-panel">
+          중식
+        </div>
       </div>
-      <div class="carousel-item blue white-text" href="#four!">
-        <h2>Fourth Panel</h2>
-        <p class="white-text">This is your fourth panel</p>
+      <div class=" col s3 m3 l3 center" style="padding-left:0px; padding-right:0px;">
+        <div class="card-panel">
+          양식
+        </div>
       </div>
     </div>
   </div>
@@ -64,7 +80,6 @@
   })
     $(document).ready(function(){
       $('.carousel.carousel-slider').carousel({full_width: true, indicators: true});
-      $('.materialboxed').materialbox();
     });
    // 
   </script>

@@ -19,6 +19,10 @@ class AdpageController < ApplicationController
      
     
   end
+  
+  def newtrans
+    @info=params[:info]
+  end
 
   def bugfix
     Menulist.all.each do |a|
@@ -156,7 +160,7 @@ class AdpageController < ApplicationController
       newfile=MangoUploader.new
       newfile.store!(params[:ex])
       
-      xlsx = Roo::Spreadsheet.open('public/public/db.xlsx')
+      xlsx = Roo::Spreadsheet.open('public/public/down.xlsx')
       sheet1 = xlsx.sheet(0)
         sheet1.each do |s|
           unless (s[0].to_s=="")

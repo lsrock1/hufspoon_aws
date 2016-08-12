@@ -1,105 +1,73 @@
+<ul id="dropdown1" class="dropdown-content">
+  <li><a href="/">메인으로</a></li>
+  <li><a href="/oadpage/dbmain">식당메뉴관리</a></li>
+  <li><a href="/home/index">새 페이지</a></li>
+</ul>
 
-<a href="/board/out">로그아웃</a>
-<div class="row center-align">
-    <div class="col s4">
-        <a href="/">메인으로</a>
-    </div>
-    <div class="col s4">
-        <a href="/oadpage/dbmain">식당메뉴관리</a>
-    </div>
-    <div class="col s4">
-        <a href="/home/leftindex/0/0/0/0">테스트</a>
-    </div>
-</div>
-
-    <button type="button" class="btn opener">
-        번역 추가
-    </button>
-    
-    <button type="button" class="btn openert">
-       자료 검색
-    </button>
-    
-    <%if @info==0%>
-        <a href="/adpage/dbmain/1"><button class="btn btn-default">모든메뉴보기</button></a>
-    <%else%>
-    
-        <a href="/adpage/dbmain/0"><button class="btn btn-default">신메뉴만 보기</button></a>
-    <%end%>
-    
-    <div class="puter" style="display:none;">
-        <h3>메뉴번역추가</h3>
-        
-        <div class="row">
-            <form action="/adpage/menulist/<%=@info%>" method="post">
-                <div class="input-field">
-                  <label for="ex1">한글이름</label>
-                  <input class="validate" name="kname"id="ex1" type="text">
-                </div>
-                <div class="input-field">
-                  <label for="ex2">영어 뜻</label>
-                  <input class="validate" name="ename"id="ex2" type="text">
-                </div>
-                <div class="input-field">
-                  <label for="ex3">독음</label>
-                  <input class="validate" name="ername"id="ex3" type="text">
-                </div>
-                <div class="input-field">
-                  <label for="ex4">일본어 훈독</label>
-                  <input class="validate" name="jnamea"id="ex4" type="text">
-                </div>
-                <div class="input-field">
-                  <label for="ex5">중국어 간체</label>
-                  <input class="validate" name="cname"id="ex5" type="text">
-                </div>
-                <div class="input-field">
-                  <label for="ex6">중국어 번체</label>
-                  <input class="validate" name="cnameb"id="ex6" type="text">
-                </div>
-                <div class="input-field">
-                  <label for="ex7">아랍어</label>
-                  <input class="validate" name="aname"id="ex7" type="text">
-                </div>
-                <button class="btn">저장</button>
-                
-            </form>
-        </div>
-        <br>
-        <br>
-        
-        
-        <form action="/excelinsert" method="post" enctype="multipart/form-data">
-            <div class="file-field input-field">
-                <div class="btn">
-                    <span>Excel</span>
-                    <input id="k"type="file" name="ex" size="20" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
-                  </div>
-                  <div class="file-path-wrapper">
-                <input class="file-path validate" type="text">
-              </div>
+<nav>
+  <div class="nav-wrapper main_nav">
+    <ul id="slide-out" class="side-nav ">
+      <li><a href="/adpage/out">로그아웃</a></li>
+      
+      <li class="no-padding">
+        <ul class="collapsible collapsible-accordion">
+          <li>
+            <a class="collapsible-header">페이지 이동<i class="material-icons">arrow_drop_down</i></a>
+            <div class="collapsible-body">
+              <ul>
+                  <li><a href="/">메인으로</a></li>
+                  <li><a href="/oadpage/dbmain">식당메뉴관리</a></li>
+                  <li><a href="/home/index">새 페이지</a></li>
+              </ul>
             </div>
-            <button class="btn">저장</button>
-        </form>
+          </li>
+        </ul>
+      </li>
+      <li><a href="/adpage/newtrans/<%=@info%>">번역추가</a></li>
+      <li>
+        <%if @info==0%>
+            <a class="waves-effect waves-light btn" href="/adpage/dbmain/1">모든메뉴보기</a>
+        <%else%>
         
-        <a href="/download">
-            <button class="btn">db 엑셀로 다운로드</button>
-        </a>
+            <a class="waves-effect waves-light btn" href="/adpage/dbmain/0">신메뉴만 보기</a>
+        <%end%>
+      </li>
+    </ul>
+    
+    <ul class="left hide-on-med-and-down">
+      <li><a href="/adpage/out">로그아웃</a></li>
+      <li><a class="dropdown-button" href="#!" data-activates="dropdown1">페이지 이동<i class="material-icons right">arrow_drop_down</i></a></li>
+      <li><a href="/adpage/newtrans/<%=@info%>">번역추가</a></li>
+      <li>
+        <%if @info==0%>
+            <a class="waves-effect waves-light btn" href="/adpage/dbmain/1">모든메뉴보기</a>
+        <%else%>
+        
+            <a class="waves-effect waves-light btn" href="/adpage/dbmain/0">신메뉴만 보기</a>
+        <%end%>
+      </li>
+      
+    </ul>
+    
+    <ul class="right">
+      <li><a><i class="material-icons opener">search</i></a></li>
+    </ul>
+    
+    
+     <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+  </div>
+  
+    <div class="nav-wrapper nav_form">
+      <form action="/adpage/search/<%=@info%>" method="get">
+        <div class="input-field">
+          <input id="search" name="keyword" type="search" required>
+          <label for="search"><i class="material-icons">search</i></label>
+          <i class="material-icons closer">close</i>
         </div>
-        
-        <div class="search" style="display:none;">
-            <div class="row">
-                <form action="/adpage/search/<%=@info%>" method="get">
-                    <div class="input-field">
-                      <label for="ex1">찾을 메뉴</label>
-                      <input class="validate" name="keyword"id="ex1" type="text">
-                    </div>
-                    <button class="btn">검색</button>
-                </form>
-            </div>
-        </div>
-        <br>
-            
-        
+      </form>
+    </div>
+</nav>
+     
     
         <br>
         <div class="table-responsive">
@@ -169,10 +137,6 @@
       $( ".puter" ).slideToggle( "slow", function() {
       });
     });
-    $( ".openert" ).click(function() {
-      $( ".search" ).slideToggle( "slow", function() {
-      });
-    });
     $(".re").click(function(){
         var thisid=$(this).attr("id");
         $("#reform").attr("action","/adpage/rewritemenu/"+thisid+"/<%=@info%>");
@@ -190,6 +154,15 @@
         }
         
     });
-    
+    $(".button-collapse").sideNav();
+     $(".opener").click(function(){
+    $(".main_nav").hide();
+    $(".nav_form").fadeIn();
+    document.getElementById("search").focus();
+  })
+  $(".closer").click(function(){
+    $(".nav_form").hide();
+    $(".main_nav").fadeIn();
+  })
 
 </script>
