@@ -1,0 +1,26 @@
+<a class="waves-effect waves-light btn" href="/oadpage/show/1">돌아가기</a>
+
+<h3>사진추가</h3>
+        
+<div class="row">
+    <div class="input-field">
+      <label for="ex1">사진 주소</label>
+      <input class="validate" id="ex1" type="text">
+    </div>
+    <button class="btn see">보기</button>
+</div>
+<div id="test"></div>
+<form id="fo"action="/oadpage/image_add" method="post">
+    <input type="hidden" id="foad"name="address" type="text">
+</form>
+<script>
+    $(".see").click(function(){
+        var add=$("#ex1").val();
+        
+        $("#test").html('<img src='+add+' width="300" height="300">'+'<button onclick="send();"class="btn save">저장</button>');
+        $("#foad").attr("value",add);
+    });
+    function send(){
+        $("#fo").submit();
+    }
+</script>

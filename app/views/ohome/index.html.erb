@@ -28,11 +28,13 @@
 <br>
 <div class="row">
   <div class="col s12 m8 offset-m2 l6 offset-l3">
-    <div class="carousel carousel-slider">
-      <a class="carousel-item" href="#one!"><img src="http://lorempixel.com/800/400/food/1"></a>
-      <a class="carousel-item" href="#two!"><img src="http://lorempixel.com/800/400/food/2"></a>
-      <a class="carousel-item" href="#three!"><img src="http://lorempixel.com/800/400/food/3"></a>
-      <a class="carousel-item" href="#four!"><img src="http://lorempixel.com/800/400/food/4"></a>
+    <div class="carousel carousel-slider" style="height:300px">
+      <%if @one!=nil%><a class="carousel-item" href="#one!"><img src="<%=@one.address%>" width="600" height="300"></a><%end%>
+      <%if @two!=nil%><a class="carousel-item" href="#two!"><img src="<%=@two.address%>" width="600" height="300"></a><%end%>
+      <%if @three!=nil%><a class="carousel-item" href="#three!"><img src="<%=@three.address%>" width="600" height="300"></a><%end%>
+      <%if @four!=nil%><a class="carousel-item" href="#four!"><img src="<%=@four.address%>" width="600" height="300"></a><%end%>
+      <%if @five!=nil%><a class="carousel-item" href="#five!"><img src="<%=@five.address%>" width="600" height="300"></a><%end%>
+      <%if @six!=nil%><a class="carousel-item" href="#six!"><img src="<%=@six.address%>" width="600" height="300"></a><%end%>
     </div>
   </div>
 </div>
@@ -45,17 +47,17 @@
   </div>
   <div class="col s12 m8 offset-m2 l6 offset-l3">
     <div class="row">
-      <div class=" col s3 m3 l3 center" style="padding-left:0px; padding-right:0px;">
+      <div class=" col s3 m3 l3 center" style="padding-left:0px;">
         <div class="card-panel">
           한식
         </div>
       </div>
-      <div class=" col s3 m3 l3 center" style="padding-left:0px; padding-right:0px;">
+      <div class=" col s3 m3 l3 center" style="padding-left:0px;">
         <div class="card-panel">
           일식
         </div>
       </div>
-      <div class=" col s3 m3 l3 center" style="padding-left:0px; padding-right:0px;">
+      <div class=" col s3 m3 l3 center" style="padding-left:0px;">
         <div class="card-panel">
           중식
         </div>
@@ -69,6 +71,7 @@
   </div>
 </div>
   <script>
+  $('.carousel.carousel-slider').carousel({full_width: true, indicators: true});
     $(".opener").click(function(){
     $(".main_nav").hide();
     $(".nav_form").fadeIn();
@@ -78,8 +81,4 @@
     $(".nav_form").hide();
     $(".main_nav").fadeIn();
   })
-    $(document).ready(function(){
-      $('.carousel.carousel-slider').carousel({full_width: true, indicators: true});
-    });
-   // 
   </script>

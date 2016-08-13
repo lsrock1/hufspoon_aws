@@ -1,0 +1,122 @@
+<ul id="dropdown1" class="dropdown-content">
+  <li><a href="/">메인으로</a></li>
+  <li><a href="/home/index">이문동주변 식당</a></li>
+  <li class="divider"></li>
+  <li><a href="/adpage/dbmain/1">메뉴관리</a></li>
+  <li><a href="/oadpage/dbmain">이문동식당 관리</a></li>
+</ul>
+
+<nav>
+  <div class="nav-wrapper main_nav">
+    <ul id="slide-out" class="side-nav ">
+      <li><a href="/adpage/out">로그아웃</a></li>
+      
+      <li class="no-padding">
+        <ul class="collapsible collapsible-accordion">
+          <li>
+            <a class="collapsible-header">페이지 이동<i class="material-icons">arrow_drop_down</i></a>
+            <div class="collapsible-body">
+              <ul>
+                  <li><a href="/">메인으로</a></li>
+                  <li><a href="/home/index">이문동주변 식당</a></li>
+                  <li class="divider"></li>
+                  <li><a href="/adpage/dbmain/1">메뉴관리</a></li>
+                  <li><a href="/oadpage/dbmain">이문동식당 관리</a></li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </li>
+      <li><a href="/oadpage/show_add">이미지추가</a></li>
+      <li>
+        <%if @id==0%>
+            <a class="waves-effect waves-light btn" href="/oadpage/show/1">모든사진보기</a>
+        <%else%>
+        
+            <a class="waves-effect waves-light btn" href="/oadpage/show/0">등록된사진보기</a>
+        <%end%>
+      </li>
+    </ul>
+    
+    <ul class="left hide-on-med-and-down">
+      <li><a href="/adpage/out">로그아웃</a></li>
+      <li><a class="dropdown-button" href="#!" data-activates="dropdown1">페이지 이동<i class="material-icons right">arrow_drop_down</i></a></li>
+      <li><a href="/oadpage/show_add">이미지추가</a></li>
+      <li>
+        <%if @id==0%>
+            <a class="waves-effect waves-light btn" href="/oadpage/show/1">모든사진보기</a>
+        <%else%>
+        
+            <a class="waves-effect waves-light btn" href="/oadpage/show/0">등록된사진보기</a>
+        <%end%>
+      </li>
+      
+    </ul>
+   
+    
+     <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+  </div>
+</nav>
+<table>
+    <thead>
+      <tr>
+        <td class="hide-on-small-only">순서</td>
+        <td>사진</td>
+        <td>등록</td>
+        <td>삭제</td>
+      </tr>
+    </thead>
+    <tbody><%if @id!=0%><%row=(@id-1)*10+1%><%else%><%row=1%><%end%>
+      <%@all.each do |a|%>
+        <tr>
+          <td class="hide-on-small-only"><%=row%></td>
+          
+          <td><img class="materialboxed" src="<%=a.address%>" width="300" height="300"></td>
+          <td>
+            <form action="/oadpage/image_show" method="get" >
+              <div class="row">
+                <div class="input-field col s3">
+                  <input class="validate" id="ex1" name="show"type="text" value="<%=a.show%>">
+                </div>
+              </div>
+              <input type="hidden" value="<%=a.id%>" name="id">
+              <button class="btn">변경</button>
+            </form>
+          </td>
+          <td><button id="de<%=a.id%>"class="btn de">삭제</button></td>
+        </tr>
+        <%row=row+1%>
+      <%end%>
+    </tbody>
+</table>
+
+<%unless @id==0%>
+  <ul class="pagination center-align">
+    <%@num.times do|n|%>
+        <%if @id==n+1%>
+          <li class="active">
+            <a href="/oadpage/show/<%=n+1%>"><%=n+1%></a>
+          </li>
+        <%else%>
+          <li><a href="/oadpage/show/<%=n+1%>"><%=n+1%></a></li>
+        <%end%>
+    <%end%>
+  </ul>
+<%end%>
+
+<script>
+  $('.materialboxed').materialbox();
+  $(".button-collapse").sideNav();
+    
+    $(".de").click(function(){
+        var thisid=$(this).attr("id");
+        thisid=thisid.substring(2);
+        if (confirm("정말 삭제하시겠습니까?")==true){
+           window.location.href="/oadpage/image_del/"+thisid;
+        }
+        else{
+            return;
+        }
+        
+    });
+</script>

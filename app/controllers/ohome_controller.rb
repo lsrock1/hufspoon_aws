@@ -10,6 +10,12 @@ class OhomeController < ApplicationController
   end
   
   def index
+    @one=Curate.find_by(:show => "1")
+    @two=Curate.find_by(:show => "2")
+    @three=Curate.find_by(:show => "3")
+    @four=Curate.find_by(:show => "4")
+    @five=Curate.find_by(:show => "5")
+    @six=Curate.find_by(:show => "6")
   end
   
   def leftindex
@@ -91,5 +97,6 @@ class OhomeController < ApplicationController
     
     @result=Rest.where(id: result)
   end
+  
   
 end

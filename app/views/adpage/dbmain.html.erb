@@ -1,7 +1,9 @@
 <ul id="dropdown1" class="dropdown-content">
   <li><a href="/">메인으로</a></li>
-  <li><a href="/oadpage/dbmain">식당메뉴관리</a></li>
-  <li><a href="/home/index">새 페이지</a></li>
+  <li><a href="/home/index">이문동주변 식당</a></li>
+  <li class="divider"></li>
+  <li><a href="/oadpage/dbmain">이문동식당 관리</a></li>
+  <li><a href="/oadpage/show/1">큐레이션 보기</a></li>
 </ul>
 
 <nav>
@@ -16,8 +18,10 @@
             <div class="collapsible-body">
               <ul>
                   <li><a href="/">메인으로</a></li>
-                  <li><a href="/oadpage/dbmain">식당메뉴관리</a></li>
-                  <li><a href="/home/index">새 페이지</a></li>
+                  <li><a href="/home/index">이문동주변 식당</a></li>
+                  <li class="divider"></li>
+                  <li><a href="/oadpage/dbmain">이문동식당 관리</a></li>
+                  <li><a href="/oadpage/show/1">큐레이션 보기</a></li>
               </ul>
             </div>
           </li>
@@ -69,74 +73,71 @@
 </nav>
      
     
-        <br>
-        <div class="table-responsive">
-            <table class="table">
-                <tr>
-                    <th>순번</th>
-                    <th>한글</th>
-                    <th>영어</th>
-                    <th>독음</th>
-                    <th>일훈</th>
-                    <th>간체</th>
-                    <th>번체</th>
-                    <th>아랍어</th>
-                    <th> </th>
-                    <th> </th>
-                </tr>
-                <%if @info!=0%>
-                <%row=(@info-1)*300+1%>
-                <%else%>
-                <%row=1%>
-                <%end%>
-                <%if @list!=nil%>
-                    <% @list.each do|l|%>
-                    <tr>
-                        <td><%=row%></td><%row=row+1%>
-                        <td><%=l.kname%></td>
-                        <td><%=l.ename%></td>
-                        <td><%=l.ername%></td>
-                        <td><%=l.jnamea%></td>
-                        <td><%=l.cname%></td>
-                        <td><%=l.cnameb%></td>
-                        <td><%=l.aname%></td>
-                        <td><button class="re btn" id="<%=l.id%>">수정</button></td>
-                        <td><button class="del btn" id="<%=l.id%>">삭제</button></td>
-                    </tr>
-                    <%end%>
-                <%end%>
-            </table>
-        </div>
-        
-        <%unless @info==0%>
-          <ul class="pagination center-align">
-            <%@num.times do|n|%>
-                <%if @info==n+1%>
-                  <li class="active">
-                    <a href="/adpage/dbmain/<%=n+1%>"><%=n+1%></a>
-                  </li>
-                <%else%>
-                  <li><a href="/adpage/dbmain/<%=n+1%>"><%=n+1%></a></li>
-                <%end%>
-            <%end%>
-          </ul>
+<br>
+<div class="table-responsive">
+    <table class="table">
+        <tr>
+            <th>순번</th>
+            <th>한글</th>
+            <th>영어</th>
+            <th>독음</th>
+            <th>일훈</th>
+            <th>간체</th>
+            <th>번체</th>
+            <th>아랍어</th>
+            <th> </th>
+            <th> </th>
+        </tr>
+        <%if @info!=0%>
+        <%row=(@info-1)*300+1%>
+        <%else%>
+        <%row=1%>
         <%end%>
-        <form id="reform" method="get">
-            
-        </form>
-        <form id="delform" method="get">
-            
-        </form>
+        <%if @list!=nil%>
+            <% @list.each do|l|%>
+            <tr>
+                <td><%=row%></td><%row=row+1%>
+                <td><%=l.kname%></td>
+                <td><%=l.ename%></td>
+                <td><%=l.ername%></td>
+                <td><%=l.jnamea%></td>
+                <td><%=l.cname%></td>
+                <td><%=l.cnameb%></td>
+                <td><%=l.aname%></td>
+                <td><button class="re btn" id="<%=l.id%>">수정</button></td>
+                <td><button class="del btn" id="<%=l.id%>">삭제</button></td>
+            </tr>
+            <%end%>
+        <%end%>
+    </table>
+</div>
+        
+<%unless @info==0%>
+  <ul class="pagination center-align">
+    <%@num.times do|n|%>
+        <%if @info==n+1%>
+          <li class="active">
+            <a href="/adpage/dbmain/<%=n+1%>"><%=n+1%></a>
+          </li>
+        <%else%>
+          <li><a href="/adpage/dbmain/<%=n+1%>"><%=n+1%></a></li>
+        <%end%>
+    <%end%>
+  </ul>
+<%end%>
+<form id="reform" method="get">
+    
+</form>
+<form id="delform" method="get">
+    
+</form>
     
 
 <!--</div>-->
 <script src="https://spi.maps.daum.net/imap/map_js_init/postcode.v2.js"></script>
 <script src="//apis.daum.net/maps/maps3.js?apikey=23598cdf36f0c5f5bf1f1bfda70b8e80&libraries=services"></script>
 <script>
-    $( ".opener" ).click(function() {
-      $( ".puter" ).slideToggle( "slow", function() {
-      });
-    });
+    
     $(".re").click(function(){
         var thisid=$(this).attr("id");
         $("#reform").attr("action","/adpage/rewritemenu/"+thisid+"/<%=@info%>");

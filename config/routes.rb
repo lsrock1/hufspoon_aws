@@ -4,12 +4,14 @@ Rails.application.routes.draw do
 
   devise_for :admins
   
+  get '/oadpage/image_del/:id' =>'oadpage#image_del'#이미지 삭제
+  get '/oadpage/show_add' =>'oadpage#show_add' #이미지 등록 페이지
+  get '/oadpage/show/:id' => 'oadpage#show_config'#이미지 보기
+  post '/oadpage/image_add' => 'oadpage#image_add'#이미지 등록
+  get '/oadpage/image_show' =>'oadpage#image_show' #등록 설정
   
-  #get '/test' => "home#menutest"
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
-  get'/adpage/out' =>'adpage#out'
-  get '/like' => 'home#like'
+  get'/adpage/out' =>'adpage#out'#로그아웃
+  get '/like' => 'home#like'#좋아요
   
   post '/oadpage/addrest' =>'oadpage#addrest'
   get '/oadpage/delrest/:id' =>'oadpage#delrest'
