@@ -90,6 +90,7 @@ class HomeController < ApplicationController
       if check==nil
         parsing_func(@day)
       end
+    rescue
     end
     
     
@@ -121,34 +122,35 @@ class HomeController < ApplicationController
     ##############인문관식당 파싱 자료 분류#############
     #snack
     snack=Snack.find_by(:date =>@day).menu
-    snack=snack.split("$")
-    snack.each do|s|
-      if s.index("(")!=nil
-        s=s.strip
-        s=s.gsub('*', '')
-        s=s.sub("원"," won")
-        sfirst=s.index("(")-1
-        food=s[0..sfirst]
-        food=food.split("/")
-        
-        
-        food.each do |f|
-          temp=""
-          judvar=checkexist(f,@id)
-          if judvar==1
-            temp=transout(f,@id)
-          elsif judvar==0
-            temp=f
-          else
-            temp=f
-            new_menu(f)
+    if snack!=nil
+      snack=snack.split("$")
+      snack.each do|s|
+        if s.index("(")!=nil
+          s=s.strip
+          s=s.gsub('*', '')
+          s=s.sub("원"," won")
+          sfirst=s.index("(")-1
+          food=s[0..sfirst]
+          food=food.split("/")
+          
+          
+          food.each do |f|
+            temp=""
+            judvar=checkexist(f,@id)
+            if judvar==1
+              temp=transout(f,@id)
+            elsif judvar==0
+              temp=f
+            else
+              temp=f
+              new_menu(f)
+            end
+            @snack.push(temp+" "+s[sfirst+1..-1])
           end
-          @snack.push(temp+" "+s[sfirst+1..-1])
+          
         end
-        
       end
     end
-    
     
     
     innum=0
