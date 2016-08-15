@@ -25,39 +25,81 @@
       </form>
     </div>
 </nav>
-<div class="row">
-
-    
-
-  <div class="col s12 m10 offset-m1 l8 offset-l2">
-    <div class="card">
-      <div class="card-content" id="map" style="height:300px;"></div>
-        <div class="horizontal fixed-action-btn click-to-toggle" style="position:absolute; top:10px;">
-        <a class="btn-floating btn-large red" >
-          오늘
-        </a>
-        <ul>
-          <li><a class="btn-floating red"><i class="material-icons">insert_chart</i></a></li>
-          <li><a class="btn-floating yellow darken-1"><i class="material-icons">format_quote</i></a></li>
-          <li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
-          <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
-        </ul>
-      </div>
-      
+  <div class="row">
+    <br>
+    <div class="col s12 m10 offset-m1 l8 offset-l2">
+      <ul class="tabs">
+        <li class="tab col s3"><a class="active" href="#test1">Test 1</a></li>
+        <li class="tab col s3"><a href="#test2">Test 2</a></li>
+        <li class="tab col s3"><a href="#test3">Disabled Tab</a></li>
+        <li class="tab col s3"><a href="#test4">Test 4</a></li><li class="tab col s3"><a href="#test1">Test 1</a></li>
+        <li class="tab col s3"><a href="#test5">Test 2</a></li>
+        <li class="tab col s3"><a href="#test6">Disabled Tab</a></li>
+        <li class="tab col s3"><a href="#test7">Test 4</a></li>
+        <li class="tab col s3"><a href="#test8">Test 4</a></li>
+      </ul>
     </div>
-  </div>
-    <div class="row">
-    <div class="col s12">
+    
+    <div class="col s12 m10 offset-m1 l8 offset-l2">
+      <div class="card">
+        <div class="card-content" id="map" style="height:300px;"></div>
+          <div class="horizontal fixed-action-btn click-to-toggle" style="position:absolute; top:10px;">
+          <a class="btn-floating purple darken-1" >
+            <i class="material-icons">autorenew</i>
+          </a>
+        </div>
+      </div>
+    </div>
+   
+  
+  
+  
+  
+    <div class="col s12 m10 offset-m1 l8 offset-l2">
       <ul class="tabs">
         <li class="tab col s6"><a class="active"href="#Restaurants">Restaurants</a></li>
         <li class="tab col s6"><a href="#Menu">Menu</a></li>
       </ul>
     </div>
-    <div id="Restaurants" class="col s12">Test 1</div>
-    <div id="Menu" class="col s12">Test 2</div>
-  </div>
-        
-</div>
+    
+    <div id="Restaurants" class="col s12 m10 offset-m1 l8 offset-l2">
+      <table class="bordered">
+        <thead>
+          <tr>
+              <th data-field="id">Name</th>
+              <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <%if @num=="0"%>
+            <%Rest.all.each do |r|%>
+              <tr>
+                <td><%=r.name%></td>
+                <td></td>
+              </tr>
+            <%end%>
+          <%else%>
+            <%@all.each do |a|%>
+              <tr>
+                <td><%=a[2][1]%></td>
+                <td></td>
+              </tr>
+            <%end%>
+          <%end%>
+        </tbody>
+      </table>
+      
+    </div>
+    
+    <div id="Menu" class="col s12 m10 offset-m1 l8 offset-l2">
+      
+      
+    </div>
+  
+</div>        
+
+
 <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
   <a class="btn-floating btn-large red">
     <i class="large material-icons">local_dining</i>
@@ -106,7 +148,7 @@
 	var container = document.getElementById('map');
 	var options = {
 		center: new daum.maps.LatLng(<%if @lat=="0"%>37.597415, 127.057824<%else%><%=@lat%>,<%=@lon%><%end%>),
-		level: <%if @lat!="0"%>1<%else%>3<%end%>
+		level: 3
 	};
 
 	var map = new daum.maps.Map(container, options);
@@ -141,6 +183,7 @@
     $(".nav_form").hide();
     $(".main_nav").fadeIn();
   })
+  
   $('.modal-trigger').click(function(){
     $('.button-collapse').sideNav('hide');
     $('.modal-trigger').leanModal();
@@ -148,11 +191,9 @@
     $(".closebtn").click(function(){
       $('#modal1').closeModal();
   })
+  
 	$(".random").click(function(){
-	  if (!$("#mapsection").is(":visible")){
-	    $("#mapsection").slideDown();
-	    map.relayout();
-	  }
+	  
 	  hideMarkers();
 	  //removeMarker();
 	  randomit();
@@ -201,7 +242,7 @@
   
   //positions에 저장되어있는 마커 중 하나만 무작위로 꺼내 표시합니다
     function randomit(){
-      index=Math.floor(Math.random()*positions.length);
+      var index=Math.floor(Math.random()*positions.length);
       var marker = new daum.maps.Marker({
           map: map, // 마커를 표시할 지도
           position: positions[index].latlng, // 마커를 표시할 위치

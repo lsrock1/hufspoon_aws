@@ -1,3 +1,4 @@
+
 <nav>
   <div class="nav-wrapper main_nav">
     <ul id="slide-out" class="side-nav ">
@@ -29,12 +30,12 @@
 <div class="row">
   <div class="col s12 m8 offset-m2 l6 offset-l3">
     <div class="carousel carousel-slider" style="height:300px">
-      <%if @one!=nil%><a class="carousel-item" href="#one!"><img src="<%=@one.address%>" width="600" height="300"></a><%end%>
-      <%if @two!=nil%><a class="carousel-item" href="#two!"><img src="<%=@two.address%>" width="600" height="300"></a><%end%>
-      <%if @three!=nil%><a class="carousel-item" href="#three!"><img src="<%=@three.address%>" width="600" height="300"></a><%end%>
-      <%if @four!=nil%><a class="carousel-item" href="#four!"><img src="<%=@four.address%>" width="600" height="300"></a><%end%>
-      <%if @five!=nil%><a class="carousel-item" href="#five!"><img src="<%=@five.address%>" width="600" height="300"></a><%end%>
-      <%if @six!=nil%><a class="carousel-item" href="#six!"><img src="<%=@six.address%>" width="600" height="300"></a><%end%>
+      <%if @one!=nil%><a class="carousel-item" href="#one!"><img src="<%=@one.address%>" height="300"></a><%end%>
+      <%if @two!=nil%><a class="carousel-item" href="#two!"><img src="<%=@two.address%>" height="300"></a><%end%>
+      <%if @three!=nil%><a class="carousel-item" href="#three!"><img src="<%=@three.address%>" height="300"></a><%end%>
+      <%if @four!=nil%><a class="carousel-item" href="#four!"><img src="<%=@four.address%>"  height="300"></a><%end%>
+      <%if @five!=nil%><a class="carousel-item" href="#five!"><img src="<%=@five.address%>" height="300"></a><%end%>
+      <%if @six!=nil%><a class="carousel-item" href="#six!"><img src="<%=@six.address%>"  height="300"></a><%end%>
     </div>
   </div>
 </div>
@@ -46,28 +47,36 @@
     </div>
   </div>
   <div class="col s12 m8 offset-m2 l6 offset-l3">
-    <div class="row">
-      <div class=" col s3 m3 l3 center" style="padding-left:0px;">
-        <div class="card-panel">
-          한식
+    
+      <div class="row">
+        <div class=" col s3 m3 l3 center">
+          <a class="btn-floating btn-large waves-effect waves-light red lighten-2">한식</a>
+        </div>
+        <div class=" col s3 m3 l3 center">
+          <a class="btn-floating btn-large waves-effect waves-light orange lighten-2"><i class="material-icons">add</i></a>
+        </div>
+        <div class=" col s3 m3 l3 center">
+          <a class="btn-floating btn-large waves-effect waves-light cyan lighten-2"><i class="material-icons">add</i></a>
+        </div>
+        <div class=" col s3 m3 l3 center">
+          <a class="btn-floating btn-large waves-effect waves-light  green lighten-2"><i class="material-icons">add</i></a>
         </div>
       </div>
-      <div class=" col s3 m3 l3 center" style="padding-left:0px;">
-        <div class="card-panel">
-          일식
+      <div class="row">
+        <div class=" col s3 m3 l3 center">
+          <a class="btn-floating btn-large waves-effect waves-light lime accent-2"><i class="material-icons">add</i></a>
+        </div>
+        <div class=" col s3 m3 l3 center">
+          <a class="btn-floating btn-large waves-effect waves-light purple accent-2"><i class="material-icons">add</i></a>
+        </div>
+        <div class=" col s3 m3 l3 center">
+          <a class="btn-floating btn-large waves-effect waves-light  light-green accent-3"><i class="material-icons">add</i></a>
+        </div>
+        <div class=" col s3 m3 l3 center">
+          <a class="btn-floating btn-large waves-effect waves-light grey lighten-2"><i class="material-icons">add</i></a>
         </div>
       </div>
-      <div class=" col s3 m3 l3 center" style="padding-left:0px;">
-        <div class="card-panel">
-          중식
-        </div>
-      </div>
-      <div class=" col s3 m3 l3 center" style="padding-left:0px; padding-right:0px;">
-        <div class="card-panel">
-          양식
-        </div>
-      </div>
-    </div>
+    
   </div>
 </div>
   <script>

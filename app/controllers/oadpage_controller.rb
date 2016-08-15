@@ -182,13 +182,20 @@ class OadpageController < ApplicationController
   
   
   def image_show
-    if Curate.find_by(:show => params[:show])!=nil||params[:show].to_i>6||params[:show].to_i<0
+    if params[:show].to_i>6||params[:show].to_i<0
+      redirect_to :back
+    elsif params[:show].to_i==0  
+      conf=Curate.find(params[:id])
+      conf.show=params[:show]
+      conf.save
+      redirect_to :back
+    elsif Curate.find_by(:show => params[:show])==nil
+      conf=Curate.find(params[:id])
+      conf.show=params[:show]
+      conf.save
       redirect_to :back
     else
-    conf=Curate.find(params[:id])
-    conf.show=params[:show]
-    conf.save
-    redirect_to :back
+      redirect_to :back
     end
   end
 end

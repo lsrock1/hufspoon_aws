@@ -13,14 +13,32 @@
 <form id="fo"action="/oadpage/image_add" method="post">
     <input type="hidden" id="foad"name="address" type="text">
 </form>
+
 <script>
+    function load() {
+      gapi.client.setApiKey('AIzaSyDotDoAyiizNm1fw0r_bn7mqVapTwLpvNg');
+      gapi.client.load('urlshortener', 'v1',function(){});
+    }
     $(".see").click(function(){
         var add=$("#ex1").val();
         
         $("#test").html('<img src='+add+' width="300" height="300">'+'<button onclick="send();"class="btn save">저장</button>');
-        $("#foad").attr("value",add);
+       
+	    var longURL = add;  
+	    var request = gapi.client.urlshortener.url.insert({
+	        'resource' : {
+	            'longUrl' : longURL
+	        }
+	    });
+	    request.execute(function(response) {
+	        if (response.id != null) {  
+	            $('#foad').val(response.id);
+	            $('#ex1').val(response.id)
+	        }
+	    }); 
     });
     function send(){
         $("#fo").submit();
     }
 </script>
+<script src="https://apis.google.com/js/client.js?onload=load"></script>

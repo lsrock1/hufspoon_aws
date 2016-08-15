@@ -85,11 +85,12 @@ class HomeController < ApplicationController
     
     #아예 처음이면
     
-    check=Breakfast.find_by(:date => @day)
-    if check==nil
-      parsing_func(@day)
+    check=Lunch1.find_by(:date => @day)
+    begin
+      if check==nil
+        parsing_func(@day)
+      end
     end
-    
     
     
     
