@@ -145,6 +145,8 @@ ActiveRecord::Schema.define(version: 20160813022137) do
     t.integer  "map_id"
     t.string   "name"
     t.string   "food"
+    t.string   "famous"
+    t.string   "page"
     t.integer  "count",      default: 0
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false

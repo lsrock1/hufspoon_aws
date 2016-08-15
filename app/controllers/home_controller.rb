@@ -121,8 +121,10 @@ class HomeController < ApplicationController
     @menubingre=[]
     ##############인문관식당 파싱 자료 분류#############
     #snack
-    snack=Snack.find_by(:date =>@day).menu
+    snack=Snack.find_by(:date =>@day)
+    @register=snack
     if snack!=nil
+      snack=snack.menu
       snack=snack.split("$")
       snack.each do|s|
         if s.index("(")!=nil
