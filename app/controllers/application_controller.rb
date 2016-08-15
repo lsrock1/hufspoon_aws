@@ -217,15 +217,17 @@ class ApplicationController < ActionController::Base
     #snack
     if Snack.find_by(:date => today)==nil
       snack=humanity.xpath("./td[@class='listStyle2']").text
-      snack=snack.split()
-      snack_form=""
-      snack.each do|s|
-        if s.index("(")!=nil
-          snack_form=snack_form+"$"+s.strip
-          
+      if snack!=""
+        snack=snack.split()
+        snack_form=""
+        snack.each do|s|
+          if s.index("(")!=nil
+            snack_form=snack_form+"$"+s.strip
+            
+          end
         end
+        Snack.new(:date => today,:menu => snack_form).save
       end
-      Snack.new(:date => today,:menu => snack_form).save
     end
     
     num=0
