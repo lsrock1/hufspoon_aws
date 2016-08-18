@@ -47,7 +47,7 @@ Rails.application.routes.draw do
   #일반화면
   get '/home/leftindex/:num' =>'ohome#leftindex'
   get '/home/rightindex/:id' =>'ohome#rightindex'
-  post '/home/search' => 'ohome#search'
+  get '/home/search' => 'ohome#search'
   get '/home/index' =>"ohome#index"
   
   

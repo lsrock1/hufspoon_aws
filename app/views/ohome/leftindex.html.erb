@@ -2,11 +2,12 @@
   <div class="nav-wrapper main_nav">
     <ul id="slide-out" class="side-nav ">
       <li><a class="modal-trigger"href="#modal1">Mondayspoon</a></li>
+      <li><a href="/">Hufs</a></li>
     </ul>
     
     <ul class="left hide-on-med-and-down">
       <li><a class="modal-trigger"href="#modal1">Mondayspoon</a></li>
-      
+      <li><a href="/">Hufs</a></li>
     </ul>
     <ul class="right">
       <li><a><i class="material-icons opener">search</i></a></li>
@@ -16,7 +17,7 @@
   </div>
   
     <div class="nav-wrapper nav_form">
-      <form action="/home/search" method="post">
+      <form action="/home/search">
         <div class="input-field">
           <input id="search" type="search" name="keyword"required>
           <label for="search"><i class="material-icons">search</i></label>
@@ -62,7 +63,7 @@
           <tr>
               <th data-field="id">Name</th>
               <th>MENU </th>
-              <th><a class="btn-floating  waves-effect waves-light red random right"><i class="material-icons">autorenew</i></a></th>
+              <th><a class="btn-floating  waves-effect waves-light blue renew right center">A</a><a class="btn-floating  waves-effect waves-light red random right"><i class="material-icons">autorenew</i></a></th>
           </tr>
         </thead>
 
@@ -70,7 +71,7 @@
           <%@all.each do |a|%>
             <%a[2].each do |re|%>
             <tr>
-              <td><%=re.name%></td>
+              <td><a href="/home/rightindex/<%=re.id%>"><%=re.name%></a></td>
               <td colspan="2"><%=re.re_menu%></td>
             </tr>
             <%end%>
@@ -132,7 +133,7 @@
 <script>
 	var placeOverlay = new daum.maps.CustomOverlay({zIndex:1}), 
     contentNode = document.createElement('div');
-	var markers=[1];
+	var markers=[];
 	var container = document.getElementById('map');
 	var options = {
 		center: new daum.maps.LatLng(37.597415, 127.057824),
@@ -191,9 +192,14 @@
 	  hideMarkers();
 	  //removeMarker();
 	  randomit();
-	  
+	  ;
 	})
-
+  $(".renew").click(function(){
+	  
+	  hideMarkers();
+	  allshow();
+	  
+  });
   
   
     
@@ -240,7 +246,7 @@
     function hideMarkers() {
       var len=markers.length-1;
       overlayclose();
-      for (var i = len; i > 0; i--) {
+      for (var i = len; i > -1; i--) {
           markers[i].setMap(null);
           markers.pop();
       }        

@@ -8,9 +8,9 @@
   </div>
   
     <div class="nav-wrapper nav_form">
-      <form action="/">
+      <form action="/home/search">
         <div class="input-field">
-          <input id="search" type="search" required>
+          <input id="search" type="search" name="keyword"required>
           <label for="search"><i class="material-icons">search</i></label>
           <i class="material-icons closer">close</i>
         </div>
@@ -25,6 +25,60 @@
           
       </div>
     </div>
+    <div class="col s12 m10 offset-m1 l8 offset-l2">
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title"><%=@rest.name%></span>
+          <div class="divider"></div>
+          <div class="section">
+            <%if @rest.picture!=""%><img src="<%=@rest.picture%>" height="250" width="300"><%end%>
+            <table>
+              <tbody>
+                <tr>
+                  <td>영업시간:</td>
+                  <td><%=@rest.open%></td>
+                </tr>
+                <tr>
+                  <td>전화번호:</td>
+                  <td><%=@rest.phone%></td>
+                </tr>
+                <tr>
+                  <td>주소:</td>
+                  <td><%=@rest.address%></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col s12 m10 offset-m1 l8 offset-l2">
+      <ul class="tabs">
+        <li class="tab col s12"><a class="active"href="#Restaurants">MENUS</a></li>
+      </ul>
+    </div>
+    
+    <%@num.times do |m|%>
+    <div class="col s12 m10 offset-m1 l8 offset-l2">
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title  red-text"><%if @pages!=nil%><%=@pages[m]%><%end%></span>
+          <div class="divider"></div>
+          <table>
+            <tbody>
+              <%@menuarray[m].each do|a|%>
+              <tr>
+                <td><%=a.menuname%></td>
+                <td><%=a.cost%></td>
+              </tr>
+              <%end%>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <%end%>
 </div>
 <script src="//apis.daum.net/maps/maps3.js?apikey=23598cdf36f0c5f5bf1f1bfda70b8e80&libraries=services"></script>
 <script>
@@ -33,8 +87,8 @@
 	var markers=[1];
 	var container = document.getElementById('map');
 	var options = {
-		center: new daum.maps.LatLng(37.597415, 127.057824),
-		level: 3
+		center: new daum.maps.LatLng(<%=@map.lat%>, <%=@map.lon%>),
+		level: 2
 	};
 
 	var map = new daum.maps.Map(container, options);
@@ -49,7 +103,12 @@
   
   // 커스텀 오버레이 컨텐츠를 설정합니다
   placeOverlay.setContent(contentNode);
-  var positions=[];
+  var positions=[{
+             
+            latlng: new daum.maps.LatLng(<%=@map.lat%>,<%=@map.lon%>),
+            iwContent: '<a class="title" ><%=@rest.name%></a>'
+            
+        }];
     allshow();
   $(".opener").click(function(){
     $(".main_nav").hide();

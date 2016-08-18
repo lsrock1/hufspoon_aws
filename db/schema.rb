@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 20160813022137) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.string   "address"
+    t.string   "keyword"
     t.integer  "show",       default: 0
   end
 
@@ -162,6 +163,7 @@ ActiveRecord::Schema.define(version: 20160813022137) do
     t.string   "content"
     t.integer  "rest_id"
     t.integer  "cost"
+    t.integer  "category"
     t.integer  "pagenum",    default: 1
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false

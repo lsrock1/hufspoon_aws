@@ -7,11 +7,16 @@
       <label for="ex1">사진 주소</label>
       <input class="validate" id="ex1" type="text">
     </div>
+    <div class="input-field">
+      <label for="ex2">키워드</label>
+      <input class="validate" id="ex2" type="text">
+    </div>
     <button class="btn see">보기</button>
 </div>
 <div id="test"></div>
 <form id="fo"action="/oadpage/image_add" method="post">
     <input type="hidden" id="foad"name="address" type="text">
+    <input type="hidden" id="fokey"name="keyword" type="text">
 </form>
 
 <script>
@@ -33,7 +38,8 @@
 	    request.execute(function(response) {
 	        if (response.id != null) {  
 	            $('#foad').val(response.id);
-	            $('#ex1').val(response.id)
+	            $('#ex1').val(response.id);
+	            $("#fokey").val($("#ex2").val());
 	        }
 	    }); 
     });

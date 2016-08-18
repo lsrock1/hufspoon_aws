@@ -4,6 +4,7 @@ class CreateCurates < ActiveRecord::Migration
 
       t.timestamps null: false
       t.string :address
+      t.string :keyword
       t.integer :show , default:0
     end
   end

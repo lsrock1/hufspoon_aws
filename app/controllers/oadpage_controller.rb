@@ -29,6 +29,7 @@ class OadpageController < ApplicationController
         nrs.address=params[:add]
         nrs.phone=params[:pho]
         nrs.picture=params[:picture]
+        nrs.open=params[:open]
         nrs.save
         redirect_to :back
       end
@@ -44,6 +45,7 @@ class OadpageController < ApplicationController
       nrs.address=params[:add]
       nrs.phone=params[:pho]
       nrs.picture=params[:picture]
+      nrs.open=params[:open]
       nrs.save
       redirect_to :back
     end
@@ -91,6 +93,7 @@ class OadpageController < ApplicationController
         newmenu.menuname=params[:menuname]
         newmenu.cost=params[:cost]
         newmenu.pagenum=params[:pagenum]
+        newmenu.emenuname=Menulist.find_by(:kname => params[:menuname]).ename
         newmenu.save
         if params[:pagenum].to_i==0
           re=Rest.find(params[:backid])
@@ -113,6 +116,7 @@ class OadpageController < ApplicationController
       newmenu=Rmenu.new
       newmenu.rest_id=params[:backid]
       newmenu.content=params[:content]
+      newmenu.emenuname=params[:ename]
       newmenu.menuname=params[:kname]
       newmenu.cost=params[:cost]
       newmenu.pagenum=params[:pagenum]
@@ -141,6 +145,7 @@ class OadpageController < ApplicationController
       drest.picture=params[:picture]
       drest.address=params[:add]
       drest.phone=params[:pho]
+      drest.open=params[:open]
       drest.map_id=nmid
       drest.save
     else
@@ -152,6 +157,7 @@ class OadpageController < ApplicationController
       drest.picture=params[:picture]
       drest.address=params[:add]
       drest.phone=params[:pho]
+      drest.open=params[:open]
       drest.save
     end
     redirect_to :back
@@ -171,6 +177,7 @@ class OadpageController < ApplicationController
     else
     remenu=Rmenu.find(params[:id])
     remenu.menuname=params[:menuname]
+    remenu.emenuname=Menulist.find_by(:kname => params[:menuname]).ename
     remenu.content=params[:content]
     remenu.cost=params[:cost]
     remenu.pagenum=params[:pagenum]
@@ -214,7 +221,7 @@ class OadpageController < ApplicationController
   end
   
   def image_add
-    Curate.new(:address => params[:address]).save
+    Curate.new(:address => params[:address],:keyword => params[:keyword]).save
     redirect_to '/oadpage/show/1'
   end
   

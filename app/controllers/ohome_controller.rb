@@ -1,8 +1,21 @@
 class OhomeController < ApplicationController
   def rightindex
+    @menuarray=[]
     id=params[:id]
     @rest=Rest.find(id)
-    
+    @map=Map.find(@rest.map_id)
+    begin
+      @pages=@rest.page.split(",")
+    rescue
+      @pages=nil
+    end
+    menupage=@rest.rmenu.map{|m| m.pagenum}
+    menupage=menupage.uniq
+    menupage.delete(0)
+    menupage.each do |d|
+      @menuarray.append(@rest.rmenu.where(:pagenum => d))
+    end
+    @num=@menuarray.length
   end
   
   def index
