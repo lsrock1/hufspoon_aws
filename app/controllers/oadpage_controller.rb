@@ -5,6 +5,14 @@ class OadpageController < ApplicationController
     @map=Map.all
   end
   
+  def rest_re
+    @rest=Rest.find(params[:id])
+    @map=Map.find(@rest.map_id)
+  end
+  
+  def rest_add
+  end
+  
   #식당 추가
   def addrest
     find=Map.where(lat: params[:lat].to_f,lon: params[:lon].to_f)
@@ -18,6 +26,9 @@ class OadpageController < ApplicationController
         nrs.map_id=find.id.to_i
         nrs.name=params[:name]
         nrs.food=params[:food]
+        nrs.address=params[:add]
+        nrs.phone=params[:pho]
+        nrs.picture=params[:picture]
         nrs.save
         redirect_to :back
       end
@@ -30,6 +41,9 @@ class OadpageController < ApplicationController
       nrs.map_id=nm.id
       nrs.name=params[:name]
       nrs.food=params[:food]
+      nrs.address=params[:add]
+      nrs.phone=params[:pho]
+      nrs.picture=params[:picture]
       nrs.save
       redirect_to :back
     end
@@ -78,6 +92,11 @@ class OadpageController < ApplicationController
         newmenu.cost=params[:cost]
         newmenu.pagenum=params[:pagenum]
         newmenu.save
+        if params[:pagenum].to_i==0
+          re=Rest.find(params[:backid])
+          re.re_menu=params[:menuname]
+          re.save
+        end
         redirect_to '/oadpage/addmenu_page/'+params[:backid]
       end
     #번역까지 저장 시
@@ -98,8 +117,14 @@ class OadpageController < ApplicationController
       newmenu.cost=params[:cost]
       newmenu.pagenum=params[:pagenum]
       newmenu.save
+      if params[:pagenum].to_i==0
+        re=Rest.find(params[:backid])
+        re.re_menu=params[:kname]
+        re.save
+      end
       redirect_to '/oadpage/addmenu_page/'+params[:backid]
     end
+    
   end
   #식당 수정
   def rewriterest
@@ -113,6 +138,9 @@ class OadpageController < ApplicationController
       nmid=nm.id
       drest.name=params[:name]
       drest.food=params[:food]
+      drest.picture=params[:picture]
+      drest.address=params[:add]
+      drest.phone=params[:pho]
       drest.map_id=nmid
       drest.save
     else
@@ -121,6 +149,9 @@ class OadpageController < ApplicationController
       dmap.save
       drest.name=params[:name]
       drest.food=params[:food]
+      drest.picture=params[:picture]
+      drest.address=params[:add]
+      drest.phone=params[:pho]
       drest.save
     end
     redirect_to :back
@@ -144,8 +175,21 @@ class OadpageController < ApplicationController
     remenu.cost=params[:cost]
     remenu.pagenum=params[:pagenum]
     remenu.save
+    if params[:pagenum].to_i==0
+      re=Rest.find(remenu.rest_id)
+      re.re_menu=params[:menuname]
+      re.save
+    end
     redirect_to "/oadpage/addmenu_page/"+params[:backid]
     end
+    
+  end
+  
+  def page
+    r=Rest.find(params[:id])
+    r.page=params[:page]
+    r.save
+    redirect_to :back
   end
   
   def show_config

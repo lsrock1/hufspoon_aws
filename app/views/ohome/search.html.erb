@@ -1,86 +1,82 @@
-<header>
-  <br>
-  <h1 id="title"><a href="/home/leftindex/0/0/0/0" style="color:white;">HUFSPOON</a></h1>
-  <br>
-  <ul class="nav nav-tabs nav-justified">
-    <li ><a href="/home/leftindex/0/0/0/0">Searching</a></li>
-    <li ><a href="/home/rightindex/0/0/0/0">Menu</a></li>
-  </ul>
-</header>
-
-    <div style="background-color:white;">
-        <div class="container">
-            <h3>You can eat <%=@keyword%> in this restaurants</h3>
-            <div class="table-responsive">
-                <table class="table menu">
-                  <thead>
-                    <tr>
-                        <th>Restaurant Name</th>
-                        <th>Type</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        <%@result.each do|r|%>
-                            <%@map=Map.find(r.map_id)%>
-                            <tr class="detail ">
-                                <td><a href="/home/rightindex/<%=r.id%>/0/<%=@map.lat%>/<%=@map.lon%>"><%=r.name%></a></td>
-                                <td>
-                                    <%=r.food%>
-                                </td>
-                            </tr>
-                        <%end%>
-                    </tbody>
-                </table>
-            </div>
+<nav>
+  <div class="nav-wrapper main_nav">
+    
+    <ul class="left">
+      <li><a href="/home/index"><i class="material-icons">reply</i></a></li>
+    </ul>
+    <ul class="right">
+      <li><a><i class="material-icons opener">search</i></a></li>
+    </ul>
+    <a href="#" class="brand-logo center">HUFSPOON</a>
+  </div>
+  
+    <div class="nav-wrapper nav_form">
+      <form action="/home/search" method="post">
+        <div class="input-field">
+          <input id="search" type="search" name="keyword"required>
+          <label for="search"><i class="material-icons">search</i></label>
+          <i class="material-icons closer">close</i>
         </div>
+      </form>
     </div>
-    <footer>
-	<br>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                  <br>
-                    <div id="foo">
-                        <h5><a href="/">home</a></h5>
-                    	<h6>L I K E L I O N  X  H U F S</h6>
-                    	<h6 class="email">CONTACT : mondayspoon@gmail.com </h6>
-                    	<h6><a data-toggle="modal" data-target="#myModal"onclick="ga('send', 'event','contributor', '버튼클릭', 'leftindex');">CONTRIBUTOR</a></h6>
-                    	
-                    </div>
-                    	
-                    <br>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <div id="myModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-
-    <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">MondaySpoon</h4>
-        </div>
-        <div class="modal-body">
-          <div class="panel panel-default">
-      			<div class="panel-heading">전진철 / JIN CHEOL JUHN</div>
-      			<div class="panel-body">CFO </div>
-    		  </div>
-    		  <div class="panel panel-default">
-      			<div class="panel-heading">김소영 / SO YOUNG KIM</div>
-      			<div class="panel-body">CDO</div>
-    		  </div>
-    		  <div class="panel panel-default">
-      			<div class="panel-heading">이상록 / SANG ROK LEE</div>
-      			<div class="panel-body">CTO</div>
-    		  </div>
-    		  <div class="panel panel-default">
-      			<div class="panel-heading">이승준 / SEUNG JUN LEE</div>
-      			<div class="panel-body">CMO (상암동 순정남)</div>
-    		  </div>
-        </div>
-      </div>
-
+</nav>
+<br>
+<div class="row">
+  <div class="col s12 m10 offset-m1 l8 offset-l2">
+    <ul class="tabs">
+      <li class="tab col s6"><a href="#rest">Restaurant</a></li>
+      <li class="tab col s6"><a href="#menu">Menu</a></li>
+    </ul>
+  </div>
+  <div class="col s12 m8 offset-m2 l6 offset-l3">
+    <div class="card-panel center">
+      <span>Result of <%=@keyword%></span>
     </div>
   </div>
+  <div id="rest" class="col s12">
+    <%@rest.each do |r|%>
+      <div class="col s12">
+        <div class="card ">
+          <div class="card-content ">
+            <a><span class="card-title"><%=r.name%></span></a>
+            <div class="divider"></div>
+            <div class="section ">
+            <p class="truncate"><%r.rmenu.each do |k|%><%=k.menuname%> <%end%></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    <%end%>
+  </div>
+  
+  <div id="menu" class="col s12">
+    <%@result.each do |r|%>
+      <div class="col s12">
+        <div class="card ">
+          <div class="card-content ">
+            <a><span class="card-title"><%=r.name%></span></a>
+            <div class="divider"></div>
+            <div class="section ">
+            <p class="truncate"><%r.rmenu.each do |k|%><%=k.menuname%> <%end%></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    <%end%>
+  </div>
+</div>
+    
+<script>
+  $(document).ready(function(){
+    $('ul.tabs').tabs();
+  });
+  $(".opener").click(function(){
+    $(".main_nav").hide();
+    $(".nav_form").fadeIn();
+    document.getElementById("search").focus();
+  })
+  $(".closer").click(function(){
+    $(".nav_form").hide();
+    $(".main_nav").fadeIn();
+  })
+</script>

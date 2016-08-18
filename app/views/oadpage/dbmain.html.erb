@@ -22,6 +22,7 @@
                   <li class="divider"></li>
                   <li><a href="/adpage/dbmain/1">메뉴 관리</a></li>
                   <li><a href="/oadpage/show/1">큐레이션 관리</a></li>
+                  <li><a href="/oadpage/rest_add">식당추가</a></li>
               </ul>
             </div>
           </li>
@@ -33,6 +34,7 @@
     <ul class="left hide-on-med-and-down">
       <li><a href="/adpage/out">로그아웃</a></li>
       <li><a class="dropdown-button" href="#!" data-activates="dropdown1">페이지 이동<i class="material-icons right">arrow_drop_down</i></a></li>
+      <li><a href="/oadpage/rest_add">식당추가</a></li>
     </ul>
     
     
@@ -41,31 +43,7 @@
 </nav>
 
         
-        <h3>식당추가</h3>
-        <div class="option">
-            <div>
-                <form onsubmit="searchPlaces(); return false;">
-                    키워드 : <input type="text" value="외대"id="keyword" size="15"> 
-                    <button type="submit">검색하기</button> 
-                </form>
-            </div>
-        </div>
-        <div style="width:100%; height:300px; overflow-y:scroll;"id="menu_wrap" class="bg_white">
-            
-            <hr>
-            <ul id="placesList"></ul>
-            <div id="pagination"></div>
-        </div>
-	    <form id="mreform"action="/oadpage/addrest" method="post">
-                <input type="text" id="lat" name="lat" placeholder="위도">
-                <input type="text" id="lon"name="lon" placeholder="경도">
-                <input type="text" id="name"name="name" placeholder="식당이름">
-                <input type="text" id="food"name="food" placeholder="식당종류">
-            <button id="mrebut"class="btn btn-primary">저장</button>
-            
-        </form>
-        <button style="display:none"id="mrecan"class="btn btn-default">수정취소</button>
-        </div>
+        
         <br/>
         
         <div class="table-responsive">
@@ -98,218 +76,28 @@
             </table>
         </div>
         <!--테이블 끝-->
-        <form id="maddform" method="get">
-            
-        </form>
-        <form id="mdelform" method="get">
-            
-        </form>
 	
 
 <!--</div>-->
 <script src="https://spi.maps.daum.net/imap/map_js_init/postcode.v2.js"></script>
 <script src="//apis.daum.net/maps/maps3.js?apikey=23598cdf36f0c5f5bf1f1bfda70b8e80&libraries=services"></script>
 <script>
-
-    
-    $(".mre").click(function(){
-        $("#mrebut").html("수정하기");
-        $("#mrecan").show();
-        var thisid=$(this).attr("id");
-        var lat=$("#lat"+thisid).html();
-        $("#lat").attr("value",lat);
-        var lon=$("#lon"+thisid).html();
-        $("#lon").attr("value",lon);
-        var name=$("#name"+thisid).html();
-        $("#name").attr("value",name);
-        var food=$("#food"+thisid).html();
-        $("#food").attr("value",food);
-        
-        $("#mreform").attr("action","/oadpage/rewriterest/"+thisid);
-    });
-    
-    $("#mrecan").click(function(){
-        $(this).hide();
-        $("#mrebut").html("저장");
-        $("#lat").attr("value","");
-        $("#lon").attr("value","");
-        $("#name").attr("value","");
-        $("#food").attr("value","");
-        $("#mreform").attr("action","/oadpage/addrest");
-    })
-    
     $(".madd").click(function(){
        var thisid=$(this).attr("id");
-       $("#maddform").attr("action","/oadpage/addmenu_page/"+thisid);
-       $("#maddform").submit();
+       window.location.href="/oadpage/addmenu_page/"+thisid;
     });
+    
+    $(".mre").click(function(){
+        var thisid=$(this).attr("id");
+        window.location.href="/oadpage/rest_re/"+thisid;
+    })
     $(".mdel").click(function(){
         var thisid=$(this).attr("id");
-        $("#mdelform").attr("action","/oadpage/delrest/"+thisid);
-        
         if (confirm("정말 삭제하시겠습니까?")==true){
-            $("#mdelform").submit();
+            window.location.href="/oadpage/delrest/"+thisid;
         }
         else{
             return;
         }
-        
     });
-    	
-    	var ps = new daum.maps.services.Places();  
-
-
-        
-        // 키워드로 장소를 검색합니다
-        searchPlaces();
-        
-        // 키워드 검색을 요청하는 함수입니다
-        function searchPlaces() {
-        
-            var keyword = document.getElementById('keyword').value;
-        
-            if (!keyword.replace(/^\s+|\s+$/g, '')) {
-                alert('키워드를 입력해주세요!');
-                return false;
-            }
-        
-            // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
-            ps.keywordSearch( keyword, placesSearchCB); 
-        }
-        
-        // 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
-        function placesSearchCB(status, data, pagination) {
-            if (status === daum.maps.services.Status.OK) {
-        
-                // 정상적으로 검색이 완료됐으면
-                // 검색 목록과 마커를 표출합니다
-                displayPlaces(data.places);
-        
-                // 페이지 번호를 표출합니다
-                displayPagination(pagination);
-        
-            } else if (status === daum.maps.services.Status.ZERO_RESULT) {
-        
-                alert('검색 결과가 존재하지 않습니다.');
-                return;
-        
-            } else if (status === daum.maps.services.Status.ERROR) {
-        
-                alert('검색 결과 중 오류가 발생했습니다.');
-                return;
-        
-            }
-        }
-        // 검색 결과 목록과 마커를 표출하는 함수입니다
-    function displayPlaces(places) {
-    
-        var listEl = document.getElementById('placesList'), 
-        menuEl = document.getElementById('menu_wrap'),
-        fragment = document.createDocumentFragment(), 
-        
-        listStr = '';
-        
-        // 검색 결과 목록에 추가된 항목들을 제거합니다
-        removeAllChildNods(listEl);
-    
-    
-        
-        for ( var i=0; i<places.length; i++ ) {
-    
-            // 마커를 생성하고 지도에 표시합니다
-            var placePosition = new daum.maps.LatLng(places[i].latitude, places[i].longitude),
-                
-                itemEl = getListItem(i, places[i]); // 검색 결과 항목 Element를 생성합니다
-    
-            
-            
-            (function(places) {
-                
-    
-                itemEl.onclick =  function () {
-                    document.getElementById("lat").value=places.latitude;
-                    document.getElementById("lon").value=places.longitude;
-                };
-    
-                
-            })(places[i]);
-    
-    
-            fragment.appendChild(itemEl);
-        }
-    
-        // 검색결과 항목들을 검색결과 목록 Elemnet에 추가합니다
-        listEl.appendChild(fragment);
-        menuEl.scrollTop = 0;
-    
-        // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
-        
-    }
-    
-    // 검색결과 항목을 Element로 반환하는 함수입니다
-    function getListItem(index, places) {
-    
-        var el = document.createElement('li'),
-        itemStr =           '<div class="info">' +
-                    '   <h5>' + places.title + '</h5>';
-    
-        if (places.newAddress) {
-            itemStr += '    <span>' + places.newAddress + '</span>' +
-                        '   <span class="jibun gray">' +  places.address  + '</span>';
-        } else {
-            itemStr += '    <span>' +  places.address  + '</span>'; 
-        }
-                     
-          itemStr += '  <span class="tel">' + places.phone  + '</span>' +
-                    '</div>';           
-    
-        el.innerHTML = itemStr;
-        el.className = 'item';
-    
-        return el;
-    }
-    
-    
-    
-    
-    // 검색결과 목록 하단에 페이지번호를 표시는 함수입니다
-    function displayPagination(pagination) {
-        var paginationEl = document.getElementById('pagination'),
-            fragment = document.createDocumentFragment(),
-            i; 
-    
-        // 기존에 추가된 페이지번호를 삭제합니다
-        while (paginationEl.hasChildNodes()) {
-            paginationEl.removeChild (paginationEl.lastChild);
-        }
-    
-        for (i=1; i<=pagination.last; i++) {
-            var el = document.createElement('a');
-            el.href = "#";
-            el.innerHTML = i;
-    
-            if (i===pagination.current) {
-                el.className = 'on';
-            } else {
-                el.onclick = (function(i) {
-                    return function() {
-                        pagination.gotoPage(i);
-                    }
-                })(i);
-            }
-    
-            fragment.appendChild(el);
-        }
-        paginationEl.appendChild(fragment);
-    }
-    
-    
-     // 검색결과 목록의 자식 Element를 제거하는 함수입니다
-    function removeAllChildNods(el) {   
-        while (el.hasChildNodes()) {
-            el.removeChild (el.lastChild);
-        }
-    }
-
-    
 </script>

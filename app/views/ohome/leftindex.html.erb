@@ -16,9 +16,9 @@
   </div>
   
     <div class="nav-wrapper nav_form">
-      <form action="/">
+      <form action="/home/search" method="post">
         <div class="input-field">
-          <input id="search" type="search" required>
+          <input id="search" type="search" name="keyword"required>
           <label for="search"><i class="material-icons">search</i></label>
           <i class="material-icons closer">close</i>
         </div>
@@ -29,25 +29,20 @@
     <br>
     <div class="col s12 m10 offset-m1 l8 offset-l2">
       <ul class="tabs">
-        <li class="tab col s3"><a class="active" href="#test1">Test 1</a></li>
-        <li class="tab col s3"><a href="#test2">Test 2</a></li>
-        <li class="tab col s3"><a href="#test3">Disabled Tab</a></li>
-        <li class="tab col s3"><a href="#test4">Test 4</a></li><li class="tab col s3"><a href="#test1">Test 1</a></li>
-        <li class="tab col s3"><a href="#test5">Test 2</a></li>
-        <li class="tab col s3"><a href="#test6">Disabled Tab</a></li>
-        <li class="tab col s3"><a href="#test7">Test 4</a></li>
-        <li class="tab col s3"><a href="#test8">Test 4</a></li>
+        <li class="tab col s3"><a <%if @num=="0"%>class="active"<%else%> href="/home/leftindex/0" target="_self"<%end%>>한식</a></li>
+        <li class="tab col s3"><a <%if @num=="1"%>class="active"<%else%> href="/home/leftindex/1" target="_self"<%end%>>일식</a></li>
+        <li class="tab col s3"><a <%if @num=="2"%>class="active"<%else%> href="/home/leftindex/2" target="_self"<%end%>>양식</a></li>
+        <li class="tab col s3"><a <%if @num=="3"%>class="active"<%else%> href="/home/leftindex/3" target="_self"<%end%>>중식</a>
+        <li class="tab col s3"><a <%if @num=="4"%>class="active"<%else%> href="/home/leftindex/4" target="_self"<%end%>>치킨</a></li>
+        <li class="tab col s3"><a <%if @num=="5"%>class="active"<%else%> href="/home/leftindex/5" target="_self"<%end%>>고기</a></li>
+        <li class="tab col s3"><a <%if @num=="6"%>class="active"<%else%> href="/home/leftindex/6" target="_self"<%end%>>분식/면</a></li>
       </ul>
     </div>
     
     <div class="col s12 m10 offset-m1 l8 offset-l2">
       <div class="card">
         <div class="card-content" id="map" style="height:300px;"></div>
-          <div class="horizontal fixed-action-btn click-to-toggle" style="position:absolute; top:10px;">
-          <a class="btn-floating purple darken-1" >
-            <i class="material-icons">autorenew</i>
-          </a>
-        </div>
+          
       </div>
     </div>
    
@@ -57,8 +52,7 @@
   
     <div class="col s12 m10 offset-m1 l8 offset-l2">
       <ul class="tabs">
-        <li class="tab col s6"><a class="active"href="#Restaurants">Restaurants</a></li>
-        <li class="tab col s6"><a href="#Menu">Menu</a></li>
+        <li class="tab col s12"><a class="active"href="#Restaurants">Restaurants</a></li>
       </ul>
     </div>
     
@@ -67,24 +61,18 @@
         <thead>
           <tr>
               <th data-field="id">Name</th>
-              <th></th>
+              <th>MENU </th>
+              <th><a class="btn-floating  waves-effect waves-light red random right"><i class="material-icons">autorenew</i></a></th>
           </tr>
         </thead>
 
         <tbody>
-          <%if @num=="0"%>
-            <%Rest.all.each do |r|%>
-              <tr>
-                <td><%=r.name%></td>
-                <td></td>
-              </tr>
-            <%end%>
-          <%else%>
-            <%@all.each do |a|%>
-              <tr>
-                <td><%=a[2][1]%></td>
-                <td></td>
-              </tr>
+          <%@all.each do |a|%>
+            <%a[2].each do |re|%>
+            <tr>
+              <td><%=re.name%></td>
+              <td colspan="2"><%=re.re_menu%></td>
+            </tr>
             <%end%>
           <%end%>
         </tbody>
@@ -100,11 +88,11 @@
 </div>        
 
 
-<div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-  <a class="btn-floating btn-large red">
-    <i class="large material-icons">local_dining</i>
-  </a>
-</div>
+<!--<div class="fixed-action-btn" style="bottom: 45px; right: 24px;">-->
+<!--  <a class="btn-floating btn-large red">-->
+<!--    <i class="large material-icons">local_dining</i>-->
+<!--  </a>-->
+<!--</div>-->
  <div id="modal1" class="modal">
   <div class="modal-content">
       
@@ -147,7 +135,7 @@
 	var markers=[1];
 	var container = document.getElementById('map');
 	var options = {
-		center: new daum.maps.LatLng(<%if @lat=="0"%>37.597415, 127.057824<%else%><%=@lat%>,<%=@lon%><%end%>),
+		center: new daum.maps.LatLng(37.597415, 127.057824),
 		level: 3
 	};
 
@@ -155,7 +143,7 @@
 	var ps = new daum.maps.services.Places();  
   // 커스텀 오버레이의 컨텐츠 노드에 css class를 추가합니다 
   contentNode.className = 'placeinfo_wrap';
-  $('.modal-trigger').leanModal();
+  
   // 커스텀 오버레이의 컨텐츠 노드에 mousedown, touchstart 이벤트가 발생했을때
   // 지도 객체에 이벤트가 전달되지 않도록 이벤트 핸들러로 daum.maps.event.preventMap 메소드를 등록합니다 
   addEventHandle(contentNode, 'mousedown', daum.maps.event.preventMap);
@@ -163,16 +151,22 @@
   
   // 커스텀 오버레이 컨텐츠를 설정합니다
   placeOverlay.setContent(contentNode);  
-  function addEventHandle(target, type, callback) {
-    if (target.addEventListener) {
-        target.addEventListener(type, callback);
-    } else {
-        target.attachEvent('on' + type, callback);
-        }
-    }
-    $(document).ready(function() {
-        $('select').material_select();
-      });
+  
+  var positions = [
+      <%@all.each do |m|%>
+        {
+             
+            latlng: new daum.maps.LatLng(<%=m[0]%>,<%=m[1]%>),
+            iwContent: '<%m[2].each do |r|%><a class="title" href="/home/rightindex/<%=r.id%>"><%=r.name%></a><%end%>',
+            
+        },
+      <%end%>];
+  allshow();
+  
+  $('.modal-trigger').leanModal(); //모달 이벤트 등록
+  $(document).ready(function() {
+      $('select').material_select();
+    });
   $(".button-collapse").sideNav();
   $(".opener").click(function(){
     $(".main_nav").hide();
@@ -201,29 +195,12 @@
 	})
 
   
-  <%if @num=="0"%>
-  	var positions = [
-      <%Map.all.each do |m|%>
-        {
-          latlng: new daum.maps.LatLng(<%=m.lat%>,<%=m.lon%>),
-          iwContent: '<%m.rests.each do |r|%><a class="title" href="/home/rightindex/<%=r.id%>/<%=@num%>/<%=m.lat%>/<%=m.lon%>" target="_self"><%=r.name%></a><%end%>',
-        },
-      <%end%>];
-  <%else%>
-    var positions = [
-      <%@all.each do |m|%>
-        {
-             
-            latlng: new daum.maps.LatLng(<%=m[0]%>,<%=m[1]%>),
-            iwContent: '<%m[2].each do |r|%><a class="title" href="/home/rightindex/<%=r[0]%>/<%=@num%>/<%=m[0]%>/<%=m[1]%>"><%=r[1]%></a><%end%>',
-            
-        },
-      <%end%>];
-  <%end%>
+  
+    
   
   
   //모든마커를 표시합니다
-  
+  function allshow(){
     for (var i = 0; i < positions.length; i ++) {
     
         var marker = new daum.maps.Marker({
@@ -238,7 +215,7 @@
             })(positions[i].iwContent,positions[i].latlng);
         markers.push(marker);
     };
-  
+  };
   
   //positions에 저장되어있는 마커 중 하나만 무작위로 꺼내 표시합니다
     function randomit(){
@@ -273,70 +250,22 @@
         var content = '<div class="placeinfo">'+iwcontent+
                         '<span>'+
                         '<span style="text-align: right;" onclick="overlayclose();" class="material-icons" aria-hidden="true">clear</span>'+
-                        '</a></span></div>'+
+                        '</span></div>'+
                         '<div class="after"></div>';
         contentNode.innerHTML = content;
         placeOverlay.setPosition(position);
         placeOverlay.setMap(map);  
     }
+    
     function overlayclose(){
       placeOverlay.setMap(null);
     }
-    <%if @beforeid!=nil&&@beforeid!="0"%>
-      //이전에 menu에서 이동해왔다면 하나의 마커만을 표시한다
-      hideMarkers();
-      var information={
-          latlng: new daum.maps.LatLng(<%=@beforemap.lat%>,<%=@beforemap.lon%>),
-          iwContent: '<a class="title" href="/home/rightindex/<%=@beforeid%>/<%=@num%>/<%=@beforemap.lat%>/<%=@beforemap.lon%>"><%=@beforemark.name%></a>',
+    
+    function addEventHandle(target, type, callback) {
+    if (target.addEventListener) {
+        target.addEventListener(type, callback);
+    } else {
+        target.attachEvent('on' + type, callback);
         }
-      var marker = new daum.maps.Marker({
-          map: map, // 마커를 표시할 지도
-          position: information.latlng, // 마커를 표시할 위치
-          clickable: true
-      });
-      (function(iwcontent,position) {
-                daum.maps.event.addListener(marker, 'click', function() {
-                    displayPlaceInfo(iwcontent,position);
-                });
-            })(information.iwContent,information.latlng);
-      
-      markers.push(marker);
-    <%elsif @num=="0"%>
-      hideMarkers();
-      var temp=[];
-      var len=0;
-      if(positions.length<5){
-          len=positions.length;
-        }
-        else{
-          len=5;
-        }
-      for(var i=0; i<len;i++){
-        index=Math.floor(Math.random()*positions.length);
-        if(temp.indexOf(index)==-1){
-          var marker = new daum.maps.Marker({
-            map: map, // 마커를 표시할 지도
-            position: positions[index].latlng, // 마커를 표시할 위치
-            clickable: true
-          });
-          var look=positions[index].iwContent.indexOf("</a>");
-          var iwcontent = positions[index].iwContent.substring(0, look+4);
-          (function(iwcontent,position) {
-            daum.maps.event.addListener(marker, 'click', function() {
-            displayPlaceInfo(iwcontent,position);
-            });
-          })(iwcontent,positions[index].latlng);
-          markers.push(marker);
-          
-          $(".choose").append('<tr><td>'+iwcontent+'</td></tr>');
-          temp.push(index);
-        }
-        else{
-          i--;
-        }
-      }
-        
-        
-      
-    <%end%>
+    }
 	</script>

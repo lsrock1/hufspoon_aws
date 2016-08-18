@@ -13,17 +13,22 @@ Rails.application.routes.draw do
   get'/adpage/out' =>'adpage#out'#로그아웃
   get '/like' => 'home#like'#좋아요
   
-  post '/oadpage/addrest' =>'oadpage#addrest'
+  post '/oadpage/page/:id' =>'oadpage#page'#레스토랑 메뉴순서 저장
+  get '/oadpage/rest_re/:id' => 'oadpage#rest_re' #식당수정 페이지
+  get '/oadpage/rest_add' => 'oadpage#rest_add' #식당추가 페이지
+  post '/oadpage/addrest' =>'oadpage#addrest'#식당추가 기능
+  post '/oadpage/rewriterest/:id'=>"oadpage#rewriterest" #식당수정 기능
   get '/oadpage/delrest/:id' =>'oadpage#delrest'
-  post '/oadpage/rewritemenu/:id' =>'oadpage#rewritemenu'
+  
   #식당메뉴추가
   get '/oadpage/addmenu_page/:id' =>'oadpage#addmenu_page'
   post '/oadpage/addmenu' =>'oadpage#addmenu'
   #식당메뉴삭제
   get '/oadpage/delmenu/:id' =>'oadpage#delmenu'
   #식당메뉴수정
-  post '/oadpage/rewriterest/:id'=>"oadpage#rewriterest"
+  post '/oadpage/rewritemenu/:id' =>'oadpage#rewritemenu'
   post '/adpage/menulist/:info' => 'adpage#existmenu'
+  
   
   #메인db페이지 두개
   get '/adpage/dbmain/:id' =>'adpage#dbmain'
@@ -40,8 +45,8 @@ Rails.application.routes.draw do
   get '/download' =>"adpage#download"
   post '/excelinsert' =>'adpage#filesave'
   #일반화면
-  get '/home/leftindex/:num/:dis/:lat/:lon' =>'ohome#leftindex', :constraints => { :lat => /.*/ ,:lon =>/.*/}
-  get '/home/rightindex/:id/:num/:lat/:lon' =>'ohome#rightindex', :constraints => { :lat => /.*/ , :lon => /.*/}
+  get '/home/leftindex/:num' =>'ohome#leftindex'
+  get '/home/rightindex/:id' =>'ohome#rightindex'
   post '/home/search' => 'ohome#search'
   get '/home/index' =>"ohome#index"
   

@@ -145,8 +145,12 @@ ActiveRecord::Schema.define(version: 20160813022137) do
     t.integer  "map_id"
     t.string   "name"
     t.string   "food"
-    t.string   "famous"
     t.string   "page"
+    t.string   "picture"
+    t.string   "re_menu"
+    t.string   "address"
+    t.string   "phone"
+    t.string   "open"
     t.integer  "count",      default: 0
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
@@ -154,10 +158,11 @@ ActiveRecord::Schema.define(version: 20160813022137) do
 
   create_table "rmenus", force: :cascade do |t|
     t.string   "menuname"
-    t.text     "content"
+    t.string   "emenuname"
+    t.string   "content"
     t.integer  "rest_id"
     t.integer  "cost"
-    t.integer  "pagenum",    default: 0
+    t.integer  "pagenum",    default: 1
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end

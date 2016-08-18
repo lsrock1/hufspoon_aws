@@ -8,7 +8,7 @@
             </div>
             <div class="form-group">
               <label for="ex2">설명</label>
-              <textarea class="form-control" rows="3"name="content"id="ex2"></textarea>
+              <input class="form-control" name="content"id="ex2" type="text">
             </div>
             <div class="form-group">
               <label for="ex3">페이지</label>
@@ -19,9 +19,16 @@
               <input class="form-control" type="text"name="cost"id="ex4">
             </div>
             <input type="hidden" name="backid" value="<%=@rest.id%>">
-            <button id="mrebut"class="btn btn-primary">저장</button>
+            <button id="mrebut"class="btn">저장</button>
         </form>
         <button style="display:none"id="mrecan"class="btn btn-default">수정취소</button>
+        <form action="/oadpage/page/<%=@rest.id%>" method="post">
+            <div class="form-group">
+              <label for="page">페이지 구성</label>
+              <input class="form-control" name="page"id="page" type="text" value="<%=@rest.page%>">
+            </div>
+            <button class="btn">변경</button>
+        </form>
     <div class="table-responsive">
         <table class="table">
             <tr>
@@ -36,11 +43,13 @@
             <tr>
                 <td id="name<%=r.id%>"><%=r.menuname%></td>
                 <td id="cost<%=r.id%>"><%=r.cost%></td>
-                <td style="display:none" id="content<%=r.id%>"><%=r.content%></td>
-                <th id="pagenum<%=r.id%>"><%=r.pagenum%></th>
+                <td id="pagenum<%=r.id%>"><%if r.pagenum==0%>대표메뉴<%else%><%=r.pagenum%><%end%></td>
                 <td><a href="/adpage/rewritemenu/<%=Menulist.find_by(:kname =>r.menuname).id%>/-<%=@rest.id%>"><button class="btn btn-default">번역</button></a></td>
                 <td><button class="mre btn btn-default" id="<%=r.id%>">수정</button></td>
                 <td><button class="del btn btn-default"id="<%=r.id%>">삭제</button></td>
+            </tr>
+            <tr <%if r.content==""%>style="display:none"<%end%>>
+                <td id="content<%=r.id%>" class="center" colspan=6><%=r.content%></td>
             </tr>
             <%end%>
         </table>
@@ -72,7 +81,12 @@
         var content=$("#content"+thisid).html();
         $("#ex2").attr("value",content);
         var pagenum=$("#pagenum"+thisid).html();
-        $("#ex3").attr("value",pagenum);
+        if (pagenum=="대표메뉴"){
+            $("#ex3").attr("value",0);
+        }
+        else{
+            $("#ex3").attr("value",pagenum);
+        }
         var cost=$("#cost"+thisid).html();
         $("#ex4").attr("value",cost);
         $("#mreform").attr("action","/oadpage/rewritemenu/"+thisid);

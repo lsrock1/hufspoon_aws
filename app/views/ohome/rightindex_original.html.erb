@@ -1,0 +1,194 @@
+<header>
+  <br>
+  <h1 id="title"><a href="/home/leftindex/0/0/0/0" style="color:white;">HUFSPOON</a></h1>
+  <br>
+  <ul class="nav nav-tabs nav-justified">
+    <li ><a href="/home/leftindex/<%=@num%>/1/<%=@lat%>/<%=@lon%>?beforeid=<%=@id%>">Searching</a></li>
+    <li class="active"><a href="#menu1">Menu</a></li>
+  </ul>
+</header>
+<div class="tab-content"  style="background-color:white;">
+	<!--여기서부터는 첫 번째 탭 입니다-->
+    <div id="home" class="tab-pane fade">
+
+	   
+	</div>
+	<div id="menu1" class="tab-pane fade in active" >
+	    <div class="container">
+	        <br>
+	        <br>
+	    <%if @id=="0"%>
+        <%else%>
+            <h2><%=@re.name%></h2>
+            <p>Searching을 누르면 식당이 표시된 지도로 돌아갈 수 있습니다</p>
+            
+            <button class="btn btn-default korean ">한국어</button>
+            <button class="btn btn-default english ">English</button>
+            <table class="table menu">
+              <thead>
+                <tr>
+                    <th>Menuname</th>
+                    <th>Price</th>
+                </tr>
+                </thead>
+                <tbody>
+                <%@re.rmenu.each do|r|%>
+                <tr class="kname <%if r.pagenum==nil||r.pagenum==0%>1<%else%><%=r.pagenum%><%end%>" <%if r.pagenum!=1&&r.pagenum!=0&&r.pagenum!=nil%>style="display:none;"<%end%>>
+                    <td><%=r.menuname%></td>
+                    <td><%=r.cost%> won</td>
+                </tr>
+                <tr class="ename <%if r.pagenum==nil||r.pagenum==0%>1<%else%><%=r.pagenum%><%end%>"style="display:none;">
+                  <td><%=Menulist.find_by(:kname => r.menuname).ename.titleize%></td>
+                  <td><%=r.cost%> won</td>
+                </tr>
+                <tr style="display:none;">
+                  <td><%=r.content%></td>
+                </tr>
+                <%end%>
+                </tbody>
+            </table>
+            <nav style="text-align:center;">
+            <ul class="pagination">
+              
+            </ul>
+            </nav>
+            <br>
+            <p>상기 메뉴와 가격은 변경으로 인해 실제와 다를 수 있습니다</p>
+            <a id="kakao-link-btn" href="javascript:;" style="color:black;">
+              <img src="//dev.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png"/> 카카오톡으로 공유하기
+            </a>
+        <%end%>
+        
+        
+        <br>
+        <br>
+
+        </div>
+	</div>
+  </div>
+
+<!--여기는 두번째 탭 내용입니다-->
+
+	
+</div>
+
+
+<footer>
+	<br>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                  <br>
+                    <div id="foo">
+                      <h5><a href="/">home</a></h5>
+                    	<h6>L I K E L I O N  X  H U F S</h6>
+                    	<h6 class="email">CONTACT : mondayspoon@gmail.com </h6>
+                    	<h6><a data-toggle="modal" data-target="#myModal"onclick="ga('send', 'event','contributor', '버튼클릭', 'rightindex');">CONTRIBUTOR</a></h6>
+                    	
+                    	</div>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+    <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">MondaySpoon</h4>
+        </div>
+        <div class="modal-body">
+          <div class="panel panel-default">
+      			<div class="panel-heading">전진철 / JIN CHEOL JUHN</div>
+      			<div class="panel-body">CFO  </div>
+    		  </div>
+    		  <div class="panel panel-default">
+      			<div class="panel-heading">김소영 / SO YOUNG KIM</div>
+      			<div class="panel-body">CDO</div>
+    		  </div>
+    		  <div class="panel panel-default">
+      			<div class="panel-heading">이상록 / SANG ROK LEE</div>
+      			<div class="panel-body">CTO</div>
+    		  </div>
+    		  <div class="panel panel-default">
+      			<div class="panel-heading">이승준 / SEUNG JUN LEE</div>
+      			<div class="panel-body">CMO (상암동 순정남)</div>
+    		  </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <%if @id!="0"%>
+  <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script>
+  // $( ".detail" ).click(function() {
+  //   $( this ).next().slideToggle( "slow", function() {
+  //   });
+  // });
+  var whatlanguage=0;//0:한국어 1:영어
+  var whatpage=1;
+  var max=<%if @re.rmenu.maximum("pagenum")!=nil&&@re.rmenu.maximum("pagenum")!=0%><%=@re.rmenu.maximum("pagenum")%><%else%>1<%end%>;
+  $( document ).ready(function() {
+  // Handler for .ready() called.
+  
+   for(var i=1;i<max+1;i++){
+     var k=i.toString();
+     if(i==1){
+       $( ".pagination" ).append( "<li class='active pagechange'><a>"+k+"</a></li>" );
+     }else{
+       $( ".pagination" ).append( "<li class='pagechange'><a>"+k+"</a></li>" );
+     }
+     
+   }
+   $(".pagechange").click(function(){
+    var page=$(this).children("a").html();
+    $(".pagechange").removeClass("active");
+    $(this).addClass("active");
+    $(this).addClass();
+    if(whatlanguage==0){
+      $(".kname").hide();
+      $(".kname."+page).show();
+      whatpage=Number(page);
+    }
+    else{
+      $(".ename").hide();
+      $(".ename."+page).show();
+      whatpage=Number(page);
+    }
+  })
+  });
+  
+  $(".korean").click(function(){
+    $(".kname."+whatpage).show();
+    $(".ename").hide();
+    whatlanguage=0;
+  })
+  $(".english").click(function(){
+    $(".ename."+whatpage).show();
+    $('.kname').hide();
+    whatlanguage=1;
+  })
+  //<![CDATA[
+    // // 사용할 앱의 JavaScript 키를 설정해 주세요.
+    Kakao.init('3a6d3b6e790c8028083ec1a6888a0868');
+    // // 카카오톡 링크 버튼을 생성합니다. 처음 한번만 호출하면 됩니다.
+    Kakao.Link.createTalkLinkButton({
+      container: '#kakao-link-btn',
+      label: '<%=@re.name%> 메뉴 확인하세요!',
+      image: {
+        src: 'https://s3.ap-northeast-2.amazonaws.com/elasticbeanstalk-ap-northeast-2-850152653970/nail.jpg',
+        width: '300',
+        height: '200'
+      },
+      webButton: {
+        text: 'Hufspoon',
+        url: 'http://www.hfspn.co/home/rightindex/<%=@id%>/<%=@num%>/<%=@lat%>/<%=@lon%>' // 앱 설정의 웹 플랫폼에 등록한 도메인의 URL이어야 합니다.
+      }
+    });
+  //]]>
+</script>
+<%end%>
