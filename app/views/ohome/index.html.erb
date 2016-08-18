@@ -13,7 +13,7 @@
     <ul class="right">
       <li><a><i class="material-icons opener">search</i></a></li>
     </ul>
-    <a href="#" class="brand-logo center">HUFSPOON</a>
+    <a href="/home/index" class="brand-logo center">HUFSPOON</a>
      <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
   </div>
   
@@ -37,7 +37,7 @@
       <%if @four!=nil%><a class="carousel-item" href="/home/search?keyword=<%=@four.keyword%>"><img src="<%=@four.address%>"  height="300"></a><%end%>
       <%if @five!=nil%><a class="carousel-item" href="/home/search?keyword=<%=@five.keyword%>"><img src="<%=@five.address%>" height="300"></a><%end%>
       <%if @six!=nil%><a class="carousel-item" href="/home/search?keyword=<%=@six.keyword%>"><img src="<%=@six.address%>"  height="300"></a><%end%>
-      <%if @one==nil&&@two==nil&&@three==nil&&@four==nil&&@five==nil&&@six==nil%><a class="carousel-item"><img src="https://lh3.googleusercontent.com/3zOhIU9wxo-ILo0l_mPQISrlvkuLX-fF8rnW32i9H2DkyvbEU9XOt7ipYnr-O0w9Tb6lbmN7iAlgGfbfW0-RK2nDnT-JPWYanKm47kd3jUhnMuPn81mBB1xTatU2AGbhZyZEgQrWbUSlEET087FV6zA-aSPJTK3Ip96rN6C69dOQYOv73PVk7tx4s2KoMkv_xknK4VnF_p2PrzbUh1ovWDb5CZMUy8G3WHiPFcoC6qr7o4f9qKqS15Iljfu8_oQKXI0u_hphvhTkXSmCHBmliUpSOpcL0ubqJHUYLWGg7uaIkc5jDoQjKaZdMOnVZ23jmSW5KwFbuTKLCTHMefpguw47fGpK2bHAhbnlYeOlTQuJ3IX29bTUzVO-oV9KVXSI2G6iD1FmImlGOQEsaVVUOTEWBA85kEAR0t3gsObG2OlmjLDMvKA5XQ0wA_rIPTO1BUSc6tVO-3Nr5ALCVs3VVNOB37JbNi4_bVIEOhu9AxYT0X92Xa6dPBTI3pS8E9cseKKYC_iTK1r-GlrNnG95m3mu-M8uhuDkSH9PbaCJHKI3wl5W3mWE7qnGkqU2R6SEc8m-HKcskFQsfarUM-I2oNK3aYtnG-LYBToRZFu9iXTjzug=w1829-h993-no" height="300"></a><%end%>
+      <%if @one==nil&&@two==nil&&@three==nil&&@four==nil&&@five==nil&&@six==nil%><a class="carousel-item"><img src="http://googledrive.com/host/0B5YS4isQi3cDRnRHNUFSbkxuU0E/always.png" height="300"></a><%end%>
     </div>
   </div>
 </div>
@@ -92,4 +92,5 @@
     $(".nav_form").hide();
     $(".main_nav").fadeIn();
   })
+  $(".button-collapse").sideNav();
   </script>

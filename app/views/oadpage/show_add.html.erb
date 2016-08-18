@@ -4,7 +4,7 @@
         
 <div class="row">
     <div class="input-field">
-      <label for="ex1">사진 주소</label>
+      <label for="ex1">파일 이름</label>
       <input class="validate" id="ex1" type="text">
     </div>
     <div class="input-field">
@@ -20,31 +20,19 @@
 </form>
 
 <script>
-    function load() {
-      gapi.client.setApiKey('AIzaSyDotDoAyiizNm1fw0r_bn7mqVapTwLpvNg');
-      gapi.client.load('urlshortener', 'v1',function(){});
-    }
+    
     $(".see").click(function(){
-        var add=$("#ex1").val();
-        
-        $("#test").html('<img src='+add+' width="300" height="300">'+'<button onclick="send();"class="btn save">저장</button>');
+        var name=$("#ex1").val();
+        var address="http://googledrive.com/host/0B5YS4isQi3cDRnRHNUFSbkxuU0E/"+name
+        $("#test").html('<img src='+address+' width="300" height="300">'+'<button onclick="send();"class="btn save">저장</button>');
        
-	    var longURL = add;  
-	    var request = gapi.client.urlshortener.url.insert({
-	        'resource' : {
-	            'longUrl' : longURL
-	        }
-	    });
-	    request.execute(function(response) {
-	        if (response.id != null) {  
-	            $('#foad').val(response.id);
-	            $('#ex1').val(response.id);
+	    
+	    
+	            $('#foad').val(address);
 	            $("#fokey").val($("#ex2").val());
-	        }
-	    }); 
+	       
     });
     function send(){
         $("#fo").submit();
     }
 </script>
-<script src="https://apis.google.com/js/client.js?onload=load"></script>
