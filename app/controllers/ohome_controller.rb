@@ -16,6 +16,22 @@ class OhomeController < ApplicationController
       @menuarray.append(@rest.rmenu.where(:pagenum => d))
     end
     @num=@menuarray.length
+    
+    if @rest.food=="한식"
+      @back=0
+    elsif @rest.food=="일식"
+      @back=1
+    elsif @rest.food=="양식"
+      @back=2
+    elsif @rest.food=="중식"
+      @back=3
+    elsif @rest.food=="치킨"
+      @back=4
+    elsif @rest.food=="고기"
+      @back=5
+    else
+      @back=6
+    end
   end
   
   def index
@@ -69,6 +85,7 @@ class OhomeController < ApplicationController
   
   def search
     @keyword=params[:keyword]
+    @back=params[:back]
     all=Rmenu.where("menuname like ?", "%" + @keyword + "%")
     result=all.map {|i| i.rest_id }
     result=result.uniq

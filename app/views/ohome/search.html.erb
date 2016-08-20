@@ -2,7 +2,7 @@
   <div class="nav-wrapper main_nav">
     
     <ul class="left">
-      <li><a href="/home/index"><i class="material-icons">reply</i></a></li>
+      <li><a href="<%if @back=="-1"%>/home/index<%else%>/home/leftindex/<%=@back%><%end%>"><i class="material-icons">reply</i></a></li>
     </ul>
     <ul class="right">
       <li><a><i class="material-icons opener">search</i></a></li>
@@ -28,17 +28,17 @@
       <li class="tab col s6"><a href="#menu">Menu</a></li>
     </ul>
   </div>
-  <div class="col s12 m8 offset-m2 l6 offset-l3">
+  <div class="col s12 m10 offset-m1 l8 offset-l2">
     <div class="card-panel center">
-      <span>Result of <%=@keyword%></span>
+      <span>Results of <%=@keyword%></span>
     </div>
   </div>
-  <div id="rest" class="col s12">
+  <div id="rest" class="col s12 m10 offset-m1 l8 offset-l2">
     <%@rest.each do |r|%>
-      <div class="col s12">
+      <div class="col s12 ">
         <div class="card ">
           <div class="card-content ">
-            <a><span class="card-title"><%=r.name%></span></a>
+            <a href="/home/rightindex/<%=r.id%>"><span class="card-title"><%=r.name%></span></a>
             <div class="divider"></div>
             <div class="section ">
             <p class="truncate"><%r.rmenu.each do |k|%><%=k.menuname%> <%end%></p>
@@ -49,12 +49,12 @@
     <%end%>
   </div>
   
-  <div id="menu" class="col s12">
+  <div id="menu" class="col s12 m10 offset-m1 l8 offset-l2">
     <%@result.each do |r|%>
       <div class="col s12">
         <div class="card ">
           <div class="card-content ">
-            <a><span class="card-title"><%=r.name%></span></a>
+            <a href="/home/rightindex/<%=r.id%>"><span class="card-title"><%=r.name%></span></a>
             <div class="divider"></div>
             <div class="section ">
             <p class="truncate"><%r.rmenu.each do |k|%><%=k.menuname%> <%end%></p>

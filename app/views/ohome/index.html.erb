@@ -22,6 +22,7 @@
         <div class="input-field">
           <input id="search" type="search" name="keyword"required>
           <label for="search"><i class="material-icons">search</i></label>
+          <input name="back" type="hidden" value="-1">
           <i class="material-icons closer">close</i>
         </div>
       </form>
@@ -49,35 +50,23 @@
   </div>
   
   <div class="col s12 m8 offset-m2 l6 offset-l3">
-    
-      <div class="row">
-        <div class=" col s3 m3 l3 center">
-          <a class="btn-floating btn-large waves-effect waves-light red lighten-2" href="/home/leftindex/0">한식</a>
-        </div>
-        <div class=" col s3 m3 l3 center">
-          <a class="btn-floating btn-large waves-effect waves-light orange lighten-2" href="/home/leftindex/1">일식</a>
-        </div>
-        <div class=" col s3 m3 l3 center">
-          <a class="btn-floating btn-large waves-effect waves-light cyan lighten-2" href="/home/leftindex/2">양식</a>
-        </div>
-        <div class=" col s3 m3 l3 center">
-          <a class="btn-floating btn-large waves-effect waves-light  yellow" href="/home/leftindex/3">중식</a>
-        </div>
-      </div>
-      <div class="row">
-        <div class=" col s3 m3 l3 center">
-          <a class="btn-floating btn-large waves-effect waves-light amber lighten-2" href="/home/leftindex/4">치킨</a>
-        </div>
-        <div class=" col s3 m3 l3 center">
-          <a class="btn-floating btn-large waves-effect waves-light pink lighten-2" href="/home/leftindex/5">고기</a>
-        </div>
-        <div class=" col s3 m3 l3 center">
-          <a class="btn-floating btn-large waves-effect waves-light  indigo lighten-2" href="/home/leftindex/6">분식/면</a>
-        </div>
-        <!--<div class=" col s3 m3 l3 center">-->
-        <!--  <a class="btn-floating btn-large waves-effect waves-light grey lighten-2"><i class="material-icons">add</i></a>-->
-        <!--</div>-->
-      </div>
+      <table class="bordered   z-depth-1">
+        <tbody>
+          <tr>
+            <td class="center" ><a class="red-text text-lighten-2" href="/home/leftindex/0">한식</a></td>
+            <td class="center"><a class="orange-text text-lighten-2" href="/home/leftindex/1">일식</a></td>
+            <td class="center"><a class="cyan-text text-lighten-2" href="/home/leftindex/2">양식</a></td>
+            <td class="center"><a class="  yellow-text" href="/home/leftindex/3">중식</a></td>
+          </tr>
+          <tr>
+            <td class="center "><a class="amber-text text-lighten-2" href="/home/leftindex/4">치킨</a></td>
+            <td class="center "><a class="pink-text text-lighten-2" href="/home/leftindex/5">고기</a></td>
+            <td class="center "><a class="indigo-text text-lighten-2" href="/home/leftindex/6">분식/면</a></td>
+            <td class="center "></td>
+          </tr>
+        </tbody>
+      </table>
+      
     
   </div>
 </div>
@@ -93,4 +82,7 @@
     $(".main_nav").fadeIn();
   })
   $(".button-collapse").sideNav();
+    $(document).ready(function(){
+    $('ul.tabs').tabs();
+  });
   </script>
