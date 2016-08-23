@@ -30,6 +30,9 @@ class HomeController < ApplicationController
         session[@menu.kname.to_sym]=0
       end
       @menu.u_like-=1
+      if @menu.u_like<0
+        @menu.u_like=0
+      end
       @menu.save
     else
       @menu.u_like+=1
