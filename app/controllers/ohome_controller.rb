@@ -1,5 +1,35 @@
 class OhomeController < ApplicationController
+  
   def rightindex
+    if params[:language]==nil
+      
+      if cookies[:my_ohome_language]==nil
+        
+        if cookies[:my_language]==nil
+          
+          @language="4"
+          
+        else
+          
+          if cookies[:my_language]=="4"
+            @language=cookies[:my_language]
+          else
+            @language="0"
+          end
+          
+        end
+        cookies.permanent[:my_ohome_language]=@language
+      else
+        
+        @language=cookies[:my_ohome_language]
+        
+      end
+      
+    else
+      @language=params[:language]
+      cookies.permanent[:my_ohome_language]=@language
+    end
+    
     @menuarray=[]
     id=params[:id]
     @rest=Rest.find(id)
@@ -35,6 +65,35 @@ class OhomeController < ApplicationController
   end
   
   def index
+    if params[:language]==nil
+      
+      if cookies[:my_ohome_language]==nil
+        
+        if cookies[:my_language]==nil
+          
+          @language="4"
+          
+        else
+          
+          if cookies[:my_language]=="4"
+            @language=cookies[:my_language]
+          else
+            @language="0"
+          end
+          
+        end
+        cookies.permanent[:my_ohome_language]=@language
+      else
+        
+        @language=cookies[:my_ohome_language]
+        
+      end
+      
+    else
+      @language=params[:language]
+      cookies.permanent[:my_ohome_language]=@language
+    end
+    
     @one=Curate.find_by(:show => "1")
     @two=Curate.find_by(:show => "2")
     @three=Curate.find_by(:show => "3")
@@ -44,7 +103,34 @@ class OhomeController < ApplicationController
   end
   
   def leftindex
-    
+    if params[:language]==nil
+      
+      if cookies[:my_ohome_language]==nil
+        
+        if cookies[:my_language]==nil
+          
+          @language="4"
+          
+        else
+          
+          if cookies[:my_language]=="4"
+            @language=cookies[:my_language]
+          else
+            @language="0"
+          end
+          
+        end
+        cookies.permanent[:my_ohome_language]=@language
+      else
+        
+        @language=cookies[:my_ohome_language]
+        
+      end
+      
+    else
+      @language=params[:language]
+      cookies.permanent[:my_ohome_language]=@language
+    end
     
     @num=params[:num] #음식종류별 화면
     @all=[]

@@ -98,6 +98,7 @@ class OadpageController < ApplicationController
         if params[:pagenum].to_i==0
           re=Rest.find(params[:backid])
           re.re_menu=params[:menuname]
+          re.ere_menu=newmenu.emenuname
           re.save
         end
         redirect_to '/oadpage/addmenu_page/'+params[:backid]
@@ -124,6 +125,7 @@ class OadpageController < ApplicationController
       if params[:pagenum].to_i==0
         re=Rest.find(params[:backid])
         re.re_menu=params[:kname]
+        re.ere_menu=params[:ename]
         re.save
       end
       redirect_to '/oadpage/addmenu_page/'+params[:backid]
@@ -185,6 +187,7 @@ class OadpageController < ApplicationController
     if params[:pagenum].to_i==0
       re=Rest.find(remenu.rest_id)
       re.re_menu=params[:menuname]
+      re.ere_menu=remenu.emenuname
       re.save
     end
     redirect_to "/oadpage/addmenu_page/"+params[:backid]

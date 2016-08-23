@@ -27,68 +27,73 @@
       </form>
     </div>
 </nav>
-  <div class="row">
-    <br>
-    <div class="col s12 m10 offset-m1 l8 offset-l2">
-      <ul class="tabs">
-        <li class="tab col s3"><a <%if @num=="0"%>class="active"<%else%> href="/home/leftindex/0" target="_self"<%end%>>한식</a></li>
-        <li class="tab col s3"><a <%if @num=="1"%>class="active"<%else%> href="/home/leftindex/1" target="_self"<%end%>>일식</a></li>
-        <li class="tab col s3"><a <%if @num=="2"%>class="active"<%else%> href="/home/leftindex/2" target="_self"<%end%>>양식</a></li>
-        <li class="tab col s3"><a <%if @num=="3"%>class="active"<%else%> href="/home/leftindex/3" target="_self"<%end%>>중식</a>
-        <li class="tab col s3"><a <%if @num=="4"%>class="active"<%else%> href="/home/leftindex/4" target="_self"<%end%>>치킨</a></li>
-        <li class="tab col s3"><a <%if @num=="5"%>class="active"<%else%> href="/home/leftindex/5" target="_self"<%end%>>고기</a></li>
-        <li class="tab col s3"><a <%if @num=="6"%>class="active"<%else%> href="/home/leftindex/6" target="_self"<%end%>>분식/면</a></li>
-      </ul>
-    </div>
+<div class="row">
+  <br>
+  <div class="col s12 m10 offset-m1 l8 offset-l2">
+    <ul class="tabs">
+      <li class="tab col s3"><a <%if @num=="0"%>class="active"<%else%> href="/home/leftindex/0" target="_self"<%end%>>한식</a></li>
+      <li class="tab col s3"><a <%if @num=="1"%>class="active"<%else%> href="/home/leftindex/1" target="_self"<%end%>>일식</a></li>
+      <li class="tab col s3"><a <%if @num=="2"%>class="active"<%else%> href="/home/leftindex/2" target="_self"<%end%>>양식</a></li>
+      <li class="tab col s3"><a <%if @num=="3"%>class="active"<%else%> href="/home/leftindex/3" target="_self"<%end%>>중식</a>
+      <li class="tab col s3"><a <%if @num=="4"%>class="active"<%else%> href="/home/leftindex/4" target="_self"<%end%>>치킨</a></li>
+      <li class="tab col s3"><a <%if @num=="5"%>class="active"<%else%> href="/home/leftindex/5" target="_self"<%end%>>고기</a></li>
+      <li class="tab col s3"><a <%if @num=="6"%>class="active"<%else%> href="/home/leftindex/6" target="_self"<%end%>>분식/면</a></li>
+    </ul>
+  </div>
     
-    <div class="col s12 m10 offset-m1 l8 offset-l2">
-      <div class="card">
-        <div class="card-content" id="map" style="height:300px;"></div>
-          
-      </div>
+  <div class="col s12 m10 offset-m1 l8 offset-l2">
+    <div class="card">
+      <div class="card-content" id="map" style="height:300px;"></div>
     </div>
+  </div>
    
-  
-  
-  
-  
-    <div class="col s12 m10 offset-m1 l8 offset-l2">
-      <ul class="tabs">
-        <li class="tab col s12"><a class="active"href="#Restaurants">Restaurants</a></li>
-      </ul>
-    </div>
+  <div class="col s12 m10 offset-m1 l8 offset-l2">
+    <ul class="tabs">
+      <li class="tab col s12"><a class="active"href="#Restaurants">Restaurants</a></li>
+    </ul>
+  </div>
     
-    <div id="Restaurants" class="col s12 m10 offset-m1 l8 offset-l2">
-      <table class="bordered">
-        <thead>
-          <tr>
-              <th data-field="id">Name</th>
-              <th></th>
-              <th><a class="btn-floating  waves-effect waves-light blue renew right center">A</a><a class="btn-floating  waves-effect waves-light red random right"><i class="material-icons">autorenew</i></a></th>
-          </tr>
-        </thead>
+  <div id="Restaurants" class="col s12 m10 offset-m1 l8 offset-l2">
+    <table class="bordered">
+      <thead>
+        <tr>
+          <th data-field="id">Name</th>
+          <th></th>
+          <th><a class="btn-floating  waves-effect waves-light blue renew right center">A</a><a class="btn-floating  waves-effect waves-light yellow random right"><i class="material-icons">autorenew</i></a></th>
+        </tr>
+      </thead>
 
-        <tbody>
-          <%@all.each do |a|%>
-            <%a[2].each do |re|%>
-            <tr>
-              <td><a href="/home/rightindex/<%=re.id%>"><%=re.name%></a></td>
-              <td colspan="2"><%=re.re_menu%></td>
-            </tr>
-            <%end%>
+      <tbody>
+        <%@all.each do |a|%>
+          <%a[2].each do |re|%>
+          <tr>
+            <td><a href="/home/rightindex/<%=re.id%>"><%=re.name%></a></td>
+            <td colspan="2"><%if @language=="4"%><%=re.re_menu%><%else%><%=re.ere_menu%><%end%></td>
+          </tr>
           <%end%>
-        </tbody>
-      </table>
-      
-    </div>
+        <%end%>
+      </tbody>
+    </table>
+  </div>
     
-    <div id="Menu" class="col s12 m10 offset-m1 l8 offset-l2">
-      
-      
-    </div>
   
 </div>        
 
+<div class="fixed-action-btn horizontal click-to-toggle" style="bottom: 14px; right: 14px; opacity: 0.8;">
+  <%if @language=="4"%>
+  <a class="btn-floating btn-large orange lighten-2">
+    한글
+  </a>
+  <%else%>
+  <a class="btn-floating btn-large red">
+    EN
+  </a>
+  <%end%>
+  <ul>
+    <%if @language!="4"%><li><a class="btn-floating orange lighten-2" style="text-align:center;" href="/home/leftindex/<%=@num%>?language=4">한글</a></li><%end%>
+    <%if @language!="0"%><li><a class="btn-floating red" style="text-align:center;" href="/home/leftindex/<%=@num%>?language=0">EN</a></li><%end%>
+  </ul>
+</div>
 
 <!--<div class="fixed-action-btn" style="bottom: 45px; right: 24px;">-->
 <!--  <a class="btn-floating btn-large red">-->
@@ -222,6 +227,8 @@
             })(positions[i].iwContent,positions[i].latlng);
         markers.push(marker);
     };
+    map.setCenter(new daum.maps.LatLng(37.597415, 127.057824));
+    map.setLevel(3);
   };
   
   //positions에 저장되어있는 마커 중 하나만 무작위로 꺼내 표시합니다
@@ -241,6 +248,7 @@
             })(iwcontent,positions[index].latlng);
         markers.push(marker);
         map.setCenter(positions[index].latlng);
+        map.setLevel(2);
   	};
   	
   	//모든 마커를 숨깁니다

@@ -361,4 +361,6 @@ class ApplicationController < ActionController::Base
     ###############################스카이라운지 파싱 끝######################
     
   end
+  
+  
 end

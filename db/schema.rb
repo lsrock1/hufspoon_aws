@@ -149,6 +149,7 @@ ActiveRecord::Schema.define(version: 20160813022137) do
     t.string   "page"
     t.string   "picture"
     t.string   "re_menu"
+    t.string   "ere_menu"
     t.string   "address"
     t.string   "phone"
     t.string   "open"

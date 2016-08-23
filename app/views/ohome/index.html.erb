@@ -1,4 +1,4 @@
-
+<link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
 <nav>
   <div class="nav-wrapper main_nav">
     <ul id="slide-out" class="side-nav ">
@@ -31,7 +31,7 @@
 <br>
 <div class="row">
   <div class="col s12 m8 offset-m2 l6 offset-l3 ">
-    <div class="carousel carousel-slider z-depth-1" style="height:300px">
+    <div class="carousel carousel-slider" style="height:300px">
       <%if @one!=nil%><a class="carousel-item" href="<%=@one.keyword%>"><img src="<%=@one.address%>" height="300"></a><%end%>
       <%if @two!=nil%><a class="carousel-item" href="<%=@two.keyword%>"><img src="<%=@two.address%>" height="300"></a><%end%>
       <%if @three!=nil%><a class="carousel-item" href="<%=@three.keyword%>"><img src="<%=@three.address%>" height="300"></a><%end%>
@@ -43,11 +43,11 @@
   </div>
   <div class="col s12 m8 offset-m2 l6 offset-l3">
     <div class="card-panel center" >
-      <span style="font-size:20px;font-family: THIN;">I'm Feeling Lucky</span>
+      <span style="font-size:18px;font-family: 'Indie Flower', cursive;">I'm Feeling Lucky</span>
     </div>
   </div>
   
-  <div class=" col s12 m8 offset-m2 l6 offset-l3 " style="padding-left:10px;padding-right:10px">
+  <div class=" col s12 m8 offset-m2 l6 offset-l3 " style="padding-left:10.5px;padding-right:10.5px">
       <table class="bordered z-depth-1">
         <tbody style="font-weight:bold;">
           <tr>
@@ -66,6 +66,23 @@
       </table>
   </div>    
 </div>
+
+<div class="fixed-action-btn horizontal click-to-toggle" style="bottom: 14px; right: 14px; opacity: 0.8;">
+  <%if @language=="4"%>
+  <a class="btn-floating btn-large orange lighten-2">
+    한글
+  </a>
+  <%else%>
+  <a class="btn-floating btn-large red">
+    EN
+  </a>
+  <%end%>
+  <ul>
+    <%if @language!="4"%><li><a class="btn-floating orange lighten-2" style="text-align:center;" href="/home/index?language=4">한글</a></li><%end%>
+    <%if @language!="0"%><li><a class="btn-floating red" style="text-align:center;" href="/home/index?language=0">EN</a></li><%end%>
+  </ul>
+</div>
+  
   <script>
   $('.carousel.carousel-slider').carousel({full_width: true, indicators: true});
   $(".opener").click(function(){
