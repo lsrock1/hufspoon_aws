@@ -77,7 +77,7 @@
             <tbody>
               <%@menuarray[m].each do|a|%>
               <tr>
-                <td><%if @language=="4"%><%=a.menuname%><%else%><%=a.emenuname%><%end%><%if a.content!=""%><br><span style="font-size: 13px;"class="grey-text"><%=a.content%></span><%end%></td>
+                <td><%if @language=="4"%><%=a.menuname%><%else%><%=a.emenuname.titleize%><%end%><%if a.content!=""%><br><span style="font-size: 13px;"class="grey-text"><%=a.content%></span><%end%></td>
                 <td class="right-align"><%=a.cost%></td>
               </tr>
               <%end%>
