@@ -1,3 +1,4 @@
+<link href="https://fonts.googleapis.com/earlyaccess/hanna.css" rel="stylesheet">
 <nav>
   <div class="nav-wrapper main_nav">
     <ul id="slide-out" class="side-nav ">
@@ -27,39 +28,56 @@
       </form>
     </div>
 </nav>
-<div class="row">
+<div class="row" style="font-family:'Hanna',serif;">
   <br>
   <div class="col s12 m10 offset-m1 l8 offset-l2">
-    <ul class="tabs">
-      <li class="tab col s3"><a <%if @num=="0"%>class="active"<%else%> href="/home/leftindex/0" target="_self"<%end%>>한식</a></li>
-      <li class="tab col s3"><a <%if @num=="1"%>class="active"<%else%> href="/home/leftindex/1" target="_self"<%end%>>일식</a></li>
-      <li class="tab col s3"><a <%if @num=="2"%>class="active"<%else%> href="/home/leftindex/2" target="_self"<%end%>>양식</a></li>
-      <li class="tab col s3"><a <%if @num=="3"%>class="active"<%else%> href="/home/leftindex/3" target="_self"<%end%>>중식</a>
-      <li class="tab col s3"><a <%if @num=="4"%>class="active"<%else%> href="/home/leftindex/4" target="_self"<%end%>>치킨</a></li>
-      <li class="tab col s3"><a <%if @num=="5"%>class="active"<%else%> href="/home/leftindex/5" target="_self"<%end%>>고기</a></li>
-      <li class="tab col s3"><a <%if @num=="6"%>class="active"<%else%> href="/home/leftindex/6" target="_self"<%end%>>분식/면</a></li>
+    <ul class="tabs" >
+      <li class="tab col s3"><a <%if @num=="0"%>class="active"<%else%> href="/home/leftindex/0" target="_self"<%end%>><%if @language=="4"%>한식<%else%>Korean<%end%></a></li>
+      <li class="tab col s3"><a <%if @num=="1"%>class="active"<%else%> href="/home/leftindex/1" target="_self"<%end%>><%if @language=="4"%>일식<%else%>Japanese<%end%></a></li>
+      <li class="tab col s3"><a <%if @num=="2"%>class="active"<%else%> href="/home/leftindex/2" target="_self"<%end%>><%if @language=="4"%>양식<%else%>Western<%end%></a></li>
+      <li class="tab col s3"><a <%if @num=="3"%>class="active"<%else%> href="/home/leftindex/3" target="_self"<%end%>><%if @language=="4"%>중식<%else%>Chinese<%end%></a>
+      <li class="tab col s3"><a <%if @num=="4"%>class="active"<%else%> href="/home/leftindex/4" target="_self"<%end%>><%if @language=="4"%>치킨<%else%>Chicken<%end%></a></li>
+      <li class="tab col s3"><a <%if @num=="5"%>class="active"<%else%> href="/home/leftindex/5" target="_self"<%end%>><%if @language=="4"%>고기<%else%>Meat<%end%></a></li>
+      <li class="tab col s3"><a <%if @num=="6"%>class="active"<%else%> href="/home/leftindex/6" target="_self"<%end%>><%if @language=="4"%>분식<%else%>Snack<%end%></a></li>
     </ul>
   </div>
     
   <div class="col s12 m10 offset-m1 l8 offset-l2">
     <div class="card">
       <div class="card-content" id="map" style="height:300px;"></div>
+      <div class="fixed-action-btn horizontal click-to-toggle" style="position:absolute; bottom: 0px; right: 0px;">
+        <a class="btn-floating  waves-effect waves-light blue renew right center">A</a>
+        <a class="btn-floating  waves-effect waves-light yellow random right"><i class="material-icons">autorenew</i></a>
+      </div>
     </div>
   </div>
    
   <div class="col s12 m10 offset-m1 l8 offset-l2">
-    <ul class="tabs">
-      <li class="tab col s12"><a class="active"href="#Restaurants">Restaurants</a></li>
-    </ul>
-  </div>
     
-  <div id="Restaurants" class="col s12 m10 offset-m1 l8 offset-l2">
     <table class="bordered">
       <thead>
         <tr>
-          <th data-field="id">Name</th>
-          <th></th>
-          <th><a class="btn-floating  waves-effect waves-light blue renew right center">A</a><a class="btn-floating  waves-effect waves-light yellow random right"><i class="material-icons">autorenew</i></a></th>
+          <th>
+            <!--<%if @num=="0"%>-->
+            <!--  <%if @language=="4"%>한식<%else%>Korean<%end%>-->
+            <!--<%elsif @num=="1"%>-->
+            <!--  <%if @language=="4"%>일식<%else%>Japanese<%end%>-->
+            <!--<%elsif @num=="2"%>-->
+            <!--  <%if @language=="4"%>양식<%else%>Western<%end%>-->
+            <!--<%elsif @num=="3"%>-->
+            <!--  <%if @language=="4"%>중식<%else%>Chinese<%end%>-->
+            <!--<%elsif @num=="4"%>-->
+            <!--  <%if @language=="4"%>치킨<%else%>Chicken<%end%>-->
+            <!--<%elsif @num=="5"%>-->
+            <!--  <%if @language=="4"%>고기<%else%>Meat<%end%>-->
+            <!--<%else%>-->
+            <!--  <%if @language=="4"%>분식<%else%>Snack<%end%>-->
+            <!--<%end%>-->
+            <i class="material-icons">restaurant</i>
+          </th>
+          <th>
+            <i class="material-icons">thumb_up</i>
+          </th>
         </tr>
       </thead>
 
@@ -68,7 +86,7 @@
           <%a[2].each do |re|%>
           <tr>
             <td><a href="/home/rightindex/<%=re.id%>"><%=re.name%></a></td>
-            <td colspan="2"><%if @language=="4"%><%=re.re_menu%><%else%><%=re.ere_menu%><%end%></td>
+            <td><%if @language=="4"%><%=re.re_menu%><%else%><%=re.ere_menu%><%end%></td>
           </tr>
           <%end%>
         <%end%>

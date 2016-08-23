@@ -1,4 +1,5 @@
 <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
+<link href="https://fonts.googleapis.com/earlyaccess/hanna.css" rel="stylesheet">
 <nav>
   <div class="nav-wrapper main_nav">
     <ul id="slide-out" class="side-nav ">
@@ -49,17 +50,17 @@
   
   <div class=" col s12 m8 offset-m2 l6 offset-l3 " style="padding-left:10.5px;padding-right:10.5px">
       <table class="bordered z-depth-1">
-        <tbody style="font-weight:bold;">
+        <tbody style="font-family: 'Hanna', serif;">
           <tr>
-            <td class="center" ><a class="red-text text-lighten-2" href="/home/leftindex/0">한식</a></td>
-            <td class="center"><a class="orange-text text-lighten-2" href="/home/leftindex/1">일식</a></td>
-            <td class="center"><a class="cyan-text text-lighten-2" href="/home/leftindex/2">양식</a></td>
-            <td class="center"><a class="  yellow-text" href="/home/leftindex/3">중식</a></td>
+            <td class="center" ><a class="red-text text-lighten-2" href="/home/leftindex/0"><%if @language=="4"%>한식<%else%>Korean<%end%></a></td>
+            <td class="center"><a class="orange-text text-lighten-2" href="/home/leftindex/1"><%if @language=="4"%>일식<%else%>Japanese<%end%></a></td>
+            <td class="center"><a class="cyan-text text-lighten-2" href="/home/leftindex/2"><%if @language=="4"%>양식<%else%>Western<%end%></a></td>
+            <td class="center"><a class="  yellow-text" href="/home/leftindex/3"><%if @language=="4"%>중식<%else%>Chinese<%end%></a></td>
           </tr>
           <tr>
-            <td class="center "><a class="amber-text text-lighten-2" href="/home/leftindex/4">치킨</a></td>
-            <td class="center "><a class="pink-text text-lighten-2" href="/home/leftindex/5">고기</a></td>
-            <td class="center "><a class="indigo-text text-lighten-2" href="/home/leftindex/6">분식/면</a></td>
+            <td class="center "><a class="amber-text text-lighten-2" href="/home/leftindex/4"><%if @language=="4"%>치킨<%else%>Chicken<%end%></a></td>
+            <td class="center "><a class="pink-text text-lighten-2" href="/home/leftindex/5"><%if @language=="4"%>고기<%else%>Meat<%end%></a></td>
+            <td class="center "><a class="indigo-text text-lighten-2" href="/home/leftindex/6"><%if @language=="4"%>분식<%else%>Snack<%end%></a></td>
             <td class="center "></td>
           </tr>
         </tbody>
