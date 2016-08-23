@@ -12,7 +12,7 @@
             </div>
             <div class="form-group">
               <label for="ex3">페이지</label>
-              <input class="form-control" name="pagenum"id="ex3" type="text">
+              <input class="form-control" name="pagenum"id="ex3" type="text" value="1">
             </div>
             <div class="form-group">
               <label for="ex4">가격</label>
@@ -39,7 +39,7 @@
                 <th>수정</th>
                 <th>삭제</th>
             </tr>
-            <%@rest.rmenu.each do |r|%>
+            <%@rest.rmenu.order('created_at ASC').each do |r|%>
             <tr>
                 <td id="name<%=r.id%>"><%=r.menuname%></td>
                 <td id="cost<%=r.id%>"><%=r.cost%></td>

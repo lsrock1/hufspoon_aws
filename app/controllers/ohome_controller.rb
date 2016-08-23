@@ -1,34 +1,8 @@
 class OhomeController < ApplicationController
+  before_action :ohomecookie, except: [:search]
   
   def rightindex
-    if params[:language]==nil
-      
-      if cookies[:my_ohome_language]==nil
-        
-        if cookies[:my_language]==nil
-          
-          @language="4"
-          
-        else
-          
-          if cookies[:my_language]=="4"
-            @language=cookies[:my_language]
-          else
-            @language="0"
-          end
-          
-        end
-        cookies.permanent[:my_ohome_language]=@language
-      else
-        
-        @language=cookies[:my_ohome_language]
-        
-      end
-      
-    else
-      @language=params[:language]
-      cookies.permanent[:my_ohome_language]=@language
-    end
+    
     
     @menuarray=[]
     id=params[:id]
@@ -43,7 +17,7 @@ class OhomeController < ApplicationController
     menupage=menupage.uniq
     menupage.delete(0)
     menupage.each do |d|
-      @menuarray.append(@rest.rmenu.where(:pagenum => d))
+      @menuarray.append(@rest.rmenu.where(:pagenum => d).order('created_at ASC'))
     end
     @num=@menuarray.length
     
@@ -65,34 +39,7 @@ class OhomeController < ApplicationController
   end
   
   def index
-    if params[:language]==nil
-      
-      if cookies[:my_ohome_language]==nil
-        
-        if cookies[:my_language]==nil
-          
-          @language="4"
-          
-        else
-          
-          if cookies[:my_language]=="4"
-            @language=cookies[:my_language]
-          else
-            @language="0"
-          end
-          
-        end
-        cookies.permanent[:my_ohome_language]=@language
-      else
-        
-        @language=cookies[:my_ohome_language]
-        
-      end
-      
-    else
-      @language=params[:language]
-      cookies.permanent[:my_ohome_language]=@language
-    end
+    
     
     @one=Curate.find_by(:show => "1")
     @two=Curate.find_by(:show => "2")
@@ -103,34 +50,7 @@ class OhomeController < ApplicationController
   end
   
   def leftindex
-    if params[:language]==nil
-      
-      if cookies[:my_ohome_language]==nil
-        
-        if cookies[:my_language]==nil
-          
-          @language="4"
-          
-        else
-          
-          if cookies[:my_language]=="4"
-            @language=cookies[:my_language]
-          else
-            @language="0"
-          end
-          
-        end
-        cookies.permanent[:my_ohome_language]=@language
-      else
-        
-        @language=cookies[:my_ohome_language]
-        
-      end
-      
-    else
-      @language=params[:language]
-      cookies.permanent[:my_ohome_language]=@language
-    end
+    
     
     @num=params[:num] #음식종류별 화면
     @all=[]
