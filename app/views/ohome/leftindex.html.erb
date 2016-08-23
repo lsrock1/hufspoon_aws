@@ -86,7 +86,7 @@
           <%a[2].each do |re|%>
           <tr>
             <td><a href="/home/rightindex/<%=re.id%>"><%=re.name%></a></td>
-            <td><%if @language=="4"%><%=re.re_menu%><%else%><%=re.ere_menu.titleize%><%end%></td>
+            <td><%if @language=="4"%><%=re.re_menu%><%else%><%if re.ere_menu!=nil%><%=re.ere_menu.titleize%><%end%><%end%></td>
           </tr>
           <%end%>
         <%end%>
