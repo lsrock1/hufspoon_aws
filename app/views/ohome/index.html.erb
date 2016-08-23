@@ -30,28 +30,26 @@
 </nav>
 <br>
 <div class="row">
-  <div class="col s12 m8 offset-m2 l6 offset-l3">
-    <div class="carousel carousel-slider" style="height:300px">
-      <%if @one!=nil%><a class="carousel-item" href="/home/search?keyword=<%=@one.keyword%>"><img src="<%=@one.address%>" height="300"></a><%end%>
-      <%if @two!=nil%><a class="carousel-item" href="/home/search?keyword=<%=@two.keyword%>"><img src="<%=@two.address%>" height="300"></a><%end%>
-      <%if @three!=nil%><a class="carousel-item" href="/home/search?keyword=<%=@three.keyword%>"><img src="<%=@three.address%>" height="300"></a><%end%>
-      <%if @four!=nil%><a class="carousel-item" href="/home/search?keyword=<%=@four.keyword%>"><img src="<%=@four.address%>"  height="300"></a><%end%>
-      <%if @five!=nil%><a class="carousel-item" href="/home/search?keyword=<%=@five.keyword%>"><img src="<%=@five.address%>" height="300"></a><%end%>
-      <%if @six!=nil%><a class="carousel-item" href="/home/search?keyword=<%=@six.keyword%>"><img src="<%=@six.address%>"  height="300"></a><%end%>
+  <div class="col s12 m8 offset-m2 l6 offset-l3 ">
+    <div class="carousel carousel-slider z-depth-1" style="height:300px">
+      <%if @one!=nil%><a class="carousel-item" href="<%=@one.keyword%>"><img src="<%=@one.address%>" height="300"></a><%end%>
+      <%if @two!=nil%><a class="carousel-item" href="<%=@two.keyword%>"><img src="<%=@two.address%>" height="300"></a><%end%>
+      <%if @three!=nil%><a class="carousel-item" href="<%=@three.keyword%>"><img src="<%=@three.address%>" height="300"></a><%end%>
+      <%if @four!=nil%><a class="carousel-item" href="<%=@four.keyword%>"><img src="<%=@four.address%>"  height="300"></a><%end%>
+      <%if @five!=nil%><a class="carousel-item" href="<%=@five.keyword%>"><img src="<%=@five.address%>" height="300"></a><%end%>
+      <%if @six!=nil%><a class="carousel-item" href="<%=@six.keyword%>"><img src="<%=@six.address%>"  height="300"></a><%end%>
       <%if @one==nil&&@two==nil&&@three==nil&&@four==nil&&@five==nil&&@six==nil%><a class="carousel-item"><img src="http://googledrive.com/host/0B5YS4isQi3cDRnRHNUFSbkxuU0E/always.png" height="300"></a><%end%>
     </div>
   </div>
-</div>
-<div class="row">
   <div class="col s12 m8 offset-m2 l6 offset-l3">
-    <div class="card-panel center">
-      <span>Test!!</span>
+    <div class="card-panel center" >
+      <span style="font-size:20px;font-family: THIN;">I'm Feeling Lucky</span>
     </div>
   </div>
   
-  <div class="col s12 m8 offset-m2 l6 offset-l3">
-      <table class="bordered   z-depth-1">
-        <tbody>
+  <div class=" col s12 m8 offset-m2 l6 offset-l3 " style="padding-left:10px;padding-right:10px">
+      <table class="bordered z-depth-1">
+        <tbody style="font-weight:bold;">
           <tr>
             <td class="center" ><a class="red-text text-lighten-2" href="/home/leftindex/0">한식</a></td>
             <td class="center"><a class="orange-text text-lighten-2" href="/home/leftindex/1">일식</a></td>
@@ -66,9 +64,7 @@
           </tr>
         </tbody>
       </table>
-      
-    
-  </div>
+  </div>    
 </div>
   <script>
   $('.carousel.carousel-slider').carousel({full_width: true, indicators: true});

@@ -3,7 +3,7 @@
     <ul class="left">
       <li>
         <a href="/home/leftindex/<%=@back%>">
-          <i class="material-icons">reply</i>
+          <i class="material-icons">undo</i>
         </a>
       </li>
     </ul>
@@ -35,7 +35,7 @@
     <div class="col s12 m10 offset-m1 l8 offset-l2">
       <div class="card">
         <div class="card-content">
-          <span class="card-title"><%=@rest.name%></span>
+          <span class="card-title"><%=@rest.name%><a id="kakao-link-btn" href="javascript:;"class="waves-effect waves-light right"><img src="//dev.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_small.png"/></a></span>
           <div class="divider"></div>
           <div class="section">
             <%if @rest.picture!=""%><img src="<%=@rest.picture%>" height="250" width="300"><%end%>
@@ -87,6 +87,7 @@
     </div>
     <%end%>
 </div>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script src="//apis.daum.net/maps/maps3.js?apikey=23598cdf36f0c5f5bf1f1bfda70b8e80&libraries=services"></script>
 <script>
     var placeOverlay = new daum.maps.CustomOverlay({zIndex:1}), 
@@ -170,4 +171,19 @@
         target.attachEvent('on' + type, callback);
         }
     }
+    Kakao.init('3a6d3b6e790c8028083ec1a6888a0868');
+    // // 카카오톡 링크 버튼을 생성합니다. 처음 한번만 호출하면 됩니다.
+    Kakao.Link.createTalkLinkButton({
+      container: '#kakao-link-btn',
+      label: '<%=@rest.name%> 메뉴 확인하세요!',
+      image: {
+        src: 'https://s3.ap-northeast-2.amazonaws.com/elasticbeanstalk-ap-northeast-2-850152653970/nail.jpg',
+        width: '300',
+        height: '200'
+      },
+      webButton: {
+        text: 'Hufspoon',
+        url: 'http://www.hfspn.co/home/rightindex/<%=@rest.id%>' // 앱 설정의 웹 플랫폼에 등록한 도메인의 URL이어야 합니다.
+      }
+    });
 </script>
