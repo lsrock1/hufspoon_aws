@@ -164,8 +164,8 @@ class AdpageController < ApplicationController
       sheet1 = xlsx.sheet(0)
         sheet1.each do |s|
           unless (s[0].to_s=="")
-            if Menulist.find_by(:kname => s[0].strip)!=nil
-              exme=Menulist.find_by(:kname => s[0].strip)
+            if Menulist.find_by(:kname => s[0].to_s.strip)!=nil
+              exme=Menulist.find_by(:kname => s[0].to_s.strip)
               if s[2]!=""&&s[2]!=nil
                exme.ename=s[2]
               end

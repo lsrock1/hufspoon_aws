@@ -28,7 +28,7 @@
       </form>
     </div>
 </nav>
-<div class="row" style="font-family:'Hanna',serif;">
+<div class="row">
   <br>
   <div class="col s12 m10 offset-m1 l8 offset-l2">
     <ul class="tabs" >
@@ -58,21 +58,6 @@
       <thead>
         <tr>
           <th>
-            <!--<%if @num=="0"%>-->
-            <!--  <%if @language=="4"%>한식<%else%>Korean<%end%>-->
-            <!--<%elsif @num=="1"%>-->
-            <!--  <%if @language=="4"%>일식<%else%>Japanese<%end%>-->
-            <!--<%elsif @num=="2"%>-->
-            <!--  <%if @language=="4"%>양식<%else%>Western<%end%>-->
-            <!--<%elsif @num=="3"%>-->
-            <!--  <%if @language=="4"%>중식<%else%>Chinese<%end%>-->
-            <!--<%elsif @num=="4"%>-->
-            <!--  <%if @language=="4"%>치킨<%else%>Chicken<%end%>-->
-            <!--<%elsif @num=="5"%>-->
-            <!--  <%if @language=="4"%>고기<%else%>Meat<%end%>-->
-            <!--<%else%>-->
-            <!--  <%if @language=="4"%>분식<%else%>Snack<%end%>-->
-            <!--<%end%>-->
             <i class="material-icons">restaurant</i>
           </th>
           <th>
@@ -81,7 +66,7 @@
         </tr>
       </thead>
 
-      <tbody>
+      <tbody style="font-size: 14px;">
         <%@all.each do |a|%>
           <%a[2].each do |re|%>
           <tr>
