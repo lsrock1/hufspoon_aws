@@ -71,13 +71,20 @@
     <div class="col s12 m10 offset-m1 l8 offset-l2">
       <div class="card">
         <div class="card-content">
-          <span class="card-title  red-text"><%if @pages!=nil%><%=@pages[m]%><%end%></span>
+          <span class="card-title red-text"><%if @pages!=nil%><%=@pages[m]%><%end%></span>
           <div class="divider"></div>
-          <table style="font-size: 14px;">
+          <table class="bordered"style="font-size: 12px;">
             <tbody>
               <%@menuarray[m].each do|a|%>
               <tr>
-                <td><%if @language=="4"%><%=a.menuname%><%else%><%=a.emenuname.titleize%><%end%><%if a.content!=""%><br><span style="font-size: 13px;"class="grey-text"><%=a.content%></span><%end%></td>
+                <td>
+                  <%if @language=="4"%>
+                    <span class="k" id="<%=a.id%>k"><%=a.menuname%></span><span class="e" id="<%=a.id%>e"style="display:none;"><%=a.emenuname.titleize%></span>
+                  <%else%>
+                    <span class="k" id="<%=a.id%>k" style="display:none;"><%=a.menuname%></span><span class="e" id="<%=a.id%>e"><%=a.emenuname.titleize%></span>
+                  <%end%>
+                  <%if a.content!=""%><br><span class="grey-text"><%=a.content%></span><%end%>
+                </td>
                 <td class="right-align"><%=a.cost%></td>
               </tr>
               <%end%>
@@ -143,7 +150,18 @@
     $(".nav_form").hide();
     $(".main_nav").fadeIn();
   })
-  
+  $(".e").click(function(){
+    var thisid=$(this).attr("id");
+    thisid=thisid.substr(0,thisid.length-1);
+    $(this).hide();
+    $("#"+thisid+"k").show();
+  })
+  $(".k").click(function(){
+    var thisid=$(this).attr("id");
+    thisid=thisid.substr(0,thisid.length-1);
+    $(this).hide();
+    $("#"+thisid+"e").show();
+  })
   
   
   function allshow(){
