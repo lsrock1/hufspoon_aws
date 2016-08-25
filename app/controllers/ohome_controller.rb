@@ -86,6 +86,7 @@ class OhomeController < ApplicationController
     end
     
 
+
     
   end
   
@@ -97,6 +98,13 @@ class OhomeController < ApplicationController
     result=result.uniq
     @rest=Rest.where("name like ?","%"+@keyword+"%")
     @result=Rest.where(id: result)
+    
+    if @rest.length==0&&@result.length==0
+      all=Rmenu.where("emenuname like ?", "%" + @keyword + "%")
+      result=all.map {|i| i.rest_id }
+      result=result.uniq
+      @result=Rest.where(id: result)
+    end
   end
   
   

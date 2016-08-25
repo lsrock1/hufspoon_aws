@@ -28,12 +28,11 @@
       <li class="tab col s6"><a href="#menu">Menu</a></li>
     </ul>
   </div>
-  <div class="col s12 m10 offset-m1 l8 offset-l2">
-    <div class="card-panel center">
-      <span>Results of <%=@keyword%></span>
-    </div>
-  </div>
+  
   <div id="rest" class="col s12 m10 offset-m1 l8 offset-l2">
+    <div class="card-panel center">
+      <span><%=@keyword%> is in these Restaurants' Name</span>
+    </div>
     <%@rest.each do |r|%>
       <div class="col s12 ">
         <div class="card ">
@@ -50,6 +49,9 @@
   </div>
   
   <div id="menu" class="col s12 m10 offset-m1 l8 offset-l2">
+    <div class="card-panel center">
+      <span><%=@keyword%> is in these Restaurants' Menu</span>
+    </div>
     <%@result.each do |r|%>
       <div class="col s12">
         <div class="card ">
@@ -57,7 +59,7 @@
             <a href="/home/rightindex/<%=r.id%>"><span class="card-title"><%=r.name%></span></a>
             <div class="divider"></div>
             <div class="section ">
-            <p class="truncate"><%r.rmenu.each do |k|%><%=k.menuname%> <%end%></p>
+            <p class="truncate"><%r.rmenu.each do |k|%><%if k.pagenum!=0%><%=k.menuname%> <%end%><%end%></p>
             </div>
           </div>
         </div>
