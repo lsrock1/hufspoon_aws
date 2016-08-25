@@ -53,30 +53,33 @@
   </div>
    
   <div class="col s12 m10 offset-m1 l8 offset-l2">
+    <div class="card">
+      <div class="card-content">
+        <table class="bordered">
+          <thead>
+            <tr>
+              <th>
+                <i class="material-icons">restaurant</i>
+              </th>
+              <th>
+                <i class="material-icons">thumb_up</i>
+              </th>
+            </tr>
+          </thead>
     
-    <table class="bordered">
-      <thead>
-        <tr>
-          <th>
-            <i class="material-icons">restaurant</i>
-          </th>
-          <th>
-            <i class="material-icons">thumb_up</i>
-          </th>
-        </tr>
-      </thead>
-
-      <tbody style="font-size: 14px;">
-        <%@all.each do |a|%>
-          <%a[2].each do |re|%>
-          <tr>
-            <td><a href="/home/rightindex/<%=re.id%>"><%=re.name%></a></td>
-            <td><%if @language=="4"%><%=re.re_menu%><%else%><%if re.ere_menu!=nil%><%=re.ere_menu.titleize%><%end%><%end%></td>
-          </tr>
-          <%end%>
-        <%end%>
-      </tbody>
-    </table>
+          <tbody style="font-size: 14px;">
+            <%@all.each do |a|%>
+              <%a[2].each do |re|%>
+              <tr>
+                <td><a href="/home/rightindex/<%=re.id%>"><%=re.name%></a></td>
+                <td><%if @language=="4"%><%=re.re_menu%><%else%><%if re.ere_menu!=nil%><%=re.ere_menu.titleize%><%end%><%end%></td>
+              </tr>
+              <%end%>
+            <%end%>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
     
   
@@ -145,7 +148,7 @@
 	var markers=[];
 	var container = document.getElementById('map');
 	var options = {
-		center: new daum.maps.LatLng(37.597415, 127.057824),
+		center: new daum.maps.LatLng(37.596418, 127.060246),
 		level: 3
 	};
 
@@ -230,7 +233,7 @@
             })(positions[i].iwContent,positions[i].latlng);
         markers.push(marker);
     };
-    map.setCenter(new daum.maps.LatLng(37.597415, 127.057824));
+    map.setCenter(new daum.maps.LatLng(37.596418, 127.060246));
     map.setLevel(3);
   };
   

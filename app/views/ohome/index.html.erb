@@ -32,7 +32,8 @@
 <br>
 <div class="row">
   <div class="col s12 m8 offset-m2 l6 offset-l3 ">
-    <div class="carousel carousel-slider" style="height:300px">
+    <div class="z-depth-1">
+    <div class="carousel carousel-slider " style="height:300px">
       <%if @one!=nil%><a class="carousel-item" href="<%=@one.keyword%>"><img src="<%=@one.address%>" height="300"></a><%end%>
       <%if @two!=nil%><a class="carousel-item" href="<%=@two.keyword%>"><img src="<%=@two.address%>" height="300"></a><%end%>
       <%if @three!=nil%><a class="carousel-item" href="<%=@three.keyword%>"><img src="<%=@three.address%>" height="300"></a><%end%>
@@ -41,6 +42,7 @@
       <%if @six!=nil%><a class="carousel-item" href="<%=@six.keyword%>"><img src="<%=@six.address%>"  height="300"></a><%end%>
       <%if @one==nil&&@two==nil&&@three==nil&&@four==nil&&@five==nil&&@six==nil%><a class="carousel-item"><img src="http://googledrive.com/host/0B5YS4isQi3cDRnRHNUFSbkxuU0E/always.png" height="300"></a><%end%>
     </div>
+    </div>
   </div>
   <!--<div class="col s12 m8 offset-m2 l6 offset-l3">-->
   <!--  <div class="card-panel center" >-->
@@ -48,23 +50,31 @@
   <!--  </div>-->
   <!--</div>-->
   
-  <div class=" col s12 m8 offset-m2 l6 offset-l3 " style="padding-left:10.5px;padding-right:10.5px">
-      <table class="bordered z-depth-1">
-        <tbody>
-          <tr>
-            <td class="center" ><a class=" black-text" href="/home/leftindex/0"><%if @language=="4"%>한식<%else%>Korean<%end%></a></td>
-            <td class="center"><a class=" black-text" href="/home/leftindex/1"><%if @language=="4"%>일식<%else%>Japanese<%end%></a></td>
-            <td class="center"><a class=" black-text" href="/home/leftindex/2"><%if @language=="4"%>양식<%else%>Western<%end%></a></td>
-            <td class="center"><a class=" black-text" href="/home/leftindex/3"><%if @language=="4"%>중식<%else%>Chinese<%end%></a></td>
-          </tr>
-          <tr>
-            <td class="center "><a class=" black-text" href="/home/leftindex/4"><%if @language=="4"%>치킨<%else%>Chicken<%end%></a></td>
-            <td class="center "><a class=" black-text" href="/home/leftindex/5"><%if @language=="4"%>고기<%else%>Meat<%end%></a></td>
-            <td class="center "><a class=" black-text" href="/home/leftindex/6"><%if @language=="4"%>분식<%else%>Snack<%end%></a></td>
-            <td class="center "></td>
-          </tr>
-        </tbody>
-      </table>
+  
+  <div class=" col s12 m8 offset-m2 l6 offset-l3 " style="padding-left:10.5px;padding-right:10.5px;margin-top: 10px;">
+    <div class="card">
+      <div class="card-content">
+        <table class="bordered">
+          <thead>
+            <tr></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="center" ><a class=" black-text" href="/home/leftindex/0"><%if @language=="4"%>한식<%else%>Korean<%end%></a></td>
+              <td class="center"><a class=" black-text" href="/home/leftindex/1"><%if @language=="4"%>일식<%else%>Japanese<%end%></a></td>
+              <td class="center"><a class=" black-text" href="/home/leftindex/2"><%if @language=="4"%>양식<%else%>Western<%end%></a></td>
+              <td class="center"><a class=" black-text" href="/home/leftindex/3"><%if @language=="4"%>중식<%else%>Chinese<%end%></a></td>
+            </tr>
+            <tr>
+              <td class="center "><a class=" black-text" href="/home/leftindex/4"><%if @language=="4"%>치킨<%else%>Chicken<%end%></a></td>
+              <td class="center "><a class=" black-text" href="/home/leftindex/5"><%if @language=="4"%>고기<%else%>Meat<%end%></a></td>
+              <td class="center "><a class=" black-text" href="/home/leftindex/6"><%if @language=="4"%>분식<%else%>Snack<%end%></a></td>
+              <td class="center "></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>    
 </div>
 
