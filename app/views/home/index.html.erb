@@ -615,7 +615,7 @@
     <!--test4 끝-->
   </div>
     
-      <div class="fixed-action-btn horizontal click-to-toggle" style="bottom: 14px; right: 14px;">
+      <div class="fixed-action-btn click-to-toggle" style="bottom: 14px; right: 14px;">
         
           <%if @id==0%>
           <a class="btn-floating btn-large red">EN</a>
@@ -635,7 +635,6 @@
           <%if @id!=1%><li><a class="btn-floating yellow darken-1"style="text-align:center;" href="/1/<%=@day%>">日本</a></li><%end%>
           <%if @id!=2%><li><a class="btn-floating green" style="text-align:center;" href="/2/<%=@day%>">简写</a></li><%end%>
           <%if @id!=3%><li><a class="btn-floating blue" style="text-align:center;" href="/3/<%=@day%>">繁体</a></li> <%end%>
-          
         </ul>
       </div>
     <div id="modal1" class="modal">
