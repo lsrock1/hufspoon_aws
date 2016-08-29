@@ -16,6 +16,7 @@ class OhomeController < ApplicationController
     menupage=@rest.rmenu.map{|m| m.pagenum}
     menupage=menupage.uniq
     menupage.delete(0)
+    menupage.sort!
     menupage.each do |d|
       @menuarray.append(@rest.rmenu.where(:pagenum => d).order('created_at ASC'))
     end
