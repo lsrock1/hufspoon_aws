@@ -1,13 +1,10 @@
-<link href="https://fonts.googleapis.com/earlyaccess/hanna.css" rel="stylesheet">
 <nav>
   <div class="nav-wrapper main_nav">
     <ul id="slide-out" class="side-nav ">
-      <li><a class="modal-trigger"href="#modal1">Mondayspoon</a></li>
       <li><a href="/">Hufs</a></li>
     </ul>
     
     <ul class="left hide-on-med-and-down">
-      <li><a class="modal-trigger"href="#modal1">Mondayspoon</a></li>
       <li><a href="/">Hufs</a></li>
     </ul>
     <ul class="right">
@@ -45,9 +42,9 @@
   <div class="col s12 m10 offset-m1 l8 offset-l2">
     <div class="card">
       <div class="card-content" id="map" style="height:300px;"></div>
-      <div class="fixed-action-btn horizontal click-to-toggle" style="position:absolute; bottom: 0px; right: 0px;">
-        <a class="btn-floating  waves-effect waves-light blue renew right center">A</a>
-        <a class="btn-floating  waves-effect waves-light yellow random right"><i class="material-icons">autorenew</i></a>
+      <div class="fixed-action-btn" style="position:absolute; bottom: 0px; right: 0px;">
+        <a class="btn-floating  waves-effect waves-light white black-text renew center">A</a>
+        <a class="btn-floating  waves-effect waves-light white random"><i class="material-icons black-text">autorenew</i></a>
       </div>
     </div>
   </div>
@@ -86,60 +83,25 @@
 </div>        
 
 <div class="fixed-action-btn horizontal click-to-toggle" style="bottom: 14px; right: 14px; opacity: 0.8;">
-  <%if @language=="4"%>
-  <a class="btn-floating btn-large orange lighten-2">
-    한글
+  <a class="btn-floating btn-large white ">
+    <i class="material-icons black-text">add</i>
   </a>
-  <%else%>
-  <a class="btn-floating btn-large red">
-    EN
-  </a>
-  <%end%>
+  <!--<%if @language=="4"%>-->
+  <!--<a class="btn-floating btn-large orange lighten-2">-->
+  <!--  한글-->
+  <!--</a>-->
+  <!--<%else%>-->
+  <!--<a class="btn-floating btn-large red">-->
+  <!--  EN-->
+  <!--</a>-->
+  <!--<%end%>-->
   <ul>
     <%if @language!="4"%><li><a class="btn-floating orange lighten-2" style="text-align:center;" href="/home/leftindex/<%=@num%>?language=4">한글</a></li><%end%>
     <%if @language!="0"%><li><a class="btn-floating red" style="text-align:center;" href="/home/leftindex/<%=@num%>?language=0">EN</a></li><%end%>
   </ul>
 </div>
 
-<!--<div class="fixed-action-btn" style="bottom: 45px; right: 24px;">-->
-<!--  <a class="btn-floating btn-large red">-->
-<!--    <i class="large material-icons">local_dining</i>-->
-<!--  </a>-->
-<!--</div>-->
- <div id="modal1" class="modal">
-  <div class="modal-content">
-      
-    <h4>
-        Mondayspoon
-        
-    </h4>
-    <p>email: mondayspoon@gmail.com</p>
-    <div class="divider"></div>
-    <div class="section">
-      <h5>전진철</h5>
-    </div>
-    
-    <div class="divider"></div>
-    <div class="section">
-      <h5>김소영</h5>
-    </div>
-    
-    <div class="divider"></div>
-    <div class="section">
-      <h5>이상록</h5>
-    </div>
-    
-    <div class="divider"></div>
-    <div class="section">
-      <h5>이승준</h5>
-    </div>
-    <div class="section">
-      <div class="right"><a class="btn-floating btn-small red closebtn">
-            <i class="small material-icons">clear</i>
-        </a></div>
-    </div>
-  </div>
-</div> 
+
 <script src="https://spi.maps.daum.net/imap/map_js_init/postcode.v2.js"></script>
 <script src="//apis.daum.net/maps/maps3.js?apikey=23598cdf36f0c5f5bf1f1bfda70b8e80&libraries=services"></script>
 <script>
@@ -176,7 +138,6 @@
       <%end%>];
   allshow();
   
-  $('.modal-trigger').leanModal(); //모달 이벤트 등록
   $(document).ready(function() {
       $('select').material_select();
     });

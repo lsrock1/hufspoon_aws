@@ -3,7 +3,7 @@
   <div class="nav-wrapper main_nav">
     <ul class="left">
       <li>
-        <a href="/home/leftindex/<%=@back%>">
+        <%if @back!=-1%><a href="/home/leftindex/<%=@back%>"><%else%><a href="/"><%end%>
           <i class="material-icons">undo</i>
         </a>
       </li>
@@ -95,16 +95,19 @@
     </div>
     <%end%>
 </div>
-<div class="fixed-action-btn horizontal click-to-toggle" style="bottom: 14px; right: 14px; opacity: 0.5;">
-  <%if @language=="4"%>
-  <a class="btn-floating btn-large orange lighten-2">
-    한글
+<div class="fixed-action-btn horizontal click-to-toggle" style="bottom: 14px; right: 14px; opacity: 0.8;">
+  <a class="btn-floating btn-large white">
+    <i class="material-icons black-text">add</i>
   </a>
-  <%else%>
-  <a class="btn-floating btn-large red">
-    EN
-  </a>
-  <%end%>
+  <!--<%if @language=="4"%>-->
+  <!--<a class="btn-floating btn-large orange lighten-2">-->
+  <!--  한글-->
+  <!--</a>-->
+  <!--<%else%>-->
+  <!--<a class="btn-floating btn-large red">-->
+  <!--  EN-->
+  <!--</a>-->
+  <!--<%end%>-->
   <ul>
     <%if @language!="4"%><li><a class="btn-floating orange lighten-2" style="text-align:center;" href="/home/rightindex/<%=@rest.id%>?language=4">한글</a></li><%end%>
     <%if @language!="0"%><li><a class="btn-floating red" style="text-align:center;" href="/home/rightindex/<%=@rest.id%>?language=0">EN</a></li><%end%>

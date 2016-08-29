@@ -1,14 +1,10 @@
-
-<link href="https://fonts.googleapis.com/earlyaccess/hanna.css" rel="stylesheet">
 <nav>
   <div class="nav-wrapper main_nav">
     <ul id="slide-out" class="side-nav ">
-      <li><a class="modal-trigger"href="#modal1">Mondayspoon</a></li>
       <li><a href="/">Hufs</a></li>
     </ul>
     
     <ul class="left hide-on-med-and-down">
-      <li><a class="modal-trigger"href="#modal1">Mondayspoon</a></li>
       <li><a href="/">Hufs</a></li>
     </ul>
     <ul class="right">
@@ -22,9 +18,9 @@
       <form action="/home/search">
         <div class="input-field">
           <input id="search" type="search" name="keyword"required>
-          <label for="search"><i class="material-icons">search</i></label>
+          <label for="search"><i class="material-icons black-text">search</i></label>
           <input name="back" type="hidden" value="-1">
-          <i class="material-icons closer">close</i>
+          <i class="material-icons closer black-text">close</i>
         </div>
       </form>
     </div>
@@ -77,15 +73,18 @@
 </div>
 
 <div class="fixed-action-btn horizontal click-to-toggle" style="bottom: 14px; right: 14px; opacity: 0.8;">
-  <%if @language=="4"%>
-  <a class="btn-floating btn-large orange lighten-2">
-    한글
+  <a class="btn-floating btn-large white">
+    <i class="material-icons black-text">add</i>
   </a>
-  <%else%>
-  <a class="btn-floating btn-large red">
-    EN
-  </a>
-  <%end%>
+  <!--<%if @language=="4"%>-->
+  <!--<a class="btn-floating btn-large orange lighten-2">-->
+  <!--  한글-->
+  <!--</a>-->
+  <!--<%else%>-->
+  <!--<a class="btn-floating btn-large red">-->
+  <!--  EN-->
+  <!--</a>-->
+  <!--<%end%>-->
   <ul>
     <%if @language!="4"%><li><a class="btn-floating orange lighten-2" style="text-align:center;" href="/home/index?language=4">한글</a></li><%end%>
     <%if @language!="0"%><li><a class="btn-floating red" style="text-align:center;" href="/home/index?language=0">EN</a></li><%end%>

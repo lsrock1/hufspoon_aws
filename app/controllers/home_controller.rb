@@ -96,7 +96,12 @@ class HomeController < ApplicationController
     rescue
     end
     
-    
+    if @w==0
+      r_all=Rest.all
+      len=r_all.length
+      seed_id=rand(0..len-1)
+      @ran_rest=r_all[seed_id]
+    end#일요일이면 레스토랑 추천!
     
     @snack=[]
     @breakfast=[]
