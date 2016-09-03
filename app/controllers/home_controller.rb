@@ -99,8 +99,12 @@ class HomeController < ApplicationController
     if @w==0
       r_all=Rest.all
       len=r_all.length
+      begin
       seed_id=rand(0..len-1)
       @ran_rest=r_all[seed_id]
+      rescue
+      @ran_rest=nil
+      end
     end#일요일이면 레스토랑 추천!
     
     @snack=[]
