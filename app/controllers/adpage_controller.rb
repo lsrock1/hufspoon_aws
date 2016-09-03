@@ -92,6 +92,10 @@ class AdpageController < ApplicationController
       newmenu.cname=params[:cname]
       newmenu.cnameb=params[:cnameb]
       newmenu.aname=params[:aname]
+      newmenu.spanish=params[:spanish]
+      newmenu.germany=params[:germany]
+      newmenu.italia=params[:italia]
+      newmenu.portugal=params[:portugal]
       newmenu.save
         redirect_to :back
       end
@@ -114,6 +118,10 @@ class AdpageController < ApplicationController
     remenu.cname=params[:cname]
     remenu.cnameb=params[:cnameb]
     remenu.aname=params[:aname]
+    remenu.spanish=params[:spanish]
+    remenu.germany=params[:germany]
+    remenu.italia=params[:italia]
+    remenu.portugal=params[:portugal]
     remenu.save
         if @intinfo!=nil
           if @intinfo>=0
@@ -143,6 +151,10 @@ class AdpageController < ApplicationController
       worksheet.write(num,4,a.cname)#간체
       worksheet.write(num,5,a.cnameb)#번체
       worksheet.write(num,6,a.aname)
+      worksheet.write(num,7,a.spanish)
+      worksheet.write(num,8,a.germany)
+      worksheet.write(num,9,a.italia)
+      worksheet.write(num,10,a.portugal)
       num=num+1
     end
       workbook.close
@@ -184,6 +196,18 @@ class AdpageController < ApplicationController
               if s[6]!=""&&s[6]!=nil
               exme.aname=s[6]
               end
+              if s[7]!=""&&s[7]!=nil
+              exme.spanish=s[7]
+              end
+              if s[8]!=""&&s[8]!=nil
+              exme.germany=s[8]
+              end
+              if s[9]!=""&&s[9]!=nil
+              exme.italia=s[9]
+              end
+              if s[10]!=""&&s[10]!=nil
+              exme.portugal=s[10]
+              end
               exme.save
             else
               
@@ -195,6 +219,10 @@ class AdpageController < ApplicationController
               newme.cname=s[4]
               newme.cnameb=s[5]
               newme.aname=s[6]
+              newme.spanish=s[7]
+              newme.germany=s[8]
+              newme.italia=s[9]
+              newme.portugal=s[10]
               newme.save
               
             end

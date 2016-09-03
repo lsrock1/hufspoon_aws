@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
   
   def new_menu(a)
     
-    nmenu=Menulist.new(:kname => a,:ename => a,:ername => a, :jnamea => a,:cname => a,:cnameb => a,:aname => a)
+    nmenu=Menulist.new(:kname => a,:ename => a,:ername => a, :jnamea => a,:cname => a,:cnameb => a,:aname => a,:spanish => a,:germany => a, :italia => a,:portugal => a)
     nmenu.save
     
   end
@@ -35,8 +35,16 @@ class ApplicationController < ActionController::Base
       return Menulist.find_by(:kname => a).cnameb.to_s
     elsif b==4#한국어
       return a
-    else #아랍어
+    elsif b==5#아랍어
       return Menulist.find_by(:kname => a).aname.to_s
+    elsif b==6 #스페인어 
+      return Menulist.find_by(:kname => a).spanish.to_s
+    elsif b==7 #독일어
+      return Menulist.find_by(:kname => a).germany.to_s
+    elsif b==8 #이탈리아어
+      return Menulist.find_by(:kname => a).italia.to_s
+    elsif b==9 #포르투갈어
+      return Menulist.find_by(:kname => a).portugal.to_s
     end  
   end
   
@@ -77,8 +85,32 @@ class ApplicationController < ActionController::Base
       else
         return 1
       end
-    else
+    elsif tid==5
       if search.aname.to_s.strip==""||search.aname.to_s.strip==kname
+        return 0
+      else
+        return 1
+      end
+    elsif tid==6#스페인어
+      if search.spanish.to_s.strip==""||search.spanish.to_s.strip==kname
+        return 0
+      else
+        return 1
+      end
+    elsif tid==7#독일어
+      if search.germany.to_s.strip==""||search.germany.to_s.strip==kname
+        return 0
+      else
+        return 1
+      end
+    elsif tid==8#이탈리아어
+      if search.italia.to_s.strip==""||search.italia.to_s.strip==kname
+        return 0
+      else
+        return 1
+      end
+    elsif tid==9#포르투갈어
+      if search.portugal.to_s.strip==""||search.portugal.to_s.strip==kname
         return 0
       else
         return 1

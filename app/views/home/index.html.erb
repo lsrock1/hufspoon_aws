@@ -1,21 +1,21 @@
 <nav>
     <div class="nav-wrapper">
     <ul id="slide-out" class="side-nav">
+      <li><a href="/home/index">Around Hufs</a></li>
       <li><a href="/board/seepost/1">Q & A</a></li>
-      <li><a class="modal-trigger"href="#modal1">Mondayspoon</a></li>
+      
       <li><a class="modal-trigger-map"href="#modal2">Map</a></li>
       <li><a href="https://www.facebook.com/hufspoon/?ref=aymt_homepage_panel">Hufspoon Facebook</a></li>
-      <li><a href="/home/index">Around Hufs</a></li>
+      <li><a class="modal-trigger"href="#modal1">Mondayspoon</a></li>
     </ul>
     
     <ul class="left hide-on-med-and-down">
+        <li><a href="/home/index">Around Hufs</a></li>
         <li><a href="/board/seepost/1">Q & A</a></li>
-        <li><a class="modal-trigger" href="#modal1">Mondayspoon</a></li>
+        
         <li><a class="modal-trigger-map" href="#modal2">Map</a></li>
         <li><a href="https://www.facebook.com/hufspoon/?ref=aymt_homepage_panel">Hufspoon Facebook</a></li>
-    </ul>
-    <ul class="right hide-on-med-and-down">
-      <li><a href="/home/index">Around Hufs</a></li>
+        <li><a class="modal-trigger" href="#modal1">Mondayspoon</a></li>
     </ul>
     <a href="/" class="brand-logo center" >HUFSPOON</a>
     <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
@@ -394,15 +394,16 @@
           <%end%>
           <div class="card-stacked">
             <div class="card-content">
-              <div style="font-size:15px;">
+              <div style="font-size:15px;" class="center">
+                <i class="material-icons large">hotel</i><br>
                 <%if @id==4%>
                  즐거운 일요일!<br>
                  <a href="/home/rightindex/<%=@ran_rest.id%>?index=1"><span style="font-weight:bold;"><%=@ran_rest.name%></span>에서 <span style="font-weight:bold;"><%=@ran_rest.ere_menu%></span> 어때요?</a>
                 <%else%>
-                 Cafeteria went to bed<i class="material-icons">hotel</i><br>
+                 Cafeteria went to bed<br>
                  Try eating outside!<br>
                  <a href="/home/rightindex/<%=@ran_rest.id%>?index=1">How about <span style="font-weight:bold;"><%=@ran_rest.ere_menu%></span> in <span style="font-weight:bold;"><%=@ran_rest.name%></span>?</a>
-                 <%end%>
+                <%end%>
               </div>
             </div>
             <div class="card-action">
@@ -746,9 +747,13 @@
         <ul>
           <%if @id!=0%><li><a class="btn-floating red" style="text-align:center;" href="/0/<%=@day%>">EN</a></li><%end%>
           <%if @id!=4%><li><a class="btn-floating orange lighten-2 " style="text-align:center;" href="/4/<%=@day%>">한글</a></li><%end%>
-          <%if @id!=1%><li><a class="btn-floating yellow darken-1"style="text-align:center;" href="/1/<%=@day%>">日本</a></li><%end%>
-          <%if @id!=2%><li><a class="btn-floating green" style="text-align:center;" href="/2/<%=@day%>">简写</a></li><%end%>
-          <%if @id!=3%><li><a class="btn-floating blue" style="text-align:center;" href="/3/<%=@day%>">繁体</a></li> <%end%>
+          <!--<%if @id!=1%><li><a class="btn-floating yellow darken-1"style="text-align:center;" href="/1/<%=@day%>">日本</a></li><%end%>-->
+          <%if @id!=2%><li><a class="btn-floating indigo" style="text-align:center;" href="/2/<%=@day%>">简写</a></li><%end%>
+          <!--<%if @id!=3%><li><a class="btn-floating blue" style="text-align:center;" href="/3/<%=@day%>">繁体</a></li> <%end%>-->
+          <%if @id!=6%><li><a class="btn-floating red darken-2" style="text-align:center;" href="/6/<%=@day%>">ES</a></li><%end%>
+          <%if @id!=7%><li><a class="btn-floating black" style="text-align:center;" href="/7/<%=@day%>">DE</a></li><%end%>
+          <%if @id!=8%><li><a class="btn-floating green" style="text-align:center;" href="/8/<%=@day%>">ITA</a></li><%end%>
+          <%if @id!=9%><li><a class="btn-floating teal" style="text-align:center;" href="/9/<%=@day%>">PO</a></li><%end%>
         </ul>
       </div>
     <div id="modal1" class="modal">
@@ -762,24 +767,52 @@
           <p>email: mondayspoon@gmail.com</p>
           <div class="divider"></div>
           <div class="section">
+            <a>Co-founder Marketer & Operatior</a>
             <h5>전진철</h5>
           </div>
           
           <div class="divider"></div>
           <div class="section">
+            <a>Co-founder Designer</a>
             <h5>김소영</h5>
           </div>
           
           <div class="divider"></div>
           <div class="section">
+            <a>Co-founder Developer</a>
             <h5>이상록</h5>
           </div>
           
           <div class="divider"></div>
           <div class="section">
+            <a>Co-founder Marketer & Operatior</a>
             <h5>이승준</h5>
           </div>
           <div class="divider"></div>
+          <div class="section">
+            <a>German language Translator</a>
+            <h5>Nane Sönnichsen</h5>
+          </div>
+          <div class="divider"></div>
+          <div class="section">
+            <a>Italian Language Translator</a>
+            <h5>Francesca Liyanage</h5>
+          </div>
+          <div class="divider"></div>
+          <div class="section">
+            <a>Italian Language Translator</a>
+            <h5>Arianna Colciago</h5>
+          </div>
+          <div class="divider"></div>
+          <div class="section">
+            <a>Portuguese language Translator</a>
+            <h5>Laura Torelli</h5>
+          </div>
+          <div class="divider"></div>
+          <div class="section">
+            <a>Spanish language Translator</a>
+            <h5>Maria Jose Alejandra - Valencia Ramirez</h5>
+          </div>
           <div class="section">
             <div class="right">
               <a class="btn-floating btn-small white closebtn">

@@ -127,6 +127,10 @@ ActiveRecord::Schema.define(version: 20160813022137) do
     t.string   "cname"
     t.string   "cnameb"
     t.string   "aname"
+    t.string   "spanish"
+    t.string   "germany"
+    t.string   "italia"
+    t.string   "portugal"
     t.integer  "u_like",     default: 0
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false

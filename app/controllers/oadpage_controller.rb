@@ -113,6 +113,10 @@ class OadpageController < ApplicationController
       newtrans.cname=params[:cname]
       newtrans.cnameb=params[:cnameb]
       newtrans.aname=params[:aname]
+      newtrans.spanish=params[:spanish]
+      newtrans.germany=params[:germany]
+      newtrans.italia=params[:italia]
+      newtrans.portugal=params[:portugal]
       newtrans.save
       newmenu=Rmenu.new
       newmenu.rest_id=params[:backid]
