@@ -4,6 +4,13 @@ Rails.application.routes.draw do
 
   devise_for :admins
   
+  get '/keyboard' => 'chatbot#keyboard'
+  post '/message' => 'chatbot#message'
+  delete '/friend/:user_key' => 'chatbot#delfriend'
+  delete '/chat_room/:user_key' => 'chatbot#chat_room'
+  post '/friend' => 'chatbot#regfriend'
+  
+  
   get '/oadpage/image_del/:id' =>'oadpage#image_del'#이미지 삭제
   get '/oadpage/show_add' =>'oadpage#show_add' #이미지 등록 페이지
   get '/oadpage/show/:id' => 'oadpage#show_config'#이미지 보기
