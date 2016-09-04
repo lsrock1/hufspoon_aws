@@ -11,7 +11,11 @@ class ChatbotController < ApplicationController
     def message
         user=params[:user_key]
         content=params[:content]
-        user=User.find_by(key: user)
+        begin
+          user=User.find_by(key: user)
+        rescue
+          user=User.new(key: user,count: 0,step: 0)
+        end
         user.count+=1
         user.save
         if content=="Select Language"
