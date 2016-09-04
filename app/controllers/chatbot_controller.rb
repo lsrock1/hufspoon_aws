@@ -113,8 +113,6 @@ class ChatbotController < ApplicationController
             @day=time.year.to_s+mm.to_s+dd.to_s
             @w=time.wday
             
-            @day="20160901"
-            @w=1
             check=Lunch1.find_by(:date => @day)
             begin
               if check==nil
