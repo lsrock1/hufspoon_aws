@@ -532,13 +532,15 @@ class ChatbotController < ApplicationController
                     #--문자열 가공
                     if @breakfastprice!=nil
                         info="<<Breakfast>>"+
-                          "\n"+"\n"+@breakfasttime+"/"+@breakfastprice+
+                          "\n"+@breakfasttime+"/"+@breakfastprice+
                           "\n"+"\n"+@breakfast.shift.titleize
                           if @breakfast!=[]
-                             info=info+"\n"+"\n"+@breakfast.join(",")
+                             info=info+"\n"+@breakfast.join(",")
                           end
                           if @breakfastingre!=[]
                               info=info+"\n"+"\n"+@breakfastingre.join(",")
+                          else
+                            info=info+"\n"
                           end
                           if @breakfastkcal!=nil
                            info=info+"\n"+@breakfastkcal
@@ -547,13 +549,15 @@ class ChatbotController < ApplicationController
                     if @lunch1price!=nil
                        info=info+"\n"+
                         "\n"+"<<Lunch1>>"+
-                        "\n"+"\n"+@lunch1time+"/"+@lunch1price+
+                        "\n"+@lunch1time+"/"+@lunch1price+
                         "\n"+"\n"+@lunch1.shift.titleize
                         if @lunch1!=[]
-                            info=info+"\n"+"\n"+@lunch1.join(",")
+                            info=info+"\n"+@lunch1.join(",")
                         end
                         if @lunch1ingre!=[]
                             info=info+"\n"+"\n"+@lunch1ingre.join(",")
+                        else
+                          info=info+"\n"
                         end
                         if @lunch1kcal!=nil
                         info=info+"\n"+@lunch1kcal
@@ -563,13 +567,15 @@ class ChatbotController < ApplicationController
                     if @lunch2price!=nil
                         info=info+"\n"+
                         "\n"+"<<Lunch2>>"+
-                        "\n"+"\n"+@lunch2time+"/"+@lunch2price+
+                        "\n"+@lunch2time+"/"+@lunch2price+
                         "\n"+"\n"+@lunch2.shift.titleize
                         if @lunch2!=[]
-                            info=info+"\n"+"\n"+@lunch2.join(",")
+                            info=info+"\n"+@lunch2.join(",")
                         end
                         if @lunch2ingre!=[]
                             info=info+"\n"+"\n"+@lunch2ingre.join(",")
+                        else
+                          info=info+"\n"
                         end
                         if @lunch2kcal!=nil
                         info=info+"\n"+@lunch2kcal
@@ -578,13 +584,15 @@ class ChatbotController < ApplicationController
                     if @lunchnoodleprice!=nil
                         info=info+"\n"+
                         "\n"+"<<Lunchnoodles>>"+
-                        "\n"+"\n"+@lunchnoodletime+"/"+@lunchnoodleprice+
+                        "\n"+@lunchnoodletime+"/"+@lunchnoodleprice+
                         "\n"+"\n"+@lunchnoodle.shift.titleize
                         if @lunchnoodle!=[]
-                            info=info+"\n"+"\n"+@lunchnoodle.join(",")
+                            info=info+"\n"+@lunchnoodle.join(",")
                         end
                         if @lunchnoodleingre!=[]
                             info=info+"\n"+"\n"+@lunchnoodleingre.join(",")
+                        else
+                          info=info+"\n"
                         end
                         if @lunchnoodlekcal!=nil
                         info=info+"\n"+@lunchnoodlekcal
@@ -593,13 +601,15 @@ class ChatbotController < ApplicationController
                     if @dinnerprice!=nil
                         info=info+"\n"+
                         "\n"+"<<Dinner>>"+
-                        "\n"+"\n"+@dinnertime+"/"+@dinnerprice+
+                        "\n"+@dinnertime+"/"+@dinnerprice+
                         "\n"+"\n"+@dinner.shift.titleize
                         if @dinner!=[]
-                            info=info+"\n"+"\n"+@dinner.join(",")
+                            info=info+"\n"+@dinner.join(",")
                         end
                         if @dinneringre!=[]
                             info=info+"\n"+"\n"+@dinneringre.join(",")
+                        else
+                          info=info+"\n"
                         end
                         if @dinnerkcal!=nil
                         info=info+"\n"+@dinnerkcal
@@ -624,13 +634,15 @@ class ChatbotController < ApplicationController
                     info=""
                     if @flunchprice!=nil
                         info="<<Lunch>>"+
-                           "\n"+"\n"+@flunchtime+"/"+@flunchprice+
+                           "\n"+@flunchtime+"/"+@flunchprice+
                            "\n"+"\n"+@flunch.shift.titleize
                            if @flunch!=[]
-                             info=info+"\n"+"\n"+@flunch.join(",")
+                             info=info+"\n"+@flunch.join(",")
                            end
                            if @flunchingre!=[]
                             info=info+"\n"+"\n"+@flunchingre.join(",")
+                          else
+                            info=info+"\n"
                            end
                            if @flunchkcal!=nil
                            info=info+"\n"+@flunchkcal
@@ -638,13 +650,15 @@ class ChatbotController < ApplicationController
                     end
                     if @fdinnerprice!=nil
                         info=info+"\n"+"\n"+"<<Dinner>>"+
-                           "\n"+"\n"+@fdinnertime+"/"+@fdinnerprice+
+                           "\n"+@fdinnertime+"/"+@fdinnerprice+
                            "\n"+"\n"+@fdinner.shift.titleize
                            if @fdinner!=[]
-                             info=info+"\n"+"\n"+@fdinner.join(",")
+                             info=info+"\n"+@fdinner.join(",")
                            end
                            if @fdinneringre!=[]
                                info=info+"\n"+"\n"+@fdinneringre.join(",")
+                           else
+                             info=info+"\n"
                            end
                            if @fdinnerkcal!=nil
                            info=info+"\n"+@fdinnerkcal
@@ -668,27 +682,31 @@ class ChatbotController < ApplicationController
                     info=""
                     if @menuaprice!=nil
                         info="<<MenuA>>"+
-                           "\n"+"\n"+@menuatime+"/"+@menuaprice+
+                           "\n"+@menuatime+"/"+@menuaprice+
                            "\n"+"\n"+@menua.shift.titleize
                            if @menua!=[]
-                             info=info+"\n"+"\n"+@menua.join(",")
+                             info=info+"\n"+@menua.join(",")
                            end
                            if @menuaingre!=[]
-                           info=info+"\n"+"\n"+@menuaingre.join(",")
-                            end
+                            info=info+"\n"+"\n"+@menuaingre.join(",")
+                          else
+                            info=info+"\n"
+                           end
                            if @menuakcal!=nil
-                           info=info+"\n"+@menuakcal
-                            end
+                            info=info+"\n"+@menuakcal
+                           end
                     end
                     if @menubprice!=nil
                         info=info+"\n"+"<<MenuB>>"+
-                           "\n"+"\n"+@menubtime+"/"+@menubprice+
+                           "\n"+@menubtime+"/"+@menubprice+
                            "\n"+"\n"+@menub.shift.titleize
                            if @menub!=[]
-                            info=info+"\n"+"\n"+@menub.join(",")
+                            info=info+"\n"+@menub.join(",")
                            end
-                           if @menubingre!=[]
+                            if @menubingre!=[]
                              info=info+"\n"+"\n"+@menubingre.join(",")
+                           else
+                             info=info+"\n"
                             end
                           if @menubkcal!=nil
                            info=info+"\n"+@menubkcal
