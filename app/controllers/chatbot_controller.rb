@@ -566,7 +566,7 @@ class ChatbotController < ApplicationController
                         info=info+@lunch2kcal+"\n"
                     end
                     if @lunchnoodleprice!=nil
-                        info=info+"\n"+"Lunchnoodle"+"\n"+
+                        info=info+"\n"+"Lunchnoodles"+"\n"+
                         @lunchnoodletime+"/"+@lunchnoodleprice+"\n"+
                         @lunchnoodle.shift.titleize+"\n"
                         if @lunchnoodle!=[]
