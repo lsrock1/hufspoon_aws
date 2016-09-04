@@ -65,7 +65,7 @@ class ChatbotController < ApplicationController
             {
                 message:{
                     text: "From "+content+", I want to go there!"+"\n"+
-                    "You can change language anytime!"
+                    "You can change the language anytime!"
                 },
                 keyboard:{
                     type: "buttons",
@@ -112,6 +112,9 @@ class ChatbotController < ApplicationController
             end 
             @day=time.year.to_s+mm.to_s+dd.to_s
             @w=time.wday
+            
+            @day="20160901"
+            @w=1
             check=Lunch1.find_by(:date => @day)
             begin
               if check==nil
@@ -530,64 +533,79 @@ class ChatbotController < ApplicationController
                     info=""
                     #--문자열 가공
                     if @breakfastprice!=nil
-                        info="Breakfast"+"\n"+
-                            @breakfasttime+"/"+@breakfastprice+"\n"+
-                            @breakfast.shift.titleize+"\n"
-                            if @breakfast!=[]
-                               info=info+@breakfast.join(",")+"\n"
-                            end
-                            if @breakfastingre!=[]
-                                info=info+@breakfastingre.join(",")+"\n"
-                            end
-                           info=info+@breakfastkcal+"\n"
+                        info="<<Breakfast>>"+
+                          "\n"+"\n"+@breakfasttime+"/"+@breakfastprice+
+                          "\n"+"\n"+@breakfast.shift.titleize
+                          if @breakfast!=[]
+                             info=info+"\n"+"\n"+@breakfast.join(",")
+                          end
+                          if @breakfastingre!=[]
+                              info=info+"\n"+"\n"+@breakfastingre.join(",")
+                          end
+                          if @breakfastkcal!=nil
+                           info=info+"\n"+@breakfastkcal
+                          end
                     end
                     if @lunch1price!=nil
-                       info=info+"\n"+"Lunch1"+"\n"+
-                        @lunch1time+"/"+@lunch1price+"\n"+
-                        @lunch1.shift.titleize+"\n"
+                       info=info+"\n"+
+                        "\n"+"<<Lunch1>>"+
+                        "\n"+"\n"+@lunch1time+"/"+@lunch1price+
+                        "\n"+"\n"+@lunch1.shift.titleize
                         if @lunch1!=[]
-                            info=info+@lunch1.join(",")+"\n"
+                            info=info+"\n"+"\n"+@lunch1.join(",")
                         end
                         if @lunch1ingre!=[]
-                            @lunch1ingre.join(",")+"\n"
+                            info=info+"\n"+"\n"+@lunch1ingre.join(",")
                         end
-                        info=info+@lunch1kcal+"\n"
+                        if @lunch1kcal!=nil
+                        info=info+"\n"+@lunch1kcal
+                        end
+                        
                     end
                     if @lunch2price!=nil
-                        info=info+"\n"+"Lunch2"+"\n"+
-                        @lunch2time+"/"+@lunch2price+"\n"+
-                        @lunch2.shift.titleize+"\n"
+                        info=info+"\n"+
+                        "\n"+"<<Lunch2>>"+
+                        "\n"+"\n"+@lunch2time+"/"+@lunch2price+
+                        "\n"+"\n"+@lunch2.shift.titleize
                         if @lunch2!=[]
-                            info=info+@lunch2.join(",")+"\n"
+                            info=info+"\n"+"\n"+@lunch2.join(",")
                         end
                         if @lunch2ingre!=[]
-                            info=info+@lunch2ingre.join(",")+"\n"
+                            info=info+"\n"+"\n"+@lunch2ingre.join(",")
                         end
-                        info=info+@lunch2kcal+"\n"
+                        if @lunch2kcal!=nil
+                        info=info+"\n"+@lunch2kcal
+                        end
                     end
                     if @lunchnoodleprice!=nil
-                        info=info+"\n"+"Lunchnoodles"+"\n"+
-                        @lunchnoodletime+"/"+@lunchnoodleprice+"\n"+
-                        @lunchnoodle.shift.titleize+"\n"
+                        info=info+"\n"+
+                        "\n"+"<<Lunchnoodles>>"+
+                        "\n"+"\n"+@lunchnoodletime+"/"+@lunchnoodleprice+
+                        "\n"+"\n"+@lunchnoodle.shift.titleize
                         if @lunchnoodle!=[]
-                            info=info+@lunchnoodle.join(",")+"\n"
+                            info=info+"\n"+"\n"+@lunchnoodle.join(",")
                         end
                         if @lunchnoodleingre!=[]
-                            info=info+@lunchnoodleingre.join(",")+"\n"
+                            info=info+"\n"+"\n"+@lunchnoodleingre.join(",")
                         end
-                        info=info+@lunchnoodlekcal+"\n"
+                        if @lunchnoodlekcal!=nil
+                        info=info+"\n"+@lunchnoodlekcal
+                        end
                     end
                     if @dinnerprice!=nil
-                        info=info+"\n"+"Dinner"+"\n"+
-                        @dinnertime+"/"+@dinnerprice+"\n"+
-                        @dinner.shift.titleize+"\n"
+                        info=info+"\n"+
+                        "\n"+"<<Dinner>>"+
+                        "\n"+"\n"+@dinnertime+"/"+@dinnerprice+
+                        "\n"+"\n"+@dinner.shift.titleize
                         if @dinner!=[]
-                            info=info+@dinner.join(",")+"\n"
+                            info=info+"\n"+"\n"+@dinner.join(",")
                         end
                         if @dinneringre!=[]
-                            info=info+@dinneringre.join(",")+"\n"
+                            info=info+"\n"+"\n"+@dinneringre.join(",")
                         end
-                        info=info+@dinnerkcal+"\n"
+                        if @dinnerkcal!=nil
+                        info=info+"\n"+@dinnerkcal
+                        end
                     end
                    render :json =>
                    {
@@ -607,28 +625,32 @@ class ChatbotController < ApplicationController
                 elsif content=="Faculty"
                     info=""
                     if @flunchprice!=nil
-                        info="Lunch"+"\n"+
-                           @flunchtime+"/"+@flunchprice+"\n"+
-                           @flunch.shift.titleize+"\n"
+                        info="<<Lunch>>"+
+                           "\n"+"\n"+@flunchtime+"/"+@flunchprice+
+                           "\n"+"\n"+@flunch.shift.titleize
                            if @flunch!=[]
-                             info=info+@flunch.join(",")+"\n"
+                             info=info+"\n"+"\n"+@flunch.join(",")
                            end
                            if @flunchingre!=[]
-                            info=info+@flunchingre.join(",")+"\n"
+                            info=info+"\n"+"\n"+@flunchingre.join(",")
                            end
-                           info=info+@flunchkcal+"\n"
+                           if @flunchkcal!=nil
+                           info=info+"\n"+@flunchkcal
+                           end
                     end
                     if @fdinnerprice!=nil
-                        info=info+"\n"+"Dinner"+"\n"+
-                           @fdinnertime+"/"+@fdinnerprice+"\n"+
-                           @fdinner.shift.titleize+"\n"
+                        info=info+"\n"+"\n"+"<<Dinner>>"+
+                           "\n"+"\n"+@fdinnertime+"/"+@fdinnerprice+
+                           "\n"+"\n"+@fdinner.shift.titleize
                            if @fdinner!=[]
-                             info=info+@fdinner.join(",")+"\n"
+                             info=info+"\n"+"\n"+@fdinner.join(",")
                            end
                            if @fdinneringre!=[]
-                               info=info+@fdinneringre.join(",")+"\n"
+                               info=info+"\n"+"\n"+@fdinneringre.join(",")
                            end
-                           info=info+@fdinnerkcal
+                           if @fdinnerkcal!=nil
+                           info=info+"\n"+@fdinnerkcal
+                          end
                     end
                     render :json =>
                     {
@@ -647,28 +669,32 @@ class ChatbotController < ApplicationController
                 else
                     info=""
                     if @menuaprice!=nil
-                        info="MenuA"+"\n"+
-                           @menuatime+"/"+@menuaprice+"\n"+
-                           @menua.shift.titleize+"\n"
+                        info="<<MenuA>>"+
+                           "\n"+"\n"+@menuatime+"/"+@menuaprice+
+                           "\n"+"\n"+@menua.shift.titleize
                            if @menua!=[]
-                             info=info+@menua.join(",")+"\n"
+                             info=info+"\n"+"\n"+@menua.join(",")
                            end
                            if @menuaingre!=[]
-                           info=info+@menuaingre.join(",")+"\n"
+                           info=info+"\n"+"\n"+@menuaingre.join(",")
                             end
-                           info=info+@menuakcal+"\n"
+                           if @menuakcal!=nil
+                           info=info+"\n"+@menuakcal
+                            end
                     end
                     if @menubprice!=nil
-                        info=info+"\n"+"MenuB"+"\n"+
-                           @menubtime+"/"+@menubprice+"\n"+
-                           @menub.shift.titleize+"\n"
+                        info=info+"\n"+"<<MenuB>>"+
+                           "\n"+"\n"+@menubtime+"/"+@menubprice+
+                           "\n"+"\n"+@menub.shift.titleize
                            if @menub!=[]
-                            info=info+@menub.join(",")+"\n"
+                            info=info+"\n"+"\n"+@menub.join(",")
                            end
                            if @menubingre!=[]
-                             @menubingre.join(",")+"\n"
+                             info=info+"\n"+"\n"+@menubingre.join(",")
                             end
-                           info=info+@menubkcal
+                          if @menubkcal!=nil
+                           info=info+"\n"+@menubkcal
+                          end
                     end
                     render :json =>
                     {
