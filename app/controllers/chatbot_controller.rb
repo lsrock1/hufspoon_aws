@@ -107,9 +107,7 @@ class ChatbotController < ApplicationController
                 mm='0'+mm.to_s
             end 
             @day=time.year.to_s+mm.to_s+dd.to_s
-            @day="20160902"
             @w=time.wday
-            @w=1
             check=Lunch1.find_by(:date => @day)
             begin
               if check==nil
@@ -593,7 +591,7 @@ class ChatbotController < ApplicationController
                            text: info,
                            message_button: {
                               label: "What's next?",
-                              url: "https://www.hfspn.co"
+                              url: "http://www.hfspn.co"
                             }
                            
                        },
@@ -634,7 +632,7 @@ class ChatbotController < ApplicationController
                             text: info,
                              message_button: {
                               label: "What's next?",
-                              url: "https://www.hfspn.co"
+                              url: "http://www.hfspn.co"
                             }
                         },
                         keyboard:{
@@ -674,7 +672,7 @@ class ChatbotController < ApplicationController
                             text: info,
                             message_button: {
                               label: "What's next?",
-                              url: "https://www.hfspn.co"
+                              url: "http://www.hfspn.co"
                             }
                         },
                         keyboard:{
