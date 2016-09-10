@@ -96,6 +96,7 @@ class AdpageController < ApplicationController
       newmenu.germany=params[:germany]
       newmenu.italia=params[:italia]
       newmenu.portugal=params[:portugal]
+      newmenu.u_picture=params[:picture]
       newmenu.save
         redirect_to :back
       end
@@ -122,6 +123,7 @@ class AdpageController < ApplicationController
     remenu.germany=params[:germany]
     remenu.italia=params[:italia]
     remenu.portugal=params[:portugal]
+    remenu.u_picture=params[:picture]
     remenu.save
         if @intinfo!=nil
           if @intinfo>=0
@@ -155,6 +157,7 @@ class AdpageController < ApplicationController
       worksheet.write(num,8,a.germany)
       worksheet.write(num,9,a.italia)
       worksheet.write(num,10,a.portugal)
+      worksheet.write(num,11,a.u_picture)
       num=num+1
     end
       workbook.close
@@ -208,6 +211,9 @@ class AdpageController < ApplicationController
               if s[10]!=""&&s[10]!=nil
               exme.portugal=s[10]
               end
+              if s[11]!=""&&s[11]!=nil
+              exme.u_picture=s[11]
+              end
               exme.save
             else
               
@@ -223,6 +229,7 @@ class AdpageController < ApplicationController
               newme.germany=s[8]
               newme.italia=s[9]
               newme.portugal=s[10]
+              newme.u_picture=s[11]
               newme.save
               
             end
