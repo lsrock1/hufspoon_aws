@@ -389,13 +389,15 @@
         <div class="card horizontal">
           <%if @ran_rest.picture!=""%>
             <div class="card-image">
-              <img src="<%=@ran_rest.picture%>" width= "100">
+              <img src="<%=@ran_rest.picture%>" width= "100" style="width: 100px; height: auto;">
             </div>
           <%end%>
           <div class="card-stacked">
             <div class="card-content">
               <div style="font-size:15px;" class="center">
-                <i class="material-icons large">hotel</i><br>
+                <%if @ran_rest.picture!=""%>
+                  <i class="material-icons large">hotel</i><br>
+                <%end%>
                 <%if @id==4%>
                  즐거운 일요일!<br>
                  <a href="/home/rightindex/<%=@ran_rest.id%>?index=1"><span style="font-weight:bold;"><%=@ran_rest.name%></span>에서 <span style="font-weight:bold;"><%=@ran_rest.ere_menu%></span> 어때요?</a>
