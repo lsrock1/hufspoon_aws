@@ -385,35 +385,24 @@
 		
 		<%if @w==0&&@ran_rest!=nil%>
 			
-      <div class="col s12 m8 offset-m2 l6 offset-l3">
-        <div class="card horizontal">
-          <%if @ran_rest.picture!=""%>
+        <div class="col s12 m8 offset-m2 l6 offset-l3">
+          <div class="card">
             <div class="card-image">
-              <img src="<%=@ran_rest.picture%>" width= "100" style="width: 100px; height: auto;">
+              <img class="materialboxed"<%if @ran_rest.picture!=""%>src="http://googledrive.com/host/0B5YS4isQi3cDRnRHNUFSbkxuU0E/always.png"<%else%>src="http://googledrive.com/host/0B5YS4isQi3cDRnRHNUFSbkxuU0E/<%=@ran_rest.picture%>"<%end%> style="max-width: 100%;">
+              
             </div>
-          <%end%>
-          <div class="card-stacked">
             <div class="card-content">
-              <div style="font-size:15px;" class="center">
-                <%if @ran_rest.picture!=""%>
-                  <i class="material-icons large">hotel</i><br>
-                <%end%>
-                <%if @id==4%>
-                 즐거운 일요일!<br>
-                 <a href="/home/rightindex/<%=@ran_rest.id%>?index=1"><span style="font-weight:bold;"><%=@ran_rest.name%></span>에서 <span style="font-weight:bold;"><%=@ran_rest.ere_menu%></span> 어때요?</a>
-                <%else%>
-                 Cafeteria went to bed<br>
-                 Try eating outside!<br>
-                 <a href="/home/rightindex/<%=@ran_rest.id%>?index=1">How about <span style="font-weight:bold;"><%=@ran_rest.ere_menu%></span><br> in <span style="font-weight:bold;"><%=@ran_rest.name%></span>?</a>
-                <%end%>
-              </div>
+              <span class="card-title">Try eating outside!</span>
+              <p class="center"><a href="/home/rightindex/<%=@ran_rest.id%>?index=1">How about <span style="font-weight:bold;"><%=@ran_rest.ere_menu%></span> in <span style="font-weight:bold;"><%=@ran_rest.name%></span>?</a></p>
             </div>
             <div class="card-action">
               <a href="/home/index">More Restaurants</a>
             </div>
           </div>
         </div>
-      </div>
+			
+     
+      
     <%elsif @register==nil%>
         <div class="col s12 m8 offset-m2 l6 offset-l3">
           <div class="card">
