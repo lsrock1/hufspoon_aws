@@ -25,7 +25,7 @@ class HomeController < ApplicationController
     id=params[:id]
     @menu=Menulist.find(id)
     if cookies[@menu.kname.to_sym]=="1"||session[@menu.kname.to_sym]=="1"#좋아요
-      cookies.permanent[@menu.kname.to_sym]=0
+      cookies[@menu.kname.to_sym]={value: 0, expires: 14.days.from_now }
       if cookies[@menu.kname.to_sym]==nil
         session[@menu.kname.to_sym]=0
       end
@@ -36,7 +36,7 @@ class HomeController < ApplicationController
       @menu.save
     else
       @menu.u_like+=1
-      cookies.permanent[@menu.kname.to_sym]=1
+      cookies[@menu.kname.to_sym]={value: 1, expires: 14.days.from_now}
       if cookies[@menu.kname.to_sym]!="1"
         session[@menu.kname.to_sym]=1
       end
