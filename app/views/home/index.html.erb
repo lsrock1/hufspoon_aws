@@ -388,7 +388,7 @@
         <div class="col s12 m8 offset-m2 l6 offset-l3">
           <div class="card">
             <div class="card-image">
-              <img class="materialboxed"<%if @ran_rest.picture!=""%>src="http://googledrive.com/host/0B5YS4isQi3cDRnRHNUFSbkxuU0E/<%=@ran_rest.picture%>"<%else%>src="http://googledrive.com/host/0B5YS4isQi3cDRnRHNUFSbkxuU0E/always.png"<%end%> style="max-width: 100%;">
+              <img class="materialboxed"<%if @ran_rest.picture!=""%>src="<%=@ran_rest.picture%>"<%else%>src="https://s19.postimg.org/yqsm53ntd/always.png"<%end%> style="max-width: 100%;">
               
             </div>
             <div class="card-content">
@@ -825,13 +825,13 @@
     
       <div id="modal2" class="modal">
         <div class="modal-content">
-          <img class="responsive-img" src="https://s3.ap-northeast-2.amazonaws.com/elasticbeanstalk-ap-northeast-2-850152653970/map.png">
+          <img class="responsive-img" src="https://s19.postimg.org/xpsdfz6tt/map.png">
         </div>
       </div>
   <%if @breakfast_main!=nil&&@breakfast_main.u_picture!=nil&&@breakfast_main.u_picture!=""%>
   <div id="modal-breakfast" class="modal">
     <div class="modal-content">
-      <img class="responsive-img" src="http://googledrive.com/host/0B5YS4isQi3cDWlUwNHFqdktJbHM/<%=@breakfast_main.u_picture%>">
+      <img class="responsive-img" src="<%=@breakfast_main.u_picture%>">
     </div>
   </div>
   <%end%>
@@ -839,7 +839,7 @@
   <%if @lunch1_main!=nil&&@lunch1_main.u_picture!=nil&&@lunch1_main.u_picture!=""%>
   <div id="modal-lunch1" class="modal">
     <div class="modal-content">
-      <img class="responsive-img" src="http://googledrive.com/host/0B5YS4isQi3cDWlUwNHFqdktJbHM/<%=@lunch1_main.u_picture%>">
+      <img class="responsive-img" src="<%=@lunch1_main.u_picture%>">
     </div>
   </div>
   <%end%>
@@ -847,7 +847,7 @@
   <%if @lunch2_main!=nil&&@lunch2_main.u_picture!=nil&&@lunch2_main.u_picture!=nil%>
   <div id="modal-lunch2" class="modal">
     <div class="modal-content">
-      <img class="responsive-img" src="http://googledrive.com/host/0B5YS4isQi3cDWlUwNHFqdktJbHM/<%=@lunch2_main.u_picture%>">
+      <img class="responsive-img" src="<%=@lunch2_main.u_picture%>">
     </div>
   </div>
   <%end%>
@@ -855,7 +855,7 @@
   <%if @lunchnoodle_main!=nil&&@lunchnoodle_main.u_picture!=nil&&@lunchnoodle_main.u_picture!=nil%>
   <div id="modal-lunchnoodle" class="modal">
     <div class="modal-content">
-      <img class="responsive-img" src="http://googledrive.com/host/0B5YS4isQi3cDWlUwNHFqdktJbHM/<%=@lunchnoodle_main.u_picture%>">
+      <img class="responsive-img" src="<%=@lunchnoodle_main.u_picture%>">
     </div>
   </div>
   <%end%>
@@ -863,7 +863,7 @@
   <%if @dinner_main!=nil&&@dinner_main.u_picture!=nil&&@dinner_main.u_picture!=nil%>
   <div id="modal-dinner" class="modal">
     <div class="modal-content">
-      <img class="responsive-img" src="http://googledrive.com/host/0B5YS4isQi3cDWlUwNHFqdktJbHM/<%=@dinner_main.u_picture%>">
+      <img class="responsive-img" src="<%=@dinner_main.u_picture%>">
     </div>
   </div>
   <%end%>

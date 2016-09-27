@@ -4,11 +4,11 @@
         
 <div class="row">
     <div class="input-field">
-      <label for="ex1">파일 이름</label>
+      <label for="ex1">url</label>
       <input class="validate" id="ex1" type="text">
     </div>
     <div class="input-field">
-      <label for="ex2">주소</label>
+      <label for="ex2">연결될 페이지</label>
       <input class="validate" id="ex2" type="text">
     </div>
     <button class="btn see">보기</button>
@@ -23,7 +23,7 @@
     
     $(".see").click(function(){
         var name=$("#ex1").val();
-        var address="http://googledrive.com/host/0B5YS4isQi3cDRnRHNUFSbkxuU0E/"+name
+        var address=name
         $("#test").html('<img src='+address+' width="300" height="300">'+'<button onclick="send();"class="btn save">저장</button>');
        
 	    
