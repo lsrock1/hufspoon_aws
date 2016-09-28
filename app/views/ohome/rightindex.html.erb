@@ -39,7 +39,7 @@
           <span class="card-title"><%=@rest.name%><a id="kakao-link-btn" href="javascript:;"class="waves-effect waves-light right"><img src="//dev.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_small.png"/></a></span>
           <div class="divider"></div>
           <div class="section">
-            <%if @rest.picture!=""%><img src="<%=@rest.picture%>" height="250" style="max-width: 100%; height: 250px;"><%end%>
+            <%if @rest.picture!=""&&@rest.picture!=nil%><img src="<%=@rest.picture%>" height="250" style="max-width: 100%; height: 250px;"><%end%>
             <table>
               <tbody>
                 <tr>
