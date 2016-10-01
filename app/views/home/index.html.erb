@@ -32,9 +32,9 @@
     </div>
     <div id="test1" class="col s12">
         <!--아침메뉴 시작-->
-        <%if @breakfastprice==nil %>
+    <%if @breakfastprice==nil&&@breakfastkcal==nil %>
         
-        <%else%>
+    <%else%>
 		<!--아침메뉴 끝-->
         <div class="col s12 m8 offset-m2 l6 offset-l3">
           <div class="card">
@@ -102,7 +102,7 @@
         </div>
       <%end%>
       
-      <%if @lunch1price==nil %>
+      <%if @lunch1price==nil&&@lunch1kcal==nil %>
         
         <%else%>
         <div class="col s12 m8 offset-m2 l6 offset-l3">
@@ -177,7 +177,7 @@
       
       <!--점심2 메뉴 시작-->
 		
-        <%if @lunch2price==nil%>
+        <%if @lunch2price==nil@lunch2kcal==nil%>
         
         <%else%>
         <div class="col s12 m8 offset-m2 l6 offset-l3">
