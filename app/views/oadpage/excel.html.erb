@@ -1,0 +1,20 @@
+<a class="waves-effect waves-light btn" href="/oadpage/dbmain">돌아가기</a>
+<div class="row">
+    
+    <form action="/put/excel" method="post" enctype="multipart/form-data">
+        <div class="file-field input-field">
+            <div class="btn">
+                <span>Excel</span>
+                <input id="k"type="file" name="ex" size="20" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path validate" type="text">
+            </div>
+        </div>
+        <button class="btn">저장</button>
+    </form>
+    
+    <a href="/get/excel">
+        <button class="btn">db 엑셀로 다운로드</button>
+    </a>
+</div>

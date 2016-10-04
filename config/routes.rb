@@ -51,6 +51,11 @@ Rails.application.routes.draw do
   #엑셀 다운로드
   get '/download' =>"adpage#download"
   post '/excelinsert' =>'adpage#filesave'
+  
+  get '/oadpage/excel' => 'oadpage#excel'
+  get '/get/excel' => 'oadpage#get_excel'
+  
+  post '/put/excel' => 'oadpage#put_excel'
   #일반화면
   get '/home/leftindex/:num' =>'ohome#leftindex'
   get '/home/rightindex/:id' =>'ohome#rightindex'

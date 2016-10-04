@@ -44,7 +44,7 @@
                 <td id="name<%=r.id%>"><%=r.menuname%></td>
                 <td id="cost<%=r.id%>"><%=r.cost%></td>
                 <td id="pagenum<%=r.id%>"><%if r.pagenum==0%>대표메뉴<%else%><%=r.pagenum%><%end%></td>
-                <td><a href="/adpage/rewritemenu/<%=Menulist.find_by(:kname =>r.menuname).id%>/-<%=@rest.id%>"><button class="btn btn-default">번역</button></a></td>
+                <td><%if Menulist.find_by(kname: r.menuname)!=nil%><a href="/adpage/rewritemenu/<%=Menulist.find_by(:kname =>r.menuname).id%>/-<%=@rest.id%>"><button class="btn btn-default">번역</button></a><%end%></td>
                 <td><button class="mre btn btn-default" id="<%=r.id%>">수정</button></td>
                 <td><button class="del btn btn-default"id="<%=r.id%>">삭제</button></td>
             </tr>

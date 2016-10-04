@@ -141,7 +141,7 @@ class AdpageController < ApplicationController
   ###################엑셀 관련 클래스######################
   #db->엑셀
   def download
-    workbook = WriteXLSX.new('public/down.xlsx')
+    workbook = WriteXLSX.new('public/public/translate.xlsx')
     worksheet = workbook.add_worksheet
     
     num=0
@@ -161,7 +161,7 @@ class AdpageController < ApplicationController
       num=num+1
     end
       workbook.close
-    send_file 'public/down.xlsx', :type=>"application/xlsx", :x_sendfile=>true
+    send_file 'public/public/translate.xlsx', :type=>"application/xlsx", :x_sendfile=>true
   end
   
   #엑셀->db
