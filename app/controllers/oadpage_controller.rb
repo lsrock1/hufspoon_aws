@@ -289,7 +289,7 @@ class OadpageController < ApplicationController
           worksheet.write(num,3,c.content)
           worksheet.write(num,4,c.cost)
           worksheet.write(num,5,c.category)
-          worksheet.write(num,6,c.pagennum)
+          worksheet.write(num,6,c.pagenum)
           num+=1
         end
       end
