@@ -428,7 +428,7 @@
                 </div>
                 
                 <%if cookies[@dinner_main.kname.to_sym]=="1"||session[@dinner_main.kname.to_sym]=="1"%>
-                  <div class="btn like white red-text text-lighten-3" id="<%=@dinner_main.id%>">
+                  <div class="card-bottom-right like white red-text text-lighten-3" id="<%=@dinner_main.id%>">
                     <i class="material-icons">favorite</i>&nbsp;&nbsp;<%=@dinner_main.u_like%>
                   </div>
                 <%elsif cookies[@dinner_main.kname.to_sym]=="0"||session[@dinner_main.kname.to_sym]=="0"%>
