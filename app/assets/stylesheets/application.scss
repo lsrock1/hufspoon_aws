@@ -44,24 +44,42 @@ $primary-color: color("blue", "lighten-2") !default;
 #pagination a {display:inline-block;margin-right:10px;}
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
 .card-time{
-	padding-left:16px;
 	padding-top:12px;
-	margin:0px;
-}
-.caf_rep{
-	padding-left:16px;
-	padding-top:12px;
-	margin:0px;
-	font-weight:bold;
-	
-}
-.caf_times{
-	padding-left:16px;
 	margin:0px;
 	font-size:9pt;
 }
+.caf_rep{
+	padding-top:12px;
+	margin:0px;
+	font-weight:bold;
+}
+.caf_times{
+	margin: 0px;
+	font-size: 9pt;
+}
+.card-bottom-left{
+	width: 32%;
+	float: left;
+	border-right: thin solid #bdbdbd;
+	min-height: 100%;
+}
+.card-bottom-middle{
+	width: 32%;
+	float: left;
+	border-right: thin solid #bdbdbd;
+	height: 100%;
+	text-align: center;
+}
+.material-icons{
+	font-size: 18px;
+}
+.card-bottom-right{
+	width: 32%;
+	float: left;
+	text-align: center;
+	font-size: 9pt;
+}
 .card p{
-	padding-left:16px;
 	padding-right:16px;
 	font-size:9pt;
 }

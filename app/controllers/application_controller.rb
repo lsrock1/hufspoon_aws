@@ -143,7 +143,11 @@ class ApplicationController < ActionController::Base
         new_menu(ingre)
       end
     end
-    return returnvalue  
+    if returnvalue==[]
+      return nil
+    else
+      return returnvalue
+    end
   end
   
   def isint(str)
