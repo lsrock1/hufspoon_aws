@@ -31,360 +31,424 @@
       </ul>
     </div>
     <div id="test1" class="col s12">
-        <!--아침메뉴 시작-->
-    <%if @breakfastprice==nil&&@breakfastkcal==nil %>
+      <!--아침메뉴 시작-->
+      
+      <%if @breakfastprice==nil&&@breakfastkcal==nil %>
         
-    <%else%>
-		<!--아침메뉴 끝-->
+      <%else%>
+
         <div class="col s12 m8 offset-m2 l6 offset-l3">
           <div class="card">
-            <div class="card-content  ">
+            <div class="card-content">
               <span class="card-title card-time">Breakfast</span>
-              <div class="divider"></div>
-              <div class="section <%if @breakfast_main.u_picture!=nil&&@breakfast_main.u_picture!=""%>modal-trigger-food" href="#modal-breakfast"<%else%>"<%end%>>
-              <p><div class="caf_times"> <%=@breakfasttime%> / <%=@breakfastprice%></div>
-                 <div class="caf_rep">
-    				<%=@breakfast.shift.titleize%>
-    			</div>
-    			<p>
-    				<%snum=0%>
-    		    <%@breakfast.each do |s|%> 
-                  <%if s!=@breakfast[0]%>
-    				   <%snum+=s.length+3%>
-    				   <%if snum>=32%>
-        				<br>
-        				<%snum=0%>
-        				<%snum+=s.length+3%>
-        			 <%else%>
-        			  ,
-        			 <%end%>
-      		 <%else%>
-      		   <%snum+=s.length+3%>
-      		 <%end%>
-      		 
-      		 <%=s.titleize%>
-    		    <%end%>
-    			</p>
-    			</div>
-    			<div class="divider"></div>
-    			<div class="section">
-    			  <div class="right">
-    			    <%if cookies[@breakfast_main.kname.to_sym]=="1"||session[@breakfast_main.kname.to_sym]=="1"%>
-                <a class="btn like white red-text text-lighten-3" id="<%=@breakfast_main.id%>">
-                  <i class="material-icons" >favorite</i>&nbsp;&nbsp;<span style="font-size: 21px;"><%=@breakfast_main.u_like%></span>
-                </a>
-              <%elsif cookies[@breakfast_main.kname.to_sym]=="0"||session[@breakfast_main.kname.to_sym]=="0"%>
-                <a class="btn like white grey-text" id="<%=@breakfast_main.id%>">
-                  <i class="material-icons" >favorite_border</i>&nbsp;&nbsp;<span style="font-size: 21px;"><%=@breakfast_main.u_like%></span>
-                </a>
-              <%elsif cookies[@breakfast_main.kname.to_sym]==nil||session[@breakfast_main.kname.to_sym]==nil%>
-                <a class="btn like white grey-text" id="<%=@breakfast_main.id%>">
-                  <i class="material-icons" >favorite_border</i>&nbsp;&nbsp;<span style="font-size: 21px;"><%=@breakfast_main.u_like%></span>
-                </a>
-              <%end%>
-    			  </div>   
-    			    <%if@breakfastingre!=nil%>
-    					<p>
-    						<%@breakfastingre.each do |e|%>
-    							<%=e.titleize%>
-    							<%if e!=@breakfastingre[-1]%>
-    							,
-    							<%end%>
-    						<%end%>
-    					</p>
-    					<%end%>
-    			<p><%=@breakfastkcal%></p>
-    			</div>
-              </p>
               
+              <div class="divider"></div>
+              
+              <div class="section">
+              
+                <div class="caf_times"><%=@breakfasttime%> / <%=@breakfastprice%></div>
+              
+                <div class="caf_rep">
+    				      <%=@breakfast.shift.titleize%>
+    			      </div>
+    			      
+    			      <p>
+        				  <%snum=0%>
+        		      <%@breakfast.each do |s|%> 
+                    <%if s!=@breakfast[0]%>
+        				      <%snum+=s.length+3%>
+        				      <%if snum>=32%>
+            				    <br>
+            				    <%snum=0%>
+            				    <%snum+=s.length+3%>
+            			    <%else%>
+            			      ,
+            			    <%end%>
+          		      <%else%>
+          		        <%snum+=s.length+3%>
+          		      <%end%>
+          		      <%=s.titleize%>
+        		      <%end%>
+      			    </p>
+      			  </div>
+      			  
+      			  <%if @breakfast_main!=nil&&@breakfast_main.u_picture!=nil&&@breakfast_main.u_picture!=""%>
+      			    <img src="<%=@breakfast_main.u_picture%>" height="150" style="max-width: 100%; height: 150px; width:100%">
+      			  <%end%>
+      			  
+      			  <div class="divider"></div>
+      			  <div class="section">
+        			  <div class="card-bottom-left">
+        			    <p>
+          			    <%if@breakfastingre!=nil%>
+          					
+          						<%@breakfastingre.each do |e|%>
+          							<%=e.titleize%>
+          							<%if e!=@breakfastingre[-1]%>
+          							,
+          							<%end%>
+          						<%end%>
+          						&nbsp;
+          					<%end%>
+        			    </p>
+        			  </div>
+        			  
+        			  <div class="card-bottom-middle">
+        			    <p>
+        			      <%=@breakfastkcal%>
+        			    </p>
+        			  </div>
+        			  
+      			    <%if cookies[@breakfast_main.kname.to_sym]=="1"||session[@breakfast_main.kname.to_sym]=="1"%>
+                  <div class="card-bottom-right like white red-text text-lighten-3" id="<%=@breakfast_main.id%>">
+                    <i class="material-icons">favorite</i>&nbsp;&nbsp;<%=@breakfast_main.u_like%>
+                  </div>
+                <%elsif cookies[@breakfast_main.kname.to_sym]=="0"||session[@breakfast_main.kname.to_sym]=="0"%>
+                  <div class="card-bottom-right like white grey-text" id="<%=@breakfast_main.id%>">
+                    <i class="material-icons">favorite_border</i>&nbsp;&nbsp;<%=@breakfast_main.u_like%>
+                  </div>
+                <%elsif cookies[@breakfast_main.kname.to_sym]==nil||session[@breakfast_main.kname.to_sym]==nil%>
+                  <div class="card-bottom-right like white grey-text" id="<%=@breakfast_main.id%>">
+                    <i class="material-icons">favorite_border</i>&nbsp;&nbsp;<%=@breakfast_main.u_like%>
+                  </div>
+                <%end%>
+        			  
+              </div>
             </div>
           </div>
         </div>
       <%end%>
+      <!--아침메뉴 끝-->
       
+      <!--점심1 메뉴 시작-->
       <%if @lunch1price==nil&&@lunch1kcal==nil %>
         
-        <%else%>
+      <%else%>
         <div class="col s12 m8 offset-m2 l6 offset-l3">
           <div class="card">
-            <div class="card-content  ">
+            <div class="card-content">
               
               <span class="card-title card-time">Lunch 1</span>
               <div class="divider"></div>
-              <div class="section <%if @lunch1_main.u_picture!=nil&&@lunch1_main.u_picture!=""%>modal-trigger-food" href="#modal-lunch1"<%else%>"<%end%>>
-              <p>
-                  <div class="caf_times"> <%=@lunch1time%> / <%=@lunch1price%></div>
-                  <div class="caf_rep">
-            				<%=@lunch1.shift.titleize%>
-            			</div>
-          			<p>
+              <div class="section">
+              
+                <div class="caf_times"> <%=@lunch1time%> / <%=@lunch1price%></div>
+                <div class="caf_rep">
+            			<%=@lunch1.shift.titleize%>
+            		</div>
+          			  <p>
           			    <%snum=0%>
           			    <%@lunch1.each do |s|%> 
-                          <%if s!=@lunch1[0]%>
-          				   <%snum+=s.length+3%>
-          				   <%if snum>=32%>
-              				<br>
-              				<%snum=0%>
-              				<%snum+=s.length+3%>
-              			 <%else%>
-              			  ,
-              			 <%end%>
-              		 <%else%>
-              		   <%snum+=s.length+3%>
-              		 <%end%>
-              		 
-              		 <%=s.titleize%>
+                      <%if s!=@lunch1[0]%>
+          				      <%snum+=s.length+3%>
+          				      <%if snum>=32%>
+              				    <br>
+              				    <%snum=0%>
+              				    <%snum+=s.length+3%>
+              			    <%else%>
+              			      ,
+              			    <%end%>
+              		    <%else%>
+              		      <%snum+=s.length+3%>
+              		    <%end%>
+              		    <%=s.titleize%>
           			    <%end%>
-          			</p>
+          			  </p>
           			</div>
-          			<div class="divider"></div>
-          			<div class="section">
-          			  <div class="right">
-            			  <%if cookies[@lunch1_main.kname.to_sym]=="1"||session[@lunch1_main.kname.to_sym]=="1"%>
-                      <a class="btn like white red-text text-lighten-3" id="<%=@lunch1_main.id%>">
-                        <i class="material-icons" >favorite</i>&nbsp;&nbsp;<span style="font-size: 21px;"><%=@lunch1_main.u_like%></span>
-                      </a>
-                    <%elsif cookies[@lunch1_main.kname.to_sym]=="0"||session[@lunch1_main.kname.to_sym]=="0"%>
-                      <a class="btn like white grey-text" id="<%=@lunch1_main.id%>">
-                        <i class="material-icons" >favorite_border</i>&nbsp;&nbsp;<span style="font-size: 21px;"><%=@lunch1_main.u_like%></span>
-                      </a>
-                    <%elsif cookies[@lunch1_main.kname.to_sym]==nil||session[@lunch1_main.kname.to_sym]==nil%>
-                      <a class="btn like white grey-text" id="<%=@lunch1_main.id%>">
-                        <i class="material-icons" >favorite_border</i>&nbsp;&nbsp;<span style="font-size: 21px;"><%=@lunch1_main.u_like%></span>
-                      </a>
-                    <%end%>
-          			  </div>  
-          			  <%if@lunch1ingre!=nil%>
           			
-          				<p>
-          					<%@lunch1ingre.each do |e|%>
-          						<%=e.titleize%>
-          						<%if e!=@lunch1ingre[-1]%>
-          						,
-          						<%end%>
-          					<%end%>
-          				</p>
-          			<%end%>
-          			<p><%=@lunch1kcal%></p>
+          			<%if @lunch1_main!=nil&&@lunch1_main.u_picture!=nil&&@lunch1_main.u_picture!=""%>
+      			      <img src="<%=@lunch1_main.u_picture%>" height="150" style="max-width: 100%; height: 150px; width:100%">
+      			    <%end%>
+          			
+          			<div class="divider"></div>
+          			
+          			<div class="section">
+          			  <div class="card-bottom-left">
+          			    <p>
+            			    <%if@lunch1ingre!=nil%>
+              					<%@lunch1ingre.each do |e|%>
+              						<%=e.titleize%>
+              						<%if e!=@lunch1ingre[-1]%>
+              						,
+              						<%end%>
+              					<%end%>
+              					&nbsp;
+              			  <%end%>
+            			  </p>
+          			  </div>
+          			  <div class="card-bottom-middle">
+          			    <p>
+          			      <%=@lunch1kcal%>&nbsp;
+          			    </p>
+          			  </div>
+          			  <%if cookies[@lunch1_main.kname.to_sym]=="1"||session[@lunch1_main.kname.to_sym]=="1"%>
+                    <div class="card-bottom-right like white red-text text-lighten-3" id="<%=@lunch1_main.id%>">
+                      <i class="material-icons">favorite</i>&nbsp;&nbsp;<%=@lunch1_main.u_like%>
+                    </div>
+                  <%elsif cookies[@lunch1_main.kname.to_sym]=="0"||session[@lunch1_main.kname.to_sym]=="0"%>
+                    <div class="card-bottom-right like white grey-text" id="<%=@lunch1_main.id%>">
+                      <i class="material-icons">favorite_border</i>&nbsp;&nbsp;<%=@lunch1_main.u_like%>
+                    </div>
+                  <%elsif cookies[@lunch1_main.kname.to_sym]==nil||session[@lunch1_main.kname.to_sym]==nil%>
+                    <div class="card-bottom-right like white grey-text" id="<%=@lunch1_main.id%>">
+                      <i class="material-icons">favorite_border</i>&nbsp;&nbsp;<%=@lunch1_main.u_like%>
+                    </div>
+                  <%end%>
           			</div>
           		
-              </p>
             </div>
           </div>
         </div>
-        <%end%>
-		<!--점심메뉴 끝-->
+      <%end%>
+		  <!--점심1 메뉴 끝-->
       
       <!--점심2 메뉴 시작-->
 		
-        <%if @lunch2price==nil&&@lunch2kcal==nil%>
+      <%if @lunch2price==nil&&@lunch2kcal==nil%>
         
-        <%else%>
+      <%else%>
         <div class="col s12 m8 offset-m2 l6 offset-l3">
           <div class="card">
             <div class="card-content  ">
               <span class="card-title card-time">Lunch 2</span>
               <div class="divider"></div>
-              <p>
-                <div class="section <%if @lunch2_main.u_picture!=nil&&@lunch2_main.u_picture!=""%>modal-trigger-food" href="#modal-lunch2"<%else%>"<%end%>>
+              
+                <div class="section">
                   <div class="caf_times"> <%=@lunch2time%> / <%=@lunch2price%></div>
                   <div class="caf_rep"><%=@lunch2.shift.titleize%></div>
-                  <p>	
-                  <%snum=0%>
-        		    	<%@lunch2.each do |s|%> 
+                  <p>
+                    <%snum=0%>
+        		    	  <%@lunch2.each do |s|%> 
         			      	<%if s!=@lunch2[0]%>
-        				    	<%snum+=s.length+3%>
-        					    <%if snum>=32%>
-        							  <br>
-        							<%snum=0%>
-        							<%snum+=s.length+3%>
-        					 	<%else%>
-        					  		,
-        					 	<%end%>
-        		  		 	<%else%>
+        				    	  <%snum+=s.length+3%>
+        					        <%if snum>=32%>
+        							      <br>
+        							      <%snum=0%>
+        							      <%snum+=s.length+3%>
+        					 	      <%else%>
+        					  		    ,
+        					 	      <%end%>
+        		  		 	  <%else%>
         		  		   		<%snum+=s.length+3%>
-        		  		 	<%end%>
-        	  		 		<%=s.titleize%>
-        			    <%end%>
-            		</p>
+        		  		 	  <%end%>
+        	  		 		  <%=s.titleize%>
+        			      <%end%>
+            		  </p>
             		</div>
+            		
+            		<%if @lunch2_main!=nil&&@lunch2_main.u_picture!=nil&&@lunch2_main.u_picture!=""%>
+      			      <img src="<%=@lunch2_main.u_picture%>" height="150" style="max-width: 100%; height: 150px; width:100%">
+      			    <%end%>
+            		
             		<div class="divider"></div>
+            		
             		<div class="section">
-            		  <div class="right">
-            		    <%if cookies[@lunch2_main.kname.to_sym]=="1"||session[@lunch2_main.kname.to_sym]=="1"%>
-                      <a class="btn like white red-text text-lighten-3" id="<%=@lunch2_main.id%>">
-                        <i class="material-icons" >favorite</i>&nbsp;&nbsp;<span style="font-size: 21px;"><%=@lunch2_main.u_like%></span>
-                      </a>
-                    <%elsif cookies[@lunch2_main.kname.to_sym]=="0"||session[@lunch2_main.kname.to_sym]=="0"%>
-                      <a class="btn like white grey-text" id="<%=@lunch2_main.id%>">
-                        <i class="material-icons" >favorite_border</i>&nbsp;&nbsp;<span style="font-size: 21px;"><%=@lunch2_main.u_like%></span>
-                      </a>
-                    <%elsif cookies[@lunch2_main.kname.to_sym]==nil||session[@lunch2_main.kname.to_sym]==nil%>
-                      <a class="btn like white grey-text" id="<%=@lunch2_main.id%>">
-                        <i class="material-icons" >favorite_border</i>&nbsp;&nbsp;<span style="font-size: 21px;"><%=@lunch2_main.u_like%></span>
-                      </a>
-                    <%end%>
-            		  </div>  
-            		  <%if@lunch2ingre!=nil%>
-        				<p>
-        					<%@lunch2ingre.each do |e|%>
-        						<%=e.titleize%>
-        						<%if e!=@lunch2ingre[-1]%>
-        						,
-        						<%end%>
-        					<%end%>
-        				</p>
-        			<%end%>
-        			<p><%=@lunch2kcal%></p>
+            		  <div class="card-bottom-left">
+            		    <p>
+              		    <%if@lunch2ingre!=nil%>
+                				<%@lunch2ingre.each do |e|%>
+                					<%=e.titleize%>
+                					<%if e!=@lunch2ingre[-1]%>
+                						,
+                					<%end%>
+                				<%end%>
+                				&nbsp;
+                			<%end%>
+              			</p>
+            		  </div>
+            		    
+            		  <div class="card-bottom-middle">
+            		    <p>
+                      <%=@lunch2kcal%>&nbsp;
+            		    </p>
+            		  </div>
+            		  
+          		    <%if cookies[@lunch2_main.kname.to_sym]=="1"||session[@lunch2_main.kname.to_sym]=="1"%>
+                    <div class="card-bottom-right like white red-text text-lighten-3" id="<%=@lunch2_main.id%>">
+                      <i class="material-icons">favorite</i>&nbsp;&nbsp;<%=@lunch2_main.u_like%>
+                    </div>
+                  <%elsif cookies[@lunch2_main.kname.to_sym]=="0"||session[@lunch2_main.kname.to_sym]=="0"%>
+                    <div class="card-bottom-right like white grey-text" id="<%=@lunch2_main.id%>">
+                      <i class="material-icons">favorite_border</i>&nbsp;&nbsp;<%=@lunch2_main.u_like%>
+                    </div>
+                  <%elsif cookies[@lunch2_main.kname.to_sym]==nil||session[@lunch2_main.kname.to_sym]==nil%>
+                    <div class="card-bottom-right like white grey-text" id="<%=@lunch2_main.id%>">
+                      <i class="material-icons">favorite_border</i>&nbsp;&nbsp;<%=@lunch2_main.u_like%>
+                    </div>
+                  <%end%>
+            		  
         			</div>
-        			</p>
+        			
             </div>
           </div>
         </div>
       <%end%>
 		<!--점심2 메뉴 끝-->
 		
-		<%if @lunchnoodleprice==nil%>
+		<!--점심면 메뉴 시작-->
+		  <%if @lunchnoodleprice==nil%>
       
-    <%else%>
-      <div class="col s12 m8 offset-m2 l6 offset-l3">
-        <div class="card">
-          <div class="card-content  ">
-            <span class="card-title card-time">Lunch Noodles</span>
-            <div class="divider"></div>
-            <p>
-              <div class="section <%if @lunchnoodle_main.u_picture!=nil&&@lunchnoodle_main.u_picture!=""%>modal-trigger-food" href="#modal-lunchnoodle"<%else%>"<%end%>>
-                <div class="caf_times"> <%=@lunchnoodletime%> / <%=@lunchnoodleprice%></div>
+      <%else%>
+        <div class="col s12 m8 offset-m2 l6 offset-l3">
+          <div class="card">
+            <div class="card-content">
+              <span class="card-title card-time">Lunch Noodles</span>
+              <div class="divider"></div>
+            
+              <div class="section">
+                <div class="caf_times"><%=@lunchnoodletime%> / <%=@lunchnoodleprice%></div>
         				<div class="caf_rep"><%=@lunchnoodle.shift.titleize%></div>
         				<p>
         					<%snum=0%>
         			    <%@lunchnoodle.each do |s|%> 
-                        <%if s!=@lunchnoodle[0]%>
-        					   <%snum+=s.length+3%>
-        					   <%if snum>=32%>
-        	    				<br>
-        	    				<%snum=0%>
-        	    				<%snum+=s.length+3%>
-        	    			 <%else%>
-        	    			  ,
-        	    			 <%end%>
-            		 <%else%>
-            		   <%snum+=s.length+3%>
-            		 <%end%>
-            		 
-            		 <%=s.titleize%>
+                    <%if s!=@lunchnoodle[0]%>
+        					    <%snum+=s.length+3%>
+        					    <%if snum>=32%>
+        	    				  <br>
+        	    				  <%snum=0%>
+        	    				  <%snum+=s.length+3%>
+        	    			  <%else%>
+        	    			    ,
+        	    			  <%end%>
+            		    <%else%>
+            		      <%snum+=s.length+3%>
+            		    <%end%>
+            		    <%=s.titleize%>
         			    <%end%>
         	    	</p>
               </div>
+              
+              <%if @lunchnoodle_main!=nil&&@lunchnoodle_main.u_picture!=nil&&@lunchnoodle_main.u_picture!=""%>
+    			      <img src="<%=@lunchnoodle_main.u_picture%>" height="150" style="max-width: 100%; height: 150px; width:100%">
+    			    <%end%>
+              
               <div class="divider"></div>
               <div class="section">
-                <div class="right">
-                  <%if cookies[@lunchnoodle_main.kname.to_sym]=="1"||session[@lunchnoodle_main.kname.to_sym]=="1"%>
-                    <a class="btn like white red-text text-lighten-3" id="<%=@lunchnoodle_main.id%>">
-                      <i class="material-icons" >favorite</i>&nbsp;&nbsp;<span style="font-size: 21px;"><%=@lunchnoodle_main.u_like%></span>
-                    </a>
-                  <%elsif cookies[@lunchnoodle_main.kname.to_sym]=="0"||session[@lunchnoodle_main.kname.to_sym]=="0"%>
-                    <a class="btn like white grey-text" id="<%=@lunchnoodle_main.id%>">
-                      <i class="material-icons" >favorite_border</i>&nbsp;&nbsp;<span style="font-size: 21px;"><%=@lunchnoodle_main.u_like%></span>
-                    </a>
-                  <%elsif cookies[@lunchnoodle_main.kname.to_sym]==nil||session[@lunchnoodle_main.kname.to_sym]==nil%>
-                    <a class="btn like white grey-text" id="<%=@lunchnoodle_main.id%>">
-                      <i class="material-icons" >favorite_border</i>&nbsp;&nbsp;<span style="font-size: 21px;"><%=@lunchnoodle_main.u_like%></span>
-                    </a>
-                  <%end%>
-                </div>  
-                <%if@lunchnoodleingre!=nil%>
-        				<p>
-        					<%@lunchnoodleingre.each do |e|%>
-        						<%=e.titleize%>
-        						<%if e!=@lunchnoodleingre[-1]%>
-        						,
-        						<%end%>
-        					<%end%>
-        				</p>
-        			<%end%>
-        				<p><%=@lunchnoodlekcal%></p>
+                <div class="card-bottom-left">
+                  <p>
+                    <%if@lunchnoodleingre!=nil%>
+          				
+            					<%@lunchnoodleingre.each do |e|%>
+            						<%=e.titleize%>
+            						<%if e!=@lunchnoodleingre[-1]%>
+            						  ,
+            						<%end%>
+            					<%end%>
+            					&nbsp;
+              			<%end%>
+              			
+            			</p>
+                </div>
+                
+                <div class="card-bottom-middle">
+                  <p>
+                    <%=@lunchnoodlekcal%>&nbsp;
+                  </p>
+                </div>
+                
+                <%if cookies[@lunchnoodle_main.kname.to_sym]=="1"||session[@lunchnoodle_main.kname.to_sym]=="1"%>
+                  <div class="card-bottom-right like white red-text text-lighten-3" id="<%=@lunchnoodle_main.id%>">
+                    <i class="material-icons">favorite</i>&nbsp;&nbsp;<%=@lunchnoodle_main.u_like%>
+                  </div>
+                <%elsif cookies[@lunchnoodle_main.kname.to_sym]=="0"||session[@lunchnoodle_main.kname.to_sym]=="0"%>
+                  <div class="card-bottom-right like white grey-text" id="<%=@lunchnoodle_main.id%>">
+                    <i class="material-icons">favorite_border</i>&nbsp;&nbsp;<%=@lunchnoodle_main.u_like%>
+                  </div>
+                <%elsif cookies[@lunchnoodle_main.kname.to_sym]==nil||session[@lunchnoodle_main.kname.to_sym]==nil%>
+                  <div class="card-bottom-right like white grey-text" id="<%=@lunchnoodle_main.id%>">
+                    <i class="material-icons">favorite_border</i>&nbsp;&nbsp;<%=@lunchnoodle_main.u_like%>
+                  </div>
+                <%end%>
+                
               </div>
-            </p>
+              
+            </div>
           </div>
         </div>
-      </div>
-    <%end%>
+      <%end%>
 		<!--점심 면 메뉴 끝-->
 		
 		<!--저녁 메뉴 시작-->
 		
-    <%if @dinnerprice==nil%>
+      <%if @dinnerprice==nil%>
         
-    <%else%>
+      <%else%>
         <div class="col s12 m8 offset-m2 l6 offset-l3">
           <div class="card">
-            <div class="card-content  ">
+            <div class="card-content">
               <span class="card-title card-time">Dinner</span>
               <div class="divider"></div>
-              <p>
-                <div class="section <%if @dinner_main.u_picture!=nil&&@lunch1_main.u_picture!=""%>modal-trigger-food" href="#modal-dinner"<%else%>"<%end%>>
-          				<div class="caf_times"> <%=@dinnertime%> / <%=@dinnerprice%></div>
-          				<div class="caf_rep"><%=@dinner.shift.titleize%></div>
-          				<p>
-        					<%snum=0%>
-        			    <%@dinner.each do |s|%> 
-                        <%if s!=@dinner[0]%>
-        					   <%snum+=s.length+3%>
-        					   <%if snum>=32%>
-        	    				<br>
-        	    				<%snum=0%>
-        	    				<%snum+=s.length+3%>
-        	    			 <%else%>
-        	    			  ,
-        	    			 <%end%>
-        	    		 <%else%>
-        	    		   <%snum+=s.length+3%>
-        	    		 <%end%>
-        	    		 
-        	    		 <%=s.titleize%>
-        				    <%end%>
-        		    	</p>
+              <div class="section">
+        				<div class="caf_times"><%=@dinnertime%> / <%=@dinnerprice%></div>
+        				<div class="caf_rep"><%=@dinner.shift.titleize%></div>
+        				<p>
+      					  <%snum=0%>
+      			      <%@dinner.each do |s|%> 
+                    <%if s!=@dinner[0]%>
+      					      <%snum+=s.length+3%>
+      					      <%if snum>=32%>
+      	    				    <br>
+      	    				    <%snum=0%>
+      	    				    <%snum+=s.length+3%>
+      	    			    <%else%>
+      	    			      ,
+      	    			    <%end%>
+      	    		    <%else%>
+      	    		      <%snum+=s.length+3%>
+      	    		    <%end%>
+      	    		    <%=s.titleize%>
+      				    <%end%>
+      		    	</p>
+              </div>
+                
+              <%if @dinner_main!=nil&&@dinner_main.u_picture!=nil&&@dinner_main.u_picture!=""%>
+    			      <img src="<%=@dinner_main.u_picture%>" height="150" style="max-width: 100%; height: 150px; width:100%">
+    			    <%end%>
+                
+              <div class="divider"></div>
+              <div class="section">
+                <div class="card-bottom-left">
+                  <p>
+                    <%if@dinneringre!=nil%>
+          						<%@dinneringre.each do |e|%>
+          							<%=e.titleize%>
+          							<%if e!=@dinneringre[-1]%>
+          							,
+          							<%end%>
+          						<%end%>
+          				  <%end%>
+          				  &nbsp;
+                  </p>
                 </div>
-                <div class="divider"></div>
-                <div class="section">
-                  <div class="right">
-                    <%if cookies[@dinner_main.kname.to_sym]=="1"||session[@dinner_main.kname.to_sym]=="1"%>
-                      <a class="btn like white red-text text-lighten-3" id="<%=@dinner_main.id%>">
-                        <i class="material-icons" >favorite</i>&nbsp;&nbsp;<span style="font-size: 21px;"><%=@dinner_main.u_like%></span>
-                      </a>
-                    <%elsif cookies[@dinner_main.kname.to_sym]=="0"||session[@dinner_main.kname.to_sym]=="0"%>
-                      <a class="btn like white grey-text" id="<%=@dinner_main.id%>">
-                        <i class="material-icons" >favorite_border</i>&nbsp;&nbsp;<span style="font-size: 21px;"><%=@dinner_main.u_like%></span>
-                      </a>
-                    <%elsif cookies[@dinner_main.kname.to_sym]==nil||session[@dinner_main.kname.to_sym]==nil%>
-                      <a class="btn like white grey-text" id="<%=@dinner_main.id%>">
-                        <i class="material-icons" >favorite_border</i>&nbsp;&nbsp;<span style="font-size: 21px;"><%=@dinner_main.u_like%></span>
-                      </a>
-                    <%end%>
-                    
+                
+                <div class="card-bottom-middle">
+                  <p>
+                    <%=@dinnerkcal%>&nbsp;
+                  </p>
+                </div>
+                
+                <%if cookies[@dinner_main.kname.to_sym]=="1"||session[@dinner_main.kname.to_sym]=="1"%>
+                  <div class="btn like white red-text text-lighten-3" id="<%=@dinner_main.id%>">
+                    <i class="material-icons">favorite</i>&nbsp;&nbsp;<%=@dinner_main.u_like%>
                   </div>
-                  <%if@dinneringre!=nil%>
-        					<p>
-        						<%@dinneringre.each do |e|%>
-        							<%=e.titleize%>
-        							<%if e!=@dinneringre[-1]%>
-        							,
-        							<%end%>
-        						<%end%>
-        					</p>
-        				<%end%>
-        				<p><%=@dinnerkcal%></p>
-                </div>
-              </p>
+                <%elsif cookies[@dinner_main.kname.to_sym]=="0"||session[@dinner_main.kname.to_sym]=="0"%>
+                  <div class="card-bottom-right like white grey-text" id="<%=@dinner_main.id%>">
+                    <i class="material-icons">favorite_border</i>&nbsp;&nbsp;<%=@dinner_main.u_like%>
+                  </div>
+                <%elsif cookies[@dinner_main.kname.to_sym]==nil||session[@dinner_main.kname.to_sym]==nil%>
+                  <div class="card-bottom-right like white grey-text" id="<%=@dinner_main.id%>">
+                    <i class="material-icons">favorite_border</i>&nbsp;&nbsp;<%=@dinner_main.u_like%>
+                  </div>
+                <%end%>
+              </div>
+              
             </div>
           </div>
         </div>
-    <%end%>
+      <%end%>
 		<!--저녁메뉴 끝-->
 		
-		<%if @w==0&&@ran_rest!=nil%>
-			
+		  <%if @w==0&&@ran_rest!=nil%>
         <div class="col s12 m8 offset-m2 l6 offset-l3">
           <div class="card">
             <div class="card-image">
@@ -400,10 +464,7 @@
             </div>
           </div>
         </div>
-			
-     
-      
-    <%elsif @register==nil%>
+      <%elsif @register==nil%>
         <div class="col s12 m8 offset-m2 l6 offset-l3">
           <div class="card">
             <div class="card-content  ">
@@ -412,11 +473,11 @@
             </div>
           </div>
         </div>
-		<%else%>
-		<!--스낵-->
+		  <%else%>
+		  <!--스낵-->
         <div class="col s12 m8 offset-m2 l6 offset-l3">
           <div class="card">
-            <div class="card-content  ">
+            <div class="card-content">
               <span class="card-title card-time">Snack</span>
               <div class="divider"></div>
               <p>
@@ -452,135 +513,138 @@
     
     <div id="test2" class="col s12">
       <%if @flunchprice==nil %>
-        <%else%>
+      
+      <%else%>
         <div class="col s12 m8 offset-m2 l6 offset-l3">
           <div class="card">
-            <div class="card-content  ">
+            <div class="card-content">
               <span class="card-title card-time">Lunch</span>
               <div class="divider"></div>
-              <p>
-                <div class="section">
-                  <div class="caf_times"> <%=@flunchtime%> / <%=@flunchprice%></div>
-      						<div class="caf_rep"><%=@flunch.shift.titleize%></div>
-      						<p>
+              <div class="section">
+                <div class="caf_times"> <%=@flunchtime%> / <%=@flunchprice%></div>
+      					<div class="caf_rep"><%=@flunch.shift.titleize%></div>
+      					<p>
     							<%snum=0%>
     							<%@flunch.each do |s|%> 
     		    			  <%if s!=@flunch[0]%>
-    								   <%snum+=s.length+3%>
-    								   <%if snum>=32%>
+    								  <%snum+=s.length+3%>
+    								  <%if snum>=32%>
     				    				<br>
     				    				<%snum=0%>
     				    				<%snum+=s.length+3%>
-    				    			 <%else%>
+    				    			<%else%>
     				    			  ,
-    				    			 <%end%>
-    			    		 <%else%>
-    			    		   <%snum+=s.length+3%>
-    			    		 <%end%>
-    			    		 
-    			    		 <%=s.titleize%>
+    				    			<%end%>
+    			    		  <%else%>
+    			    		    <%snum+=s.length+3%>
+    			    		  <%end%>
+    			    		  <%=s.titleize%>
     							<%end%>
     						</p>
-                </div>
-                <div class="divider"></div>
-                <div class="section">
-                  <div class="right">
-                    <%if cookies[@flunch_main.kname.to_sym]=="1"||session[@flunch_main.kname.to_sym]=="1"%>
-                      <a class="btn like white red-text text-lighten-3" id="<%=@flunch_main.id%>">
-                        <i class="material-icons" >favorite</i>&nbsp;&nbsp;<span style="font-size: 21px;"><%=@flunch_main.u_like%></span>
-                      </a>
-                    <%elsif cookies[@flunch_main.kname.to_sym]=="0"||session[@flunch_main.kname.to_sym]=="0"%>
-                      <a class="btn like white grey-text" id="<%=@flunch_main.id%>">
-                        <i class="material-icons" >favorite_border</i>&nbsp;&nbsp;<span style="font-size: 21px;"><%=@flunch_main.u_like%></span>
-                      </a>
-                    <%elsif cookies[@flunch_main.kname.to_sym]==nil||session[@flunch_main.kname.to_sym]==nil%>
-                      <a class="btn like white grey-text" id="<%=@flunch_main.id%>">
-                        <i class="material-icons" >favorite_border</i>&nbsp;&nbsp;<span style="font-size: 21px;"><%=@flunch_main.u_like%></span>
-                      </a>
-                    <%end%>
-                  </div>
-                  <%if@flunchingre!=nil%>
-        					<p>
-        						<%@flunchingre.each do |e|%>
-        							<%=e.titleize%>
-        							<%if e!=@flunchingre[-1]%>
-        							,
-        							<%end%>
-        						<%end%>
+              </div>
+              <div class="divider"></div>
+              <div class="section">
+                <div class="card-bottom-left">
+                  <p>
+                    <%if@flunchingre!=nil%>
+          						<%@flunchingre.each do |e|%>
+          							<%=e.titleize%>
+          							<%if e!=@flunchingre[-1]%>
+          							,
+          							<%end%>
+          						<%end%>
+          					<%end%>
+          					&nbsp;
         					</p>
-        					<%end%>
-        						<p><%=@flunchkcal%></p>
                 </div>
-              </p>
+                <div class="card-bottom-middle">
+                  <p>
+                    <%=@flunchkcal%>&nbsp;
+                  </p>
+                </div>
+                <%if cookies[@flunch_main.kname.to_sym]=="1"||session[@flunch_main.kname.to_sym]=="1"%>
+                  <div class="card-bottom-right like white red-text text-lighten-3" id="<%=@flunch_main.id%>">
+                    <i class="material-icons">favorite</i>&nbsp;&nbsp;<%=@flunch_main.u_like%>
+                  </div>
+                <%elsif cookies[@flunch_main.kname.to_sym]=="0"||session[@flunch_main.kname.to_sym]=="0"%>
+                  <div class="card-bottom-right like white grey-text" id="<%=@flunch_main.id%>">
+                    <i class="material-icons">favorite_border</i>&nbsp;&nbsp;<%=@flunch_main.u_like%>
+                  </div>
+                <%elsif cookies[@flunch_main.kname.to_sym]==nil||session[@flunch_main.kname.to_sym]==nil%>
+                  <div class="card-bottom-right like white grey-text" id="<%=@flunch_main.id%>">
+                    <i class="material-icons">favorite_border</i>&nbsp;&nbsp;<%=@flunch_main.u_like%>
+                  </div>
+                <%end%>
+              </div>
             </div>
           </div>
         </div>
-				<%end%>
+			<%end%>
 		<!--점심 메뉴 끝-->
 		
-			<!--저녁 메뉴-->
-		
+		<!--저녁 메뉴-->
 	    <%if @fdinnerprice==nil %>
+	    
 	    <%else%>
         <div class="col s12 m8 offset-m2 l6 offset-l3">
           <div class="card">
-            <div class="card-content  ">
+            <div class="card-content">
               <span class="card-title card-time">Dinner</span>
               <div class="divider"></div>
-              <p>
-                <div class="section">
-                  <div class="caf_times"> <%=@fdinnertime%> / <%=@fdinnerprice%></div>
-        					<div class="caf_rep"><%=@fdinner.shift.titleize%></div>
-        					<p>
+              <div class="section">
+                <div class="caf_times"><%=@fdinnertime%> / <%=@fdinnerprice%></div>
+      					<div class="caf_rep"><%=@fdinner.shift.titleize%></div>
+        				<p>
       						<%snum=0%>
       				    <%@fdinner.each do |s|%> 
-                    			<%if s!=@fdinner[0]%>
-      							   <%snum+=s.length+3%>
-      							   <%if snum>=32%>
+                    <%if s!=@fdinner[0]%>
+      							  <%snum+=s.length+3%>
+      							  <%if snum>=32%>
       			    				<br>
       			    				<%snum=0%>
       			    				<%snum+=s.length+3%>
-      			    			 <%else%>
+      			    			<%else%>
       			    			  ,
-      			    			 <%end%>
-      			    		 <%else%>
-      			    		   <%snum+=s.length+3%>
-      			    		 <%end%>
-      			    		 
-      			    		 <%=s.titleize%>
+      			    			<%end%>
+      			    		<%else%>
+      			    		  <%snum+=s.length+3%>
+      			    		<%end%>
+      			    		<%=s.titleize%>
       				    <%end%>
       					</p>
+              </div>
+              <div class="divider"></div>
+              <div class="section">
+                <div class="card-bottom-left">
+                  <p>
+                    <%if@fdinneringre!=nil%>
+          						<%@fdinneringre.each do |e|%>
+          							<%=e.titleize%>
+          							<%if e!=@fdinneringre[-1]%>
+          							,
+          							<%end%>
+          						<%end%>
+        					  <%end%>
+        					  &nbsp;
+                  </p>
                 </div>
-                <div class="divider"></div>
-                <div class="section">
-                  <div class="right">
-                    <%if cookies[@fdinner_main.kname.to_sym]=="1"||session[@fdinner_main.kname.to_sym]=="1"%>
-                      <a class="btn like white red-text text-lighten-3" id="<%=@fdinner_main.id%>">
-                        <i class="material-icons" >favorite</i>&nbsp;&nbsp;<span style="font-size: 21px;"><%=@fdinner_main.u_like%></span>
-                      </a>
-                    <%elsif cookies[@fdinner_main.kname.to_sym]=="0"||session[@fdinner_main.kname.to_sym]=="0"%>
-                      <a class="btn like white grey-text" id="<%=@fdinner_main.id%>">
-                        <i class="material-icons" >favorite_border</i>&nbsp;&nbsp;<span style="font-size: 21px;"><%=@fdinner_main.u_like%></span>
-                      </a>
-                    <%elsif cookies[@fdinner_main.kname.to_sym]==nil||session[@fdinner_main.kname.to_sym]==nil%>
-                      <a class="btn like white grey-text" id="<%=@fdinner_main.id%>">
-                        <i class="material-icons" >favorite_border</i>&nbsp;&nbsp;<span style="font-size: 21px;"><%=@fdinner_main.u_like%></span>
-                      </a>
-                    <%end%>
-                  </div>  
-                  <%if@fdinneringre!=nil%>
-        					<p>
-        						<%@fdinneringre.each do |e|%>
-        							<%=e.titleize%>
-        							<%if e!=@fdinneringre[-1]%>
-        							,
-        							<%end%>
-        						<%end%>
-        					</p>
-        					<%end%>
-        					<p><%=@fdinnerkcal%></p>
+                <div class="card-bottom-middle">
+                  <%=@fdinnerkcal%>&nbsp;
                 </div>
-              </p>
+                <%if cookies[@fdinner_main.kname.to_sym]=="1"||session[@fdinner_main.kname.to_sym]=="1"%>
+                  <div class="card-bottom-right like white red-text text-lighten-3" id="<%=@fdinner_main.id%>">
+                    <i class="material-icons">favorite</i>&nbsp;&nbsp;<%=@fdinner_main.u_like%>
+                  </div>
+                <%elsif cookies[@fdinner_main.kname.to_sym]=="0"||session[@fdinner_main.kname.to_sym]=="0"%>
+                  <div class="card-bottom-right like white grey-text" id="<%=@fdinner_main.id%>">
+                    <i class="material-icons">favorite_border</i>&nbsp;&nbsp;<%=@fdinner_main.u_like%>
+                  </div>
+                <%elsif cookies[@fdinner_main.kname.to_sym]==nil||session[@fdinner_main.kname.to_sym]==nil%>
+                  <div class="card-bottom-right like white grey-text" id="<%=@fdinner_main.id%>">
+                    <i class="material-icons">favorite_border</i>&nbsp;&nbsp;<%=@fdinner_main.u_like%>
+                  </div>
+                <%end%>
+              </div>
             </div>
           </div>
         </div>
@@ -588,285 +652,251 @@
 		<!--저녁메뉴 끝-->
     </div>
     <!--test2끝-->
+    
     <div id="test4" class="col s12">
-    <%if @menuaprice==nil %>
-		<%else%>
+      <%if @menuaprice==nil %>
+  		<%else%>
         <div class="col s12 m8 offset-m2 l6 offset-l3">
           <div class="card">
             <div class="card-content  ">
               <span class="card-title card-time">Menu A </span>
               <div class="divider"></div>
-              <p>
-                <div class="section">
-                  <div class="caf_times"> <%=@menuatime%> / <%=@menuaprice%></div>
-        					<div class="caf_rep"><%=@menua.shift.titleize%></div>
-        					<p>
+              <div class="section">
+                <div class="caf_times"> <%=@menuatime%> / <%=@menuaprice%></div>
+      					<div class="caf_rep"><%=@menua.shift.titleize%></div>
+      					<p>
       						<%snum=0%>
       						<%@menua.each do |s|%> 
       		    			<%if s!=@menua[0]%>
-      						  <%snum+=s.length+3%>
-      						  <%if snum>=32%>
-      		    				<br>
-      		    				<%snum=0%>
-      		    				<%snum+=s.length+3%>
+      						    <%snum+=s.length+3%>
+      						    <%if snum>=32%>
+      		    				  <br>
+      		    				  <%snum=0%>
+      		    				  <%snum+=s.length+3%>
       		    			  <%else%>
-      		    			   ,
+      		    			    ,
       		    			  <%end%>
       			    		<%else%>
       			    		  <%snum+=s.length+3%>
       			    		<%end%>
-      			    		 
-      			    		 <%=s.titleize%>
+      			    		<%=s.titleize%>
       					  <%end%>
       					</p>
+              </div>
+              <div class="divider"></div>
+              <div class="section">
+                <div class="card-bottom-left">
+                  <p>
+                    <%if@menuaingre!=nil%>
+          						<%@menuaingre.each do |e|%>
+          							<%=e.titleize%>
+          							<%if e!=@menuaingre[-1]%>
+          							,
+          							<%end%>
+          						<%end%>
+          					<%end%>
+          					&nbsp;
+                  </p>
                 </div>
-                <div class="divider"></div>
-                <div class="section">
-                  <div class="right">
-                    <%if cookies[@menua_main.kname.to_sym]=="1"||session[@menua_main.kname.to_sym]=="1"%>
-                      <a class="btn like white red-text text-lighten-3" id="<%=@menua_main.id%>">
-                        <i class="material-icons" >favorite</i>&nbsp;&nbsp;<span style="font-size: 21px;"><%=@menua_main.u_like%></span>
-                      </a>
-                    <%elsif cookies[@menua_main.kname.to_sym]=="0"||session[@menua_main.kname.to_sym]=="0"%>
-                      <a class="btn like white grey-text" id="<%=@menua_main.id%>">
-                        <i class="material-icons" >favorite_border</i>&nbsp;&nbsp;<span style="font-size: 21px;"><%=@menua_main.u_like%></span>
-                      </a>
-                    <%elsif cookies[@menua_main.kname.to_sym]==nil||session[@menua_main.kname.to_sym]==nil%>
-                      <a class="btn like white grey-text" id="<%=@menua_main.id%>">
-                        <i class="material-icons" >favorite_border</i>&nbsp;&nbsp;<span style="font-size: 21px;"><%=@menua_main.u_like%></span>
-                      </a>
-                    <%end%>
+                <div class="card-bottom-middle">
+                  <p>
+                    <%=@menuakcal%>&nbsp;
+                  </p>
+                </div>
+                <%if cookies[@menua_main.kname.to_sym]=="1"||session[@menua_main.kname.to_sym]=="1"%>
+                  <div class="card-bottom-right like white red-text text-lighten-3" id="<%=@menua_main.id%>">
+                    <i class="material-icons" >favorite</i>&nbsp;&nbsp;<%=@menua_main.u_like%>
                   </div>
-                  <%if@menuaingre!=nil%>
-        					<p>
-        						<%@menuaingre.each do |e|%>
-        							<%=e.titleize%>
-        							<%if e!=@menuaingre[-1]%>
-        							,
-        							<%end%>
-        						<%end%>
-        					</p>
-        					<%end%>
+                <%elsif cookies[@menua_main.kname.to_sym]=="0"||session[@menua_main.kname.to_sym]=="0"%>
+                  <div class="card-bottom-right like white grey-text" id="<%=@menua_main.id%>">
+                    <i class="material-icons" >favorite_border</i>&nbsp;&nbsp;<%=@menua_main.u_like%>
+                  </div>
+                <%elsif cookies[@menua_main.kname.to_sym]==nil||session[@menua_main.kname.to_sym]==nil%>
+                  <div class="card-bottom-right like white grey-text" id="<%=@menua_main.id%>">
+                    <i class="material-icons" >favorite_border</i>&nbsp;&nbsp;<%=@menua_main.u_like%>
+                  </div>
+                <%end%>
         					
-        					<p><%=@menuakcal%></p>
-                </div>
-              </p>
+              </div>
             </div>
           </div>
         </div>
-		<%end%>
+	  	<%end%>
 		<!--메뉴a 끝-->
 		
 		<!--메뉴b-->
 		
-		    <%if @menubprice==nil %>
-		    <%else%>
-		    <div class="row">
+      <%if @menubprice==nil %>
+      <%else%>
         <div class="col s12 m8 offset-m2 l6 offset-l3">
           <div class="card">
             <div class="card-content  ">
               <span class="card-title card-time">Menu B</span>
               <div class="divider"></div>
-              <p>
-                <div class="section">
-                  <div class="caf_times"> <%=@menubtime%> / <%=@menubprice%></div>
-        					<div class="caf_rep"><%=@menub.shift.titleize%></div>
-        					<p>
+              <div class="section">
+                <div class="caf_times"> <%=@menubtime%> / <%=@menubprice%></div>
+      					<div class="caf_rep"><%=@menub.shift.titleize%></div>
+        				<p>
       						<%snum=0%>
-      					    <%@menub.each do |s|%> 
-      		                <%if s!=@menub[0]%>
-      							   <%snum+=s.length+3%>
-      							   <%if snum>=32%>
+      					  <%@menub.each do |s|%> 
+      		          <%if s!=@menub[0]%>
+      							  <%snum+=s.length+3%>
+      							  <%if snum>=32%>
       			    				<br>
       			    				<%snum=0%>
       			    				<%snum+=s.length+3%>
-      			    			 <%else%>
+      			    			<%else%>
       			    			  ,
-      			    			 <%end%>
-      		    		 <%else%>
-      		    		   <%snum+=s.length+3%>
-      		    		 <%end%>
-      		    		 
-      		    		 <%=s.titleize%>
-      					    <%end%>
+      			    			<%end%>
+      		    		  <%else%>
+      		    		    <%snum+=s.length+3%>
+      		    		  <%end%>
+      		    		  <%=s.titleize%>
+      					  <%end%>
       					</p>
-                </div>
-                <div class="divider"></div>
-                <div class="section">
-                  <div class="right">
-                    <%if cookies[@menub_main.kname.to_sym]=="1"||session[@menub_main.kname.to_sym]=="1"%>
-                      <a class="btn like white red-text text-lighten-3" id="<%=@menub_main.id%>">
-                        <i class="material-icons" >favorite</i>&nbsp;&nbsp;<span style="font-size: 21px;"><%=@menub_main.u_like%></span>
-                      </a>
-                    <%elsif cookies[@menub_main.kname.to_sym]=="0"||session[@menub_main.kname.to_sym]=="0"%>
-                      <a class="btn like white grey-text" id="<%=@menub_main.id%>">
-                        <i class="material-icons" >favorite_border</i>&nbsp;&nbsp;<span style="font-size: 21px;"><%=@menub_main.u_like%></span>
-                      </a>
-                    <%elsif cookies[@menub_main.kname.to_sym]==nil||session[@menub_main.kname.to_sym]==nil%>
-                      <a class="btn like white grey-text" id="<%=@menub_main.id%>">
-                        <i class="material-icons" >favorite_border</i>&nbsp;&nbsp;<span style="font-size: 21px;"><%=@menub_main.u_like%></span>
-                      </a>
-                    <%end%>
-                  </div>
-                  <%if@menubingre!=nil%>
-        					<p>
-        						<%@menubingre.each do |e|%>
-        							<%=e.titleize%>
-        							<%if e!=@menubingre[-1]%>
-        							,
-        							<%end%>
-        						<%end%>
+              </div>
+              <div class="divider"></div>
+              <div class="section">
+                <div class="card-bottom-left">
+                  <p>
+                    <%if@menubingre!=nil%>
+          						<%@menubingre.each do |e|%>
+          							<%=e.titleize%>
+          							<%if e!=@menubingre[-1]%>
+          							,
+          							<%end%>
+          						<%end%>
+          						&nbsp;
+          					<%end%>
         					</p>
-        					<%end%>
-        					<p><%=@menubkcal%></p>
                 </div>
-              </p>
+                <div class="card-bottom-middle">
+                  <p>
+                    <%=@menubkcal%>&nbsp;
+                  </p>
+                </div>
+                <%if cookies[@menub_main.kname.to_sym]=="1"||session[@menub_main.kname.to_sym]=="1"%>
+                  <div class="card-bottom-right like white red-text text-lighten-3" id="<%=@menub_main.id%>">
+                    <i class="material-icons">favorite</i>&nbsp;&nbsp;<%=@menub_main.u_like%>
+                  </div>
+                <%elsif cookies[@menub_main.kname.to_sym]=="0"||session[@menub_main.kname.to_sym]=="0"%>
+                  <div class="card-bottom-right like white grey-text" id="<%=@menub_main.id%>">
+                    <i class="material-icons">favorite_border</i>&nbsp;&nbsp;<%=@menub_main.u_like%>
+                  </div>
+                <%elsif cookies[@menub_main.kname.to_sym]==nil||session[@menub_main.kname.to_sym]==nil%>
+                  <div class="card-bottom-right like white grey-text" id="<%=@menub_main.id%>">
+                    <i class="material-icons">favorite_border</i>&nbsp;&nbsp;<%=@menub_main.u_like%>
+                  </div>
+                <%end%>
+              </div>
             </div>
           </div>
         </div>
-      </div> 
-		<%end%>
+		  <%end%>
     <!--메뉴b 끝-->
     </div>
     <!--test4 끝-->
   </div>
     
-      <div class="fixed-action-btn click-to-toggle" style="bottom: 14px; right: 14px; opacity: 0.8;">
-          <a class="btn-floating btn-large white">
-            <i class="material-icons black-text">add</i>
+  <div class="fixed-action-btn click-to-toggle" style="bottom: 14px; right: 14px; opacity: 0.8;">
+    <a class="btn-floating btn-large white">
+      <i class="material-icons black-text">add</i>
+    </a>
+    <ul>
+      <%if @id!=0%><li><a class="btn-floating red" style="text-align:center;" href="/0/<%=@day%>">EN</a></li><%end%>
+      <%if @id!=4%><li><a class="btn-floating orange lighten-2 " style="text-align:center;" href="/4/<%=@day%>">한글</a></li><%end%>
+      <!--<%if @id!=1%><li><a class="btn-floating yellow darken-1"style="text-align:center;" href="/1/<%=@day%>">日本</a></li><%end%>-->
+      <%if @id!=2%><li><a class="btn-floating indigo" style="text-align:center;" href="/2/<%=@day%>">简写</a></li><%end%>
+      <!--<%if @id!=3%><li><a class="btn-floating blue" style="text-align:center;" href="/3/<%=@day%>">繁体</a></li> <%end%>-->
+      <%if @id!=6%><li><a class="btn-floating red darken-2" style="text-align:center;" href="/6/<%=@day%>">ES</a></li><%end%>
+      <%if @id!=7%><li><a class="btn-floating black" style="text-align:center;" href="/7/<%=@day%>">DE</a></li><%end%>
+      <%if @id!=8%><li><a class="btn-floating green" style="text-align:center;" href="/8/<%=@day%>">ITA</a></li><%end%>
+      <%if @id!=9%><li><a class="btn-floating teal" style="text-align:center;" href="/9/<%=@day%>">PO</a></li><%end%>
+    </ul>
+  </div>
+  
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h4>Mondayspoon</h4>
+      <p>Email: mondayspoon@gmail.com</p>
+      <div class="divider"></div>
+      <div class="section">
+        <a>Co-founder Marketer & Operator</a>
+        <h5>Jincheol Juhn</h5>
+      </div>
+          
+      <div class="divider"></div>
+      <div class="section">
+        <a>Co-founder Designer</a>
+        <h5>Soyoung Kim</h5>
+      </div>
+          
+      <div class="divider"></div>
+      <div class="section">
+        <a>Co-founder Developer</a>
+        <h5>Sangrok Lee</h5>
+      </div>
+          
+      <div class="divider"></div>
+      <div class="section">
+        <a>Co-founder Marketer & Operator</a>
+        <h5>Seungjoon Lee</h5>
+      </div>
+      
+      <div class="divider"></div>
+      <div class="section">
+        <a>Chinese Language Translator</a>
+        <h5>孙林同</h5>
+      </div>
+          
+      <div class="divider"></div>
+      <div class="section">
+        <a>German Language Translator</a>
+        <h5>Nane Sönnichsen</h5>
+      </div>
+      
+      <div class="divider"></div>
+      <div class="section">
+        <a>Italian Language Translator</a>
+        <h5>Francesca Liyanage</h5>
+      </div>
+      
+      <div class="divider"></div>
+      <div class="section">
+        <a>Italian Language Translator</a>
+        <h5>Arianna Colciago</h5>
+      </div>
+      
+      <div class="divider"></div>
+      <div class="section">
+        <a>Portuguese Language Translator</a>
+        <h5>Laura Torelli</h5>
+      </div>
+      
+      <div class="divider"></div>
+      <div class="section">
+        <a>Spanish Language Translator</a>
+        <h5>Maria Jose Alejandra - Valencia Ramirez</h5>
+      </div>
+      
+      <div class="divider"></div>
+      <div class="section">
+        <div class="right">
+          <a class="btn-floating btn-small white closebtn">
+              <i class="small material-icons black-text">clear</i>
           </a>
-        <ul>
-          <%if @id!=0%><li><a class="btn-floating red" style="text-align:center;" href="/0/<%=@day%>">EN</a></li><%end%>
-          <%if @id!=4%><li><a class="btn-floating orange lighten-2 " style="text-align:center;" href="/4/<%=@day%>">한글</a></li><%end%>
-          <!--<%if @id!=1%><li><a class="btn-floating yellow darken-1"style="text-align:center;" href="/1/<%=@day%>">日本</a></li><%end%>-->
-          <%if @id!=2%><li><a class="btn-floating indigo" style="text-align:center;" href="/2/<%=@day%>">简写</a></li><%end%>
-          <!--<%if @id!=3%><li><a class="btn-floating blue" style="text-align:center;" href="/3/<%=@day%>">繁体</a></li> <%end%>-->
-          <%if @id!=6%><li><a class="btn-floating red darken-2" style="text-align:center;" href="/6/<%=@day%>">ES</a></li><%end%>
-          <%if @id!=7%><li><a class="btn-floating black" style="text-align:center;" href="/7/<%=@day%>">DE</a></li><%end%>
-          <%if @id!=8%><li><a class="btn-floating green" style="text-align:center;" href="/8/<%=@day%>">ITA</a></li><%end%>
-          <%if @id!=9%><li><a class="btn-floating teal" style="text-align:center;" href="/9/<%=@day%>">PO</a></li><%end%>
-        </ul>
-      </div>
-    <div id="modal1" class="modal">
-        <div class="modal-content">
-            
-          <h4>
-              Mondayspoon
-              
-          </h4>
-          
-          <p>Email: mondayspoon@gmail.com</p>
-          <div class="divider"></div>
-          <div class="section">
-            <a>Co-founder Marketer & Operator</a>
-            <h5>Jincheol Juhn</h5>
-          </div>
-          
-          <div class="divider"></div>
-          <div class="section">
-            <a>Co-founder Designer</a>
-            <h5>Soyoung Kim</h5>
-          </div>
-          
-          <div class="divider"></div>
-          <div class="section">
-            <a>Co-founder Developer</a>
-            <h5>Sangrok Lee</h5>
-          </div>
-          
-          <div class="divider"></div>
-          <div class="section">
-            <a>Co-founder Marketer & Operator</a>
-            <h5>Seungjoon Lee</h5>
-          </div>
-          <div class="divider"></div>
-          <div class="section">
-            <a>Chinese Language Translator</a>
-            <h5>孙林同</h5>
-          </div>
-          
-          <div class="divider"></div>
-          <div class="section">
-            <a>German Language Translator</a>
-            <h5>Nane Sönnichsen</h5>
-          </div>
-          <div class="divider"></div>
-          <div class="section">
-            <a>Italian Language Translator</a>
-            <h5>Francesca Liyanage</h5>
-          </div>
-          <div class="divider"></div>
-          <div class="section">
-            <a>Italian Language Translator</a>
-            <h5>Arianna Colciago</h5>
-          </div>
-          <div class="divider"></div>
-          <div class="section">
-            <a>Portuguese Language Translator</a>
-            <h5>Laura Torelli</h5>
-          </div>
-          <div class="divider"></div>
-          <div class="section">
-            <a>Spanish Language Translator</a>
-            <h5>Maria Jose Alejandra - Valencia Ramirez</h5>
-          </div>
-          <div class="divider"></div>
-          <div class="section">
-            <div class="right">
-              <a class="btn-floating btn-small white closebtn">
-                  <i class="small material-icons black-text">clear</i>
-              </a>
-            </div>
-            
-          </div>
-          <br>
         </div>
+      </div>
+      
+      <br>
     </div>
+  </div>
     
-      <div id="modal2" class="modal">
-        <div class="modal-content">
-          <img class="responsive-img" src="https://s19.postimg.org/xpsdfz6tt/map.png">
-        </div>
-      </div>
-  <%if @breakfast_main!=nil&&@breakfast_main.u_picture!=nil&&@breakfast_main.u_picture!=""%>
-  <div id="modal-breakfast" class="modal">
+  <div id="modal2" class="modal">
     <div class="modal-content">
-      <img class="responsive-img" src="<%=@breakfast_main.u_picture%>">
+      <img class="responsive-img" src="https://s19.postimg.org/xpsdfz6tt/map.png">
     </div>
   </div>
-  <%end%>
-  
-  <%if @lunch1_main!=nil&&@lunch1_main.u_picture!=nil&&@lunch1_main.u_picture!=""%>
-  <div id="modal-lunch1" class="modal">
-    <div class="modal-content">
-      <img class="responsive-img" src="<%=@lunch1_main.u_picture%>">
-    </div>
-  </div>
-  <%end%>
-  
-  <%if @lunch2_main!=nil&&@lunch2_main.u_picture!=nil&&@lunch2_main.u_picture!=nil%>
-  <div id="modal-lunch2" class="modal">
-    <div class="modal-content">
-      <img class="responsive-img" src="<%=@lunch2_main.u_picture%>">
-    </div>
-  </div>
-  <%end%>
-  
-  <%if @lunchnoodle_main!=nil&&@lunchnoodle_main.u_picture!=nil&&@lunchnoodle_main.u_picture!=nil%>
-  <div id="modal-lunchnoodle" class="modal">
-    <div class="modal-content">
-      <img class="responsive-img" src="<%=@lunchnoodle_main.u_picture%>">
-    </div>
-  </div>
-  <%end%>
-  
-  <%if @dinner_main!=nil&&@dinner_main.u_picture!=nil&&@dinner_main.u_picture!=nil%>
-  <div id="modal-dinner" class="modal">
-    <div class="modal-content">
-      <img class="responsive-img" src="<%=@dinner_main.u_picture%>">
-    </div>
-  </div>
-  <%end%>
 <script>
 $(".button-collapse").sideNav();
 $('.modal-trigger').leanModal();
@@ -926,12 +956,12 @@ $('.materialboxed').materialbox();
       
       $("#"+did).removeAttr("onlick");
       if($("#"+did).hasClass("red-text")){
-        $("#"+did).html("<i class='material-icons'>favorite_border</i>&nbsp;&nbsp; <span style='font-size: 21px;'>"+data.like+"</span>");
+        $("#"+did).html("<i class='material-icons'>favorite_border</i>&nbsp;&nbsp;"+data.like);
         $("#"+did).removeClass("red-text text-lighten-3");
         $("#"+did).addClass("grey-text");
       }
       else{
-        $("#"+did).html("<i class='material-icons'>favorite</i>&nbsp;&nbsp; <span style='font-size: 21px;'>"+data.like+"</span>");
+        $("#"+did).html("<i class='material-icons'>favorite</i>&nbsp;&nbsp;"+data.like);
         $("#"+did).removeClass("grey-text");
         $("#"+did).addClass("red-text text-lighten-3");
       }
