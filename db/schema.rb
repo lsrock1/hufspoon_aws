@@ -164,10 +164,10 @@ ActiveRecord::Schema.define(version: 20160903145111) do
   end
 
   create_table "rmenus", force: :cascade do |t|
+    t.integer  "rest_id"
     t.string   "menuname"
     t.string   "emenuname"
     t.string   "content"
-    t.integer  "rest_id"
     t.integer  "cost"
     t.integer  "category"
     t.integer  "pagenum",    default: 1
