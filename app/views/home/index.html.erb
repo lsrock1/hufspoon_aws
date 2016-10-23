@@ -629,7 +629,9 @@
                   </p>
                 </div>
                 <div class="card-bottom-middle">
-                  <%=@fdinnerkcal%>&nbsp;
+                  <p>
+                    <%=@fdinnerkcal%>&nbsp;
+                  </p>
                 </div>
                 <%if cookies[@fdinner_main.kname.to_sym]=="1"||session[@fdinner_main.kname.to_sym]=="1"%>
                   <div class="card-bottom-right like white red-text text-lighten-3" id="<%=@fdinner_main.id%>">

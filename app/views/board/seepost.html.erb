@@ -15,7 +15,7 @@
             <% @allpost.each do|d|%>
             <tr>
                 <td><%=row%></td><%row=row-1%>
-                <td><a href="/board/post/<%=d.id%>"><%=d.title%></a></td>
+                <td><a href="/board/post/<%=d.id%>"><%=d.title%> (<%=d.comments.length%>)</a></td>
                 <td class="hide-on-small-only"><%=d.created_at.in_time_zone("Asia/Seoul").strftime("%m/%d  %H:%M")%></td>
             </tr>
             <%end%>

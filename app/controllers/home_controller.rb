@@ -89,23 +89,23 @@ class HomeController < ApplicationController
     #아예 처음이면
     
     check=Lunch1.find_by(:date => @day)
+    checkf=Flunch.find_by(date: @day)
+    checks=Menua.find_by(date: @day)
     begin
-      if check==nil
+      if @w==0
+        r_all=Rest.all
+        len=r_all.length
+        begin
+        seed_id=rand(0..len-1)
+        @ran_rest=r_all[seed_id]
+        rescue
+        @ran_rest=nil
+        end
+      elsif check==nil||checkf==nil||checks==nil
         parsing_func(@day)
       end
     rescue
     end
-    
-    if @w==0
-      r_all=Rest.all
-      len=r_all.length
-      begin
-      seed_id=rand(0..len-1)
-      @ran_rest=r_all[seed_id]
-      rescue
-      @ran_rest=nil
-      end
-    end#일요일이면 레스토랑 추천!
     
     @snack=[]
     @breakfast=[]
