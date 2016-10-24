@@ -1,34 +1,34 @@
 <div class="container">
-    <h2><%=@rest.name%></h2>
+  <h2><%=@rest.name%></h2>
     
-        <form id="mreform"action="/oadpage/addmenu" method="post">
-            <div class="form-group">
-              <label for="ex1">메뉴이름</label>
-              <input class="form-control" name="menuname"id="ex1" type="text">
-            </div>
-            <div class="form-group">
-              <label for="ex2">설명</label>
-              <input class="form-control" name="content"id="ex2" type="text">
-            </div>
-            <div class="form-group">
-              <label for="ex3">페이지</label>
-              <input class="form-control" name="pagenum"id="ex3" type="text" value="1">
-            </div>
-            <div class="form-group">
-              <label for="ex4">가격</label>
-              <input class="form-control" type="text"name="cost"id="ex4">
-            </div>
-            <input type="hidden" name="backid" value="<%=@rest.id%>">
-            <button id="mrebut"class="btn">저장</button>
-        </form>
-        <button style="display:none"id="mrecan"class="btn btn-default">수정취소</button>
-        <form action="/oadpage/page/<%=@rest.id%>" method="post">
-            <div class="form-group">
-              <label for="page">페이지 구성</label>
-              <input class="form-control" name="page"id="page" type="text" value="<%=@rest.page%>">
-            </div>
-            <button class="btn">변경</button>
-        </form>
+  <form id="mreform"action="/oadpage/addmenu" method="post">
+      <div class="form-group">
+        <label for="ex1">메뉴이름</label>
+        <input class="form-control" name="menuname"id="ex1" type="text">
+      </div>
+      <div class="form-group">
+        <label for="ex2">설명</label>
+        <input class="form-control" name="content"id="ex2" type="text">
+      </div>
+      <div class="form-group">
+        <label for="ex3">페이지</label>
+        <input class="form-control" name="pagenum"id="ex3" type="text" value="1">
+      </div>
+      <div class="form-group">
+        <label for="ex4">가격</label>
+        <input class="form-control" type="text"name="cost"id="ex4">
+      </div>
+      <input type="hidden" name="backid" value="<%=@rest.id%>">
+      <button id="mrebut"class="btn">저장</button>
+  </form>
+  <button style="display:none"id="mrecan"class="btn btn-default">수정취소</button>
+  <form action="/oadpage/page/<%=@rest.id%>" method="post">
+    <div class="form-group">
+      <label for="page">페이지 구성</label>
+      <input class="form-control" name="page"id="page" type="text" value="<%=@rest.page%>">
+    </div>
+    <button class="btn">변경</button>
+  </form>
     <div class="table-responsive">
         <table class="table">
             <tr>
@@ -53,19 +53,14 @@
             </tr>
             <%end%>
         </table>
-        <form id="delform"style="display:none"method="get">
-            
-        </form>
     </div>
     <a type="button" href="/oadpage/dbmain"><button class="btn btn-default">돌아가기</button></a>
 </div>
 <script>
     $(".del").click(function(){
         var thisid=$(this).attr("id");
-        $("#delform").attr("action","/oadpage/delmenu/"+thisid);
-        
         if (confirm("정말 삭제하시겠습니까?")==true){
-            $("#delform").submit();
+            window.location.href="/oadpage/delmenu/"+thisid;
         }
         else{
             return;

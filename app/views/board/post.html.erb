@@ -1,102 +1,97 @@
+<nav>
+  <div class="nav-wrapper main_nav">
+    
+    <ul class="left">
+      <li><a href="/board/seepost/1"><i class="material-icons">undo</i></a></li>
+    </ul>
+    <a class="brand-logo center">WRITE POST</a>
+  </div>
+</nav>
 <div class="row">
-    <div class="col s12 m8 offset-m2 l8 offset-l2">
-    <a href="/board/seepost/1"><button class="btn btn-default">Back</button></a>
-    
-      <div class="card">
-        <div class="card-content">
-          <span class="card-title"><%=@p.title%></span>
-          <div class="divider"></div>
-          <p>
-            <div class="section">
-                <%=@p.content%>
-                <br><br>Date: <%=@p.created_at.in_time_zone("Asia/Seoul").strftime("%m/%d  %H:%M")%>
-            </div>
-            <%if @p.name=='admin'%>
-                <div class="divider"></div>
-                <h6 style="color:#002D56;"><%=@p.name%>/<%=@p.level%></h6>
-            <%end%>
-            
-
-            <%if admin_signed_in?%>
-                <br><button class="del btn btn-warning" id="<%=@p.id%>">삭제</button>
-            <%end%></p>
+  <div class="col s12 m8 offset-m2 l8 offset-l2">
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title"><%=@p.title%></span>
+        <div class="divider"></div>
+        <p>
+        <div class="section">
+          <%=@p.content%>
+          <br><br>Date: <%=@p.created_at.in_time_zone("Asia/Seoul").strftime("%m/%d  %H:%M")%>
         </div>
-      </div>
-      
-      <div class="card">
-        <div class="card-content">
-          <span class="card-title">Reply</span>
+        <%if @p.name=='admin'%>
           <div class="divider"></div>
-          <p>
-               <form method="post" action="/board/comment/<%=@p.id%>">
-                <%if session[:level]!=nil%>
-                <input name="name"value="<%=session[:name]%>" type="hidden">
-    		    <input name="level"value="<%=session[:level]%>" type="hidden">
-    		    <input name="num"value="<%=session[:num]%>" type="hidden">
-    		    <%end%>
-    		    <div class="input-field">
-    				<textarea id="ex2" name="content" class="materialize-textarea"></textarea>
-    				<label for="ex2">content</label>
-    			</div>
-    			<button class="btn btn-class">작성</button>
-            </form>
-          </p>
-        </div>
-      </div>
-      
-      
-        <% @allcom.each do |a|%>
-        <div class="card">
-            <div class="card-panel">
-              <span>
-                    <%=a.content%>
-                    <br><br>Date: <%=a.created_at.in_time_zone("Asia/Seoul").strftime("%m/%d  %H:%M")%>
-                
-                <%if a.name=='admin'%>
-                    <div class="divider"></div>
-                    <h6 style="color:#002D56;"><%=a.name%>/<%=a.level%></h6>
-                <%end%>
-                
-    
-                <%if admin_signed_in?%>
-                    <br><button class="cdel btn btn-warning" id="<%=a.id%>">삭제</button>
-                <%end%>
-              </span>
-            </div>
-          </div>
+          <h6 style="color:#002D56;"><%=@p.name%>/<%=@p.level%></h6>
         <%end%>
-        
+        <%if admin_signed_in?%>
+          <br><button class="del btn btn-warning" id="<%=@p.id%>">삭제</button>
+        <%end%></p>
+      </div>
     </div>
+    
+    <% @allcom.each do |a|%>
+      <div class="card">
+        <div class="card-panel">
+          <span>
+            <%=a.content%>
+            <br><br>
+            Date: <%=a.created_at.in_time_zone("Asia/Seoul").strftime("%m/%d  %H:%M")%>
+                
+            <%if a.name=='admin'%>
+              <div class="divider"></div>
+              <h6 style="color:#002D56;"><%=a.name%>/<%=a.level%></h6>
+            <%end%>
+            <%if admin_signed_in?%>
+              <br>
+              <button class="cdel btn btn-warning" id="<%=a.id%>">삭제</button>
+            <%end%>
+          </span>
+        </div>
+      </div>
+    <%end%>
+    
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">Reply</span>
+        <div class="divider"></div>
+        <p>
+          <form method="post" action="/board/comment/<%=@p.id%>">
+            <%if session[:level]!=nil%>
+              <input name="name"value="<%=session[:name]%>" type="hidden">
+      		    <input name="level"value="<%=session[:level]%>" type="hidden">
+      		    <input name="num"value="<%=session[:num]%>" type="hidden">
+      		  <%end%>
+      		  <div class="input-field">
+      				<textarea id="ex2" name="content" class="materialize-textarea"></textarea>
+      				<label for="ex2">content</label>
+      			</div>
+      			<button class="btn btn-class">Send</button>
+          </form>
+        </p>
+      </div>
+    </div>
+      
+  </div>
 </div>
-<form id="delform" method="get">
-            
-</form>
 <script>
 $('#ex2').trigger('autoresize');
-    <%if session[:level]!=nil%>
+  <%if session[:level]!=nil%>
     $(".del").click(function(){
-        var thisid=$(this).attr("id");
-        $("#delform").attr("action","/board/remove/"+thisid);
-        
-        if (confirm("정말 삭제하시겠습니까?")==true){
-            $("#delform").submit();
-        }
-        else{
-            return;
-        }
-        
+      var thisid=$(this).attr("id");
+      if (confirm("정말 삭제하시겠습니까?")==true){
+          window.location.href="/board/remove/"+thisid;
+      }
+      else{
+          return;
+      }
     });
     $(".cdel").click(function(){
         var thisid=$(this).attr("id");
-        $("#delform").attr("action","/board/cremove/"+thisid);
-        
         if (confirm("정말 삭제하시겠습니까?")==true){
-            $("#delform").submit();
+            window.location.href="/board/cremove/"+thisid;
         }
         else{
             return;
         }
-        
     });
-    <%end%>
+  <%end%>
 </script>

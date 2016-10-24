@@ -1,28 +1,48 @@
+<nav>
+  <div class="nav-wrapper main_nav">
+    
+    <ul class="left">
+      <li><a href="/"><i class="material-icons">undo</i></a></li>
+    </ul>
+    <a class="brand-logo center">Q & A</a>
+    <ul class="right">
+      <li><a><i class="material-icons opener">search</i></a></li>
+    </ul>
+  </div>
+  
+  <div class="nav-wrapper nav_form">
+    <form>
+      <div class="input-field">
+        <input id="search" type="search" name="keyword"required>
+        <label for="search"><i class="material-icons black-text">search</i></label>
+        <i class="material-icons closer black-text">close</i>
+      </div>
+    </form>
+  </div>
+</nav>
 <div class="row">
-    <div class="col s12 m8 offset-m2 l8 offset-l2">
-    <a href="/"><button class="btn btn-default">Home</button></a>
-    <a href="/board/write" class="btn btn-default" role="button">Write</a>
+  <div class="col s12 m8 offset-m2 l8 offset-l2">
     <div class="table-responsive" >
-        <table class="table">
-            <thead >
-                <tr>
-                    <th>Number</th>
-                    <th>Title</th>
-                    <th class="hide-on-small-only">Date</th>
-                </tr>
-            </thead>
-            <%row=@allpost.length+20*(@id-1)%>
-            <% @allpost.each do|d|%>
-            <tr>
-                <td><%=row%></td><%row=row-1%>
-                <td><a href="/board/post/<%=d.id%>"><%=d.title%> (<%=d.comments.length%>)</a></td>
-                <td class="hide-on-small-only"><%=d.created_at.in_time_zone("Asia/Seoul").strftime("%m/%d  %H:%M")%></td>
-            </tr>
-            <%end%>
-        </table>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Number</th>
+            <th>Title</th>
+            <th class="hide-on-small-only">Date</th>
+          </tr>
+        </thead>
+        <%row=@allpost.length+20*(@id-1)%>
+        <% @allpost.each do|d|%>
+          <tr>
+            <td><%=row%></td><%row=row-1%>
+            <td><a href="/board/post/<%=d.id%>"><%=d.title%> (<%=d.comments.length%>)</a></td>
+            <td class="hide-on-small-only"><%=d.created_at.in_time_zone("Asia/Seoul").strftime("%m/%d  %H:%M")%></td>
+          </tr>
+        <%end%>
+      </table>
     </div>
-  <ul class="pagination center-align">
-    <%@num.times do|n|%>
+    <ul class="pagination center-align">
+      <%@num.times do|n|%>
         <%if @id==n+1%>
           <li class="active">
             <a href="/board/seepost/<%=n+1%>"><%=n+1%></a>
@@ -30,9 +50,37 @@
         <%else%>
           <li class="waves-effect"><a href="/board/seepost/<%=n+1%>"><%=n+1%></a></li>
         <%end%>
-    <%end%>
-  </ul>
-  <%if session[:level]==nil%><a class="right"href="/board/hufslogin">admin</a>
-  <%else%><a class="right"href="/board/out">logout</a><%end%>
+      <%end%>
+    </ul>
+    <div class="fixed-action-btn click-to-toggle" style="bottom: 14px; right: 14px; opacity: 0.8;">
+      <a class="btn-floating btn-large red" href="/board/write">
+        <i class="material-icons">mode_edit</i>
+      </a>
+    </div>
+    
+    
+    <div class="fixed-action-btn click-to-toggle" style="bottom: 80px; right: 14px; opacity: 0.8;">
+      <%if session[:level]==nil%>
+        <a class="btn-floating btn-large white" href="/board/hufslogin">
+          <i class="material-icons black-text">supervisor_account</i>
+        </a>
+      <%else%>
+        <a class="btn-floating btn-large white" href="/board/out">
+          <i class="material-icons black-text">lock</i>
+        </a>
+      <%end%>
+      
+    </div>
   </div>
 </div>
+<script>
+  $(".opener").click(function(){
+  $(".main_nav").hide();
+  $(".nav_form").fadeIn();
+    document.getElementById("search").focus();
+  })
+  $(".closer").click(function(){
+    $(".nav_form").hide();
+    $(".main_nav").fadeIn();
+  })
+</script>

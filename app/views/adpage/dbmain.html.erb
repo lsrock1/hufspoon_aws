@@ -133,12 +133,6 @@
     <%end%>
   </ul>
 <%end%>
-<form id="reform" method="get">
-    
-</form>
-<form id="delform" method="get">
-    
-</form>
     
 
 <!--</div>-->
@@ -147,21 +141,17 @@
 <script>
     
     $(".re").click(function(){
-        var thisid=$(this).attr("id");
-        $("#reform").attr("action","/adpage/rewritemenu/"+thisid+"/<%=@info%>");
-        $("#reform").submit();
+      var thisid=$(this).attr("id");
+      window.location.href="/adpage/rewritemenu/"+thisid+"/<%=@info%>";
     });
     $(".del").click(function(){
-        var thisid=$(this).attr("id");
-        $("#delform").attr("action","/adpage/delmenu/"+thisid);
-        
-        if (confirm("정말 삭제하시겠습니까?")==true){
-            $("#delform").submit();
-        }
-        else{
-            return;
-        }
-        
+      var thisid=$(this).attr("id");
+      if (confirm("정말 삭제하시겠습니까?")==true){
+        window.location.href="/adpage/delmenu/"+thisid;
+      }
+      else{
+        return;
+      }
     });
     $(".button-collapse").sideNav();
      $(".opener").click(function(){
