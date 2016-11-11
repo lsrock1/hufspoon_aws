@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   devise_for :admins
   
+  get '/refresh/:day' => 'adpage#refresh'
+  
   get '/keyboard' => 'chatbot#keyboard'
   post '/message' => 'chatbot#message'
   delete '/friend/:user_key' => 'chatbot#delfriend'

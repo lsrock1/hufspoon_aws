@@ -814,6 +814,7 @@
       <%if @id!=7%><li><a class="btn-floating black" style="text-align:center;" href="/7/<%=@day%>">DE</a></li><%end%>
       <%if @id!=8%><li><a class="btn-floating green" style="text-align:center;" href="/8/<%=@day%>">ITA</a></li><%end%>
       <%if @id!=9%><li><a class="btn-floating teal" style="text-align:center;" href="/9/<%=@day%>">PO</a></li><%end%>
+      <%if admin_signed_in? || session[:num]!=nil&&session[:name]!=nil&&session[:level]!=nil%><li><a class="btn-floating black" style="text-align:center;" href="/refresh/<%=@day%>"><i class="material-icons">refresh</i></a></li><%end%>
     </ul>
   </div>
   

@@ -1,5 +1,5 @@
 class AdpageController < ApplicationController
-  before_action :require_login
+  before_action :require_login, except: :refresh
   #########db관리메인페이지##################
   def dbmain
     instance=[]
@@ -35,6 +35,16 @@ class AdpageController < ApplicationController
       end
     end
     redirect_to '/adpage/dbmain/1'
+  end
+  
+  def refresh
+    require_session
+    day=params[:day]
+    [Breakfast,Lunch1,Lunch2,Lunchnoodle,Dinner,Flunch,Fdinner,Menua,Menub].
+    map{|meal| meal.find_by(date: day)}.
+    select{|meal| meal!=nil}.
+    map{|meal| meal.destroy}
+    redirect_to "/"
   end
   
   def out
