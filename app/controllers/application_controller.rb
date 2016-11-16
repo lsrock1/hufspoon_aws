@@ -21,15 +21,15 @@ class ApplicationController < ActionController::Base
   def make_list data,day,id
     menu_data=data.find_by(date: day)
     innum=0
+    ingre=[]
+    
     unless menu_data==nil
-      ingre=[]
       menu_list=[]
       kcal=nil
       price=nil
       main=nil
       
-      menu_data=menu_data.menu
-      menu_data=menu_data.split("$")
+      menu_data=menu_data.menu.split("$")
       
       if data.getname=='Lunch 1'||data.getname=='Lunch 2'||data.getname=='dinner'||data.getname=='Breakfast'||data.getname=='Lunch Noodles'
         time=menu_data.shift
