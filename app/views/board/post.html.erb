@@ -19,9 +19,9 @@
         </div>
         <%if @p.name=='admin'%>
           <div class="divider"></div>
-          <h6 style="color:#002D56;"><%=@p.name%>/<%=@p.level%></h6>
+          <h6 style="color:#002D56;"><%=@p.level%></h6>
         <%end%>
-        <%if admin_signed_in?%>
+        <%if admin_signed_in?||session[:num]=="0"&&session[:name]=="admin"&&session[:level]=="인문관영양사"%>
           <br><button class="del btn btn-warning" id="<%=@p.id%>">삭제</button>
         <%end%></p>
       </div>
@@ -37,9 +37,9 @@
                 
             <%if a.name=='admin'%>
               <div class="divider"></div>
-              <h6 style="color:#002D56;"><%=a.name%>/<%=a.level%></h6>
+              <h6 style="color:#002D56;"><%=a.level%></h6>
             <%end%>
-            <%if admin_signed_in?%>
+            <%if admin_signed_in?||session[:num]=="0"&&session[:name]=="admin"&&session[:level]=="인문관영양사"%>
               <br>
               <button class="cdel btn btn-warning" id="<%=a.id%>">삭제</button>
             <%end%>

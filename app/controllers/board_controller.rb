@@ -11,7 +11,7 @@ class BoardController < ApplicationController
     elsif params[:userId]==ENV["caf_id"]&&params[:userPw]==ENV["caf_pwd"]
         session[:name]="admin"
         session[:num]="0"
-        session[:level]="영양사님"
+        session[:level]="인문관영양사"
         redirect_to "/board/seepost/1"
     end
   end
@@ -30,7 +30,7 @@ class BoardController < ApplicationController
   end
   
   def remove
-     if admin_signed_in?
+      if admin_signed_in?||session[:num]=="0"&&session[:name]=="admin"&&session[:level]=="인문관영양사"
         id=params[:id]
         delpost=Post.find(id)
         delcomment=Comment.where(:post_id => delpost.id)
@@ -41,13 +41,13 @@ class BoardController < ApplicationController
         
         delpost.destroy
         redirect_to '/board/seepost/1'
-     else
-        redirect_to :back 
-     end
+      else
+        redirect_to :back
+      end
   end
   
   def cremove
-      if admin_signed_in?
+      if admin_signed_in?||session[:num]=="0"&&session[:name]=="admin"&&session[:level]=="인문관영양사"
         id=params[:id]
         
         delcomment=Comment.find(id)

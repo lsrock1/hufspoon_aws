@@ -14,6 +14,7 @@ class CreateMenulists < ActiveRecord::Migration
       t.string :portugal
       t.string :u_picture
       t.integer :u_like, default: 0
+      t.string :french
       t.timestamps null: false
     end
   end

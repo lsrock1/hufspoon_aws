@@ -133,6 +133,7 @@ ActiveRecord::Schema.define(version: 20160903145111) do
     t.string   "portugal"
     t.string   "u_picture"
     t.integer  "u_like",     default: 0
+    t.string   "french"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end

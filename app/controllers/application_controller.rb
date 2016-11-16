@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   #protect_from_forgery with: :exception
+  
   def require_login
     unless admin_signed_in?
       redirect_to "/admins/sign_in"
@@ -16,108 +17,105 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  def new_menu(a)
-    
-    nmenu=Menulist.new(:kname => a,:ename => a,:ername => a, :jnamea => a,:cname => a,:cnameb => a,:aname => a,:spanish => a,:germany => a, :italia => a,:portugal => a)
-    nmenu.save
-    
-  end
   
-  #a는 텍스트 b는 id코드
-  def transout(a,b)
-    if b==0#영어
-      return Menulist.find_by(:kname => a).ename.to_s
-    elsif b==1#일본어
-      return Menulist.find_by(:kname => a).jnamea.to_s
-    elsif b==2#중국어 간체
-      return Menulist.find_by(:kname => a).cname.to_s
-    elsif b==3# 중국어 번체
-      return Menulist.find_by(:kname => a).cnameb.to_s
-    elsif b==4#한국어
-      return a
-    elsif b==5#아랍어
-      return Menulist.find_by(:kname => a).aname.to_s
-    elsif b==6 #스페인어 
-      return Menulist.find_by(:kname => a).spanish.to_s
-    elsif b==7 #독일어
-      return Menulist.find_by(:kname => a).germany.to_s
-    elsif b==8 #이탈리아어
-      return Menulist.find_by(:kname => a).italia.to_s
-    elsif b==9 #포르투갈어
-      return Menulist.find_by(:kname => a).portugal.to_s
-    end  
-  end
-  
-  def checkexist(kname,tid)
-    search=Menulist.find_by(:kname => kname)
-    #한글 이름이 아예 저장이 안되어있으면 nil 반환
-    if search==nil
-      return nil
-    elsif tid==4#한국어
-      return 1
-    end
-    
-    #return 0은 번역이 있지만 해당 언어가 비어있거나 한국어일 경우
-    #1은 번역이 있는 경우
-    #nil은 번역 자체가 없는 경우
-    
-    if tid==0 #영어
-      if search.ename.to_s.strip==""||search.ename.to_s.strip==kname
-        return 0
+  def make_list data,day,id
+    menu_data=data.find_by(date: day)
+    innum=0
+    unless menu_data==nil
+      ingre=[]
+      menu_list=[]
+      kcal=nil
+      price=nil
+      main=nil
+      
+      menu_data=menu_data.menu
+      menu_data=menu_data.split("$")
+      
+      if data.getname=='Lunch 1'||data.getname=='Lunch 2'||data.getname=='dinner'||data.getname=='Breakfast'||data.getname=='Lunch Noodles'
+        time=menu_data.shift
+        menu_data.each do |l|
+          if l.index(':')!=nil
+            ingre.concat(makeingre(l,id))
+          elsif l[-1]=="l"
+            kcal=l
+          elsif l[-1]=="원"
+            price=l[0..-2]+"won"
+          else
+            xfood=l.strip
+            menu_list.push(Menulist.gettrans(xfood,id))
+            if innum==0
+              main=Menulist.find_by(:kname => xfood)
+            end
+          end
+            
+          innum=1+innum
+        end
+      elsif data.getname=='Snack'
+        time='09:00~18:40'
+          menu_data.each do|s|
+            if s.index("(")!=nil
+              s=s.strip
+              s=s.gsub('*', '')
+              s=s.sub("원"," won")
+              sfirst=s.index("(")-1
+              food=s[0..sfirst]
+              food=food.split("/")
+              
+              
+              food.each do |f|
+                temp=Menulist.gettrans(f,id)
+                menu_list.push(temp+" "+s[sfirst+1..-1])
+              end
+              
+            end
+          end
+        
       else
-        return 1
-      end
-    elsif tid==1#일본어
-      if search.jnamea.to_s.strip==""||search.jnamea.to_s.strip==kname
-        return 0
-      else
-        return 1
-      end
-    elsif tid==2#중국어 간체
-      if search.cname.to_s.strip==""||search.cname.to_s.strip==kname
-        return 0
-      else
-        return 1
-      end
-    elsif tid==3#중국어 번체
-      if search.cnameb.to_s.strip==""||search.to_s.strip==kname
-        return 0
-      else
-        return 1
-      end
-    elsif tid==5
-      if search.aname.to_s.strip==""||search.aname.to_s.strip==kname
-        return 0
-      else
-        return 1
-      end
-    elsif tid==6#스페인어
-      if search.spanish.to_s.strip==""||search.spanish.to_s.strip==kname
-        return 0
-      else
-        return 1
-      end
-    elsif tid==7#독일어
-      if search.germany.to_s.strip==""||search.germany.to_s.strip==kname
-        return 0
-      else
-        return 1
-      end
-    elsif tid==8#이탈리아어
-      if search.italia.to_s.strip==""||search.italia.to_s.strip==kname
-        return 0
-      else
-        return 1
-      end
-    elsif tid==9#포르투갈어
-      if search.portugal.to_s.strip==""||search.portugal.to_s.strip==kname
-        return 0
-      else
-        return 1
+        
+        time=menu_data.shift
+        menu_data.each do |l|
+          if l[-1]=="l"
+            kcal=l
+          elsif l[-1]=="원"
+            price=l[0..-2]+" won"
+          else
+            if l.index("(")!=nil
+              xfirst=l.index("(")
+              xfood=l[0..(xfirst-1)].strip
+              ingre.concat(makeingre(l[xfirst..-1],id))
+            else
+              xfood=l.strip
+            end
+            
+            #메뉴가 이상한 문자로 엮여있을 경우
+            if xfood.index("&")!=nil||xfood.index("/")!=nil||xfood.index("-")!=nil
+              menu_list.push(spliter(xfood,id))
+              if innum==0
+                main=extract(xfood)
+              end
+            else
+              
+              menu_list.push(Menulist.gettrans(xfood,id))
+              if innum==0
+                main=Menulist.find_by(:kname => xfood)
+              end
+            end
+          end
+          innum=1+innum
+        end
+        
       end
     end
+    return {
+      'name' => data.getname,
+      'time' => time,
+      'kcal' => kcal,
+      'price' => price,
+      'ingre' => ingre.uniq,
+      'menu' => menu_list,
+      'main' => main
+    }
   end
-  
   
   def makeingre(string,tid)
     returnvalue=[]
@@ -133,15 +131,7 @@ class ApplicationController < ActionController::Base
         mark=':'
       end
       ingre=s.split(mark).first
-      existvalue=checkexist(ingre,tid)
-      if existvalue==0
-        returnvalue.append(ingre)
-      elsif existvalue==1
-        returnvalue.append(transout(ingre,tid))
-      else
-        returnvalue.append(ingre)
-        new_menu(ingre)
-      end
+      returnvalue.append(Menulist.gettrans(ingre,tid))
     end
     if returnvalue==[]
       return nil
@@ -160,58 +150,21 @@ class ApplicationController < ActionController::Base
   
   def spliter(xfood,tid)
     result_string=""
-    if xfood.index("&")!=nil
-      divide=xfood.split("&")
-      result=[]
-      divide.each do |d|
-        judvar=checkexist(d,tid)
-        if judvar==nil
-          result.push(d)
-          new_menu(d)
-        elsif judvar==1
-          result.push(transout(d,tid))
-        else
-          result.push(d)
+    ['&','/','-'].each do |word|
+      if xfood.index(word)!=nil
+        divide=xfood.split(word)
+        result=[]
+        divide.each do |d|
+          result.push(Menulist.gettrans(d,tid))
         end
+        result_string=result.join(word)
       end
-      result_string=result.join("&")
-    elsif xfood.index("/")!=nil
-      divide=xfood.split("/")
-      result=[]
-      divide.each do |d|
-        judvar=checkexist(d,tid)
-        if judvar==nil
-          result.push(d)
-          new_menu(d)
-        elsif judvar==1
-          result.push(transout(d,tid))
-        else
-          result.push(d)
-        end
-      end
-      result_string=result.join("/")
-    else
-      divide=xfood.split("-")
-      result=[]
-      divide.each do |d|
-        judvar=checkexist(d,tid)
-        if judvar==nil
-          result.push(d)
-          new_menu(d)
-        elsif judvar==1
-          result.push(transout(d,tid))
-        else
-          result.push(d)
-        end
-      end
-      result_string=result.join("-")
     end
-    
     return result_string
   end
   
-  def how_like(xfood,order)
-    #order가 1이면 증가시킴
+  def extract xfood
+    
     if xfood.index("&")!=nil
        divide=xfood.split("&")
        
@@ -221,11 +174,6 @@ class ApplicationController < ActionController::Base
        divide=xfood.split("-")
     end
     result=Menulist.find_by(:kname => divide[0])
-    if order==1
-     
-      result.u_like=result.u_like+1
-      result.save
-    end
     return result
   end
   
