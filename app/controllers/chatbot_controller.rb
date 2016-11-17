@@ -150,7 +150,7 @@ class ChatbotController < ApplicationController
                     #--문자열 가공
                     menulist.each do |meal|
                       if meal['price']!=nil||meal['kcal']!=nil
-                        info="<<"+meal['name'].titleize+">>"+
+                        info=info+"<<"+meal['name'].titleize+">>"+
                           "\n"+meal['time']+"/"+meal['price']+
                           "\n"+"\n"+meal['menu'].shift.titleize
                           if meal['menu']!=[]
