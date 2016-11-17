@@ -40,7 +40,7 @@ class Menulist < ActiveRecord::Base
       elsif id==10
         word= menu.french
       end
-      if word!=""
+      if word!=""&&word!=nil
         return word
       else
         return kname
