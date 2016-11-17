@@ -37,7 +37,8 @@
           <%if menu['name']=='Breakfast'%>
               <div id="test1" class="col s12">
           <%elsif menu['name']=='Snack'%>
-              <%if @w==0&&@ran_rest!=nil%>
+          
+              <%if @w.to_i==0&&@ran_rest!=nil%>
                   <div class="col s12 m8 offset-m2 l6 offset-l3">
                       <div class="card">
                         <div class="card-image">
