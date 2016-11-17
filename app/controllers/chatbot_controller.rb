@@ -164,6 +164,7 @@ class ChatbotController < ApplicationController
                           if meal['kcal']!=nil
                            info=info+"\n"+meal['kcal']
                           end
+                          info=info+"\n"
                       end
                     end
                     
