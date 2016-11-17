@@ -154,7 +154,7 @@ class ChatbotController < ApplicationController
                           "\n"+meal['time']+"/"+meal['price']+
                           "\n"+"\n"+meal['menu'].shift.titleize
                           if meal['menu']!=[]
-                             info=info+"\n"+menu['menu'].join(",")
+                             info=info+"\n"+meal['menu'].join(",")
                           end
                           if meal['ingre']!=[]
                               info=info+"\n"+"\n"+meal['ingre'].join(",")
