@@ -167,7 +167,8 @@ class AdpageController < ApplicationController
       worksheet.write(num,8,a.germany)
       worksheet.write(num,9,a.italia)
       worksheet.write(num,10,a.portugal)
-      worksheet.write(num,11,a.u_picture)
+      worksheet.write(num,11,a.french)
+      worksheet.write(num,12,a.u_picture)
       num=num+1
     end
       workbook.close
@@ -222,7 +223,10 @@ class AdpageController < ApplicationController
               exme.portugal=s[10]
               end
               if s[11]!=""&&s[11]!=nil
-              exme.u_picture=s[11]
+              exme.french=s[11]
+              end
+              if s[12]!=""&&s[12]!=nil
+              exme.u_picture=s[12]
               end
               exme.save
             else
@@ -239,7 +243,8 @@ class AdpageController < ApplicationController
               newme.germany=s[8]
               newme.italia=s[9]
               newme.portugal=s[10]
-              newme.u_picture=s[11]
+              newme.french=s[11]
+              newme.u_picture=s[12]
               newme.save
               
             end

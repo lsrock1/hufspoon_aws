@@ -166,8 +166,9 @@
                 			      <%=menu['kcal']%>&nbsp;
                 			    </p>
                 			  </div>
-                			  
-              			    <%if cookies[menu['main'].kname.to_sym]=="1"||session[menu['main'].kname.to_sym]=="1"%>
+                		
+                		<%if menu['name']=="Breakfast"||menu['name']=='dinner'||menu['name']=='Lunch 1'||menu['name']=='Lunch 2'||menu['name']=='Lunch Noodles' %>	  
+              			<%if cookies[menu['main'].kname.to_sym]=="1"||session[menu['main'].kname.to_sym]=="1"%>
                           <div class="card-bottom-right like white red-text text-lighten-3" id="<%=menu['main'].id%>">
                             <i class="material-icons">favorite</i>&nbsp;&nbsp;<%=menu['main'].u_like%>
                           </div>
@@ -180,7 +181,7 @@
                             <i class="material-icons">favorite_border</i>&nbsp;&nbsp;<%=menu['main'].u_like%>
                           </div>
                         <%end%>
-                			  
+                	    <%end%>
                       </div>
                     </div>
                   </div>
