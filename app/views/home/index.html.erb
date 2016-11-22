@@ -139,11 +139,11 @@
                 		      <%end%>
               			    </p>
               			  </div>
-              			  
+              			  <%if menu['name']=="Breakfast"||menu['name']=='dinner'||menu['name']=='Lunch 1'||menu['name']=='Lunch 2'||menu['name']=='Lunch Noodles' %>
               			  <%if menu['main']!=nil&& menu['main'].u_picture!=nil&& menu['main'].u_picture!=""%>
               			    <img src="<%=menu['main'].u_picture%>" height="150" style="max-width: 100%; height: 150px; width:100%">
               			  <%end%>
-              			  
+              			  <%end%>
               			  <div class="divider"></div>
               			  <div class="section contain">
                 			  <div class="card-bottom-left">
