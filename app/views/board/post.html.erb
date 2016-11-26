@@ -15,7 +15,9 @@
         <p>
         <div class="section">
           <%=@p.content%>
-          <br><br>Date: <%=@p.created_at.in_time_zone("Asia/Seoul").strftime("%m/%d  %H:%M")%>
+          <br><br>
+          Date: <%=@p.created_at.in_time_zone("Asia/Seoul").strftime("%m/%d  %H:%M")%> &nbsp
+          Ip: <%if @p.ip!=nil%><%=@p.ip%><%end%>
         </div>
         <%if @p.name=='admin'%>
           <div class="divider"></div>
@@ -23,6 +25,7 @@
         <%end%>
         <%if admin_signed_in?||session[:num]=="0"&&session[:name]=="admin"&&session[:level]=="인문관영양사"%>
           <br><button class="del btn btn-warning" id="<%=@p.id%>">삭제</button>
+          <button class="block btn btn-warning" id="b<%=@p.id%>">차단</button>
         <%end%></p>
       </div>
     </div>
@@ -33,8 +36,8 @@
           <span>
             <%=a.content%>
             <br><br>
-            Date: <%=a.created_at.in_time_zone("Asia/Seoul").strftime("%m/%d  %H:%M")%>
-                
+            Date: <%=a.created_at.in_time_zone("Asia/Seoul").strftime("%m/%d  %H:%M")%> &nbsp
+            Ip: <%if a.ip!=nil%><%=a.ip%><%end%>  
             <%if a.name=='admin'%>
               <div class="divider"></div>
               <h6 style="color:#002D56;"><%=a.level%></h6>
@@ -42,6 +45,7 @@
             <%if admin_signed_in?||session[:num]=="0"&&session[:name]=="admin"&&session[:level]=="인문관영양사"%>
               <br>
               <button class="cdel btn btn-warning" id="<%=a.id%>">삭제</button>
+              <button class="cblock btn btn-warning" id="cb<%=a.id%>">차단</button>
             <%end%>
           </span>
         </div>
@@ -87,6 +91,24 @@ $('#ex2').trigger('autoresize');
         var thisid=$(this).attr("id");
         if (confirm("정말 삭제하시겠습니까?")==true){
             window.location.href="/board/cremove/"+thisid;
+        }
+        else{
+            return;
+        }
+    });
+    $(".block").click(function(){
+        var thisid=$(this).attr("id").substring(1);
+        if (confirm("정말 차단하시겠습니까?")==true){
+            window.location.href="/board/block/post/"+thisid;
+        }
+        else{
+            return;
+        }
+    });
+    $(".cblock").click(function(){
+        var thisid=$(this).attr("id").substring(2);
+        if (confirm("정말 차단하시겠습니까?")==true){
+            window.location.href="/board/block/comment/"+thisid;
         }
         else{
             return;

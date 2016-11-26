@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160903145111) do
+ActiveRecord::Schema.define(version: 20161126070445) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -31,6 +31,14 @@ ActiveRecord::Schema.define(version: 20160903145111) do
   add_index "admins", ["email"], name: "index_admins_on_email", unique: true
   add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
 
+  create_table "banneds", force: :cascade do |t|
+    t.string   "identity"
+    t.integer  "number"
+    t.string   "ip"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "breakfasts", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -44,6 +52,7 @@ ActiveRecord::Schema.define(version: 20160903145111) do
     t.string   "level"
     t.text     "content"
     t.integer  "post_id"
+    t.string   "ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -144,6 +153,7 @@ ActiveRecord::Schema.define(version: 20160903145111) do
     t.string   "level"
     t.text     "content"
     t.string   "title"
+    t.string   "ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

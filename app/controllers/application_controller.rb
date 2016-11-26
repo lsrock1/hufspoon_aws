@@ -17,6 +17,25 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  def banned_user
+    if cookies[:post]
+      cookies[:post].split(",").each do |id|
+        if Banned.find_by(identity: "post",number: id)!=nil
+          redirect_to 'https://meta.wikimedia.org/wiki/Banned_user'
+        end
+      end
+    elsif cookies[:comment]
+      cookies[:comment].split(",").each do |id|
+        if Banned.find_by(identity: "comment",number: id)!=nil
+          redirect_to 'https://meta.wikimedia.org/wiki/Banned_user'
+        end
+      end
+    end
+    
+    if Banned.find_by(identity: "ip",ip: request.remote_ip)!=nil
+      redirect_to 'https://meta.wikimedia.org/wiki/Banned_user'
+    end
+  end
   
   def make_list data,day,id
     menu_data=data.find_by(date: day)

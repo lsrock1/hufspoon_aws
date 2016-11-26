@@ -75,6 +75,7 @@ Rails.application.routes.draw do
   post '/board/hufslogin'=>'board#hufslogin'
   get '/board/seepost/:id' =>'board#seepost'
   post '/board/save' => 'board#save'
+  get '/board/block/:identity/:id' => 'board#block'
   
   get '/:id/:day' =>'home#index'
   root 'home#index'

@@ -6,6 +6,7 @@ class CreatePosts < ActiveRecord::Migration
       t.string :level
       t.text :content
       t.string :title
+      t.string :ip
       t.timestamps null: false
     end
   end

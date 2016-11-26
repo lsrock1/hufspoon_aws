@@ -1,13 +1,5 @@
-require 'nokogiri'
-require 'open-uri'
-require 'uri'
-require 'roo'
-require 'write_xlsx'
-require 'net/https'
-require "resolv-replace.rb"
-
 class HomeController < ApplicationController
-
+  before_action :banned_user
   
   def newadmin
     if Admin.find_by(:email => ENV["ADMIN_ID"])!=nil
