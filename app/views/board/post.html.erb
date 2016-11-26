@@ -26,7 +26,7 @@
         <%if admin_signed_in?||session[:num]=="0"&&session[:name]=="admin"&&session[:level]=="인문관영양사"%>
           <br><button class="del btn btn-warning" id="<%=@p.id%>">삭제</button>
           <button class="block btn btn-warning" id="b<%=@p.id%>">차단</button>
-          <button class="ipblock btn btn-warning" id="ip<%=a.id%>">ip차단</button>
+          <button class="ipblock btn btn-warning" id="ip<%=@p.id%>">ip차단</button>
         <%end%></p>
       </div>
     </div>
