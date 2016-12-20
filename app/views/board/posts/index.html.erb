@@ -43,9 +43,9 @@
     <ul class="pagination center-align">
       <%@num.times do|n|%>
         <%if @page==n+1%>
-          <li class="active"><a href="/posts/page/<%=n+1%>"><%=n+1%></a></li>
+          <li class="active"><%=link_to n+1,posts_path(:page => n+1)%></li>
         <%else%>
-          <li class="waves-effect"><a href="/posts/page/<%=n+1%>"><%=n+1%></a></li>
+          <li><%=link_to n+1,posts_path(:page => n+1)%></li>
         <%end%>
       <%end%>
     </ul>
@@ -62,7 +62,7 @@
           <i class="material-icons black-text">supervisor_account</i>
         </a>
       <%else%>
-        <a class="btn-floating btn-large white" href="/board/out">
+        <a class="btn-floating btn-large white" href="/out">
           <i class="material-icons black-text">lock</i>
         </a>
       <%end%>

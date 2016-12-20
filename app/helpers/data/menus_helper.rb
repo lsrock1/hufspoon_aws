@@ -1,0 +1,2 @@
+module Data::MenusHelper
+end

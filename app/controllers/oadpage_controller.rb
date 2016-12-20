@@ -1,6 +1,6 @@
 class OadpageController < ApplicationController
   before_action :require_login
-     ###################일반식단 관리 클래스들######################
+     ###################일반식당 관리 클래스들######################
   def dbmain
     @map=Map.all
   end

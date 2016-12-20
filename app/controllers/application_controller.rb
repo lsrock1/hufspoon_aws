@@ -136,7 +136,7 @@ class ApplicationController < ActionController::Base
     }
   end
   
-  def makeingre(string,tid)
+  def makeingre string,tid
     returnvalue=[]
     string=string.strip()
     if string.index('(')!=nil
@@ -167,7 +167,7 @@ class ApplicationController < ActionController::Base
     return nil
   end
   
-  def spliter(xfood,tid)
+  def spliter xfood,tid
     result_string=""
     ['&','/','-'].each do |word|
       if xfood.index(word)!=nil
@@ -197,7 +197,7 @@ class ApplicationController < ActionController::Base
   end
   
   
-  def parsing_func(today)
+  def parsing_func today
     mainadd="https://webs.hufs.ac.kr/jsp/HUFS/cafeteria/viewWeek.jsp"
     resultadd=mainadd+"?startDt="+today+"&endDt="+today+"&caf_name="+URI.encode("인문관식당")+"&caf_id=h101"
     doc = Nokogiri::HTML(open(resultadd))

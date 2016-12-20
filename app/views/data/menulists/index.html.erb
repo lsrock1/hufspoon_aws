@@ -9,7 +9,7 @@
 <nav>
   <div class="nav-wrapper main_nav">
     <ul id="slide-out" class="side-nav ">
-      <li><a href="/adpage/out">로그아웃</a></li>
+      <li><%=link_to "로그아웃",out_path%></li>
       
       <li class="no-padding">
         <ul class="collapsible collapsible-accordion">
@@ -27,27 +27,25 @@
           </li>
         </ul>
       </li>
-      <li><a href="/adpage/newtrans/<%=@info%>">번역추가</a></li>
+      <li><%=link_to "번역추가",new_data_menulist_path(:page => @page)%></li>
       <li>
-        <%if @info==0%>
-            <a class="waves-effect waves-light btn" href="/adpage/dbmain/1">모든메뉴보기</a>
+        <%if @page==0%>
+          <%=link_to "모든메뉴보기",data_menulists_path(:page => 1),class: :btn%>
         <%else%>
-        
-            <a class="waves-effect waves-light btn" href="/adpage/dbmain/0">신메뉴만보기</a>
+          <%=link_to "신메뉴만보기",data_menulists_path(:page => 0),class: :btn%>
         <%end%>
       </li>
     </ul>
     
     <ul class="left hide-on-med-and-down">
-      <li><a href="/adpage/out">로그아웃</a></li>
+      <li><%=link_to "로그아웃",out_path%></li>
       <li><a class="dropdown-button" href="#!" data-activates="dropdown1">페이지 이동<i class="material-icons right">arrow_drop_down</i></a></li>
-      <li><a href="/adpage/newtrans/<%=@info%>">번역추가</a></li>
+      <li><%=link_to "번역추가",new_data_menulist_path(:page => @page)%></li>
       <li>
-        <%if @info==0%>
-            <a class="waves-effect waves-light btn" href="/adpage/dbmain/1">모든메뉴보기</a>
+        <%if @page==0%>
+          <%=link_to "모든메뉴보기",data_menulists_path(:page => 1),class: :btn%>
         <%else%>
-        
-            <a class="waves-effect waves-light btn" href="/adpage/dbmain/0">신메뉴만보기</a>
+          <%=link_to "신메뉴만보기",data_menulists_path(:page => 0),class: :btn%>
         <%end%>
       </li>
       
@@ -57,12 +55,11 @@
       <li><a><i class="material-icons opener">search</i></a></li>
     </ul>
     
-    
      <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
   </div>
   
     <div class="nav-wrapper nav_form">
-      <form action="/adpage/search/<%=@info%>" method="get">
+      <form action="/adpage/search/<%=@page%>" method="get">
         <div class="input-field">
           <input id="search" name="keyword" type="search" required>
           <label for="search"><i class="material-icons">search</i></label>
@@ -92,10 +89,10 @@
             <th> </th>
             <th> </th>
         </tr>
-        <%if @info!=0%>
-        <%row=(@info-1)*300+1%>
+        <%if @page!=0%>
+          <%row=(@page-1)*300+1%>
         <%else%>
-        <%row=1%>
+          <%row=1%>
         <%end%>
         <%if @list!=nil%>
             <% @list.each do|l|%>
@@ -112,23 +109,21 @@
                 <td><%=l.germany%></td>
                 <td><%=l.italia%></td>
                 <td><%=l.portugal%></td>
-                <td><button class="re btn" id="<%=l.id%>">수정</button></td>
-                <td><button class="del btn" id="<%=l.id%>">삭제</button></td>
+                <td><%=link_to '수정',edit_data_menulist_path(l,:page => @page),{class: :btn, method: :get, data: {confirm: '정말 수정 하시겠습니까?'}}%></td>
+                <td><%=link_to '삭제','/data/menulists/'+l.id.to_s,{class: :btn, method: :delete, data: {confirm: '정말 삭제 하시겠습니까?'}}%></td>
             </tr>
             <%end%>
         <%end%>
     </table>
 </div>
         
-<%unless @info==0%>
+<%unless @page==0%>
   <ul class="pagination center-align">
     <%@num.times do|n|%>
-        <%if @info==n+1%>
-          <li class="active">
-            <a href="/adpage/dbmain/<%=n+1%>"><%=n+1%></a>
-          </li>
+        <%if @page==n+1%>
+          <li class="active"><%=link_to n+1,data_menulists_path(:page => n+1)%></li>
         <%else%>
-          <li><a href="/adpage/dbmain/<%=n+1%>"><%=n+1%></a></li>
+          <li><%=link_to n+1,data_menulists_path(:page => n+1)%></li>
         <%end%>
     <%end%>
   </ul>
@@ -139,20 +134,6 @@
 <script src="https://spi.maps.daum.net/imap/map_js_init/postcode.v2.js"></script>
 <script src="//apis.daum.net/maps/maps3.js?apikey=23598cdf36f0c5f5bf1f1bfda70b8e80&libraries=services"></script>
 <script>
-    
-    $(".re").click(function(){
-      var thisid=$(this).attr("id");
-      window.location.href="/adpage/rewritemenu/"+thisid+"/<%=@info%>";
-    });
-    $(".del").click(function(){
-      var thisid=$(this).attr("id");
-      if (confirm("정말 삭제하시겠습니까?")==true){
-        window.location.href="/adpage/delmenu/"+thisid;
-      }
-      else{
-        return;
-      }
-    });
     $(".button-collapse").sideNav();
      $(".opener").click(function(){
     $(".main_nav").hide();

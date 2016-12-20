@@ -7,22 +7,13 @@ class BoardController < ApplicationController
        session[:name]="admin"
        session[:num]="0"
        session[:level]="hufspoon"
-       redirect_to "/posts/page/1"
-    
     elsif params[:userId]==ENV["caf_id"]&&params[:userPw]==ENV["caf_pwd"]
         session[:name]="admin"
         session[:num]="0"
         session[:level]="인문관영양사"
-        redirect_to "/posts/page/1"
     end
+    redirect_to "/posts"
   end
-  
-  
-  def out
-     session.clear
-     redirect_to '/posts/page/1'
-  end
-  
   
   def block
     if admin_signed_in?||session[:num]=="0"&&session[:name]=="admin"&&session[:level]=="인문관영양사"
@@ -40,8 +31,6 @@ class BoardController < ApplicationController
         end
         Banned.new(:identity => params[:identity], :ip => del.ip).save
       end
-        
-        
         redirect_to :back
     else
         redirect_to :back 

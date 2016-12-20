@@ -24,7 +24,7 @@ class Board::PostsController < ApplicationController
     @post.ip=request.remote_ip
     @post.save
     cookies[:post]==nil ? cookies.permanent[:post]=@post.id : cookies.permanent[:post]=cookies[:post]+","+@post.id.to_s
-    redirect_to '/posts/page/1'
+    redirect_to '/posts'
   end
   
   
@@ -33,7 +33,7 @@ class Board::PostsController < ApplicationController
       id=params[:id]
       delpost=Post.find(id)
       delpost.destroy
-      redirect_to '/posts/page/1'
+      redirect_to '/posts'
     else
       redirect_to :back
     end

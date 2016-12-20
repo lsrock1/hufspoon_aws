@@ -38,20 +38,33 @@ class HomeController < ApplicationController
       format.json { render :json => { :like => @menu.u_like } }
     end
   end
-
-
+  
+  def refresh
+    require_session
+    day=params[:day]
+    [Breakfast,Lunch1,Lunch2,Lunchnoodle,Dinner,Flunch,Fdinner,Menua,Menub].
+    map{|meal| meal.find_by(date: day)}.
+    select{|meal| meal!=nil}.
+    map{|meal| meal.destroy}
+    redirect_to "/"
+  end
+  
+  def out
+    session.clear
+    redirect_to "/"
+  end
   
   def index
-   @id=params[:id].to_i
-   @day=params[:day]
+    @id=params[:id].to_i
+    @day=params[:day]
    
-   #루트로 접속하면 번역은 0이고 데이는 nil이 된다
-   if @id==0&&@day==nil
-     if cookies[:my_language]!=nil
-       @id=cookies[:my_language].to_i
-     end
-   end
-   cookies.permanent[:my_language]=@id
+    #루트로 접속하면 번역은 0이고 데이는 nil이 된다
+    if @id==0&&@day==nil
+      if cookies[:my_language]!=nil
+        @id=cookies[:my_language].to_i
+      end
+    end
+    cookies.permanent[:my_language]=@id
    
    
     begin
@@ -69,7 +82,6 @@ class HomeController < ApplicationController
         end 
        @day=time.year.to_s+mm.to_s+dd.to_s
     end
-    
     
     # #요일
     @w=time.wday
@@ -98,13 +110,8 @@ class HomeController < ApplicationController
       end
     rescue
     end
-    
-    
-    
     @menulist=[Breakfast,Lunch1,Lunch2,Lunchnoodle,Dinner,Snack,Flunch,Fdinner,Menua,Menub].map{|data| make_list(data,@day,@id)}
-    
   end
-  
   
 end
 

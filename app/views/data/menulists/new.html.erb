@@ -1,0 +1,77 @@
+<%=link_to "돌아가기",data_menulists_path(:page => @page),class: :btn%>
+
+<h3>메뉴번역추가</h3>
+        
+<div class="row">
+  <%=form_for @menulist, :url => data_menulists_path do |f|%>
+    <%=f.text_field :page,value: @page,type: :hidden%>
+    <div class="input-field">
+      <%=f.label "한글이름"%>
+      <%=f.text_field :kname,class: :valudate%>
+    </div>
+    <div class="input-field">
+      <%=f.label "영어 뜻"%>
+      <%=f.text_field :ename,class: :valudate%>
+    </div>
+    <div class="input-field">
+      <%=f.label "독음"%>
+      <%=f.text_field :ername,class: :valudate%>
+    </div>
+    <div class="input-field">
+      <%=f.label "일어 훈독"%>
+      <%=f.text_field :jnamea,class: :valudate%>
+    </div>
+    <div class="input-field">
+      <%=f.label "중국어 간체"%>
+      <%=f.text_field :cname,class: :valudate%>
+    </div>
+    <div class="input-field">
+      <%=f.label "중국어 번체"%>
+      <%=f.text_field :cnameb,class: :valudate%>
+    </div>
+    <div class="input-field">
+      <%=f.label "아랍어"%>
+      <%=f.text_field :aname,class: :valudate%>
+    </div>
+    <div class="input-field">
+      <%=f.label "ES"%>
+      <%=f.text_field :spanish,class: :valudate%>
+    </div>
+    <div class="input-field">
+      <%=f.label "DE"%>
+      <%=f.text_field :germany,class: :valudate%>
+    </div>
+    <div class="input-field">
+      <%=f.label "ITA"%>
+      <%=f.text_field :italia,class: :valudate%>
+    </div>
+    <div class="input-field">
+      <%=f.label "PORTU"%>
+      <%=f.text_field :portugal,class: :valudate%>
+    </div>
+    <div class="input-field">
+      <%=f.label "french"%>
+      <%=f.text_field :french,class: :valudate%>
+    </div>
+    <div class="input-field">
+      <%=f.label "picture name"%>
+      <%=f.text_field :u_picture,class: :valudate%>
+    </div>
+    <%=f.submit "저장",class: :btn%>
+  <%end%>
+</div>
+<br>
+<br>
+<form action="/excelinsert" method="post" enctype="multipart/form-data">
+  <div class="file-field input-field">
+    <div class="btn">
+      <span>Excel</span>
+      <input id="k"type="file" name="ex" size="20" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+    </div>
+    <div class="file-path-wrapper">
+      <input class="file-path validate" type="text">
+    </div>
+  </div>
+  <button class="btn">저장</button>
+</form>
+<%=link_to "DB 엑셀로 다운로드","/download",class: :btn%>

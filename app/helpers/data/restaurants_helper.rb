@@ -1,0 +1,2 @@
+module Data::RestaurantsHelper
+end

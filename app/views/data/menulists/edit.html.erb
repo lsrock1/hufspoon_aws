@@ -1,0 +1,66 @@
+<h2>수정해 주세요</h2>
+<%=form_for @menulist, :url => data_menulist_path do |f|%>
+  <%=f.text_field :page,value: @page,type: :hidden%>
+  <div class="input-field">
+    <%=f.label "한글이름"%>
+    <%=f.text_field :kname,class: :valudate%>
+  </div>
+  <div class="input-field">
+    <%=f.label "영어 뜻"%>
+    <%=f.text_field :ename,class: :valudate%>
+  </div>
+  <div class="input-field">
+    <%=f.label "독음"%>
+    <%=f.text_field :ername,class: :valudate%>
+  </div>
+  <div class="input-field">
+    <%=f.label "일어 훈독"%>
+    <%=f.text_field :jnamea,class: :valudate%>
+  </div>
+  <div class="input-field">
+    <%=f.label "중국어 간체"%>
+    <%=f.text_field :cname,class: :valudate%>
+  </div>
+  <div class="input-field">
+    <%=f.label "중국어 번체"%>
+    <%=f.text_field :cnameb,class: :valudate%>
+  </div>
+  <div class="input-field">
+    <%=f.label "아랍어"%>
+    <%=f.text_field :aname,class: :valudate%>
+  </div>
+  <div class="input-field">
+    <%=f.label "ES"%>
+    <%=f.text_field :spanish,class: :valudate%>
+  </div>
+  <div class="input-field">
+    <%=f.label "DE"%>
+    <%=f.text_field :germany,class: :valudate%>
+  </div>
+  <div class="input-field">
+    <%=f.label "ITA"%>
+    <%=f.text_field :italia,class: :valudate%>
+  </div>
+  <div class="input-field">
+    <%=f.label "PORTU"%>
+    <%=f.text_field :portugal,class: :valudate%>
+  </div>
+  <div class="input-field">
+    <%=f.label "french"%>
+    <%=f.text_field :french,class: :valudate%>
+  </div>
+  <div class="input-field">
+    <%=f.label "picture name"%>
+    <%=f.text_field :u_picture,class: :valudate%>
+  </div>
+  <%=f.submit "저장",class: :btn%>
+<%end%>
+<%if @intinfo!=nil%>
+  <%if @intinfo>=0%>
+  <%=link_to "돌아가기",data_menulists_path(:page => @page),class: :btn%>
+  <%else%>
+  <a href="/oadpage/addmenu_page/<%=(@intinfo*-1).to_s%>"><button class="btn">돌아가기</button></a>
+  <%end%>
+<%else%>
+    <a href="/adpage/search/0?keyword=<%=@page%>"><button class="btn">돌아가기</button></a>
+<%end%>

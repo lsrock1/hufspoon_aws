@@ -1,0 +1,2 @@
+module Data::MenulistsHelper
+end

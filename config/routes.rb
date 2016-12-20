@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
-  
-
-
   devise_for :admins
   
-  get '/refresh/:day' => 'adpage#refresh'
+  get '/refresh/:day' => 'home#refresh'
+  get'/out' =>'home#out'#로그아웃
+  get '/like' => 'home#like'#좋아요
+  get '/newadmin' =>"home#newadmin"
   
   get '/keyboard' => 'chatbot#keyboard'
   post '/message' => 'chatbot#message'
@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   delete '/chat_room/:user_key' => 'chatbot#chat_room'
   post '/friend' => 'chatbot#regfriend'
   
+  namespace :data do
+    resources :menulists, except: [:show], path_names: {edit: "/data/menulists/:id/edit/:page"}
+  end
   
   get '/oadpage/image_del/:id' =>'oadpage#image_del'#이미지 삭제
   get '/oadpage/show_add' =>'oadpage#show_add' #이미지 등록 페이지
@@ -19,8 +22,7 @@ Rails.application.routes.draw do
   post '/oadpage/image_add' => 'oadpage#image_add'#이미지 등록
   get '/oadpage/image_show' =>'oadpage#image_show' #등록 설정
   
-  get'/adpage/out' =>'adpage#out'#로그아웃
-  get '/like' => 'home#like'#좋아요
+  
   
   post '/oadpage/page/:id' =>'oadpage#page'#레스토랑 메뉴순서 저장
   get '/oadpage/rest_re/:id' => 'oadpage#rest_re' #식당수정 페이지
@@ -40,16 +42,10 @@ Rails.application.routes.draw do
   
   
   #메인db페이지 두개
-  get '/adpage/dbmain/:id' =>'adpage#dbmain'
   get '/oadpage/dbmain' =>'oadpage#dbmain'
   
-  get '/adpage/newtrans/:info' => 'adpage#newtrans'
-  get'/adpage/rewritemenu/:id/:info' =>'adpage#rewritemenu'
-  post '/adpage/remenulist/:id/:info' => 'adpage#remenu'
-  get '/adpage/delmenu/:id' =>'adpage#delmenu'
   get '/adpage/search/:id' =>"adpage#search"
-  #아이디 생성
-  get '/home/newadmin' =>"home#newadmin"
+  
   #엑셀 다운로드
   get '/download' =>"adpage#download"
   post '/excelinsert' =>'adpage#filesave'
@@ -65,13 +61,10 @@ Rails.application.routes.draw do
   get '/home/index' =>"ohome#index"
   
   scope module: :board do
-    resources :posts, except: [:edit,:update,:index] do
-      get '/page/:page', to: 'posts#index', as: :index,on: :collection
-    end
+    resources :posts, except: [:edit,:update]
     resources :comments, except: [:edit,:update,:show,:index,:new]
   end
   
-  get '/board/out' =>'board#out'
   get '/board/login'=>'board#login'
   post '/board/login'=>'board#login'
   get '/board/block/:identity/:id' => 'board#block'

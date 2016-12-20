@@ -2,8 +2,6 @@ class OhomeController < ApplicationController
   before_action :ohomecookie, except: [:search]
   
   def rightindex
-    
-    
     @menuarray=[]
     id=params[:id]
     @rest=Rest.find(id)
@@ -86,10 +84,6 @@ class OhomeController < ApplicationController
        @all.append(temp)
      end
     end
-    
-
-
-    
   end
   
   def search
