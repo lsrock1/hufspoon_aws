@@ -1,6 +1,5 @@
 <nav>
   <div class="nav-wrapper main_nav">
-    
     <ul class="left">
       <li><a href="/"><i class="material-icons">undo</i></a></li>
     </ul>
@@ -31,11 +30,11 @@
             <th class="hide-on-small-only">Date</th>
           </tr>
         </thead>
-        <%row=@allpost.length+20*(@id-1)%>
+        <%row=@allpost.length+20*(@page-1)%>
         <% @allpost.each do|d|%>
           <tr>
             <td><%=row%></td><%row=row-1%>
-            <td><a href="/board/post/<%=d.id%>"><%=d.title%> (<%=d.comments.length%>)</a></td>
+            <td><%=link_to d.title+'('+d.comments.length.to_s+')',post_path(d)%></td>
             <td class="hide-on-small-only"><%=d.created_at.in_time_zone("Asia/Seoul").strftime("%m/%d  %H:%M")%></td>
           </tr>
         <%end%>
@@ -43,17 +42,15 @@
     </div>
     <ul class="pagination center-align">
       <%@num.times do|n|%>
-        <%if @id==n+1%>
-          <li class="active">
-            <a href="/board/seepost/<%=n+1%>"><%=n+1%></a>
-          </li>
+        <%if @page==n+1%>
+          <li class="active"><a href="/posts/page/<%=n+1%>"><%=n+1%></a></li>
         <%else%>
-          <li class="waves-effect"><a href="/board/seepost/<%=n+1%>"><%=n+1%></a></li>
+          <li class="waves-effect"><a href="/posts/page/<%=n+1%>"><%=n+1%></a></li>
         <%end%>
       <%end%>
     </ul>
     <div class="fixed-action-btn click-to-toggle" style="bottom: 14px; right: 14px; opacity: 0.8;">
-      <a class="btn-floating btn-large red" href="/board/write">
+      <a class="btn-floating btn-large red" href="/posts/new">
         <i class="material-icons">mode_edit</i>
       </a>
     </div>
@@ -61,7 +58,7 @@
     
     <div class="fixed-action-btn click-to-toggle" style="bottom: 80px; right: 14px; opacity: 0.8;">
       <%if session[:level]==nil%>
-        <a class="btn-floating btn-large white" href="/board/hufslogin">
+        <a class="btn-floating btn-large white" href="/board/login">
           <i class="material-icons black-text">supervisor_account</i>
         </a>
       <%else%>

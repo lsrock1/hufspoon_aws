@@ -1,0 +1,31 @@
+<nav>
+  <div class="nav-wrapper main_nav">
+    <ul class="left">
+      <li><a href="/posts/page/1"><i class="material-icons">undo</i></a></li>
+    </ul>
+    <a class="brand-logo center">WRITE POST</a>
+  </div>
+</nav>
+<div class="row">
+  <div class="col s12 m8 offset-m2 l8 offset-l2">
+    <%=form_for(@post) do |f|%>
+      <%if session[:level]!=nil%>
+        <%=f.text_field :name,type: :hidden,value: session[:name]%>
+        <%=f.text_field :level,type: :hidden,value: session[:level]%>
+        <%=f.text_field :num,type: :hidden,value: session[:num]%>
+      <%end%>
+      <div class="text_field">
+        <%=f.label :title%>
+        <%=f.text_field :title,class: "form-control"%>
+      </div>
+      <div class="text_field">
+        <%=f.label :content%>
+        <%=f.text_area :content,class: "materialize-textarea"%>
+      </div>
+      <%=f.submit :send,class: :btn%>
+    <%end%>
+  </div>
+</div>
+<script>
+  $('#ex2').trigger('autoresize');
+</script>

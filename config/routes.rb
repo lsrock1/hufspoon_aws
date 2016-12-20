@@ -64,17 +64,16 @@ Rails.application.routes.draw do
   get '/home/search' => 'ohome#search'
   get '/home/index' =>"ohome#index"
   
+  scope module: :board do
+    resources :posts, except: [:edit,:update,:index] do
+      get '/page/:page', to: 'posts#index', as: :index,on: :collection
+    end
+    resources :comments, except: [:edit,:update,:show,:index,:new]
+  end
   
   get '/board/out' =>'board#out'
-  get '/board/cremove/:id' => 'board#cremove'
-  post '/board/comment/:id' => 'board#comment'
-  get '/board/remove/:id' => 'board#remove'
-  get '/board/post/:id' =>'board#post'
-  get '/board/write' => 'board#writepage'
-  get '/board/hufslogin'=>'board#hufslogin'
-  post '/board/hufslogin'=>'board#hufslogin'
-  get '/board/seepost/:id' =>'board#seepost'
-  post '/board/save' => 'board#save'
+  get '/board/login'=>'board#login'
+  post '/board/login'=>'board#login'
   get '/board/block/:identity/:id' => 'board#block'
   
   get '/:id/:day' =>'home#index'
