@@ -1,0 +1,66 @@
+<div class="container">
+  <h2>번역 추가가 필요합니다</h2>
+  <%=form_for @rmenu, url: data_rmenus_path do |f|%>
+    <%=f.text_field :menuname,type: :hidden%>
+    <%=f.text_field :content,type: :hidden%>
+    <%=f.text_field :pagenum,type: :hidden%>
+    <%=f.text_field :cost,type: :hidden%>
+    <%=f.text_field :rest_id,type: :hidden%>
+    
+    <div class="input-field">
+      <%=label :menulist,"한글이름"%>
+      <%=text_field :menulist,:kname,value: @rmenu.menuname%>
+    </div>
+    <div class="input-field">
+      <%=label :menulist,"영어 뜻"%>
+      <%=text_field :menulist,:ename%>
+    </div>
+    <div class="input-field">
+      <%=label :menulist,"독음"%>
+      <%=text_field :menulist,:ername%>
+    </div>
+    <div class="input-field">
+      <%=label :menulist,"일어 훈독"%>
+      <%=text_field :menulist,:jnamea%>
+    </div>
+    <div class="input-field">
+      <%=label :menulist,"중국어 간체"%>
+      <%=text_field :menulist,:cname%>
+    </div>
+    <div class="input-field">
+      <%=label :menulist,"중국어 번체"%>
+      <%=text_field :menulist,:cnameb%>
+    </div>
+    <div class="input-field">
+      <%=label :menulist,"아랍어"%>
+      <%=text_field :menulist,:aname%>
+    </div>
+    <div class="input-field">
+      <%=label :menulist,"ES"%>
+      <%=text_field :menulist,:spanish%>
+    </div>
+    <div class="input-field">
+      <%=label :menulist,"DE"%>
+      <%=text_field :menulist,:germany%>
+    </div>
+    <div class="input-field">
+      <%=label :menulist,"ITA"%>
+      <%=text_field :menulist,:italia%>
+    </div>
+    <div class="input-field">
+      <%=label :menulist,"PORTU"%>
+      <%=text_field :menulist,:portugal%>
+    </div>
+    <div class="input-field">
+      <%=label :menulist,"french"%>
+      <%=text_field :menulist,:french%>
+    </div>
+    <div class="input-field">
+      <%=label :menulist,"picture name"%>
+      <%=text_field :menulist,:u_picture%>
+    </div>
+    
+    <%=f.submit "저장",class: :btn%>
+  <%end%>
+  <%=link_to "돌아가기",data_rest_path(id: @rmenu.rest_id),class: :btn%>
+</div>

@@ -55,7 +55,7 @@ class Data::MenulistsController < ApplicationController
         if @intinfo>=0
           redirect_to "/data/menulists/?page="+@page
         else
-          redirect_to "/oadpage/addmenu_page/"+((@intinfo*-1).to_s)
+          redirect_to "/data/rests/"+((@intinfo*-1).to_s)
         end
       else
         redirect_to "/adpage/search/0?keyword="+URI.encode(@info)

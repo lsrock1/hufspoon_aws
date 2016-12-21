@@ -5,7 +5,6 @@ class CreateRmenus < ActiveRecord::Migration
       t.string :menuname
       t.string :emenuname
       t.string :content
-     
       t.integer :cost
       t.integer :category
       t.integer :pagenum, default:1

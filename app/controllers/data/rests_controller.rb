@@ -39,8 +39,11 @@ class Data::RestsController < ApplicationController
     @rest=Rest.find(params[:id])
     @rest.update(rest_params)
     @rest.save
-    
-    redirect_to '/data/rests'
+    if params[:rest][:page]
+      redirect_to :back
+    else
+      redirect_to '/data/rests'
+    end
   end
   
   def destroy
@@ -56,6 +59,7 @@ class Data::RestsController < ApplicationController
   
   def show
     @rest=Rest.find(params[:id])
+    @rmenu=Rmenu.new
   end
   
   private

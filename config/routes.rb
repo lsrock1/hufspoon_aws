@@ -15,9 +15,8 @@ Rails.application.routes.draw do
   namespace :data do
     resources :menulists, path_names: {edit: "/data/menulists/:id/edit/:page"}
     resources :rests
-    resources :rmenus, except: [:index]
+    resources :rmenus, except: [:index,:show,:edit,:new]
   end
-  
   
   get '/oadpage/image_del/:id' =>'oadpage#image_del'#이미지 삭제
   get '/oadpage/show_add' =>'oadpage#show_add' #이미지 등록 페이지
@@ -25,16 +24,10 @@ Rails.application.routes.draw do
   post '/oadpage/image_add' => 'oadpage#image_add'#이미지 등록
   get '/oadpage/image_show' =>'oadpage#image_show' #등록 설정
   
-  
-  
-  post '/oadpage/page/:id' =>'oadpage#page'#레스토랑 메뉴순서 저장
-  get '/oadpage/rest_re/:id' => 'oadpage#rest_re' #식당수정 페이지
   get '/oadpage/rest_add' => 'oadpage#rest_add' #식당추가 페이지
   post '/oadpage/rewriterest/:id'=>"oadpage#rewriterest" #식당수정 기능
   
   post '/oadpage/addmenu' =>'oadpage#addmenu'
-  #식당메뉴삭제
-  get '/oadpage/delmenu/:id' =>'oadpage#delmenu'
   #식당메뉴수정
   post '/oadpage/rewritemenu/:id' =>'oadpage#rewritemenu'
   post '/adpage/menulist/:info' => 'adpage#existmenu'
@@ -44,10 +37,8 @@ Rails.application.routes.draw do
   #엑셀 다운로드
   get '/download' =>"adpage#download"
   post '/excelinsert' =>'adpage#filesave'
-  
   get '/oadpage/excel' => 'oadpage#excel'
   get '/get/excel' => 'oadpage#get_excel'
-  
   post '/put/excel' => 'oadpage#put_excel'
   #일반화면
   get '/home/leftindex/:num' =>'ohome#leftindex'

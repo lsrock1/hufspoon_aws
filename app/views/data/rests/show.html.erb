@@ -1,89 +1,96 @@
 <div class="container">
   <h2><%=@rest.name%></h2>
-    
-  <form id="mreform"action="/oadpage/addmenu" method="post">
-      <div class="form-group">
-        <label for="ex1">메뉴이름</label>
-        <input class="form-control" name="menuname"id="ex1" type="text">
-      </div>
-      <div class="form-group">
-        <label for="ex2">설명</label>
-        <input class="form-control" name="content"id="ex2" type="text">
-      </div>
-      <div class="form-group">
-        <label for="ex3">페이지</label>
-        <input class="form-control" name="pagenum"id="ex3" type="text" value="1">
-      </div>
-      <div class="form-group">
-        <label for="ex4">가격</label>
-        <input class="form-control" type="text"name="cost"id="ex4">
-      </div>
-      <input type="hidden" name="backid" value="<%=@rest.id%>">
-      <button id="mrebut"class="btn">저장</button>
-  </form>
-  <button style="display:none"id="mrecan"class="btn btn-default">수정취소</button>
-  <form action="/oadpage/page/<%=@rest.id%>" method="post">
-    <div class="form-group">
-      <label for="page">페이지 구성</label>
-      <input class="form-control" name="page"id="page" type="text" value="<%=@rest.page%>">
+  
+  <%=form_for @rmenu, url: data_rmenus_path do |f|%>
+    <div class="input-field">
+      <%=f.label "메뉴이름"%>
+      <%=f.text_field :menuname%>
     </div>
-    <button class="btn">변경</button>
-  </form>
-    <div class="table-responsive">
-      <table class="table">
-        <tr>
-          <th>한글</th>
-          <th>가격</th>
-          <th>페이지</th>
-          <th>번역보기</th>
-          <th>수정</th>
-          <th>삭제</th>
-        </tr>
-        <%@rest.rmenu.order('created_at ASC').each do |r|%>
+    <div class="input-field">
+      <%=f.label "설명"%>
+      <%=f.text_field :content%>
+    </div>
+    <div class="input-field">
+      <%=f.label "페이지"%>
+      <%=f.text_field :pagenum%>
+    </div>
+    <div class="input-field">
+      <%=f.label "가격"%>
+      <%=f.text_field :cost%>
+    </div>
+    <%=f.text_field :rest_id,value: @rest.id,type: :hidden%>
+    <%=f.submit "저장",class: :btn,id: :mrebut%>
+  <%end%>
+  
+  <button style="display:none"id="mrecan"class="btn">수정취소</button>
+  
+  <%=form_for @rest, url: data_rest_path do |f|%>
+    <div class="form-group">
+      <%=f.label "페이지 구성"%>
+      <%=f.text_field :page%>
+    </div>
+    <%=f.submit "변경",class: :btn%>
+  <%end%>
+  
+  <div class="table-responsive">
+    <table class="table">
+      <tr>
+        <th>한글</th>
+        <th>가격</th>
+        <th>페이지</th>
+        <th>번역보기</th>
+        <th>수정</th>
+        <th>삭제</th>
+      </tr>
+      <%@rest.rmenu.order('created_at ASC').each do |r|%>
+        <%@menulist=Menulist.find_by(kname: r.menuname)%>
         <tr>
           <td id="name<%=r.id%>"><%=r.menuname%></td>
           <td id="cost<%=r.id%>"><%=r.cost%></td>
           <td id="pagenum<%=r.id%>"><%if r.pagenum==0%>대표메뉴<%else%><%=r.pagenum%><%end%></td>
-          <td><%if Menulist.find_by(kname: r.menuname)!=nil%><a href="/adpage/rewritemenu/<%=Menulist.find_by(:kname =>r.menuname).id%>/-<%=@rest.id%>"><button class="btn btn-default">번역</button></a><%end%></td>
-          <td><button class="mre btn btn-default" id="<%=r.id%>">수정</button></td>
-          <td><%=link_to "삭제",data_rmenu_path(r),{class: :btn,data: {confirm: "정말 삭제하시겠습니까?"}}%></td>
+          <td><%if @menulist!=nil%><%=link_to "번역보기",edit_data_menulist_path(id: @menulist,page: @rest.id*-1),class: :btn%><%end%></td>
+          <td><button class="mre btn" id="<%=r.id%>">수정</button></td>
+          <td><%=link_to "삭제",data_rmenu_path(r),{method: :delete,class: :btn,data: {confirm: "정말 삭제하시겠습니까?"}}%></td>
         </tr>
         <tr <%if r.content==""%>style="display:none"<%end%>>
           <td id="content<%=r.id%>" class="center" colspan=6><%=r.content%></td>
         </tr>
-        <%end%>
-      </table>
-    </div>
-    <%=link_to "돌아가기",data_rests_path,class: :btn%>
+      <%end%>
+    </table>
+  </div>
+  <%=link_to "돌아가기",data_rests_path,class: :btn%>
 </div>
 <script>
     $(".mre").click(function(){
-        $("#mrebut").html("수정하기");
+        $(this).hide();
+        $("#mrebut").attr("value","수정하기");
         $("#mrecan").show();
         var thisid=$(this).attr("id");
         var name=$("#name"+thisid).html();
-        $("#ex1").attr("value",name);
+        $("#rmenu_menuname").attr("value",name);
         
         var content=$("#content"+thisid).html();
-        $("#ex2").attr("value",content);
+        $("#rmenu_content").attr("value",content);
         var pagenum=$("#pagenum"+thisid).html();
         if (pagenum=="대표메뉴"){
-            $("#ex3").attr("value",0);
+            $("#rmenu_pagenum").attr("value",0);
         }
         else{
-            $("#ex3").attr("value",pagenum);
+            $("#rmenu_pagenum").attr("value",pagenum);
         }
         var cost=$("#cost"+thisid).html();
-        $("#ex4").attr("value",cost);
-        $("#mreform").attr("action","/oadpage/rewritemenu/"+thisid);
+        $("#rmenu_cost").attr("value",cost);
+        $("#new_rmenu").attr("action","/data/rmenus/"+thisid).append('<input type="hidden" id="pat" name="_method" value="patch" />');
     });
     $("#mrecan").click(function(){
         $(this).hide();
-        $("#mrebut").html("저장");
-        $("#ex1").attr("value","");
-        $("#ex2").attr("value","");
-        $("#ex3").attr("value","");
-        $("#ex4").attr("value","");
-        $("#mreform").attr("action","/oadpage/addmenu");
-    })
+        $("#mrebut").attr("value","저장");
+        $("#rmenu_menuname").attr("value","");
+        $("#rmenu_content").attr("value","");
+        $("#rmenu_pagenum").attr("value","");
+        $("#rmenu_cost").attr("value","");
+        $("#new_rmenu").attr("action","/data/rmenus");
+        $("#pat").remove();
+        $(".mre").show();
+    })  
 </script>
