@@ -1,0 +1,80 @@
+<ul id="dropdown1" class="dropdown-content">
+  <li><a href="/">메인으로</a></li>
+  <li><a href="/home/index">이문동주변 식당</a></li>
+  <li class="divider"></li>
+  <li><%=link_to "메뉴 관리",data_menulists_path%></li>
+  <li><a href="/oadpage/show/1">큐레이션 관리</a></li>
+</ul>
+
+<nav>
+  <div class="nav-wrapper main_nav">
+    <ul id="slide-out" class="side-nav ">
+      <li><%=link_to "로그아웃",out_path%></li>
+      <li class="no-padding">
+        <ul class="collapsible collapsible-accordion">
+          <li>
+            <a class="collapsible-header">페이지 이동<i class="material-icons">arrow_drop_down</i></a>
+            <div class="collapsible-body">
+              <ul>
+                <li><a href="/">메인으로</a></li>
+                <li><a href="/home/index">이문동주변 식당</a></li>
+                <li class="divider"></li>
+                <li><%=link_to "메뉴 관리",data_menulists_path%></li>
+                <li><a href="/oadpage/show/1">큐레이션 관리</a></li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </li>
+      <li><%=link_to "식당추가",new_data_rest_path%></li>
+      <li><a href="/oadpage/excel">엑셀관리</a></li>
+    </ul>
+    
+    <ul class="left hide-on-med-and-down">
+      <li><%=link_to "로그아웃",out_path%></li>
+      <li><a class="dropdown-button" href="#!" data-activates="dropdown1">페이지 이동<i class="material-icons right">arrow_drop_down</i></a></li>
+      <li><%=link_to "식당추가",new_data_rest_path%></li>
+      <li><a href="/oadpage/excel">엑셀관리</a></li>
+    </ul>
+    
+    
+     <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+  </div>
+</nav>
+<br/>
+<div class="table-responsive">
+  <table class="table">
+    <tr>
+      <th>순번</th>
+      <th>위도</th>
+      <th>경도</th>
+      <th>식당이름</th>
+      <th>식당종류</th>
+      <th>수정</th>
+      <th>삭제</th>
+      <th>메뉴추가</th>
+    </tr>
+    <%num=1%>
+    <% @rest.each do|r|%>
+      <tr>
+        <td><%=num%></td><%num=num+1%>
+        <td><%=r.map.lat%></td>
+        <td><%=r.map.lon%></td>
+        <td><%=r.name%></td>
+        <td><%=r.food%></td>
+        <td><%=link_to "수정",edit_data_rest_path(@rest),{class: :btn, data: {confirm: '정말 수정 하시겠습니까?'}}%></td>
+        <td><%=link_to "삭제",data_rest_path(@rest),{class: :btn,method: :delete ,data: {confirm: '정말 삭제 하시겠습니까?'}}%></td>
+        <td><%=link_to "추가",data_rest_path(@rest),{class: :btn,method: :get}%></td>
+      </tr>
+    <%end%>
+  </table>
+</div>
+<ul class="pagination center-align">
+  <%@num.times do|n|%>
+      <%if @page==n+1%>
+        <li class="active"><%=link_to n+1,data_rests_path(:page => n+1)%></li>
+      <%else%>
+        <li><%=link_to n+1,data_rests_path(:page => n+1)%></li>
+      <%end%>
+  <%end%>
+</ul>

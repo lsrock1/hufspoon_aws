@@ -1,0 +1,37 @@
+<%=link_to "돌아가기",data_rests_path,class: :btn%>
+<div class="row">
+    <h3>식당수정</h3>
+    <%=form_for @rest,:url => data_rest_path  do |f|%>
+    
+    <div class="input-field">
+      <%=f.label :address%>
+      <%=f.text_field :address%>
+    </div>
+    
+    <div class="input-field">
+      <%=f.label :phone%>
+      <%=f.text_field :phone%>
+    </div>
+    
+    <div class="input-field">
+      <%=f.label :name%>
+      <%=f.text_field :name%>
+    </div>
+    
+    <div class="input-field">
+      <%=f.label :food%>
+      <%=f.text_field :food%>
+    </div>
+    
+    <div class="input-field">
+      <%=f.label :open%>
+      <%=f.text_field :open%>
+    </div>
+    <div class="input-field">
+      <%=f.label :picture%>
+      <%=f.text_field :picture%>
+    </div>
+    <%=f.submit "저장",class: :btn%>
+  <%end%>
+    
+</div>

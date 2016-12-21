@@ -5,10 +5,10 @@ class Data::MenulistsController < ApplicationController
     @page=params[:page] ? params[:page].to_i : 1
     @list=Menulist.all
     @num=(@list.length/300)+1
-    if @info==0
+    if @page==0
       @list=@list.select{|item| item.kname==item.ename}
     else
-      @list=@list.all.order('kname ASC')[(@page-1)*300..300*(@page)-1]
+      @list=@list.all.order('kname ASC')[(@page-1)*300...300*(@page)-1]
     end
   end
   

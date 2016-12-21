@@ -2,7 +2,7 @@
   <li><a href="/">메인으로</a></li>
   <li><a href="/home/index">이문동주변 식당</a></li>
   <li class="divider"></li>
-  <li><a href="/oadpage/dbmain">이문동식당 관리</a></li>
+  <li><%=link_to "이문동식당관리",data_rests_path%></li>
   <li><a href="/oadpage/show/1">큐레이션 관리</a></li>
 </ul>
 
@@ -20,7 +20,7 @@
                   <li><a href="/">메인으로</a></li>
                   <li><a href="/home/index">이문동주변 식당</a></li>
                   <li class="divider"></li>
-                  <li><a href="/oadpage/dbmain">이문동식당 관리</a></li>
+                  <li><%=link_to "이문동식당관리",data_rests_path%></li>
                   <li><a href="/oadpage/show/1">큐레이션 관리</a></li>
               </ul>
             </div>
@@ -72,49 +72,49 @@
     
 <br>
 <div class="table-responsive">
-    <table class="table">
+  <table class="table">
+    <tr>
+        <th>순번</th>
+        <th>한글</th>
+        <th>en</th>
+        <!--<th>독음</th>-->
+        <!--<th>일훈</th>-->
+        <th>간체</th>
+        <!--<th>번체</th>-->
+        <!--<th>아랍어</th>-->
+        <th>es</th>
+        <th>de</th>
+        <th>ita</th>
+        <th>po</th>
+        <th> </th>
+        <th> </th>
+    </tr>
+    <%if @page!=0%>
+      <%row=(@page-1)*300+1%>
+    <%else%>
+      <%row=1%>
+    <%end%>
+    <%if @list!=nil%>
+        <% @list.each do|l|%>
         <tr>
-            <th>순번</th>
-            <th>한글</th>
-            <th>en</th>
-            <!--<th>독음</th>-->
-            <!--<th>일훈</th>-->
-            <th>간체</th>
-            <!--<th>번체</th>-->
-            <!--<th>아랍어</th>-->
-            <th>es</th>
-            <th>de</th>
-            <th>ita</th>
-            <th>po</th>
-            <th> </th>
-            <th> </th>
+          <td><%=row%></td><%row=row+1%>
+          <td><%=l.kname%></td>
+          <td><%=l.ename%></td>
+          <!--<td><%=l.ername%></td>-->
+          <!--<td><%=l.jnamea%></td>-->
+          <td><%=l.cname%></td>
+          <!--<td><%=l.cnameb%></td>-->
+          <!--<td><%=l.aname%></td>-->
+          <td><%=l.spanish%></td>
+          <td><%=l.germany%></td>
+          <td><%=l.italia%></td>
+          <td><%=l.portugal%></td>
+          <td><%=link_to '수정',edit_data_menulist_path(l,:page => @page),{class: :btn, data: {confirm: '정말 수정 하시겠습니까?'}}%></td>
+          <td><%=link_to '삭제',data_menulist_path(l),{class: :btn, method: :delete, data: {confirm: '정말 삭제 하시겠습니까?'}}%></td>
         </tr>
-        <%if @page!=0%>
-          <%row=(@page-1)*300+1%>
-        <%else%>
-          <%row=1%>
         <%end%>
-        <%if @list!=nil%>
-            <% @list.each do|l|%>
-            <tr>
-                <td><%=row%></td><%row=row+1%>
-                <td><%=l.kname%></td>
-                <td><%=l.ename%></td>
-                <!--<td><%=l.ername%></td>-->
-                <!--<td><%=l.jnamea%></td>-->
-                <td><%=l.cname%></td>
-                <!--<td><%=l.cnameb%></td>-->
-                <!--<td><%=l.aname%></td>-->
-                <td><%=l.spanish%></td>
-                <td><%=l.germany%></td>
-                <td><%=l.italia%></td>
-                <td><%=l.portugal%></td>
-                <td><%=link_to '수정',edit_data_menulist_path(l,:page => @page),{class: :btn, method: :get, data: {confirm: '정말 수정 하시겠습니까?'}}%></td>
-                <td><%=link_to '삭제','/data/menulists/'+l.id.to_s,{class: :btn, method: :delete, data: {confirm: '정말 삭제 하시겠습니까?'}}%></td>
-            </tr>
-            <%end%>
-        <%end%>
-    </table>
+    <%end%>
+  </table>
 </div>
         
 <%unless @page==0%>

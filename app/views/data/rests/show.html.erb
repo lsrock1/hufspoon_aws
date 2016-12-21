@@ -30,42 +30,33 @@
     <button class="btn">변경</button>
   </form>
     <div class="table-responsive">
-        <table class="table">
-            <tr>
-                <th>한글</th>
-                <th>가격</th>
-                <th>페이지</th>
-                <th>번역보기</th>
-                <th>수정</th>
-                <th>삭제</th>
-            </tr>
-            <%@rest.rmenu.order('created_at ASC').each do |r|%>
-            <tr>
-                <td id="name<%=r.id%>"><%=r.menuname%></td>
-                <td id="cost<%=r.id%>"><%=r.cost%></td>
-                <td id="pagenum<%=r.id%>"><%if r.pagenum==0%>대표메뉴<%else%><%=r.pagenum%><%end%></td>
-                <td><%if Menulist.find_by(kname: r.menuname)!=nil%><a href="/adpage/rewritemenu/<%=Menulist.find_by(:kname =>r.menuname).id%>/-<%=@rest.id%>"><button class="btn btn-default">번역</button></a><%end%></td>
-                <td><button class="mre btn btn-default" id="<%=r.id%>">수정</button></td>
-                <td><button class="del btn btn-default"id="<%=r.id%>">삭제</button></td>
-            </tr>
-            <tr <%if r.content==""%>style="display:none"<%end%>>
-                <td id="content<%=r.id%>" class="center" colspan=6><%=r.content%></td>
-            </tr>
-            <%end%>
-        </table>
+      <table class="table">
+        <tr>
+          <th>한글</th>
+          <th>가격</th>
+          <th>페이지</th>
+          <th>번역보기</th>
+          <th>수정</th>
+          <th>삭제</th>
+        </tr>
+        <%@rest.rmenu.order('created_at ASC').each do |r|%>
+        <tr>
+          <td id="name<%=r.id%>"><%=r.menuname%></td>
+          <td id="cost<%=r.id%>"><%=r.cost%></td>
+          <td id="pagenum<%=r.id%>"><%if r.pagenum==0%>대표메뉴<%else%><%=r.pagenum%><%end%></td>
+          <td><%if Menulist.find_by(kname: r.menuname)!=nil%><a href="/adpage/rewritemenu/<%=Menulist.find_by(:kname =>r.menuname).id%>/-<%=@rest.id%>"><button class="btn btn-default">번역</button></a><%end%></td>
+          <td><button class="mre btn btn-default" id="<%=r.id%>">수정</button></td>
+          <td><%=link_to "삭제",data_rmenu_path(r),{class: :btn,data: {confirm: "정말 삭제하시겠습니까?"}}%></td>
+        </tr>
+        <tr <%if r.content==""%>style="display:none"<%end%>>
+          <td id="content<%=r.id%>" class="center" colspan=6><%=r.content%></td>
+        </tr>
+        <%end%>
+      </table>
     </div>
-    <a type="button" href="/oadpage/dbmain"><button class="btn btn-default">돌아가기</button></a>
+    <%=link_to "돌아가기",data_rests_path,class: :btn%>
 </div>
 <script>
-    $(".del").click(function(){
-        var thisid=$(this).attr("id");
-        if (confirm("정말 삭제하시겠습니까?")==true){
-            window.location.href="/oadpage/delmenu/"+thisid;
-        }
-        else{
-            return;
-        }
-    })
     $(".mre").click(function(){
         $("#mrebut").html("수정하기");
         $("#mrecan").show();

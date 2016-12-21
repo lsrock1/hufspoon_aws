@@ -1,32 +1,60 @@
-<a class="waves-effect waves-light btn" href="/oadpage/dbmain">돌아가기</a>
+<%=link_to"돌아가기",data_rests_path,class: :btn%>
 <div class="row">
-    <h3>식당추가</h3>
-    <div class="option">
-        <div>
-            <form onsubmit="searchPlaces(); return false;">
-                키워드 : <input type="text" value="외대"id="keyword" size="15"> 
-                <button type="submit">검색하기</button> 
-            </form>
-        </div>
+  <h3>식당추가</h3>
+  <div class="option">
+    <div>
+      <form onsubmit="searchPlaces(); return false;">
+          키워드 : <input type="text" value="외대"id="keyword" size="15"> 
+          <button type="submit">검색하기</button> 
+      </form>
     </div>
-    <div style="width:100%; height:300px; overflow-y:scroll;"id="menu_wrap" class="bg_white">
-        
-        <hr>
-        <ul id="placesList"></ul>
-        <div id="pagination"></div>
+  </div>
+  <div style="width:100%; height:300px; overflow-y:scroll;"id="menu_wrap" class="bg_white">
+    <hr>
+    <ul id="placesList"></ul>
+    <div id="pagination"></div>
+  </div>
+  <%=form_for @rest,:url => data_rests_path  do |f|%>
+    <div class="input-field">
+      <%=label :map,:lat%>
+      <%=text_field :map,:lat%>
     </div>
-    <form id="mreform"action="/oadpage/addrest" method="post">
-        <input type="text" id="lat" name="lat" placeholder="위도">
-        <input type="text" id="lon"name="lon" placeholder="경도">
-        <input type="text" id="add"name="add" placeholder="주소">
-        <input type="text" id="pho"name="pho" placeholder="전화번호">
-        <input type="text" id="name"name="name" placeholder="식당이름">
-        <input type="text" id="food"name="food" placeholder="식당종류">
-        <input type="text" id="open"name="open" placeholder="영업시간">
-        <input type="text" id="picture" name="picture" placeholder="사진">
-        <button id="mrebut"class="btn btn-primary">저장</button>
-        
-    </form>
+    
+    <div class="input-field">
+      <%=label :map,:lon%>
+      <%=text_field :map,:lon%>
+    </div>
+    
+    <div class="input-field">
+      <%=f.label :address%>
+      <%=f.text_field :address%>
+    </div>
+    
+    <div class="input-field">
+      <%=f.label :phone%>
+      <%=f.text_field :phone%>
+    </div>
+    
+    <div class="input-field">
+      <%=f.label :name%>
+      <%=f.text_field :name%>
+    </div>
+    
+    <div class="input-field">
+      <%=f.label :food%>
+      <%=f.text_field :food%>
+    </div>
+    
+    <div class="input-field">
+      <%=f.label :open%>
+      <%=f.text_field :open%>
+    </div>
+    <div class="input-field">
+      <%=f.label :picture%>
+      <%=f.text_field :picture%>
+    </div>
+    <%=f.submit "저장",class: :btn%>
+  <%end%>
 </div>
 <script src="https://spi.maps.daum.net/imap/map_js_init/postcode.v2.js"></script>
 <script src="//apis.daum.net/maps/maps3.js?apikey=23598cdf36f0c5f5bf1f1bfda70b8e80&libraries=services"></script>
@@ -101,25 +129,19 @@
                 
     
                 itemEl.onclick =  function () {
-                    document.getElementById("lat").value=places.latitude;
-                    document.getElementById("lon").value=places.longitude;
-                    document.getElementById("add").value=places.newAddress;
-                    document.getElementById("pho").value=places.phone;
+                    document.getElementById("map_lat").value=places.latitude;
+                    document.getElementById("map_lon").value=places.longitude;
+                    document.getElementById("rest_address").value=places.newAddress;
+                    document.getElementById("rest_phone").value=places.phone;
                 };
-    
-                
             })(places[i]);
-    
-    
             fragment.appendChild(itemEl);
         }
     
         // 검색결과 항목들을 검색결과 목록 Elemnet에 추가합니다
         listEl.appendChild(fragment);
         menuEl.scrollTop = 0;
-    
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
-        
     }
     
     // 검색결과 항목을 Element로 반환하는 함수입니다

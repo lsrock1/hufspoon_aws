@@ -1,0 +1,2 @@
+module Data::RmenusHelper
+end
