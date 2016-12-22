@@ -1,0 +1,60 @@
+<% content_for :menu do%>
+  <li><%=link_to "이미지추가",new_data_curate_path%></li>
+  <li>
+    <%if @id==0%>
+      <%=link_to "모든사진보기",data_curates_path%>
+    <%else%>
+      <%=link_to "등록된사진보기",data_curates_path(id: 0)%>
+    <%end%>
+  </li>
+<%end%>
+<table>
+    <thead>
+      <tr>
+        <td class="hide-on-small-only">순서</td>
+        <td>사진</td>
+        <td>키워드</td>
+        <td>등록</td>
+        <td>삭제</td>
+      </tr>
+    </thead>
+    <tbody><%if @id!=0%><%row=(@id-1)*10+1%><%else%><%row=1%><%end%>
+      <%@curate.each do |curate|%>
+        <tr>
+          <td class="hide-on-small-only"><%=row%></td>
+          
+          <td><img class="materialboxed" src="<%=curate.address%>" width="300" height="300"></td>
+          <td><%=curate.keyword%></td>
+          <td>
+            <%=form_for curate,url: data_curate_path(id: curate.id) do |f|%>
+              <div class="row">
+                <div class="input-field col s3">
+                  <%=f.text_field :show%>
+                </div>
+              </div>
+              <%=f.submit "변경",class: :btn%>
+            <%end%>
+          </td>
+          <td><%=link_to "삭제",data_curate_path(curate),{class: :btn, method: :delete, data: {confirm: '정말 삭제 하시겠습니까?'}}%></td>
+        </tr>
+        <%row=row+1%>
+      <%end%>
+    </tbody>
+</table>
+
+<%unless @id==0%>
+  <ul class="pagination center-align">
+    <%@num.times do|n|%>
+      <%if @id==n+1%>
+        <li class="active"><%=link_to n+1,data_curates_path(id: n+1)%></li>
+      <%else%>
+        <li><%=link_to n+1,data_curates_path(id: n+1)%></li>
+      <%end%>
+    <%end%>
+  </ul>
+<%end%>
+
+<script>
+  $('.materialboxed').materialbox();
+  $(".button-collapse").sideNav();
+</script>

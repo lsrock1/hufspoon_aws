@@ -1,46 +1,7 @@
-<ul id="dropdown1" class="dropdown-content">
-  <li><a href="/">메인으로</a></li>
-  <li><a href="/home/index">이문동주변 식당</a></li>
-  <li class="divider"></li>
-  <li><%=link_to "메뉴 관리",data_menulists_path%></li>
-  <li><a href="/oadpage/show/1">큐레이션 관리</a></li>
-</ul>
-
-<nav>
-  <div class="nav-wrapper main_nav">
-    <ul id="slide-out" class="side-nav ">
-      <li><%=link_to "로그아웃",out_path%></li>
-      <li class="no-padding">
-        <ul class="collapsible collapsible-accordion">
-          <li>
-            <a class="collapsible-header">페이지 이동<i class="material-icons">arrow_drop_down</i></a>
-            <div class="collapsible-body">
-              <ul>
-                <li><a href="/">메인으로</a></li>
-                <li><a href="/home/index">이문동주변 식당</a></li>
-                <li class="divider"></li>
-                <li><%=link_to "메뉴 관리",data_menulists_path%></li>
-                <li><a href="/oadpage/show/1">큐레이션 관리</a></li>
-              </ul>
-            </div>
-          </li>
-        </ul>
-      </li>
-      <li><%=link_to "식당추가",new_data_rest_path%></li>
-      <li><a href="/oadpage/excel">엑셀관리</a></li>
-    </ul>
-    
-    <ul class="left hide-on-med-and-down">
-      <li><%=link_to "로그아웃",out_path%></li>
-      <li><a class="dropdown-button" href="#!" data-activates="dropdown1">페이지 이동<i class="material-icons right">arrow_drop_down</i></a></li>
-      <li><%=link_to "식당추가",new_data_rest_path%></li>
-      <li><a href="/oadpage/excel">엑셀관리</a></li>
-    </ul>
-    
-    
-     <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
-  </div>
-</nav>
+<%content_for :menu do%>
+  <li><%=link_to "식당추가",new_data_rest_path%></li>
+  <li><a href="/oadpage/excel">엑셀관리</a></li>
+<%end%>
 <br/>
 <div class="table-responsive">
   <table class="table">
@@ -78,3 +39,6 @@
       <%end%>
   <%end%>
 </ul>
+<script>
+  $(".button-collapse").sideNav();
+</script>

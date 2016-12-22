@@ -1,3 +1,6 @@
+<%content_for :menu do%>
+  <li><%=link_to "돌아가기",data_rests_path%></li>
+<%end%>
 <div class="container">
   <h2><%=@rest.name%></h2>
   
@@ -58,39 +61,39 @@
       <%end%>
     </table>
   </div>
-  <%=link_to "돌아가기",data_rests_path,class: :btn%>
 </div>
 <script>
-    $(".mre").click(function(){
-        $(this).hide();
-        $("#mrebut").attr("value","수정하기");
-        $("#mrecan").show();
-        var thisid=$(this).attr("id");
-        var name=$("#name"+thisid).html();
-        $("#rmenu_menuname").attr("value",name);
-        
-        var content=$("#content"+thisid).html();
-        $("#rmenu_content").attr("value",content);
-        var pagenum=$("#pagenum"+thisid).html();
-        if (pagenum=="대표메뉴"){
-            $("#rmenu_pagenum").attr("value",0);
-        }
-        else{
-            $("#rmenu_pagenum").attr("value",pagenum);
-        }
-        var cost=$("#cost"+thisid).html();
-        $("#rmenu_cost").attr("value",cost);
-        $("#new_rmenu").attr("action","/data/rmenus/"+thisid).append('<input type="hidden" id="pat" name="_method" value="patch" />');
-    });
-    $("#mrecan").click(function(){
-        $(this).hide();
-        $("#mrebut").attr("value","저장");
-        $("#rmenu_menuname").attr("value","");
-        $("#rmenu_content").attr("value","");
-        $("#rmenu_pagenum").attr("value","");
-        $("#rmenu_cost").attr("value","");
-        $("#new_rmenu").attr("action","/data/rmenus");
-        $("#pat").remove();
-        $(".mre").show();
-    })  
+  $(".button-collapse").sideNav();
+  $(".mre").click(function(){
+    $(".mre").hide();
+    $("#mrebut").val("수정하기");
+    $("#mrecan").show();
+    var thisid=$(this).attr("id");
+    var name=$("#name"+thisid).html();
+    $("#rmenu_menuname").val(name);
+    
+    var content=$("#content"+thisid).html();
+    $("#rmenu_content").val(content);
+    var pagenum=$("#pagenum"+thisid).html();
+    if (pagenum=="대표메뉴"){
+        $("#rmenu_pagenum").val(0);
+    }
+    else{
+        $("#rmenu_pagenum").val(pagenum);
+    }
+    var cost=$("#cost"+thisid).html();
+    $("#rmenu_cost").val(cost);
+    $("#new_rmenu").attr("action","/data/rmenus/"+thisid).append('<input type="hidden" id="pat" name="_method" value="patch" />');
+  });
+  $("#mrecan").click(function(){
+    $(this).hide();
+    $("#mrebut").val("저장");
+    $("#rmenu_menuname").val("");
+    $("#rmenu_content").val("");
+    $("#rmenu_pagenum").val(1);
+    $("#rmenu_cost").val("");
+    $("#new_rmenu").attr("action","/data/rmenus");
+    $("#pat").remove();
+    $(".mre").show();
+  })
 </script>

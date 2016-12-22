@@ -1,5 +1,7 @@
+<%content_for :menu do%>
+  <li><%=link_to "돌아가기",data_rests_path%></li>
+<%end%>
 <div class="container">
-  <%=link_to "돌아가기",data_rests_path,class: :btn%>
   <div class="row">
       <h3>식당수정</h3>
       <%=form_for @rest,:url => data_rest_path  do |f|%>
@@ -37,3 +39,6 @@
       
   </div>
 </div>
+<script>
+  $(".button-collapse").sideNav();
+</script>

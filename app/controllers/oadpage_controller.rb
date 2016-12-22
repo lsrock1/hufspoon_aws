@@ -1,57 +1,6 @@
 class OadpageController < ApplicationController
   before_action :require_login
   
-  def show_config
-    all_pi=Curate.all
-    @id=params[:id].to_i
-    @num=(all_pi.length/10)+1
-    if @id==0
-      instance=[]
-      all_pi.each do |i|
-        if i.show.to_s!="0"
-          instance.push(i)
-        end
-      end
-      @all=instance
-    else
-      @all=all_pi.all.order('created_at DESC')[(@id-1)*10..10*(@id)-1]
-    end
-  end
-  
-  def show_add
-    
-  end
-  
-  def image_add
-    Curate.new(:address => params[:address],:keyword => params[:keyword]).save
-    redirect_to '/oadpage/show/1'
-  end
-  
-  def image_del
-    Curate.find(params[:id]).destroy
-    redirect_to :back
-  end
-  
-  
-  
-  def image_show
-    if params[:show].to_i>6||params[:show].to_i<0
-      redirect_to :back
-    elsif params[:show].to_i==0  
-      conf=Curate.find(params[:id])
-      conf.show=params[:show]
-      conf.save
-      redirect_to :back
-    elsif Curate.find_by(:show => params[:show])==nil
-      conf=Curate.find(params[:id])
-      conf.show=params[:show]
-      conf.save
-      redirect_to :back
-    else
-      redirect_to :back
-    end
-  end
-  
   def excel
   end
   

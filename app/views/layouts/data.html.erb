@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>HUFSPOON</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="apple-touch-icon" href="https://s19.postimg.org/p8sv5224v/appleicon.png" />
+  <%= favicon_link_tag 'favicon.ico' %>
+  <%= stylesheet_link_tag    'application', media: 'all'  %>
+  <%= javascript_include_tag 'application'  %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <ul id="dropdown1" class="dropdown-content">
+    <li><a href="/">메인으로</a></li>
+    <li><a href="/home/index">이문동주변 식당</a></li>
+    <li class="divider"></li>
+    <li><%=link_to "메뉴 관리",data_menulists_path%></li>
+    <li><%=link_to "이문동식당관리",data_rests_path%></li>
+    <li><%=link_to "큐레이션 관리",data_curates_path%></li>
+  </ul>
+  
+  <nav>
+    <div class="nav-wrapper main_nav">
+      <ul id="slide-out" class="side-nav ">
+        <li><%=link_to "로그아웃",out_path%></li>
+        <li class="no-padding">
+          <ul class="collapsible collapsible-accordion">
+            <li>
+              <a class="collapsible-header">페이지 이동<i class="material-icons">arrow_drop_down</i></a>
+              <div class="collapsible-body">
+                <ul>
+                    <li><a href="/">메인으로</a></li>
+                    <li><a href="/home/index">이문동주변 식당</a></li>
+                    <li class="divider"></li>
+                    <li><%=link_to "메뉴 관리",data_menulists_path%></li>
+                    <li><%=link_to "이문동식당관리",data_rests_path%></li>
+                    <li><%=link_to "큐레이션 관리",data_curates_path%></li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <%=yield :menu%>
+      </ul>
+      
+      <ul class="left hide-on-med-and-down">
+        <li><%=link_to "로그아웃",out_path%></li>
+        <li><a class="dropdown-button" href="#!" data-activates="dropdown1">페이지 이동<i class="material-icons right">arrow_drop_down</i></a></li>
+        <%=yield :menu%>
+      </ul>
+      <%if @search%>
+      <ul class="right">
+        <li><a><i class="material-icons opener">search</i></a></li>
+      </ul>
+      <%end%>
+       <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+    </div>
+    <%=yield :search_form%>
+  </nav>
+  
+  <%= yield %>
+
+
+
+</body>
+</html>

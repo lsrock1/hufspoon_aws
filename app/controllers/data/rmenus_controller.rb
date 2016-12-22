@@ -1,5 +1,6 @@
 class Data::RmenusController < ApplicationController
   before_action :require_login
+  layout 'data'
   
   def create
     if params[:menulist]==nil

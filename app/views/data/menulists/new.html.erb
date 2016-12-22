@@ -1,9 +1,10 @@
-<%=link_to "돌아가기",data_menulists_path(:page => @page),class: :btn%>
-
+<% content_for :menu do%>
+<li><%=link_to "돌아가기",data_menulists_path(:page => @page)%></li>
+<%end%>
 <h3>메뉴번역추가</h3>
         
 <div class="row">
-  <%=form_for @menulist, :url => data_menulists_path do |f|%>
+  <%=form_for @menulist, url: data_menulists_path do |f|%>
     <%=f.text_field :page,value: @page,type: :hidden%>
     <div class="input-field">
       <%=f.label "한글이름"%>
@@ -75,3 +76,6 @@
   <button class="btn">저장</button>
 </form>
 <%=link_to "DB 엑셀로 다운로드","/download",class: :btn%>
+<script>
+  $(".button-collapse").sideNav();
+</script>

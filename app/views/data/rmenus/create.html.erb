@@ -1,3 +1,6 @@
+<%content_for :menu do%>
+  <li><%=link_to "돌아가기",data_rest_path(id: @rmenu.rest_id)%></li>
+<%end%>
 <div class="container">
   <h2>번역 추가가 필요합니다</h2>
   <%=form_for @rmenu, url: data_rmenus_path do |f|%>
@@ -62,5 +65,4 @@
     
     <%=f.submit "저장",class: :btn%>
   <%end%>
-  <%=link_to "돌아가기",data_rest_path(id: @rmenu.rest_id),class: :btn%>
 </div>

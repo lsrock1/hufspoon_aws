@@ -2,8 +2,8 @@ Rails.application.routes.draw do
   devise_for :admins
   
   get '/refresh/:day' => 'home#refresh'
-  get'/out' =>'home#out'#로그아웃
-  get '/like' => 'home#like'#좋아요
+  get'/out' =>'home#out'
+  get '/like' => 'home#like'
   get '/newadmin' =>"home#newadmin"
   
   get '/keyboard' => 'chatbot#keyboard'
@@ -16,21 +16,8 @@ Rails.application.routes.draw do
     resources :menulists, path_names: {edit: "/data/menulists/:id/edit/:page"}
     resources :rests
     resources :rmenus, except: [:index,:show,:edit,:new]
+    resources :curates
   end
-  
-  get '/oadpage/image_del/:id' =>'oadpage#image_del'#이미지 삭제
-  get '/oadpage/show_add' =>'oadpage#show_add' #이미지 등록 페이지
-  get '/oadpage/show/:id' => 'oadpage#show_config'#이미지 보기
-  post '/oadpage/image_add' => 'oadpage#image_add'#이미지 등록
-  get '/oadpage/image_show' =>'oadpage#image_show' #등록 설정
-  
-  get '/oadpage/rest_add' => 'oadpage#rest_add' #식당추가 페이지
-  post '/oadpage/rewriterest/:id'=>"oadpage#rewriterest" #식당수정 기능
-  
-  post '/oadpage/addmenu' =>'oadpage#addmenu'
-  #식당메뉴수정
-  post '/oadpage/rewritemenu/:id' =>'oadpage#rewritemenu'
-  post '/adpage/menulist/:info' => 'adpage#existmenu'
   
   get '/adpage/search/:id' =>"adpage#search"
   

@@ -1,3 +1,7 @@
+<%content_for :menu do%>
+  <li><%=link_to "돌아가기",data_menulists_path(:page => @page)%></li>
+<%end%>
+
 <h2>존재하는 메뉴입니다</h2>
 
 <div class="table-responsive">
@@ -31,4 +35,6 @@
   </table>
 </div>
 <%=link_to "수정하기",edit_data_menulist_path(:id => @menulist.id,:page => @page),class: :btn%>
-<%=link_to "돌아가기",data_menulists_path(:page => @page),class: :btn%>
+<script>
+  $(".button-collapse").sideNav();
+</script>

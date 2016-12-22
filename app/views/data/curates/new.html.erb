@@ -1,0 +1,36 @@
+<%content_for :menu do%>
+  <li><%=link_to "돌아가기",data_curates_path%></li>
+<%end%>
+
+<h3>사진추가</h3>
+        
+<div class="row">
+  <div class="input-field">
+    <label for="ex1">url</label>
+    <input class="validate" id="ex1" type="text">
+  </div>
+  <div class="input-field">
+    <label for="ex2">연결될 페이지</label>
+    <input class="validate" id="ex2" type="text">
+  </div>
+  <button class="btn see">보기</button>
+</div>
+<div id="test"></div>
+<%=form_for @curate,url: data_curates_path do |f|%>
+  <%=f.hidden_field :address%>
+  <%=f.hidden_field :keyword%>
+<%end%>
+
+<script>
+  $(".button-collapse").sideNav();
+  $(".see").click(function(){
+    var name=$("#ex1").val();
+    var address=name
+    $("#test").html('<img src='+address+' width="300" height="300">'+'<button onclick="send();"class="btn save">저장</button>');
+    $('#curate_address').val(name);
+    $("#curate_keyword").val($("#ex2").val());
+  });
+  function send(){
+    $("#new_curate").submit();
+  }
+</script>

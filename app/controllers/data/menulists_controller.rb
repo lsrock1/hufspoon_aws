@@ -1,7 +1,9 @@
 class Data::MenulistsController < ApplicationController
   before_action :require_login
+  layout 'data'
   
   def index
+    @search=true
     @page=params[:page] ? params[:page].to_i : 1
     @list=Menulist.all
     @num=(@list.length/300)+1

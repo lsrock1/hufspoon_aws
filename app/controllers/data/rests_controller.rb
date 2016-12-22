@@ -1,5 +1,6 @@
 class Data::RestsController < ApplicationController
   before_action :require_login
+  layout 'data'
   
   def index
     @page=params[:page] ? params[:page].to_i : 1
@@ -64,7 +65,7 @@ class Data::RestsController < ApplicationController
   
   private
     def rest_params
-      params.require(:rest).permit(:name,:food,:page,:picture,:address,:phone,:open)
+      params.require(:rest).permit(:name,:food,:picture,:address,:phone,:open)
     end
     
     def map_params

@@ -1,3 +1,16 @@
+<% content_for :menu do%>
+  <li>
+  <%if @intinfo!=nil%>
+    <%if @intinfo>=0%>
+    <%=link_to "돌아가기",data_menulists_path(:page => @page)%>
+    <%else%>
+    <a href="/data/rests/<%=(@intinfo*-1).to_s%>">돌아가기</a>
+    <%end%>
+  <%else%>
+    <a href="/adpage/search/0?keyword=<%=@page%>">돌아가기</a>
+  <%end%>
+  </li>
+<%end%>
 <div class="container">
   <h2>수정해 주세요</h2>
   <%=form_for @menulist, url: data_menulist_path do |f|%>
@@ -56,13 +69,7 @@
     </div>
     <%=f.submit "저장",class: :btn%>
   <%end%>
-  <%if @intinfo!=nil%>
-    <%if @intinfo>=0%>
-    <%=link_to "돌아가기",data_menulists_path(:page => @page),class: :btn%>
-    <%else%>
-    <a href="/data/rests/<%=(@intinfo*-1).to_s%>"><button class="btn">돌아가기</button></a>
-    <%end%>
-  <%else%>
-      <a href="/adpage/search/0?keyword=<%=@page%>"><button class="btn">돌아가기</button></a>
-  <%end%>
 </div>
+<script>
+  $(".button-collapse").sideNav();
+</script>
