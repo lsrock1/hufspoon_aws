@@ -9,37 +9,37 @@
   </li>
 <%end%>
 <table>
-    <thead>
+  <thead>
+    <tr>
+      <td class="hide-on-small-only">순서</td>
+      <td>사진</td>
+      <td>키워드</td>
+      <td>등록</td>
+      <td>삭제</td>
+    </tr>
+  </thead>
+  <tbody><%if @id!=0%><%row=(@id-1)*10+1%><%else%><%row=1%><%end%>
+    <%@curate.each do |curate|%>
       <tr>
-        <td class="hide-on-small-only">순서</td>
-        <td>사진</td>
-        <td>키워드</td>
-        <td>등록</td>
-        <td>삭제</td>
-      </tr>
-    </thead>
-    <tbody><%if @id!=0%><%row=(@id-1)*10+1%><%else%><%row=1%><%end%>
-      <%@curate.each do |curate|%>
-        <tr>
-          <td class="hide-on-small-only"><%=row%></td>
-          
-          <td><img class="materialboxed" src="<%=curate.address%>" width="300" height="300"></td>
-          <td><%=curate.keyword%></td>
-          <td>
-            <%=form_for curate,url: data_curate_path(id: curate.id) do |f|%>
-              <div class="row">
-                <div class="input-field col s3">
-                  <%=f.text_field :show%>
-                </div>
+        <td class="hide-on-small-only"><%=row%></td>
+        
+        <td><img class="materialboxed" src="<%=curate.address%>" width="300" height="300"></td>
+        <td><%=curate.keyword%></td>
+        <td>
+          <%=form_for curate,url: data_curate_path(id: curate.id) do |f|%>
+            <div class="row">
+              <div class="input-field col s3">
+                <%=f.text_field :show%>
               </div>
-              <%=f.submit "변경",class: :btn%>
-            <%end%>
-          </td>
-          <td><%=link_to "삭제",data_curate_path(curate),{class: :btn, method: :delete, data: {confirm: '정말 삭제 하시겠습니까?'}}%></td>
-        </tr>
-        <%row=row+1%>
-      <%end%>
-    </tbody>
+            </div>
+            <%=f.submit "변경",class: :btn%>
+          <%end%>
+        </td>
+        <td><%=link_to "삭제",data_curate_path(curate),{class: :btn, method: :delete, data: {confirm: '정말 삭제 하시겠습니까?'}}%></td>
+      </tr>
+      <%row=row+1%>
+    <%end%>
+  </tbody>
 </table>
 
 <%unless @id==0%>

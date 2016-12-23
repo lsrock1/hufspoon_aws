@@ -1,18 +1,6 @@
 class HomeController < ApplicationController
   before_action :banned_user
   
-  def newadmin
-    if Admin.find_by(:email => ENV["ADMIN_ID"])!=nil
-      redirect_to :back
-    else
-    admin=Admin.new
-    admin.email=ENV["ADMIN_ID"]
-    admin.password=ENV["ADMIN_PASS"]
-    admin.save
-    redirect_to "/"
-    end
-  end
-  
   def like
     id=params[:id]
     @menu=Menulist.find(id)
@@ -37,21 +25,6 @@ class HomeController < ApplicationController
     respond_to do |format|
       format.json { render :json => { :like => @menu.u_like } }
     end
-  end
-  
-  def refresh
-    require_session
-    day=params[:day]
-    [Breakfast,Lunch1,Lunch2,Lunchnoodle,Dinner,Flunch,Fdinner,Menua,Menub].
-    map{|meal| meal.find_by(date: day)}.
-    select{|meal| meal!=nil}.
-    map{|meal| meal.destroy}
-    redirect_to "/"
-  end
-  
-  def out
-    session.clear
-    redirect_to "/"
   end
   
   def index

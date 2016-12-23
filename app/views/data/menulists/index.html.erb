@@ -10,13 +10,15 @@
 <%end%>
 <% content_for :search_form do%>
   <div class="nav-wrapper nav_form">
-    <form action="/adpage/search/<%=@page%>" method="get">
+    <%=form_tag search_data_menulists_path(page: @page),method: :get do%>
       <div class="input-field">
-        <input id="search" name="keyword" type="search" required>
-        <label for="search"><i class="material-icons">search</i></label>
+        <%=text_field_tag :keyword, '', type: :search %>
+        <%=label :keyword, '' do%>
+          <i class="material-icons">search</i>
+        <%end%>
         <i class="material-icons closer">close</i>
       </div>
-    </form>
+    <%end%>
   </div>
 <%end%>
 <br>
@@ -82,7 +84,7 @@
   $(".opener").click(function(){
     $(".main_nav").hide();
     $(".nav_form").fadeIn();
-    document.getElementById("search").focus();
+    document.getElementById("keyword").focus();
   })
   $(".closer").click(function(){
     $(".nav_form").hide();

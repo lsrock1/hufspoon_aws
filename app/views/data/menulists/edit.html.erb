@@ -7,7 +7,7 @@
     <a href="/data/rests/<%=(@intinfo*-1).to_s%>">돌아가기</a>
     <%end%>
   <%else%>
-    <a href="/adpage/search/0?keyword=<%=@page%>">돌아가기</a>
+    <%=link_to "돌아가기",search_data_menulists_path(page: 0,keyword: @page)%>
   <%end%>
   </li>
 <%end%>

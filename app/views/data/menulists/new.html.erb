@@ -1,9 +1,9 @@
 <% content_for :menu do%>
 <li><%=link_to "돌아가기",data_menulists_path(:page => @page)%></li>
 <%end%>
+<div class="container">
 <h3>메뉴번역추가</h3>
         
-<div class="row">
   <%=form_for @menulist, url: data_menulists_path do |f|%>
     <%=f.text_field :page,value: @page,type: :hidden%>
     <div class="input-field">
@@ -60,7 +60,6 @@
     </div>
     <%=f.submit "저장",class: :btn%>
   <%end%>
-</div>
 <br>
 <br>
 <form action="/excelinsert" method="post" enctype="multipart/form-data">
@@ -76,6 +75,7 @@
   <button class="btn">저장</button>
 </form>
 <%=link_to "DB 엑셀로 다운로드","/download",class: :btn%>
+</div>
 <script>
   $(".button-collapse").sideNav();
 </script>

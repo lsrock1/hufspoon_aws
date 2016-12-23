@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class OadpageControllerTest < ActionController::TestCase
+class Data::ExcelsControllerTest < ActionController::TestCase
   # test "the truth" do
   #   assert true
   # end

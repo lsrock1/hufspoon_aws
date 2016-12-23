@@ -1,5 +1,5 @@
 class OhomeController < ApplicationController
-  before_action :ohomecookie, except: [:search]
+  before_action :banned_user,:ohomecookie, except: [:search]
   
   def rightindex
     @menuarray=[]
@@ -103,5 +103,35 @@ class OhomeController < ApplicationController
     end
   end
   
-  
+  private
+    def ohomecookie
+      if params[:language]==nil
+        
+        if cookies[:my_ohome_language]==nil
+          
+          if cookies[:my_language]==nil
+            
+            @language="4"
+            
+          else
+            
+            if cookies[:my_language]=="4"
+              @language=cookies[:my_language]
+            else
+              @language="0"
+            end
+            
+          end
+          cookies.permanent[:my_ohome_language]=@language
+        else
+          
+          @language=cookies[:my_ohome_language]
+          
+        end
+        
+      else
+        @language=params[:language]
+        cookies.permanent[:my_ohome_language]=@language
+      end
+    end
 end

@@ -34,8 +34,10 @@ class Data::MenulistsController < ApplicationController
     delmenu=Menulist.find(params[:id])
     if Rmenu.find_by(:menuname => delmenu.kname)==nil
       delmenu.destroy
+      redirect_to :back
+    else
+      redirect_to :back,notice: '해당 번역을 사용하는 일반식당 메뉴가 있습니다!'
     end
-    redirect_to :back
   end
   
   def edit
@@ -60,7 +62,7 @@ class Data::MenulistsController < ApplicationController
           redirect_to "/data/rests/"+((@intinfo*-1).to_s)
         end
       else
-        redirect_to "/adpage/search/0?keyword="+URI.encode(@info)
+        redirect_to search_data_menulists_path(page: 0,keyword: @page)
       end
     end
   end
@@ -68,6 +70,12 @@ class Data::MenulistsController < ApplicationController
   def new
     @page=params[:page]
     @menulist=Menulist.new
+  end
+  
+  def search
+    @page=params[:page]
+    @keyword=params[:keyword]
+    @menulist=Menulist.where('kname Like ?', '%'+@keyword+'%').all
   end
   
   private
