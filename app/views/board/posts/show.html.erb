@@ -16,7 +16,7 @@
           <%=@p.content%>
           <br><br>
           Date: <%=@p.created_at.in_time_zone("Asia/Seoul").strftime("%m/%d  %H:%M")%> &nbsp
-          Ip: <%if @p.ip!=nil%><%=@p.ip[0...7]%><%end%>
+          Ip: <%if @p.ip!=nil%><%=@p.ip[0..7]%><%end%>
         </div>
         <%if @p.name=='admin'%>
           <div class="divider"></div>
@@ -25,8 +25,8 @@
         <%if admin_signed_in?||session[:num]=="0"&&session[:name]=="admin"&&session[:level]=="인문관영양사"%>
           <br>
           <%=link_to '삭제','/posts/'+@p.id.to_s,{class: :btn, method: :delete, data: {confirm: '정말 삭제 하시겠습니까?'}}%>
-          <%=link_to '차단','/board/block/post/'+@p.id.to_s,{class: :btn, method: :get, data: {confirm: '정말 차단 하시겠습니까?'}}%>
-          <%=link_to 'ip차단','/board/block/ip/post'+@p.id.to_s,{class: :btn, method: :get, data: {confirm: '정말 ip차단 하시겠습니까?'}}%>
+          <%=link_to '차단','/block/post/'+@p.id.to_s,{class: :btn, method: :get, data: {confirm: '정말 차단 하시겠습니까?'}}%>
+          <%=link_to 'ip차단','/block/ip/post'+@p.id.to_s,{class: :btn, method: :get, data: {confirm: '정말 ip차단 하시겠습니까?'}}%>
         <%end%></p>
       </div>
     </div>
@@ -46,8 +46,8 @@
             <%if admin_signed_in?||session[:num]=="0"&&session[:name]=="admin"&&session[:level]=="인문관영양사"%>
               <br>
               <%=link_to '삭제','/comments/'+a.id.to_s,{class: :btn, method: :delete, data: {confirm: '정말 삭제 하시겠습니까?'}}%>
-              <%=link_to '차단','/board/block/comment/'+a.id.to_s,{class: :btn, method: :get, data: {confirm: '정말 차단 하시겠습니까?'}}%>
-              <%=link_to 'ip차단','/board/block/ip/comment'+a.id.to_s,{class: :btn, method: :get, data: {confirm: '정말 ip차단 하시겠습니까?'}}%>
+              <%=link_to '차단','/block/comment/'+a.id.to_s,{class: :btn, method: :get, data: {confirm: '정말 차단 하시겠습니까?'}}%>
+              <%=link_to 'ip차단','/block/ip/comment'+a.id.to_s,{class: :btn, method: :get, data: {confirm: '정말 ip차단 하시겠습니까?'}}%>
             <%end%>
           </span>
         </div>

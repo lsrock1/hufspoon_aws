@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   
   get '/refresh/:day' => 'systems#refresh'
   get'/out' =>'systems#out'
-  get '/:identity/:id' => 'systems#block'
+  get '/block/:identity/:id' => 'systems#block'
   get '/newadmin' =>"systems#newadmin"
   
   get '/keyboard' => 'chatbot#keyboard'
@@ -20,8 +20,7 @@ Rails.application.routes.draw do
     resources :rmenus, except: [:index,:show,:edit,:new]
     resources :curates
   end
-  
-  #일반화면
+
   get '/home/leftindex/:num' =>'ohome#leftindex'
   get '/home/rightindex/:id' =>'ohome#rightindex'
   get '/home/search' => 'ohome#search'

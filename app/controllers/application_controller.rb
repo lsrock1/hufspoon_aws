@@ -35,6 +35,8 @@ class ApplicationController < ActionController::Base
     if Banned.find_by(identity: "ip",ip: request.remote_ip)!=nil
       redirect_to 'https://meta.wikimedia.org/wiki/Banned_user'
     end
+    rescue ActionController::RedirectBackError
+      redirect_to root_path
   end
   
   def make_list data,day,id

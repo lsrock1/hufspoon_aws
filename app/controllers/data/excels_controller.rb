@@ -4,44 +4,6 @@ class Data::ExcelsController < ApplicationController
   def excel
   end
   
-  def get_excel
-    workbook = WriteXLSX.new('public/public/rest_menu.xlsx')
-    worksheet = workbook.add_worksheet
-    
-    num=0
-    Map.all.each do|a|
-      worksheet.write(num,0,"map")
-      worksheet.write(num,1,a.lat)
-      worksheet.write(num,2,a.lon)
-      num+=1
-      a.rests.each do |b|
-        worksheet.write(num,0,"rest")
-        worksheet.write(num,1,b.name)
-        worksheet.write(num,2,b.food)
-        worksheet.write(num,3,b.page)
-        worksheet.write(num,4,b.picture)
-        worksheet.write(num,5,b.re_menu)
-        worksheet.write(num,6,b.ere_menu)
-        worksheet.write(num,7,b.address)
-        worksheet.write(num,8,b.phone)
-        worksheet.write(num,9,b.open)
-        num+=1
-        b.rmenu.each do |c|
-          worksheet.write(num,0,"menu")
-          worksheet.write(num,1,c.menuname)
-          worksheet.write(num,2,c.emenuname)
-          worksheet.write(num,3,c.content)
-          worksheet.write(num,4,c.cost)
-          worksheet.write(num,5,c.category)
-          worksheet.write(num,6,c.pagenum)
-          num+=1
-        end
-      end
-    end
-      workbook.close
-    send_file 'public/public/rest_menu.xlsx', :type=>"application/xlsx", :x_sendfile=>true
-  end
-  
   def put_excel
     if params[:ex]==nil
       redirect_to :back
@@ -82,31 +44,6 @@ class Data::ExcelsController < ApplicationController
       end
       
     end
-  end
-  
-  def download
-    workbook = WriteXLSX.new('public/public/translate.xlsx')
-    worksheet = workbook.add_worksheet
-    
-    num=0
-    Menulist.all.each do|a|
-      worksheet.write(num,0,a.kname)
-      worksheet.write(num,1,a.ername)
-      worksheet.write(num,2,a.ename)
-      worksheet.write(num,3,a.jnamea)
-      worksheet.write(num,4,a.cname)#간체
-      worksheet.write(num,5,a.cnameb)#번체
-      worksheet.write(num,6,a.aname)
-      worksheet.write(num,7,a.spanish)
-      worksheet.write(num,8,a.germany)
-      worksheet.write(num,9,a.italia)
-      worksheet.write(num,10,a.portugal)
-      worksheet.write(num,11,a.french)
-      worksheet.write(num,12,a.u_picture)
-      num=num+1
-    end
-      workbook.close
-    send_file 'public/public/translate.xlsx', :type=>"application/xlsx", :x_sendfile=>true
   end
   
   #엑셀->db

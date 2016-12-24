@@ -4,9 +4,9 @@ class Data::RestsController < ApplicationController
   
   def index
     @page=params[:page] ? params[:page].to_i : 1
-    @rest=Rest.all
-    @num=(@rest.length/50)+1
-    @rest=@rest.all.order('name ASC')[(@page-1)*50...50*(@page)-1]
+    @rests=Rest.all
+    @num=(@rests.length/50)+1
+    @rest=@rests.all.order('name ASC')[(@page-1)*50..50*(@page)-1]
   end
   
   def new
