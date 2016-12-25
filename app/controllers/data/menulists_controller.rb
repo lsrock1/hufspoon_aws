@@ -1,3 +1,4 @@
+require 'csv'
 class Data::MenulistsController < ApplicationController
   before_action :require_login
   layout 'data'
@@ -15,7 +16,7 @@ class Data::MenulistsController < ApplicationController
   end
   
   def create
-    if params[:menulist][:kname]
+    if params[:menulist]
       @page=params[:page] ? params[:page] :params[:menulist][:page]
       #메뉴가 존재하면 그 메뉴를 찾아서 보여준다
       if Menulist.find_by(:kname => params[:menulist][:kname])!=nil
@@ -38,7 +39,7 @@ class Data::MenulistsController < ApplicationController
         num=0
         CSV.foreach(csv_text,:encoding => 'euc-kr') do |row|
           unless num==0
-            csv_hash(row.to_s)
+            csv_hash(row)
           else
               num+=1
           end
@@ -104,8 +105,6 @@ class Data::MenulistsController < ApplicationController
     end
     
     def csv_hash string
-      string=string.split(',')
-      string=string.map{|s| s.delete '"'}.map{|s| s.delete " "}.map{|s| s.sub "nil",""}
       menulist=Menulist.find_by(kname: string[1])
       if menulist
           if string[3]!=""&&string[3]!="nil"

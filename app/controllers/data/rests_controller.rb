@@ -1,3 +1,4 @@
+require 'csv'
 class Data::RestsController < ApplicationController
   before_action :require_login
   layout 'data'
@@ -14,7 +15,7 @@ class Data::RestsController < ApplicationController
   end
   
   def create
-    if params[:map][:lat]
+    if params[:map]
       @map=Map.find_by(lat: params[:map][:lat].to_f,lon: params[:map][:lon].to_f)
       
       if @map
@@ -37,18 +38,30 @@ class Data::RestsController < ApplicationController
       perms=['.csv']
       if perms.include?(File.extname(name).downcase)
         csv_text = file.tempfile.path
+        @map=nil
+        @rest=nil
         CSV.foreach(csv_text,:encoding => 'euc-kr') do |row|
-          row=row.to_s.splite(',')
-          row=row.map{|s| s.delete '"'}.map{|s| s.delete " "}.map{|s| s.sub "nil",""}
+          puts row[5]
+          # row=row.to_s.split(',')
+          # row=row.map{|s| s.delete '"'}.map{|s| s.delete " "}.map{|s| s.sub "nil",""}
+          
           if row[0]=='rest'
-            if newmap.rests.where(name: s[1].to_s).length==0
-              newrest=Rest.new(map_id: newmap.id,name: s[1].to_s,food: s[2].to_s,page: s[3].to_s,picture: s[4].to_s,re_menu: s[5].to_s,ere_menu: s[6].to_s,address: s[7].to_s,phone: s[8].to_s,open: s[9].to_s)
-              newrest.save
+            @map=map row[10],row[11]
+            begin
+              @rest=@map.rests.find_by(name: row[1])
+            rescue
+              @rest=nil
+            end
+            
+            if @rest
+              @rest.update(map_id: @map.id,food: row[2],page: row[3],picture: row[4],re_menu: row[5],ere_menu: row[6],address: row[7],phone: row[8],open: row[9])
             else
-              newrest=Rest.find_by(name: s[1].to_s)
+              @rest=Rest.new(map_id: @map.id, name: row[1],food: row[2],page: row[3],picture: row[4],re_menu: row[5],ere_menu: row[6],address: row[7],phone: row[8],open: row[9])
+              @rest.save
             end
           elsif row[0]=='menu'
-            
+            Menulist.gettrans(row[1],0)
+            Rmenu.new(rest_id: @rest.id,menuname: row[1],emenuname: row[2],content: row[3],cost: row[4],category: row[5],pagenum: row[6]).save
           end
         end
         redirect_to :back
@@ -96,5 +109,16 @@ class Data::RestsController < ApplicationController
     
     def map_params
       params.require(:map).permit(:lat,:lon)
+    end
+    
+    def map lat,lon
+      map=Map.find_by(lat: lat,lon: lon)
+      if map
+        return map
+      else
+        map=Map.new(lat: lat,lon: lon)
+        map.save
+        return map
+      end
     end
 end
