@@ -19,18 +19,6 @@ class SystemsController < ApplicationController
     redirect_to :back
   end
   
-  def newadmin
-    if Admin.find_by(:email => ENV["ADMIN_ID"])!=nil
-      redirect_to :back
-    else
-    admin=Admin.new
-    admin.email=ENV["ADMIN_ID"]
-    admin.password=ENV["ADMIN_PASS"]
-    admin.save
-    redirect_to "/"
-    end
-  end
-  
   def refresh
     require_session
     day=params[:day]

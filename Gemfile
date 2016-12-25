@@ -1,11 +1,8 @@
 source 'https://rubygems.org'
 gem 'materialize-sass'
 gem 'rails_12factor', group: :production
-gem 'write_xlsx'
 gem'nokogiri'
 gem 'devise'
-gem 'roo', '~> 2.4.0'
-gem 'carrierwave'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'
 # Use sqlite3 as the database for Active Record

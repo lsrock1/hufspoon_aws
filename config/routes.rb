@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get '/refresh/:day' => 'systems#refresh'
   get'/out' =>'systems#out'
   get '/block/:identity/:id' => 'systems#block'
-  get '/newadmin' =>"systems#newadmin"
+  get '/newadmin' =>"home#newadmin"
   
   get '/keyboard' => 'chatbot#keyboard'
   post '/message' => 'chatbot#message'
@@ -30,7 +30,7 @@ Rails.application.routes.draw do
     resources :posts, except: [:edit,:update]
     resources :comments, except: [:edit,:update,:show,:index,:new]
   end
-  
+
   get '/board/login'=>'board#login'
   post '/board/login'=>'board#login'
   

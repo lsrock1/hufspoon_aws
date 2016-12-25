@@ -12,4 +12,4 @@ result << "\r"
   end
 end
 
-result.encode('utf-8')
+result.encode('euc-kr')

@@ -27,6 +27,18 @@ class HomeController < ApplicationController
     end
   end
   
+  def newadmin
+    if Admin.find_by(:email => ENV["ADMIN_ID"])!=nil
+      redirect_to :back
+    else
+    admin=Admin.new
+    admin.email=ENV["ADMIN_ID"]
+    admin.password=ENV["ADMIN_PASS"]
+    admin.save
+    redirect_to "/"
+    end
+  end
+  
   def index
     @id=params[:id].to_i
     @day=params[:day]

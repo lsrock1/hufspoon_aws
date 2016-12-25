@@ -305,11 +305,11 @@
     </div>
   </div>
 <script>
-$(".button-collapse").sideNav();
-$('.modal-trigger').leanModal();
-$('.modal-trigger-map').leanModal();
-$('.modal-trigger-food').leanModal();
-$('.materialboxed').materialbox();
+  $(".button-collapse").sideNav();
+  $('.modal-trigger').leanModal();
+  $('.modal-trigger-map').leanModal();
+  $('.modal-trigger-food').leanModal();
+  $('.materialboxed').materialbox();
   $('.modal-trigger').click(function(){
     $('.button-collapse').sideNav('hide');
     $('ul.tabs').tabs('select_tab', 'test4');
@@ -354,26 +354,19 @@ $('.materialboxed').materialbox();
     $.ajax({
       method: "get",
       url: "/like",
-       dataType: "json",
+      dataType: "json",
       data: { id: did},
       success: function(data)  {
-        //$(this).html(toString(data.like));
-      //$(this).html("&nbsp&nbsp"+data.like+" like");
-      
-      
-      $("#"+did).removeAttr("onlick");
-      if($("#"+did).hasClass("red-text")){
-        $("#"+did).html("<i class='material-icons'>favorite_border</i>&nbsp;&nbsp;"+data.like);
-        $("#"+did).removeClass("red-text text-lighten-3");
-        $("#"+did).addClass("grey-text");
-      }
-      else{
-        $("#"+did).html("<i class='material-icons'>favorite</i>&nbsp;&nbsp;"+data.like);
-        $("#"+did).removeClass("grey-text");
-        $("#"+did).addClass("red-text text-lighten-3");
-      }
-      
-      //alert("dfs");
+        if($("#"+did).hasClass("red-text")){
+          $("#"+did).html("<i class='material-icons'>favorite_border</i>&nbsp;&nbsp;"+data.like);
+          $("#"+did).removeClass("red-text text-lighten-3");
+          $("#"+did).addClass("grey-text");
+        }
+        else{
+          $("#"+did).html("<i class='material-icons'>favorite</i>&nbsp;&nbsp;"+data.like);
+          $("#"+did).removeClass("grey-text");
+          $("#"+did).addClass("red-text text-lighten-3");
+        }
       }
     })
     

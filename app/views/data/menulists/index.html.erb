@@ -7,6 +7,8 @@
       <%=link_to "신메뉴만보기",data_menulists_path(:page => 0)%>
     <%end%>
   </li>
+  <li><a href="/data/menulists.csv">DB 다운로드</a></li>
+  <li><a class="modal-trigger" href="#modal">DB 업로드</a></li>
 <%end%>
 <% content_for :search_form do%>
   <div class="nav-wrapper nav_form">
@@ -79,7 +81,24 @@
     <%end%>
   </ul>
 <%end%>
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <%=form_tag({action: :create},multipart: true) do%>
+      <div class="file-field input-field">
+        <div class="btn">
+          <span>CSV File</span>
+          <%=file_field_tag :upfile, type: :file%>
+        </div>
+        <div class="file-path-wrapper">
+          <%=text_field_tag :path,"",class: "file-path validate",type: :text%>
+        </div>
+      </div>
+      <%=submit_tag '업로드',class: :btn%>
+    <%end%>
+  </div>
+</div>
 <script>
+  $('.modal-trigger').leanModal();
   $(".button-collapse").sideNav();
   $(".opener").click(function(){
     $(".main_nav").hide();

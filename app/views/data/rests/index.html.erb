@@ -1,6 +1,7 @@
 <%content_for :menu do%>
   <li><%=link_to "식당추가",new_data_rest_path%></li>
-  <li><a href="/oadpage/excel">엑셀관리</a></li>
+  <li><a href="/data/rests.csv">DB 다운로드</a></li>
+  <li><a class="modal-trigger" href="#modal">DB 업로드</a></li>
 <%end%>
 <br/>
 <div class="table-responsive">
@@ -23,9 +24,9 @@
         <td><%=r.map.lon%></td>
         <td><%=r.name%></td>
         <td><%=r.food%></td>
-        <td><%=link_to "수정",edit_data_rest_path(@rest),{class: :btn, data: {confirm: '정말 수정 하시겠습니까?'}}%></td>
-        <td><%=link_to "삭제",data_rest_path(@rest),{class: :btn,method: :delete ,data: {confirm: '정말 삭제 하시겠습니까?'}}%></td>
-        <td><%=link_to "추가",data_rest_path(@rest),{class: :btn,method: :get}%></td>
+        <td><%=link_to "수정",edit_data_rest_path(r),{class: :btn, data: {confirm: '정말 수정 하시겠습니까?'}}%></td>
+        <td><%=link_to "삭제",data_rest_path(r),{class: :btn,method: :delete ,data: {confirm: '정말 삭제 하시겠습니까?'}}%></td>
+        <td><%=link_to "추가",data_rest_path(r),{class: :btn,method: :get}%></td>
       </tr>
     <%end%>
   </table>
@@ -39,6 +40,22 @@
       <%end%>
   <%end%>
 </ul>
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <%=form_tag({action: :create},multipart: true) do%>
+      <div class="file-field input-field">
+        <div class="btn">
+          <span>CSV File</span>
+          <%=file_field_tag :upfile, type: :file%>
+        </div>
+        <div class="file-path-wrapper">
+          <%=text_field_tag :path,"",class: "file-path validate",type: :text%>
+        </div>
+      </div>
+      <%=submit_tag '업로드',class: :btn%>
+    <%end%>
+  </div>
+</div>
 <script>
   $(".button-collapse").sideNav();
 </script>
