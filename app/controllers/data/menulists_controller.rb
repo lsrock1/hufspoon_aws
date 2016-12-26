@@ -109,43 +109,43 @@ class Data::MenulistsController < ApplicationController
       puts string
       menulist=Menulist.find_by(kname: string[1])
       if menulist
-          if string[3]!=""&&string[3]!='nil'
+          if string[3]!=""&&string[3]!=nil
             menulist.ename=string[3]
           end
-          if string[2]!=""&&string[2]!='nil'
+          if string[2]!=""&&string[2]!=nil
             menulist.ername=string[2]
           end
-          if string[4]!=""&&string[4]!='nil'
+          if string[4]!=""&&string[4]!=nil
             menulist.jnamea=string[4]
           end
-          if string[5]!=""&&string[5]!='nil'
+          if string[5]!=""&&string[5]!=nil
             menulist.cname=string[5]
           end
-          if string[6]!=""&&string[6]!='nil'
+          if string[6]!=""&&string[6]!=nil
             menulist.cnameb=string[6]
           end
-          if string[7]!=""&&string[7]!='nil'
+          if string[7]!=""&&string[7]!=nil
             menulist.aname=string[7]
           end
-          if string[8]!=""&&string[8]!='nil'
+          if string[8]!=""&&string[8]!=nil
             menulist.spanish=string[8]
           end
-          if string[9]!=""&&string[9]!='nil'
+          if string[9]!=""&&string[9]!=nil
             menulist.germany=string[9]
           end
-          if string[10]!=""&&string[10]!='nil'
+          if string[10]!=""&&string[10]!=nil
             menulist.italia=string[10]
           end
-          if string[11]!=""&&string[11]!='nil'
+          if string[11]!=""&&string[11]!=nil
             menulist.portugal=string[11]
           end
-          if string[12]!=""&&string[12]!='nil'
+          if string[12]!=""&&string[12]!=nil
             menulist.french=string[12]
           end
-          if string[13]!=""&&string[13]!='nil'
+          if string[13]!=""&&string[13]!=nil
             menulist.u_picture=string[13]
           end
-          if string[14]!=""&&string[14]!='nil'
+          if string[14]!=""&&string[14]!=nil
             menulist.u_like=string[14]
           end
           menulist.save
