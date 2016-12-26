@@ -60,8 +60,8 @@ class Data::RestsController < ApplicationController
             Rmenu.new(rest_id: @rest.id,menuname: row[1],emenuname: row[2],content: row[3],cost: row[4],category: row[5],pagenum: row[6]).save
           end
         end
-        redirect_to :back
       end
+      redirect_to :back
     else
       redirect_to :back
     end
