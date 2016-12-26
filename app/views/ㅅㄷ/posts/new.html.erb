@@ -9,11 +9,6 @@
 <div class="row">
   <div class="col s12 m8 offset-m2 l8 offset-l2">
     <%=form_for(@post) do |f|%>
-      <%if session[:level]!=nil%>
-        <%=f.text_field :name,type: :hidden,value: session[:name]%>
-        <%=f.text_field :level,type: :hidden,value: session[:level]%>
-        <%=f.text_field :num,type: :hidden,value: session[:num]%>
-      <%end%>
       <div class="text_field">
         <%=f.label :title%>
         <%=f.text_field :title,class: "form-control"%>

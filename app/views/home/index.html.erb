@@ -10,12 +10,12 @@
   </ul>
   
   <ul class="left hide-on-med-and-down">
-      <li><a href="/home/index">Around Hufs</a></li>
-      <li><a href="/posts">Q & A</a></li>
-      
-      <li><a class="modal-trigger-map" href="#modal2">Map</a></li>
-      <li><a href="https://www.facebook.com/hufspoon/?ref=aymt_homepage_panel">Hufspoon Facebook</a></li>
-      <li><a class="modal-trigger" href="#modal1">Mondayspoon</a></li>
+    <li><a href="/home/index">Around Hufs</a></li>
+    <li><a href="/posts">Q & A</a></li>
+    
+    <li><a class="modal-trigger-map" href="#modal2">Map</a></li>
+    <li><a href="https://www.facebook.com/hufspoon/?ref=aymt_homepage_panel">Hufspoon Facebook</a></li>
+    <li><a class="modal-trigger" href="#modal1">Mondayspoon</a></li>
   </ul>
   <a href="/" class="brand-logo center" >HUFSPOON</a>
   <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
@@ -30,39 +30,36 @@
         <li class="tab col s3"><a href="#test4">Sky Lounge</a></li>
       </ul>
     </div>
-      <!--아침메뉴 시작-->
-      
       <% @menulist.each do |menu| %>
-          
+      
           <%if menu['name']=='Breakfast'%>
               <div id="test1" class="col s12">
           <%elsif menu['name']=='Snack'%>
           
               <%if @w.to_i==0&&@ran_rest!=nil%>
-                  <div class="col s12 m8 offset-m2 l6 offset-l3">
-                      <div class="card">
-                        <div class="card-image">
-                          <img class="materialboxed"<%if @ran_rest.picture!=""&&@ran_rest.picture!=nil%>src="<%=@ran_rest.picture%>"<%else%>src="https://s19.postimg.org/yqsm53ntd/always.png"<%end%> style="max-width: 100%;">
-                          
-                        </div>
-                        <div class="card-content">
-                          <span class="card-title">Try eating outside!</span>
-                          <p class="center"><a href="/home/rightindex/<%=@ran_rest.id%>?index=1">How about <span style="font-weight:bold;"><%=@ran_rest.ere_menu%></span> in <span style="font-weight:bold;"><%=@ran_rest.name%></span>?</a></p>
-                        </div>
-                        <div class="card-action">
-                          <a href="/home/index">More Restaurants</a>
-                        </div>
-                      </div>
+                <div class="col s12 m8 offset-m2 l6 offset-l3">
+                  <div class="card">
+                    <div class="card-image">
+                      <img class="materialboxed"<%if @ran_rest.picture!=""&&@ran_rest.picture!=nil%>src="<%=@ran_rest.picture%>"<%else%>src="https://s19.postimg.org/yqsm53ntd/always.png"<%end%> style="max-width: 100%;">
+                      
                     </div>
+                    <div class="card-content">
+                      <span class="card-title">Try eating outside!</span>
+                      <p class="center"><a href="/home/rightindex/<%=@ran_rest.id%>?index=1">How about <span style="font-weight:bold;"><%=@ran_rest.ere_menu%></span> in <span style="font-weight:bold;"><%=@ran_rest.name%></span>?</a></p>
+                    </div>
+                    <div class="card-action">
+                      <a href="/home/index">More Restaurants</a>
+                    </div>
+                  </div>
+                </div>
               <%elsif menu['menu']==nil%>
-                  <div class="col s12 m8 offset-m2 l6 offset-l3">
-                      <div class="card">
-                        <div class="card-content  ">
-                          <span class="card-title">Wait, Not Yet!</span>
-                          
-                        </div>
-                      </div>
+                <div class="col s12 m8 offset-m2 l6 offset-l3">
+                  <div class="card">
+                    <div class="card-content  ">
+                      <span class="card-title">Wait, Not Yet!</span>
                     </div>
+                  </div>
+                </div>
               <%else%>
                 <div class="col s12 m8 offset-m2 l6 offset-l3">
                   <div class="card">
@@ -104,7 +101,6 @@
             <div id="test4" class="col s12">
           <%end%>
           <%if (menu["price"]!=nil)||(menu["kcal"]!=nil)&&(menu['name']!='Snack')%>
-          
               <div class="col s12 m8 offset-m2 l6 offset-l3">
                   <div class="card">
                     <div class="card-content">
@@ -141,7 +137,7 @@
               			  </div>
               			  <%if menu['name']=="Breakfast"||menu['name']=='dinner'||menu['name']=='Lunch 1'||menu['name']=='Lunch 2'||menu['name']=='Lunch Noodles' %>
               			  <%if menu['main']!=nil&& menu['main'].u_picture!=nil&& menu['main'].u_picture!=""%>
-              			    <img src="<%=menu['main'].u_picture%>" height="150" style="max-width: 100%; height: 150px; width:100%">
+              			    <img src="<%=menu['main'].u_picture%>" height="150" class="u_picture">
               			  <%end%>
               			  <%end%>
               			  <div class="divider"></div>
@@ -168,7 +164,7 @@
                 			  </div>
                 		
                 		<%if menu['name']=="Breakfast"||menu['name']=='dinner'||menu['name']=='Lunch 1'||menu['name']=='Lunch 2'||menu['name']=='Lunch Noodles' %>	  
-              			<%if cookies[menu['main'].kname.to_sym]=="1"||session[menu['main'].kname.to_sym]=="1"%>
+              			    <%if cookies[menu['main'].kname.to_sym]=="1"||session[menu['main'].kname.to_sym]=="1"%>
                           <div class="card-bottom-right like white red-text text-lighten-3" id="<%=menu['main'].id%>">
                             <i class="material-icons">favorite</i>&nbsp;&nbsp;<%=menu['main'].u_like%>
                           </div>

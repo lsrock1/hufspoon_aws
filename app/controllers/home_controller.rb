@@ -28,14 +28,17 @@ class HomeController < ApplicationController
   end
   
   def newadmin
-    if Admin.find_by(:email => ENV["ADMIN_ID"])!=nil
-      redirect_to :back
+    if Admin.find_by(:email => ENV["ADMIN_ID"])==nil
+      admin=Admin.new
+      admin.email=ENV["ADMIN_ID"]
+      admin.password=ENV["ADMIN_PASS"]
+      admin.save
+      redirect_to "/"
+    elsif Admin.find_by(email: ENV["CAF_ID"])==nil
+      Admin.new(email: ENV['CAF_ID'],password: ENV['CAF_PWD']).save
+      redirect_to "/"
     else
-    admin=Admin.new
-    admin.email=ENV["ADMIN_ID"]
-    admin.password=ENV["ADMIN_PASS"]
-    admin.save
-    redirect_to "/"
+      redirect_to :back
     end
   end
   

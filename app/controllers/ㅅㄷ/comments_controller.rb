@@ -15,6 +15,15 @@ class Board::CommentsController < ApplicationController
   def create
     @comment=Comment.new(comment_params)
     @comment.ip=request.remote_ip
+    if admin_signed_in?
+      @post.name='admin'
+      @post.num=0
+      if current_admin.email==ENV['admin@hufs.ac.kr']
+        @post.level="hufspoon"
+      else
+        @post.level="인문관영양사"
+      end
+    end
     @comment.save
       
     cookies[:comment]==nil ? cookies.permanent[:comment]=@comment.id : cookies.permanent[:comment]=cookies[:comment]+","+@comment.id.to_s

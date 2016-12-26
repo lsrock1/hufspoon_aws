@@ -22,6 +22,15 @@ class Board::PostsController < ApplicationController
   def create
     @post=Post.new(post_params)
     @post.ip=request.remote_ip
+    if admin_signed_in?
+      @post.name='admin'
+      @post.num=0
+      if current_admin.email==ENV['admin@hufs.ac.kr']
+        @post.level="hufspoon"
+      else
+        @post.level="인문관영양사"
+      end
+    end
     @post.save
     cookies[:post]==nil ? cookies.permanent[:post]=@post.id : cookies.permanent[:post]=cookies[:post]+","+@post.id.to_s
     redirect_to '/posts'

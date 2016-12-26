@@ -57,13 +57,13 @@
     
     
     <div class="fixed-action-btn click-to-toggle" style="bottom: 80px; right: 14px; opacity: 0.8;">
-      <%if session[:level]==nil%>
-        <a class="btn-floating btn-large white" href="/board/login">
-          <i class="material-icons black-text">supervisor_account</i>
-        </a>
-      <%else%>
+      <%if admin_signed_in?%>
         <a class="btn-floating btn-large white" href="/out">
           <i class="material-icons black-text">lock</i>
+        </a>
+      <%else%>
+        <a class="btn-floating btn-large white" href="/admins/sign_in">
+          <i class="material-icons black-text">supervisor_account</i>
         </a>
       <%end%>
       
