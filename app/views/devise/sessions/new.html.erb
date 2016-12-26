@@ -24,7 +24,7 @@
   </div>
 <% end %>
 
-<%if Admin.all.length<=2%>
+<%if Admin.all.length<2%>
 <a href="/newadmin">관리자계정 생성</a>
 <%end%>
 <%= render "devise/shared/links" %>
