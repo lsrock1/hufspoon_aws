@@ -37,7 +37,7 @@ class Data::MenulistsController < ApplicationController
       if perms.include?(File.extname(name).downcase)
         csv_text = file.tempfile.path
         num=0
-        CSV.foreach(csv_text,:encoding => 'euc-kr') do |row|
+        CSV.foreach(csv_text) do |row|
           unless num==0
             csv_hash(row)
           else

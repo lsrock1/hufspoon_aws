@@ -40,11 +40,7 @@ class Data::RestsController < ApplicationController
         csv_text = file.tempfile.path
         @map=nil
         @rest=nil
-        CSV.foreach(csv_text,:encoding => 'euc-kr') do |row|
-          puts row[5]
-          # row=row.to_s.split(',')
-          # row=row.map{|s| s.delete '"'}.map{|s| s.delete " "}.map{|s| s.sub "nil",""}
-          
+        CSV.foreach(csv_text) do |row|
           if row[0]=='rest'
             @map=map row[10],row[11]
             begin
