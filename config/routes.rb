@@ -30,9 +30,6 @@ Rails.application.routes.draw do
     resources :posts, except: [:edit,:update]
     resources :comments, except: [:edit,:update,:show,:index,:new]
   end
-
-  get '/board/login'=>'board#login'
-  post '/board/login'=>'board#login'
   
   get '/like' => 'home#like'
   get '/:id/:day' =>'home#index'
