@@ -4,4 +4,7 @@ class Breakfast < ActiveRecord::Base
     return 'Breakfast'
   end
   
+  def getname
+    return 'Breakfast'
+  end
 end

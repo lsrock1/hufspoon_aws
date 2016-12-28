@@ -96,7 +96,8 @@ class HomeController < ApplicationController
       elsif check==nil||checkf==nil||checks==nil
         parsing_func(@day)
       end
-    rescue
+    rescue Exception => e
+    puts e.message
     end
     @menulist=[Breakfast,Lunch1,Lunch2,Lunchnoodle,Dinner,Snack,Flunch,Fdinner,Menua,Menub].map{|data| make_list(data,@day,@id)}
   end

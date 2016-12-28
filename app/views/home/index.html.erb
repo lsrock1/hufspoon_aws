@@ -61,6 +61,7 @@
                   </div>
                 </div>
               <%else%>
+                <%cache menu_cache_key(menu) do%>
                 <div class="col s12 m8 offset-m2 l6 offset-l3">
                   <div class="card">
                     <div class="card-content">
@@ -92,6 +93,7 @@
                     </div>
                   </div>
                 </div>
+                <%end%>
               <%end%>
           <%elsif menu['name']=='Lunch'%>
             </div>
@@ -101,9 +103,11 @@
             <div id="test4" class="col s12">
           <%end%>
           <%if (menu["price"]!=nil)||(menu["kcal"]!=nil)&&(menu['name']!='Snack')%>
+            
               <div class="col s12 m8 offset-m2 l6 offset-l3">
                   <div class="card">
                     <div class="card-content">
+                      <%cache menu_cache_key(menu) do%>
                       <span class="card-title card-time"><%=menu['name'].titleize%></span>
                       
                       <div class="divider"></div>
@@ -162,7 +166,7 @@
                 			      <%=menu['kcal']%>&nbsp;
                 			    </p>
                 			  </div>
-                		
+                		  <%end%>
                 		<%if menu['name']=="Breakfast"||menu['name']=='dinner'||menu['name']=='Lunch 1'||menu['name']=='Lunch 2'||menu['name']=='Lunch Noodles' %>	  
               			    <%if cookies[menu['main'].kname.to_sym]=="1"||session[menu['main'].kname.to_sym]=="1"%>
                           <div class="card-bottom-right like white red-text text-lighten-3" id="<%=menu['main'].id%>">
@@ -182,7 +186,6 @@
                     </div>
                   </div>
                 </div>
-          
           <%end%>
           
           <%if menu['name']=='Menu B'%>

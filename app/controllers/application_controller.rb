@@ -1,3 +1,4 @@
+require 'open-uri'
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -33,6 +34,7 @@ class ApplicationController < ActionController::Base
   
   def make_list data,day,id
     menu_data=data.find_by(date: day)
+    
     innum=0
     ingre=[]
     
@@ -41,7 +43,7 @@ class ApplicationController < ActionController::Base
       kcal=nil
       price=nil
       main=nil
-      
+      update=menu_data.updated_at.to_i
       menu_data=menu_data.menu.split("$")
       
       if data.getname=='Lunch 1'||data.getname=='Lunch 2'||data.getname=='dinner'||data.getname=='Breakfast'||data.getname=='Lunch Noodles'
@@ -126,7 +128,9 @@ class ApplicationController < ActionController::Base
       'price' => price,
       'ingre' => ingre.uniq,
       'menu' => menu_list,
-      'main' => main
+      'main' => main,
+      'update' => update,
+      'id' => id
     }
   end
   
@@ -209,7 +213,6 @@ class ApplicationController < ActionController::Base
     sky=doc.xpath("//html/body/form/table/tr")
     ###############스카이라운지 파싱##############
     
-    
     ##############인문관식당 파싱 자료 분류#############
     #snack
     if Snack.find_by(:date => today)==nil
@@ -228,6 +231,7 @@ class ApplicationController < ActionController::Base
     end
     
     num=0
+    puts humanity
     humanity.each do |n|
       unless num==0 
       
