@@ -1,5 +1,5 @@
 class SystemsController < ApplicationController
-  before_action :require_session
+  before_action :require_login
   
   def block
     if params[:identity]=='post'

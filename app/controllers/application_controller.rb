@@ -9,14 +9,6 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  def require_session
-    unless admin_signed_in?
-      if session[:num]==nil||session[:name]==nil||session[:level]==nil
-        redirect_to '/board/hufslogin'
-      end
-    end
-  end
-  
   def banned_user
     if cookies[:post]
       cookies[:post].split(",").each do |id|
