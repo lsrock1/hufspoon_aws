@@ -26,28 +26,11 @@
 <body>
   <nav>
     <div class="nav-wrapper main_nav">
-      <%if !@search_page%>
-      <ul id="slide-out" class="side-nav">
-        <%= yield :link%>
-        <li><a href="/posts">Q & A</a></li>
-        <li><a href="https://www.facebook.com/hufspoon/?ref=aymt_homepage_panel">HUFSPOON PAGE</a></li>
-        <li><a class="modal-trigger" href="#modal1">MONDAYSPOON</a></li>
-      </ul>
       
-      <ul class="left hide-on-med-and-down">
-        <%=yield :link%>
-        <li><a href="/posts">Q & A</a></li>
-        <li><a href="https://www.facebook.com/hufspoon/?ref=aymt_homepage_panel">HUFSPOON PAGE</a></li>
-        <li><a class="modal-trigger" href="#modal1">MONDAYSPOON</a></li>
-      </ul>
-      
-      <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
-      <%else%>
       <ul class="left">
         <%=yield :left%>
       </ul>
-      <%end%>
-      <a href="/" class="brand-logo center" >HUFSPOON</a>
+      <%= yield :title %>
       <%if @search%>
       <ul class="right">
         <li><a><i class="material-icons opener">search</i></a></li>

@@ -4,10 +4,11 @@ class Data::RmenusController < ApplicationController
   
   def create
     if params[:menulist]==nil
-      @menulist=Menulist.find_by(:kname => params[:rmenu][:menuname])
+      @menulist=Menulist.find_by(kname: params[:rmenu][:menuname])
       @rmenu=Rmenu.new(rmenu_params)
       unless @menulist==nil
         @rmenu.emenuname=@menulist.ename
+        @rmenu.cmenuname=@menulist.cname
         @rmenu.save
         if params[:rmenu][:pagenum].to_i==0
           rest_remenu @rmenu
@@ -18,6 +19,8 @@ class Data::RmenusController < ApplicationController
       @menulist=Menulist.new(menulist_params)
       @menulist.save
       @rmenu=Rmenu.new(rmenu_params)
+      @rmenu.emenuname=@menulist.ename
+      @rmenu.cmenuname=@menulist.cname
       @rmenu.save
       if params[:rmenu][:pagenum].to_i==0
         rest_remenu @rmenu
@@ -33,6 +36,7 @@ class Data::RmenusController < ApplicationController
       @rmenu=Rmenu.find(params[:id])
       @rmenu.update(rmenu_params)
       @rmenu.emenuname=@menulist.ename
+      @rmenu.cmenuname=@menulist.cname
       @rmenu.save
       if params[:rmenu][:pagenum].to_i==0
         rest_remenu @rmenu

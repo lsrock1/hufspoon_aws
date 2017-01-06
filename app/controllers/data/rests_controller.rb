@@ -30,8 +30,8 @@ class Data::RestsController < ApplicationController
         @rest=Rest.new(rest_params)
         @rest.map_id=@map.id
         @rest.save
-        redirect_to :back
       end
+      redirect_to :back
     elsif params[:upfile]
       file=params[:upfile]
       name=file.original_filename

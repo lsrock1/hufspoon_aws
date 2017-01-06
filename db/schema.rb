@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161126070445) do
+ActiveRecord::Schema.define(version: 20170106084713) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -63,6 +63,11 @@ ActiveRecord::Schema.define(version: 20161126070445) do
     t.string   "address"
     t.string   "keyword"
     t.integer  "show",       default: 0
+    t.integer  "part"
+    t.integer  "place"
+    t.date     "from"
+    t.date     "to"
+    t.string   "day"
   end
 
   create_table "dinners", force: :cascade do |t|
@@ -182,8 +187,9 @@ ActiveRecord::Schema.define(version: 20161126070445) do
     t.integer  "cost"
     t.integer  "category"
     t.integer  "pagenum",    default: 1
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.string   "cmenuname",  default: ""
   end
 
   create_table "snacks", force: :cascade do |t|

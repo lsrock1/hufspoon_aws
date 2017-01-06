@@ -1,7 +1,8 @@
 class Board::PostsController < ApplicationController
   before_action :banned_user
-  
+  layout 'board'
   def index
+    @search=true
     @page=(params[:page] ? params[:page].to_i : 1)
     @allpost=Post.all
     @num=(@allpost.length/20)+1

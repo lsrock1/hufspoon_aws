@@ -1,30 +1,18 @@
-<nav>
-  <div class="nav-wrapper main_nav">
-    <ul id="slide-out" class="side-nav ">
-      <li><a href="/">HUFS</a></li>
-    </ul>
-    
-    <ul class="left hide-on-med-and-down">
-      <li><a href="/">HUFS</a></li>
-    </ul>
-    <ul class="right">
-      <li><a><i class="material-icons opener">search</i></a></li>
-    </ul>
-    <a href="/home/index" class="brand-logo center">HUFSPOON</a>
-     <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+<%content_for :link do%>
+  <li><a href="/">HUFS</a></li>
+<%end%>
+<%content_for :search_form do%>
+  <div class="nav-wrapper nav_form">
+    <form action="/home/search">
+      <div class="input-field">
+        <input id="search" type="search" name="keyword"required>
+        <label for="search"><i class="material-icons">search</i></label>
+        <input name="back" type="hidden" value="<%=@num%>">
+        <i class="material-icons closer">close</i>
+      </div>
+    </form>
   </div>
-  
-    <div class="nav-wrapper nav_form">
-      <form action="/home/search">
-        <div class="input-field">
-          <input id="search" type="search" name="keyword"required>
-          <label for="search"><i class="material-icons">search</i></label>
-          <input name="back" type="hidden" value="<%=@num%>">
-          <i class="material-icons closer">close</i>
-        </div>
-      </form>
-    </div>
-</nav>
+<%end%>
 <div class="row">
   <br>
   <div class="col s12 m10 offset-m1 l8 offset-l2">
@@ -41,10 +29,6 @@
   <div class="col s12 m10 offset-m1 l8 offset-l2">
     <div class="card">
       <div class="card-content" id="map" style="height:300px;"></div>
-      <div class="fixed-action-btn" style="position:absolute; bottom: 0px; right: 0px;">
-        <a class="btn-floating  waves-effect waves-light white black-text renew center">A</a>
-        <a class="btn-floating  waves-effect waves-light white random"><i class="material-icons black-text">autorenew</i></a>
-      </div>
     </div>
   </div>
    
@@ -64,14 +48,12 @@
           </thead>
     
           <tbody style="font-size: 12px;">
-            <%@all.each do |a|%>
-              <%a[2].each do |re|%>
+              <%@list.each do |re|%>
               <tr>
                 <td><a href="/home/rightindex/<%=re.id%>"><%=re.name%></a></td>
                 <td><%if @language=="4"%><%=re.re_menu%><%else%><%if re.ere_menu!=nil%><%=re.ere_menu.titleize%><%end%><%end%></td>
               </tr>
               <%end%>
-            <%end%>
           </tbody>
         </table>
       </div>
@@ -85,19 +67,92 @@
   <a class="btn-floating btn-large white ">
     <i class="material-icons black-text">add</i>
   </a>
-  <!--<%if @language=="4"%>-->
-  <!--<a class="btn-floating btn-large orange lighten-2">-->
-  <!--  한글-->
-  <!--</a>-->
-  <!--<%else%>-->
-  <!--<a class="btn-floating btn-large red">-->
-  <!--  EN-->
-  <!--</a>-->
-  <!--<%end%>-->
   <ul>
     <%if @language!="4"%><li><a class="btn-floating orange lighten-2" style="text-align:center;" href="/home/leftindex/<%=@num%>?language=4">한글</a></li><%end%>
     <%if @language!="0"%><li><a class="btn-floating red" style="text-align:center;" href="/home/leftindex/<%=@num%>?language=0">EN</a></li><%end%>
   </ul>
+</div>
+<div id="modal1" class="modal">
+  <div class="modal-content">
+    <h4>Mondayspoon</h4>
+    <p>Email: mondayspoon@gmail.com</p>
+    <div class="divider"></div>
+    <div class="section">
+      <a>Co-founder Marketer & Operator</a>
+      <h5>Jincheol Juhn</h5>
+    </div>
+        
+    <div class="divider"></div>
+    <div class="section">
+      <a>Co-founder Designer</a>
+      <h5>Soyoung Kim</h5>
+    </div>
+        
+    <div class="divider"></div>
+    <div class="section">
+      <a>Co-founder Developer</a>
+      <h5>Sangrok Lee</h5>
+    </div>
+        
+    <div class="divider"></div>
+    <div class="section">
+      <a>Co-founder Marketer & Operator</a>
+      <h5>Seungjoon Lee</h5>
+    </div>
+    
+    <div class="divider"></div>
+    <div class="section">
+      <a>Chinese Language Translator</a>
+      <h5>孙林同</h5>
+    </div>
+        
+    <div class="divider"></div>
+    <div class="section">
+      <a>German Language Translator</a>
+      <h5>Nane Sönnichsen</h5>
+    </div>
+    
+    <div class="divider"></div>
+    <div class="section">
+      <a>Italian Language Translator</a>
+      <h5>Francesca Liyanage</h5>
+    </div>
+    
+    <div class="divider"></div>
+    <div class="section">
+      <a>Italian Language Translator</a>
+      <h5>Arianna Colciago</h5>
+    </div>
+    
+    <div class="divider"></div>
+    <div class="section">
+      <a>Portuguese Language Translator</a>
+      <h5>Laura Torelli</h5>
+    </div>
+    
+    <div class="divider"></div>
+    <div class="section">
+      <a>Spanish Language Translator</a>
+      <h5>Maria Jose Alejandra - Valencia Ramirez</h5>
+    </div>
+    
+    <div class="divider"></div>
+    <div class="section">
+      <a>French Language Translator</a>
+      <h5>Charline Zammit</h5>
+    </div>
+    
+    <div class="divider"></div>
+    <div class="section">
+      <div class="right">
+        <a class="btn-floating btn-small white closebtn">
+            <i class="small material-icons black-text">clear</i>
+        </a>
+      </div>
+    </div>
+    
+    <br>
+  </div>
 </div>
 <script src="//apis.daum.net/maps/maps3.js?apikey=23598cdf36f0c5f5bf1f1bfda70b8e80&libraries=services"></script>
 <script>
@@ -130,7 +185,7 @@
   <%end%>
   easyMap.customOverlayOnClose(overlays,'overlays');
   easyMap.markerClick(markers,overlays);
-  
+  $('.modal-trigger').leanModal();
   $(".button-collapse").sideNav();
   $(".opener").click(function(){
     $(".main_nav").hide();

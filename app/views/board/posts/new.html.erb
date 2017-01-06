@@ -1,11 +1,9 @@
-<nav>
-  <div class="nav-wrapper main_nav">
-    <ul class="left">
-      <li><a href="/posts"><i class="material-icons">undo</i></a></li>
-    </ul>
-    <a class="brand-logo center">WRITE POST</a>
-  </div>
-</nav>
+<%content_for :left do%>
+<li><a href="/posts"><i class="material-icons">undo</i></a></li>
+<%end%>
+<%content_for :title do%>
+<a class="brand-logo center">WRITE POST</a>
+<%end%>
 <div class="row">
   <div class="col s12 m8 offset-m2 l8 offset-l2">
     <%=form_for(@post) do |f|%>

@@ -1,26 +1,18 @@
-<nav>
-  <div class="nav-wrapper main_nav">
-    
-    <ul class="left">
-      <li><a href="<%if @back=="-1"%>/home/index<%else%>/home/leftindex/<%=@back%><%end%>"><i class="material-icons">undo</i></a></li>
-    </ul>
-    <ul class="right">
-      <li><a><i class="material-icons opener">search</i></a></li>
-    </ul>
-    <a href="#" class="brand-logo center">HUFSPOON</a>
+<%content_for :left do %>
+  <li><a href="<%if @back=="-1"%>/home/index<%else%>/home/leftindex/<%=@back%><%end%>"><i class="material-icons">undo</i></a></li>
+<%end%>
+<%content_for :search_form do%>
+  <div class="nav-wrapper nav_form">
+    <form action="/home/search" >
+      <div class="input-field">
+        <input id="search" type="search" name="keyword"required>
+        <label for="search"><i class="material-icons">search</i></label>
+        <input name="back" type="hidden" value="<%=@back%>">
+        <i class="material-icons closer">close</i>
+      </div>
+    </form>
   </div>
-  
-    <div class="nav-wrapper nav_form">
-      <form action="/home/search" >
-        <div class="input-field">
-          <input id="search" type="search" name="keyword"required>
-          <label for="search"><i class="material-icons">search</i></label>
-          <input name="back" type="hidden" value="<%=@back%>">
-          <i class="material-icons closer">close</i>
-        </div>
-      </form>
-    </div>
-</nav>
+<%end%>
 <br>
 <div class="row">
   <div class="col s12 m10 offset-m1 l8 offset-l2">
@@ -31,9 +23,6 @@
   </div>
   
   <div id="rest" class="col s12 m10 offset-m1 l8 offset-l2">
-    <div class="card-panel center">
-      <span><%=@keyword%> is in these Restaurants' Name</span>
-    </div>
     <%@rest.each do |r|%>
       <div class="col s12 ">
         <div class="card ">
@@ -50,9 +39,6 @@
   </div>
   
   <div id="menu" class="col s12 m10 offset-m1 l8 offset-l2">
-    <div class="card-panel center">
-      <span><%=@keyword%> is in these Restaurants' Menu</span>
-    </div>
     <%@result.each do |r|%>
       <div class="col s12">
         <div class="card ">

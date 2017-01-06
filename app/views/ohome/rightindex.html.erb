@@ -1,28 +1,18 @@
-<nav>
-  <div class="nav-wrapper main_nav">
-    <ul class="left">
-      <li>
-        <%if @back!=-1%><a href="/home/leftindex/<%=@back%>"><%else%><a href="/"><%end%>
-          <i class="material-icons">undo</i>
-        </a>
-      </li>
-    </ul>
-    <ul class="right">
-      <li><a><i class="material-icons opener">search</i></a></li>
-    </ul>
-    <a href="/home/index" class="brand-logo center">HUFSPOON</a>
+<%content_for :left do%>
+  <%if @back!=-1%><a href="/home/leftindex/<%=@back%>"><%else%><a href="/"><%end%><i class="material-icons">undo</i></a>
+<%end%>
+<%content_for :search_form do%>
+  <div class="nav-wrapper nav_form">
+    <form action="/home/search">
+      <div class="input-field">
+        <input id="search" type="search" name="keyword"required>
+        <label for="search"><i class="material-icons">search</i></label>
+        <input name="back" value="<%=@back%>" type="hidden">
+        <i class="material-icons closer">close</i>
+      </div>
+    </form>
   </div>
-    <div class="nav-wrapper nav_form">
-      <form action="/home/search">
-        <div class="input-field">
-          <input id="search" type="search" name="keyword"required>
-          <label for="search"><i class="material-icons">search</i></label>
-          <input name="back" value="<%=@back%>" type="hidden">
-          <i class="material-icons closer">close</i>
-        </div>
-      </form>
-    </div>
-</nav>
+<%end%>
 <div class="row">
     <br>
     <div class="col s12 m10 offset-m1 l8 offset-l2">
@@ -36,7 +26,13 @@
           <span class="card-title"><%=@rest.name%><a id="kakao-link-btn" href="javascript:;"class="waves-effect waves-light right"><img src="//dev.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_small.png"/></a></span>
           <div class="divider"></div>
           <div class="section">
-            <%if @rest.picture!=""&&@rest.picture!=nil%><img src="<%=@rest.picture%>" height="250" style="max-width: 100%; height: 250px;"><%end%>
+            <%if @rest.picture!=""&&@rest.picture!=nil%>
+            <div class="carousel carousel-slider" style="max-width: 100%; height: 200px;">
+              <%@rest.picture.split(",").each do |p|%>
+              <a class="carousel-item"><img src="<%=p%>" height="200"></a>
+              <%end%>
+            </div>
+            <%end%>
             <table>
               <tbody>
                 <tr>
@@ -75,14 +71,12 @@
               <%@menuarray[m].each do|a|%>
               <tr>
                 <td>
-                  <%if @language=="4"%>
-                    <span class="k" id="<%=a.id%>k"><%=a.menuname%></span><span class="e" id="<%=a.id%>e"style="display:none;"><%=a.emenuname.titleize%></span>
-                  <%else%>
-                    <span class="k" id="<%=a.id%>k" style="display:none;"><%=a.menuname%></span><span class="e" id="<%=a.id%>e"><%=a.emenuname.titleize%></span>
-                  <%end%>
-                  <%if a.content!=""%><br><span class="grey-text"><%=a.content%></span><%end%>
+                  <span class="k"><%=a.menuname%></span><br/>
+                  <span class="e"><%=a.emenuname.titleize%></span><br/>
+                  <span class="e"><%=a.cmenuname%></span><br/>
+                  <%if a.content!=""%><span class="grey-text"><%=a.content%></span><%end%>
                 </td>
-                <td class="right-align"><%=a.cost%></td>
+                <td class="right-align"><%=a.cost%> won</td>
               </tr>
               <%end%>
             </tbody>
@@ -91,24 +85,6 @@
       </div>
     </div>
     <%end%>
-</div>
-<div class="fixed-action-btn horizontal click-to-toggle" style="bottom: 14px; right: 14px; opacity: 0.8;">
-  <a class="btn-floating btn-large white">
-    <i class="material-icons black-text">add</i>
-  </a>
-  <!--<%if @language=="4"%>-->
-  <!--<a class="btn-floating btn-large orange lighten-2">-->
-  <!--  한글-->
-  <!--</a>-->
-  <!--<%else%>-->
-  <!--<a class="btn-floating btn-large red">-->
-  <!--  EN-->
-  <!--</a>-->
-  <!--<%end%>-->
-  <ul>
-    <%if @language!="4"%><li><a class="btn-floating orange lighten-2" style="text-align:center;" href="/home/rightindex/<%=@rest.id%>?language=4">한글</a></li><%end%>
-    <%if @language!="0"%><li><a class="btn-floating red" style="text-align:center;" href="/home/rightindex/<%=@rest.id%>?language=0">EN</a></li><%end%>
-  </ul>
 </div>
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script src="//apis.daum.net/maps/maps3.js?apikey=23598cdf36f0c5f5bf1f1bfda70b8e80&libraries=services"></script>
@@ -144,7 +120,7 @@
   marker.on('click',function(){
     overlay.open(marker);
   });
-  
+  $('.carousel.carousel-slider').carousel({full_width: true, indicators: true});
   $(".opener").click(function(){
     $(".main_nav").hide();
     $(".nav_form").fadeIn();
@@ -154,25 +130,13 @@
     $(".nav_form").hide();
     $(".main_nav").fadeIn();
   })
-  $(".e").click(function(){
-    var thisid=$(this).attr("id");
-    thisid=thisid.substr(0,thisid.length-1);
-    $(this).hide();
-    $("#"+thisid+"k").show();
-  })
-  $(".k").click(function(){
-    var thisid=$(this).attr("id");
-    thisid=thisid.substr(0,thisid.length-1);
-    $(this).hide();
-    $("#"+thisid+"e").show();
-  })
   
   Kakao.init('3a6d3b6e790c8028083ec1a6888a0868');
   Kakao.Link.createTalkLinkButton({
     container: '#kakao-link-btn',
     label: '<%=@rest.name%> 메뉴 확인하세요!',
     image: {
-      src: 'https://s3.ap-northeast-2.amazonaws.com/elasticbeanstalk-ap-northeast-2-850152653970/nail.jpg',
+      src: '<%if @rest.picture!=""&&@rest.picture!=nil%><%=@rest.picture.split(',')[0]%><%else%>https://s19.postimg.org/t6g4ugoyb/nail.jpg<%end%>',
       width: '300',
       height: '200'
     },

@@ -24,7 +24,6 @@ Rails.application.routes.draw do
   get '/home/leftindex/:num' =>'ohome#leftindex'
   get '/home/rightindex/:id' =>'ohome#rightindex'
   get '/home/search' => 'ohome#search'
-  get '/home/index' =>"ohome#index"
   
   scope module: :board do
     resources :posts, except: [:edit,:update]

@@ -2,6 +2,8 @@ class OhomeController < ApplicationController
   before_action :banned_user,:ohomecookie, except: [:search]
   
   def rightindex
+    @search=true
+    @search_page=true
     @menuarray=[]
     id=params[:id]
     @rest=Rest.find(id)
@@ -38,22 +40,11 @@ class OhomeController < ApplicationController
     end
   end
   
-  def index
-    
-    
-    @one=Curate.find_by(:show => "1")
-    @two=Curate.find_by(:show => "2")
-    @three=Curate.find_by(:show => "3")
-    @four=Curate.find_by(:show => "4")
-    @five=Curate.find_by(:show => "5")
-    @six=Curate.find_by(:show => "6")
-  end
-  
   def leftindex
-    
-    
+    @search=true
     @num=params[:num] #음식종류별 화면
     @all=[]
+    @list=[]
     if @num=="0" #korean
       n="한식"
     elsif @num=="1" #japanese
@@ -70,10 +61,10 @@ class OhomeController < ApplicationController
      n="분식/면"
     end
     
-    Map.all.each do|m|
+    Map.includes(:rests).all.each do|m|
      temp=[]
      string=[]
-     restaurants=m.rests.where(:food => n)
+     restaurants=m.rests.where(food: n)
      if restaurants.length>0 #한식,중식,일식으로 레스토랑 검색
        temp.append(m.lat)
        temp.append(m.lon)
@@ -84,9 +75,13 @@ class OhomeController < ApplicationController
        @all.append(temp)
      end
     end
+    
+    @list=Rest.where(food: n).order('name ASC')
   end
   
   def search
+    @search=true
+    @search_page=true
     @keyword=params[:keyword]
     @back=params[:back]
     all=Rmenu.where("menuname like ?", "%" + @keyword + "%")
