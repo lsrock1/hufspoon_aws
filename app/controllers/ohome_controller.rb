@@ -1,7 +1,7 @@
 class OhomeController < ApplicationController
   before_action :banned_user,:ohomecookie, except: [:search]
   
-  def rightindex
+  def show
     @search=true
     @search_page=true
     @menuarray=[]
@@ -21,9 +21,7 @@ class OhomeController < ApplicationController
       @menuarray.append(@rest.rmenu.where(:pagenum => d).order('created_at ASC'))
     end
     @num=@menuarray.length
-    if params[:index].to_i==1
-      @back=-1 #최초페이지로 돌아감
-    elsif @rest.food=="한식"
+    if @rest.food=="한식"
       @back=0
     elsif @rest.food=="일식"
       @back=1
@@ -40,9 +38,9 @@ class OhomeController < ApplicationController
     end
   end
   
-  def leftindex
+  def index
     @search=true
-    @num=params[:num] #음식종류별 화면
+    @num=params[:num] ? params[:num] : "0" #음식종류별 화면
     @all=[]
     @list=[]
     if @num=="0" #korean

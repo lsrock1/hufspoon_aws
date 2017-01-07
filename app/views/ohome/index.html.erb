@@ -3,7 +3,7 @@
 <%end%>
 <%content_for :search_form do%>
   <div class="nav-wrapper nav_form">
-    <form action="/home/search">
+    <form action="/rests/search">
       <div class="input-field">
         <input id="search" type="search" name="keyword"required>
         <label for="search"><i class="material-icons">search</i></label>
@@ -17,13 +17,13 @@
   <br>
   <div class="col s12 m10 offset-m1 l8 offset-l2">
     <ul class="tabs" style="font-size:12px;">
-      <li class="tab col s3"><a <%if @num=="0"%>class="active"<%else%> href="/home/leftindex/0" target="_self"<%end%>><%if @language=="4"%>한식<%else%>Korean<%end%></a></li>
-      <li class="tab col s3"><a <%if @num=="1"%>class="active"<%else%> href="/home/leftindex/1" target="_self"<%end%>><%if @language=="4"%>일식<%else%>Japanese<%end%></a></li>
-      <li class="tab col s3"><a <%if @num=="2"%>class="active"<%else%> href="/home/leftindex/2" target="_self"<%end%>><%if @language=="4"%>양식<%else%>Western<%end%></a></li>
-      <li class="tab col s3"><a <%if @num=="3"%>class="active"<%else%> href="/home/leftindex/3" target="_self"<%end%>><%if @language=="4"%>중식<%else%>Chinese<%end%></a>
-      <li class="tab col s3"><a <%if @num=="4"%>class="active"<%else%> href="/home/leftindex/4" target="_self"<%end%>><%if @language=="4"%>치킨<%else%>Chicken<%end%></a></li>
-      <li class="tab col s3"><a <%if @num=="5"%>class="active"<%else%> href="/home/leftindex/5" target="_self"<%end%>><%if @language=="4"%>고기<%else%>Meat<%end%></a></li>
-      <li class="tab col s3"><a <%if @num=="6"%>class="active"<%else%> href="/home/leftindex/6" target="_self"<%end%>><%if @language=="4"%>분식<%else%>Snack<%end%></a></li>
+      <li class="tab col s3"><a <%if @num=="0"%>class="active"<%else%> href="/rests?num=0" target="_self"<%end%>><%if @language=="4"%>한식<%else%>Korean<%end%></a></li>
+      <li class="tab col s3"><a <%if @num=="1"%>class="active"<%else%> href="/rests?num=1" target="_self"<%end%>><%if @language=="4"%>일식<%else%>Japanese<%end%></a></li>
+      <li class="tab col s3"><a <%if @num=="2"%>class="active"<%else%> href="/rests?num=2" target="_self"<%end%>><%if @language=="4"%>양식<%else%>Western<%end%></a></li>
+      <li class="tab col s3"><a <%if @num=="3"%>class="active"<%else%> href="/rests?num=3" target="_self"<%end%>><%if @language=="4"%>중식<%else%>Chinese<%end%></a>
+      <li class="tab col s3"><a <%if @num=="4"%>class="active"<%else%> href="/rests?num=4" target="_self"<%end%>><%if @language=="4"%>치킨<%else%>Chicken<%end%></a></li>
+      <li class="tab col s3"><a <%if @num=="5"%>class="active"<%else%> href="/rests?num=5" target="_self"<%end%>><%if @language=="4"%>고기<%else%>Meat<%end%></a></li>
+      <li class="tab col s3"><a <%if @num=="6"%>class="active"<%else%> href="/rests?num=6" target="_self"<%end%>><%if @language=="4"%>분식<%else%>Snack<%end%></a></li>
     </ul>
   </div>
   <div class="col s12 m10 offset-m1 l8 offset-l2">
@@ -50,7 +50,7 @@
           <tbody style="font-size: 12px;">
               <%@list.each do |re|%>
               <tr>
-                <td><a href="/home/rightindex/<%=re.id%>"><%=re.name%></a></td>
+                <td><a href="/rests/<%=re.id%>"><%=re.name%></a></td>
                 <td><%if @language=="4"%><%=re.re_menu%><%else%><%if re.ere_menu!=nil%><%=re.ere_menu.titleize%><%end%><%end%></td>
               </tr>
               <%end%>
@@ -68,8 +68,8 @@
     <i class="material-icons black-text">add</i>
   </a>
   <ul>
-    <%if @language!="4"%><li><a class="btn-floating orange lighten-2" style="text-align:center;" href="/home/leftindex/<%=@num%>?language=4">한글</a></li><%end%>
-    <%if @language!="0"%><li><a class="btn-floating red" style="text-align:center;" href="/home/leftindex/<%=@num%>?language=0">EN</a></li><%end%>
+    <%if @language!="4"%><li><a class="btn-floating orange lighten-2" style="text-align:center;" href="/rests?num=<%=@num%>&language=4">한글</a></li><%end%>
+    <%if @language!="0"%><li><a class="btn-floating red" style="text-align:center;" href="/rests?num=<%=@num%>&language=0">EN</a></li><%end%>
   </ul>
 </div>
 <div id="modal1" class="modal">
@@ -175,7 +175,7 @@
       clickable: true
     }));
     overlays.push(customOverlay({
-      content: '<div class="placeinfo_wrap"><div class="placeinfo"><%m[2].each do |r|%><a class="title" href="/home/rightindex/<%=r.id%>"><%=r.name%></a><%end%>'+
+      content: '<div class="placeinfo_wrap"><div class="placeinfo"><%m[2].each do |r|%><a class="title" href="/rests/<%=r.id%>"><%=r.name%></a><%end%>'+
                 '<span>'+
                 '<span style="text-align: right;" class="material-icons close" aria-hidden="true">clear</span>'+
                 '</span></div>'+

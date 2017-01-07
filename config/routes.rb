@@ -16,14 +16,17 @@ Rails.application.routes.draw do
     resources :menulists, path_names: {edit: "/edit/:page"} do
       get :search, on: :collection
     end
-    resources :rests
+    resources :rests do
+      delete '/picture/:number', on: :member, action: :destroy
+    end
     resources :rmenus, except: [:index,:show,:edit,:new]
     resources :curates
   end
-
-  get '/home/leftindex/:num' =>'ohome#leftindex'
-  get '/home/rightindex/:id' =>'ohome#rightindex'
-  get '/home/search' => 'ohome#search'
+  
+  get '/rests/search' => 'ohome#search'
+  get '/rests' => 'ohome#index'
+  get '/rests/:id' => 'ohome#show'
+  
   
   scope module: :board do
     resources :posts, except: [:edit,:update]

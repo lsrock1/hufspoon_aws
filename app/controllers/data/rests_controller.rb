@@ -7,7 +7,7 @@ class Data::RestsController < ApplicationController
     @page=params[:page] ? params[:page].to_i : 1
     @rests=Rest.all
     @num=(@rests.length/50)+1
-    @rest=@rests.all.order('name ASC')[(@page-1)*50..50*(@page)-1]
+    @rest=@rests.all.sort{|a,b| a.name <=> b.name}[(@page-1)*50..50*(@page)-1]
   end
   
   def new
@@ -73,22 +73,31 @@ class Data::RestsController < ApplicationController
   
   def update
     @rest=Rest.find(params[:id])
-    @rest.update(rest_params)
-    @rest.save
-    if params[:rest][:page]
-      redirect_to :back
-    else
-      redirect_to '/data/rests'
+    if params[:rest][:name]
+      @rest.update(rest_params)
+      @rest.save
+    elsif params[:rest][:picture]
+      @rest.picture=@rest.picture+params[:rest][:picture]
+      @rest.save
     end
+    redirect_to :back
   end
   
   def destroy
-    @rest=Rest.find(params[:id])
-    @map=Map.find(@rest.map_id)
-    if @map.rests.length>=2
-      @rest.destroy
+    if params[:number]
+      @rest=Rest.find(params[:id])
+      arr=@rest.picture.split('http')[1..-1]
+      arr.delete_at(params[:number].to_i)
+      @rest.picture='http'+arr.join('http')
+      @rest.save
     else
-      @map.destroy
+      @rest=Rest.find(params[:id])
+      @map=Map.find(@rest.map_id)
+      if @map.rests.length>=2
+        @rest.destroy
+      else
+        @map.destroy
+      end
     end
     redirect_to :back
   end

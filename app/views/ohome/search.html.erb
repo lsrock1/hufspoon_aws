@@ -1,9 +1,9 @@
 <%content_for :left do %>
-  <li><a href="<%if @back=="-1"%>/home/index<%else%>/home/leftindex/<%=@back%><%end%>"><i class="material-icons">undo</i></a></li>
+  <li><a href="/rests?num=<%=@back%>"><i class="material-icons">undo</i></a></li>
 <%end%>
 <%content_for :search_form do%>
   <div class="nav-wrapper nav_form">
-    <form action="/home/search" >
+    <form action="/rests/search" >
       <div class="input-field">
         <input id="search" type="search" name="keyword"required>
         <label for="search"><i class="material-icons">search</i></label>
@@ -27,7 +27,7 @@
       <div class="col s12 ">
         <div class="card ">
           <div class="card-content ">
-            <a href="/home/rightindex/<%=r.id%>"><span class="card-title"><%=r.name%></span></a>
+            <a href="/rests/<%=r.id%>"><span class="card-title"><%=r.name%></span></a>
             <div class="divider"></div>
             <div class="section ">
             <p class="truncate"><%r.rmenu.each do |k|%><%if k.pagenum!=0%><%=k.menuname%> <%end%><%end%></p>
@@ -43,7 +43,7 @@
       <div class="col s12">
         <div class="card ">
           <div class="card-content ">
-            <a href="/home/rightindex/<%=r.id%>"><span class="card-title"><%=r.name%></span></a>
+            <a href="/rests/<%=r.id%>"><span class="card-title"><%=r.name%></span></a>
             <div class="divider"></div>
             <div class="section ">
             <p class="truncate"><%r.rmenu.each do |k|%><%if k.pagenum!=0%><%=k.menuname%> <%end%><%end%></p>
