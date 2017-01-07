@@ -46,6 +46,7 @@
       </div>
       <%=f.submit "저장",class: :btn%>
     <%end%>
+    <%unless @rest.picture!=nil&&@rest.picture!=""%>
     <table>
       <tbody>
         <%@number=0%>
@@ -58,6 +59,7 @@
         <%end%>
       </tbody>
     </table>
+    <%end%>
   </div>
 </div>
 <script>
