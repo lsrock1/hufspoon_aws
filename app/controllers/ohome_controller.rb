@@ -76,7 +76,7 @@ class OhomeController < ApplicationController
      end
     end
     
-    @list=Rest.where(food: n).order('name ASC')
+    @list=Rest.where(food: n).sort{|a,b| a.name <=> b.name}
   end
   
   def search
