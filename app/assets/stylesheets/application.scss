@@ -81,23 +81,23 @@ $primary-color: color("blue", "lighten-2") !default;
 .nav_form{
 	display:none;
 }
-.tabs > .indicator {
+.tabs.navi > .indicator {
     background-color: white;
 }
 
-.tabs > li > .active {
+.tabs.navi > li > .active {
     color: white;
 }
-.tabs > li > .active:visited {
+.tabs.navi > li > .active:visited {
     color: white;
 }
-.tabs > li > .active:hover {
+.tabs.navi > li > .active:hover {
     color: white;
 }
-.tabs > li > .active:active {
+.tabs.navi > li > .active:active {
     color: white;
 }
-.tabs > li > :not(.active) {
+.tabs.navi > li > :not(.active) {
     color: #C4E3FC;
 }
 /*
