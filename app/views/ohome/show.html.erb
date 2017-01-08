@@ -1,5 +1,5 @@
 <%content_for :left do%>
-  <%if @back=-1%><a href="/"><%else%><a href="/rests?num=<%=@back%>"><%end%><i class="material-icons">undo</i></a>
+  <%if @back==-1%><a href="/"><%else%><a href="/rests?num=<%=@back%>"><%end%><i class="material-icons">undo</i></a>
 <%end%>
 <%content_for :search_form do%>
   <div class="nav-wrapper nav_form">
@@ -111,8 +111,8 @@
       height: '200'
     },
     webButton: {
-      text: 'Hufspoon',
-      url: 'http://www.hfspn.co/home/rightindex/<%=@rest.id%>' // 앱 설정의 웹 플랫폼에 등록한 도메인의 URL이어야 합니다.
+      text: 'HUFSPOON',
+      url: 'http://www.hfspn.co/rests/<%=@rest.id%>' // 앱 설정의 웹 플랫폼에 등록한 도메인의 URL이어야 합니다.
     }
   });
  })
