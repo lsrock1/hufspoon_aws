@@ -21,7 +21,9 @@ class OhomeController < ApplicationController
       @menuarray.append(@rest.rmenu.where(:pagenum => d).order('created_at ASC'))
     end
     @num=@menuarray.length
-    if @rest.food=="한식"
+    if params[:index]
+      @back=-1 #최초페이지로 돌아감
+    elsif @rest.food=="한식"
       @back=0
     elsif @rest.food=="일식"
       @back=1

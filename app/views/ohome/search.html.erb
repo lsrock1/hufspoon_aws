@@ -58,14 +58,14 @@
 <script>
   $(document).ready(function(){
     $('ul.tabs').tabs();
+    $(".opener").click(function(){
+      $(".main_nav").hide();
+      $(".nav_form").fadeIn();
+      document.getElementById("search").focus();
+    })
+    $(".closer").click(function(){
+      $(".nav_form").hide();
+      $(".main_nav").fadeIn();
+    })
   });
-  $(".opener").click(function(){
-    $(".main_nav").hide();
-    $(".nav_form").fadeIn();
-    document.getElementById("search").focus();
-  })
-  $(".closer").click(function(){
-    $(".nav_form").hide();
-    $(".main_nav").fadeIn();
-  })
 </script>

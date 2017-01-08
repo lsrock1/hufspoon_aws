@@ -153,6 +153,27 @@
 </div>
 <script src="//apis.daum.net/maps/maps3.js?apikey=23598cdf36f0c5f5bf1f1bfda70b8e80&libraries=services"></script>
 <script>
+  $(document).ready(function(){
+    $('.modal-trigger').leanModal();
+    $(".button-collapse").sideNav();
+    $(".opener").click(function(){
+      $(".main_nav").hide();
+      $(".nav_form").fadeIn();
+      document.getElementById("search").focus();
+    })
+    $(".closer").click(function(){
+      $(".nav_form").hide();
+      $(".main_nav").fadeIn();
+    })
+    
+    $('.modal-trigger').click(function(){
+      $('.button-collapse').sideNav('hide');
+      $('.modal-trigger').leanModal();
+    })
+      $(".closebtn").click(function(){
+        $('#modal1').closeModal();
+    })
+  })
 	var container = document.getElementById('map');
 	var option = {
 	  lat: 37.596418,
@@ -182,23 +203,4 @@
   <%end%>
   easyMap.customOverlayOnClose(overlays,'overlays');
   easyMap.markerClick(markers,overlays);
-  $('.modal-trigger').leanModal();
-  $(".button-collapse").sideNav();
-  $(".opener").click(function(){
-    $(".main_nav").hide();
-    $(".nav_form").fadeIn();
-    document.getElementById("search").focus();
-  })
-  $(".closer").click(function(){
-    $(".nav_form").hide();
-    $(".main_nav").fadeIn();
-  })
-  
-  $('.modal-trigger').click(function(){
-    $('.button-collapse').sideNav('hide');
-    $('.modal-trigger').leanModal();
-  })
-    $(".closebtn").click(function(){
-      $('#modal1').closeModal();
-  })
 </script>

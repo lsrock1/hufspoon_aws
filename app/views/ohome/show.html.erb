@@ -1,5 +1,5 @@
 <%content_for :left do%>
-  <a href="/rests?num=<%=@back%>"><i class="material-icons">undo</i></a>
+  <%if @back=-1%><a href="/"><%else%><a href="/rests?num=<%=@back%>"><%end%><i class="material-icons">undo</i></a>
 <%end%>
 <%content_for :search_form do%>
   <div class="nav-wrapper nav_form">
@@ -28,8 +28,8 @@
           <div class="section">
             <%if @rest.picture!=""&&@rest.picture!=nil%>
             <div class="carousel carousel-slider" style="max-width: 100%; height: 200px;">
-              <%@rest.picture.split(",").each do |p|%>
-              <a class="carousel-item"><img src="<%=p%>" height="200"></a>
+              <%@rest.picture.split("http")[1..-1].each do |p|%>
+              <a class="carousel-item"><img src="http<%=p%>" height="200"></a>
               <%end%>
             </div>
             <%end%>
@@ -89,6 +89,33 @@
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script src="//apis.daum.net/maps/maps3.js?apikey=23598cdf36f0c5f5bf1f1bfda70b8e80&libraries=services"></script>
 <script>
+ $(document).ready(function(){
+   $('.carousel.carousel-slider').carousel({full_width: true, indicators: true});
+  $(".opener").click(function(){
+    $(".main_nav").hide();
+    $(".nav_form").fadeIn();
+    document.getElementById("search").focus();
+  })
+  $(".closer").click(function(){
+    $(".nav_form").hide();
+    $(".main_nav").fadeIn();
+  })
+  
+  Kakao.init('3a6d3b6e790c8028083ec1a6888a0868');
+  Kakao.Link.createTalkLinkButton({
+    container: '#kakao-link-btn',
+    label: '<%=@rest.name%> 메뉴 확인하세요!',
+    image: {
+      src: '<%if @rest.picture!=""&&@rest.picture!=nil%><%=@rest.picture.split(',')[0]%><%else%>https://s19.postimg.org/t6g4ugoyb/nail.jpg<%end%>',
+      width: '300',
+      height: '200'
+    },
+    webButton: {
+      text: 'Hufspoon',
+      url: 'http://www.hfspn.co/home/rightindex/<%=@rest.id%>' // 앱 설정의 웹 플랫폼에 등록한 도메인의 URL이어야 합니다.
+    }
+  });
+ })
 	var container = document.getElementById('map');
 	var option = {
 	  lat: <%=@map.lat%>,
@@ -119,30 +146,5 @@
   
   marker.on('click',function(){
     overlay.open(marker);
-  });
-  $('.carousel.carousel-slider').carousel({full_width: true, indicators: true});
-  $(".opener").click(function(){
-    $(".main_nav").hide();
-    $(".nav_form").fadeIn();
-    document.getElementById("search").focus();
-  })
-  $(".closer").click(function(){
-    $(".nav_form").hide();
-    $(".main_nav").fadeIn();
-  })
-  
-  Kakao.init('3a6d3b6e790c8028083ec1a6888a0868');
-  Kakao.Link.createTalkLinkButton({
-    container: '#kakao-link-btn',
-    label: '<%=@rest.name%> 메뉴 확인하세요!',
-    image: {
-      src: '<%if @rest.picture!=""&&@rest.picture!=nil%><%=@rest.picture.split(',')[0]%><%else%>https://s19.postimg.org/t6g4ugoyb/nail.jpg<%end%>',
-      width: '300',
-      height: '200'
-    },
-    webButton: {
-      text: 'Hufspoon',
-      url: 'http://www.hfspn.co/home/rightindex/<%=@rest.id%>' // 앱 설정의 웹 플랫폼에 등록한 도메인의 URL이어야 합니다.
-    }
   });
 </script>
