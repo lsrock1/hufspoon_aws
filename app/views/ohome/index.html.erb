@@ -13,19 +13,16 @@
     </form>
   </div>
 <%end%>
+<ul class="tabs blue lighten-2" style="font-size:12px;">
+  <li class="tab col s3"><a <%if @num=="0"%>class="active"<%else%> href="/rests?num=0" target="_self"<%end%>><%if @language=="4"%>한식<%else%>Korean<%end%></a></li>
+  <li class="tab col s3"><a <%if @num=="1"%>class="active"<%else%> href="/rests?num=1" target="_self"<%end%>><%if @language=="4"%>일식<%else%>Japanese<%end%></a></li>
+  <li class="tab col s3"><a <%if @num=="2"%>class="active"<%else%> href="/rests?num=2" target="_self"<%end%>><%if @language=="4"%>양식<%else%>Western<%end%></a></li>
+  <li class="tab col s3"><a <%if @num=="3"%>class="active"<%else%> href="/rests?num=3" target="_self"<%end%>><%if @language=="4"%>중식<%else%>Chinese<%end%></a>
+  <li class="tab col s3"><a <%if @num=="4"%>class="active"<%else%> href="/rests?num=4" target="_self"<%end%>><%if @language=="4"%>치킨<%else%>Chicken<%end%></a></li>
+  <li class="tab col s3"><a <%if @num=="5"%>class="active"<%else%> href="/rests?num=5" target="_self"<%end%>><%if @language=="4"%>고기<%else%>Meat<%end%></a></li>
+  <li class="tab col s3"><a <%if @num=="6"%>class="active"<%else%> href="/rests?num=6" target="_self"<%end%>><%if @language=="4"%>분식<%else%>Snack<%end%></a></li>
+</ul>
 <div class="row">
-  <br>
-  <div class="col s12 m10 offset-m1 l8 offset-l2">
-    <ul class="tabs" style="font-size:12px;">
-      <li class="tab col s3"><a <%if @num=="0"%>class="active"<%else%> href="/rests?num=0" target="_self"<%end%>><%if @language=="4"%>한식<%else%>Korean<%end%></a></li>
-      <li class="tab col s3"><a <%if @num=="1"%>class="active"<%else%> href="/rests?num=1" target="_self"<%end%>><%if @language=="4"%>일식<%else%>Japanese<%end%></a></li>
-      <li class="tab col s3"><a <%if @num=="2"%>class="active"<%else%> href="/rests?num=2" target="_self"<%end%>><%if @language=="4"%>양식<%else%>Western<%end%></a></li>
-      <li class="tab col s3"><a <%if @num=="3"%>class="active"<%else%> href="/rests?num=3" target="_self"<%end%>><%if @language=="4"%>중식<%else%>Chinese<%end%></a>
-      <li class="tab col s3"><a <%if @num=="4"%>class="active"<%else%> href="/rests?num=4" target="_self"<%end%>><%if @language=="4"%>치킨<%else%>Chicken<%end%></a></li>
-      <li class="tab col s3"><a <%if @num=="5"%>class="active"<%else%> href="/rests?num=5" target="_self"<%end%>><%if @language=="4"%>고기<%else%>Meat<%end%></a></li>
-      <li class="tab col s3"><a <%if @num=="6"%>class="active"<%else%> href="/rests?num=6" target="_self"<%end%>><%if @language=="4"%>분식<%else%>Snack<%end%></a></li>
-    </ul>
-  </div>
   <div class="col s12 m10 offset-m1 l8 offset-l2">
     <div class="card">
       <div class="card-content" id="map" style="height:300px;"></div>
