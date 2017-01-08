@@ -21,4 +21,4 @@ HUFSPOON是翻译韩国外国语大学学生食堂菜单的APP。
 菜单每天自动更新，HUFSPOON根据当天的菜单将显示翻译成相应语言的菜单。  
 我们将进一步扩展服务范围，对于韩国外大周围的餐厅、咖啡厅、酒吧也进行服务，为更多的外国留学生以及海外游客提供便利的服务。 
   
-PAGE ADDRESS: [http://www.hfspn.co/](http://www.hfspn.co/)
+SERVICE ADDRESS: [http://www.hfspn.co/](http://www.hfspn.co/)
