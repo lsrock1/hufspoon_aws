@@ -70,7 +70,7 @@ class HomeController < ApplicationController
         end 
        @day=time.year.to_s+mm.to_s+dd.to_s
     end
-    
+    @date=time.strftime("%A")
     # #요일
     @w=time.wday
     #선택한 날짜

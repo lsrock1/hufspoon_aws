@@ -52,7 +52,10 @@
       <ul class="right">
         <li><a><i class="material-icons opener">search</i></a></li>
       </ul>
+      <%else%>
+      <%=yield :right%>
       <%end%>
+      
     </div>
     <%=yield :search_form%>
   </nav>

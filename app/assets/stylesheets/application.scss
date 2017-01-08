@@ -78,17 +78,28 @@ $primary-color: color("blue", "lighten-2") !default;
   height: 150px; 
   width: 100%
 }
-// ::-webkit-scrollbar-thumb {
-//     border-radius: 3px;
-//     background-color: rgba(0,0,0,.5);
-//     -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
-// }
 .nav_form{
 	display:none;
 }
-// .tabs .indicator {
-//     background-color: black;
-// }
+.tabs > .indicator {
+    background-color: white;
+}
+
+.tabs > li > .active {
+    color: white;
+}
+.tabs > li > .active:visited {
+    color: white;
+}
+.tabs > li > .active:hover {
+    color: white;
+}
+.tabs > li > .active:active {
+    color: white;
+}
+.tabs > li > :not(.active) {
+    color: #8DC9FA;
+}
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.

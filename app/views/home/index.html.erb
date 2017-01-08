@@ -2,15 +2,18 @@
   <li><a href="/rests">AROUND HUFS</a></li>
   <li><a class="modal-trigger-map" href="#modal2">MAP</a></li>
 <%end%>
-<p class="center"><a class="representer"><%=@y%> / <%=@m%> / <%=@d%></a><input style="display:none;" id="datepicker" type="date"/></p>
- <div class="row">
-    <div class="col s12">
-      <ul class="tabs" >
-        <li class="tab col s3"><a href="#test1">Humanities</a></li>
-        <li class="tab col s3"><a href="#test2">Faculty</a></li>
-        <li class="tab col s3"><a href="#test4">Sky Lounge</a></li>
-      </ul>
-    </div>
+<%content_for :right do%>
+<ul class="right">
+  <li><a><i class="material-icons representer">date_range</i></a></li>
+</ul>
+<%end%>
+<ul class="tabs blue lighten-2">
+  <li class="tab col s3"><a class="active" href="#test1">Humanities</a></li>
+  <li class="tab col s3"><a href="#test2">Faculty</a></li>
+  <li class="tab col s3"><a href="#test4">Sky Lounge</a></li>
+</ul>
+<p class="center" style="margin-top: 10px; margin-bottom: 3px;"><a class="representer black-text"><%=@date%>, <%if @id==1||@id==2||@id==3||@id==4%><%=@y%> / <%=@m%> / <%=@d%><%else%><%=@d%> / <%=@m%> / <%=@y%><%end%></a><input style="display:none;" id="datepicker" type="date"/></p>
+ <div class="row" id="row">
       <% @menulist.each do |menu| %>
       
           <%if menu['name']=='Breakfast'%>
@@ -285,40 +288,22 @@
     </div>
   </div>
 <script>
-  $(".button-collapse").sideNav();
-  $('.modal-trigger').leanModal();
-  $('.modal-trigger-map').leanModal();
-  $('.materialboxed').materialbox();
-  $('.modal-trigger').click(function(){
-    $('.button-collapse').sideNav('hide');
-    $('ul.tabs').tabs('select_tab', 'test4');
+  $(document).ready(function(){
+    $(".button-collapse").sideNav();
     $('.modal-trigger').leanModal();
-  })
-  $('.modal-trigger-map').click(function(){
-    $('.button-collapse').sideNav('hide');
-    $('ul.tabs').tabs('select_tab', 'test4');
     $('.modal-trigger-map').leanModal();
-  })
-  $('.modal-trigger-food').click(function(){
-    $('.modal-trigger-food').leanModal();
-  })
-  var $input =  $('#datepicker').pickadate({
-    format: 'yyyymmdd',
-    onSet: function(e) {
-      if (e.select) {
-        window.location.href="/<%=@id%>/"+picker.get();
-        //alert(picker.get());
-        this.close();
-      } else {
-        
-      }
-    },
-    onClose: function(){
-        $(document.activeElement).blur()
-    }
-    });
-    var picker = $input.pickadate('picker');
-  $(".representer").click(function(){
+    $('.materialboxed').materialbox();
+    $('.modal-trigger').click(function(){
+      $('.button-collapse').sideNav('hide');
+      $('ul.tabs').tabs('select_tab', 'test4');
+      $('.modal-trigger').leanModal();
+    })
+    $('.modal-trigger-map').click(function(){
+      $('.button-collapse').sideNav('hide');
+      $('ul.tabs').tabs('select_tab', 'test4');
+      $('.modal-trigger-map').leanModal();
+    })
+    $(".representer").click(function(){
     picker.open();
     event.stopPropagation();
     event.preventDefault();
@@ -350,6 +335,21 @@
     })
     
   })
-  
-  
+  })
+  var $input =  $('#datepicker').pickadate({
+    format: 'yyyymmdd',
+    onSet: function(e) {
+      if (e.select) {
+        window.location.href="/<%=@id%>/"+picker.get();
+        //alert(picker.get());
+        this.close();
+      } else {
+        
+      }
+    },
+    onClose: function(){
+        $(document.activeElement).blur()
+    }
+  });
+  var picker = $input.pickadate('picker');
 </script>
