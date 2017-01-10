@@ -63,11 +63,6 @@ ActiveRecord::Schema.define(version: 20170106084713) do
     t.string   "address"
     t.string   "keyword"
     t.integer  "show",       default: 0
-    t.integer  "part"
-    t.integer  "place"
-    t.date     "from"
-    t.date     "to"
-    t.string   "day"
   end
 
   create_table "dinners", force: :cascade do |t|

@@ -46,7 +46,7 @@
       </div>
       <%=f.submit "저장",class: :btn%>
     <%end%>
-    <%if @rest.picture!=nil&&@rest.picture!=""%>
+    <%if @rest.picture!=nil&&@rest.picture!=""&&@rest.picture!='http'%>
     <table>
       <tbody>
         <%@number=0%>

@@ -20,7 +20,6 @@ class SystemsController < ApplicationController
   end
   
   def refresh
-    require_session
     day=params[:day]
     [Breakfast,Lunch1,Lunch2,Lunchnoodle,Dinner,Flunch,Fdinner,Menua,Menub].
     map{|meal| meal.find_by(date: day)}.

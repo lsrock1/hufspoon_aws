@@ -46,70 +46,23 @@ class ApplicationController < ActionController::Base
       update=menu_data.updated_at.to_i
       menu_data=menu_data.menu.split("$")
       
-      if data.getname=='Lunch 1'||data.getname=='Lunch 2'||data.getname=='dinner'||data.getname=='Breakfast'||data.getname=='Lunch Noodles'
+      if data.getname!='Snack'
         time=menu_data.shift
         menu_data.each do |l|
-          if l.index(':')!=nil
+          if l.index(':')!=nil||l.index(';')!=nil
             ingre.concat(makeingre(l,id))
           elsif l[-1]=="l"
             kcal=l
           elsif l[-1]=="원"
-            price=l[0..-2]+"won"
-          else
-            xfood=l.strip
-            menu_list.push(Menulist.gettrans(xfood,id))
-            if innum==0
-              main=Menulist.find_by(:kname => xfood)
-            end
-          end
-            
-          innum=1+innum
-        end
-      elsif data.getname=='Snack'
-        time='09:00~18:40'
-          menu_data.each do|s|
-            if s.index("(")!=nil
-              s=s.strip
-              s=s.gsub('*', '')
-              s=s.sub("원"," won")
-              sfirst=s.index("(")-1
-              food=s[0..sfirst]
-              food=food.split("/")
-              
-              
-              food.each do |f|
-                temp=Menulist.gettrans(f,id)
-                menu_list.push(temp+" "+s[sfirst+1..-1])
-              end
-              
-            end
-          end
-        
-      else
-        
-        time=menu_data.shift
-        menu_data.each do |l|
-          if l[-1]=="l"
-            kcal=l
-          elsif l[-1]=="원"
             price=l[0..-2]+" won"
           else
-            if l.index("(")!=nil
-              xfirst=l.index("(")
-              xfood=l[0..(xfirst-1)].strip
-              ingre.concat(makeingre(l[xfirst..-1],id))
-            else
-              xfood=l.strip
-            end
-            
-            #메뉴가 이상한 문자로 엮여있을 경우
+            xfood=l.strip
             if xfood.index("&")!=nil||xfood.index("/")!=nil||xfood.index("-")!=nil
               menu_list.push(spliter(xfood,id))
               if innum==0
                 main=extract(xfood)
               end
             else
-              
               menu_list.push(Menulist.gettrans(xfood,id))
               if innum==0
                 main=Menulist.find_by(:kname => xfood)
@@ -118,7 +71,21 @@ class ApplicationController < ActionController::Base
           end
           innum=1+innum
         end
-        
+      else
+        time='09:00~18:40'
+        menu_data.each do|s|
+          if s.index("(")!=nil
+            s.sub!("원"," won")
+            s.sub!("-브라질산","")
+            sfirst=s.index("(")-1
+            food=s[0..sfirst]
+            food=food.split("/")
+            food.each do |f|
+              temp=Menulist.gettrans(f,id)
+              menu_list.push(temp+" "+s[sfirst+1..-1])
+            end
+          end
+        end
       end
     end
     return {
@@ -137,28 +104,15 @@ class ApplicationController < ActionController::Base
   def makeingre string,tid
     returnvalue=[]
     string=string.strip()
-    if string.index('(')!=nil
-      string=string[1..-2]
-    end
-    
     string.split(',').each do |s|
-      if s.index(';')!=nil
-        mark=';'  
-      else
-        mark=':'
-      end
+      mark= s.index(';') ? ';' : ':'
       ingre=s.split(mark).first
       returnvalue.append(Menulist.gettrans(ingre,tid))
     end
-    if returnvalue==[]
-      return nil
-    else
-      return returnvalue
-    end
+    return returnvalue
   end
   
   def isint(str)
-    
     i=Integer(str) 
     return i 
     rescue 
@@ -169,22 +123,15 @@ class ApplicationController < ActionController::Base
     result_string=""
     ['&','/','-'].each do |word|
       if xfood.index(word)!=nil
-        divide=xfood.split(word)
-        result=[]
-        divide.each do |d|
-          result.push(Menulist.gettrans(d,tid))
-        end
-        result_string=result.join(word)
+        result_string=xfood.split(word).map{|item| Menulist.gettrans(item,tid)}.join(word)
       end
     end
     return result_string
   end
   
   def extract xfood
-    
     if xfood.index("&")!=nil
        divide=xfood.split("&")
-       
     elsif xfood.index("/")!=nil
        divide=xfood.split("/")
     else
@@ -193,7 +140,6 @@ class ApplicationController < ActionController::Base
     result=Menulist.find_by(:kname => divide[0])
     return result
   end
-  
   
   def parsing_func today
     mainadd="https://webs.hufs.ac.kr/jsp/HUFS/cafeteria/viewWeek.jsp"
@@ -218,73 +164,117 @@ class ApplicationController < ActionController::Base
     if Snack.find_by(:date => today)==nil
       snack=humanity.xpath("./td[@class='listStyle2']").text
       if snack!=""
-        snack=snack.split()
+        snack=snack.gsub!(" ","")
+        snack=snack.split('*')[0...-1]
         snack_form=""
         snack.each do|s|
           if s.index("(")!=nil
             snack_form=snack_form+"$"+s.strip
-            
           end
         end
-        Snack.new(:date => today,:menu => snack_form).save
+        Snack.new(date: today,menu: snack_form).save
       end
     end
     
     num=0
-    puts humanity
     humanity.each do |n|
       unless num==0 
       
         humanity_list=n.xpath("./td[@class='headerStyle']")
         
-        if humanity_list.text.to_s[0..4]=="중식(1)"
+        if humanity_list.text[0..4]=="중식(1)"
           if Lunch1.find_by(:date => today)==nil
             #시간 저장
-            lunch1=humanity_list.text.to_s[5..6]+":"+humanity_list.text.to_s[7..11]+":"+humanity_list.text.to_s[12..13]
+            lunch1=humanity_list.text[5..6]+":"+humanity_list.text[7..11]+":"+humanity_list.text[12..13]
             
             n.xpath("./td/table/tr/td").each do|x|
               if x.text!=""
-                lunch1=lunch1+"$"+x.text
+                string=x.text
+                if string.index("(")!=nil
+                  substring=string[string.index("(")..string.index(")")]
+                  string.sub!(substring,"")
+                  string=string+'$'+substring[1...-1]
+                end
+                if string.index(",")!=nil&&string[-1]!='원'
+                  string.sub!(",","$")
+                end
+                lunch1=lunch1+"$"+string
               end
             end
             Lunch1.new(:date => today,:menu =>lunch1).save
           end
-        elsif humanity_list.text.to_s[0..4]=="중식(2)"
+        elsif humanity_list.text[0..4]=="중식(2)"
           if Lunch2.find_by(:date => today)==nil
-            lunch2=humanity_list.text.to_s[5..6]+":"+humanity_list.text.to_s[7..11]+":"+humanity_list.text.to_s[12..13]
+            lunch2=humanity_list.text[5..6]+":"+humanity_list.text[7..11]+":"+humanity_list.text[12..13]
             n.xpath("./td/table/tr/td").each do|x|
               if x.text!=""
-                lunch2=lunch2+"$"+x.text
+                string=x.text
+                if string.index("(")!=nil
+                  substring=string[string.index("(")..string.index(")")]
+                  string.sub!(substring,"")
+                  string=string+'$'+substring[1...-1]
+                end
+                if string.index(",")!=nil&&string[-1]!='원'
+                  string.sub!(",","$")
+                end
+                lunch2=lunch2+"$"+string
               end
             end
             Lunch2.new(:date => today,:menu => lunch2).save
           end
-        elsif humanity_list.text.to_s[0..4]=="중식(면)"
+        elsif humanity_list.text[0..4]=="중식(면)"
           if Lunchnoodle.find_by(:date =>today)==nil
-            lunchnoodle= humanity_list.text.to_s[5..6]+":"+humanity_list.text.to_s[7..11]+":"+humanity_list.text.to_s[12..13]
+            lunchnoodle= humanity_list.text[5..6]+":"+humanity_list.text[7..11]+":"+humanity_list.text[12..13]
             n.xpath("./td/table/tr/td").each do|x|
               if x.text!=""
-                lunchnoodle=lunchnoodle+"$"+x.text
+                string=x.text
+                if string.index("(")!=nil
+                  substring=string[string.index("(")..string.index(")")]
+                  string.sub!(substring,"")
+                  string=string+'$'+substring[1...-1]
+                end
+                if string.index(",")!=nil&&string[-1]!='원'
+                  string.sub!(",","$")
+                end
+                lunchnoodle=lunchnoodle+"$"+string
               end
             end
             Lunchnoodle.new(:date => today,:menu =>lunchnoodle).save
           end
-        elsif humanity_list.text.to_s[0..1]=="조식"
+        elsif humanity_list.text[0..1]=="조식"
           if Breakfast.find_by(:date =>today)==nil
-            breakfast = humanity_list.text.to_s[2..3]+":"+humanity_list.text.to_s[4..8]+":"+humanity_list.text.to_s[9..10]
+            breakfast = humanity_list.text[2..3]+":"+humanity_list.text[4..8]+":"+humanity_list.text[9..10]
             n.xpath("./td/table/tr/td").each do|x|
               if x.text!=""
-                breakfast=breakfast+"$"+x.text
+                string=x.text
+                if string.index("(")!=nil
+                  substring=string[string.index("(")..string.index(")")]
+                  string.sub!(substring,"")
+                  string=string+'$'+substring[1...-1]
+                end
+                if string.index(",")!=nil&&string[-1]!='원'
+                  string.sub!(",","$")
+                end
+                breakfast=breakfast+"$"+string
               end
             end
             Breakfast.new(:date => today,:menu => breakfast).save
           end
-        elsif humanity_list.text.to_s[0..1]=="석식"
+        elsif humanity_list.text[0..1]=="석식"
           if Dinner.find_by(:date =>today)==nil
-            dinner= humanity_list.text.to_s[2..3]+":"+humanity_list.text.to_s[4..8]+":"+humanity_list.text.to_s[9..10]
+            dinner= humanity_list.text[2..3]+":"+humanity_list.text[4..8]+":"+humanity_list.text[9..10]
             n.xpath("./td/table/tr/td").each do|x|
               if x.text!=""
-                dinner=dinner+"$"+x.text
+                string=x.text
+                if string.index("(")!=nil
+                  substring=string[string.index("(")..string.index(")")]
+                  string.sub!(substring,"")
+                  string=string+'$'+substring[1...-1]
+                end
+                if string.index(",")!=nil&&string[-1]!='원'
+                  string.sub!(",","$")
+                end
+                dinner=dinner+"$"+string
               end
             end
             Dinner.new(:date =>today,:menu =>dinner).save
@@ -302,22 +292,40 @@ class ApplicationController < ActionController::Base
       
         faculty_list=n.xpath("./td[@class='headerStyle']")
         
-        if faculty_list.text.to_s[0..1]=="중식"
+        if faculty_list.text[0..1]=="중식"
           if Flunch.find_by(:date => today)==nil
-            flunch = faculty_list.text.to_s[2..3]+":"+faculty_list.text.to_s[4..8]+":"+faculty_list.text.to_s[9..10]
+            flunch = faculty_list.text[2..3]+":"+faculty_list.text[4..8]+":"+faculty_list.text[9..10]
             n.xpath("./td/table/tr/td").each do|x|
               if x.text!=""
-                flunch=flunch+"$"+x.text
+                string=x.text
+                if string.index("(")!=nil
+                  substring=string[string.index("(")..string.index(")")]
+                  string.sub!(substring,"")
+                  string=string+'$'+substring[1...-1]
+                end
+                if string.index(",")!=nil&&string[-1]!='원'
+                  string.sub!(",","$")
+                end
+                flunch=flunch+"$"+string
               end
             end
             Flunch.new(:date => today, :menu =>flunch).save
           end
         elsif faculty_list.text.to_s[0..1]=="석식"
           if Fdinner.find_by(:date => today)==nil
-            fdinner= faculty_list.text.to_s[2..3]+":"+faculty_list.text.to_s[4..8]+":"+faculty_list.text.to_s[9..10]
+            fdinner= faculty_list.text[2..3]+":"+faculty_list.text[4..8]+":"+faculty_list.text[9..10]
             n.xpath("./td/table/tr/td").each do|x|
               if x.text!=""
-                fdinner=fdinner+"$"+x.text
+                string=x.text
+                if string.index("(")!=nil
+                  substring=string[string.index("(")..string.index(")")]
+                  string.sub!(substring,"")
+                  string=string+'$'+substring[1...-1]
+                end
+                if string.index(",")!=nil&&string[-1]!='원'
+                  string.sub!(",","$")
+                end
+                fdinner=fdinner+"$"+string
               end
             end
             Fdinner.new(:date => today,:menu =>fdinner).save
@@ -340,7 +348,16 @@ class ApplicationController < ActionController::Base
             menua=sky_list.text.to_s[3..4]+":"+sky_list.text.to_s[5..9]+":"+sky_list.text.to_s[10..11]
             n.xpath("./td/table/tr/td").each do|x|
               if x.text!=""
-                menua=menua+"$"+x.text
+                string=x.text
+                if string.index("(")!=nil
+                  substring=string[string.index("(")..string.index(")")]
+                  string.sub!(substring,"")
+                  string=string+'$'+substring[1...-1]
+                end
+                if string.index(",")!=nil&&string[-1]!='원'
+                  string.sub!(",","$")
+                end
+                menua=menua+"$"+string
               end
             end
             Menua.new(:date => today,:menu =>menua).save
@@ -350,18 +367,25 @@ class ApplicationController < ActionController::Base
             menub=sky_list.text.to_s[3..4]+":"+sky_list.text.to_s[5..9]+":"+sky_list.text.to_s[10..11]
             n.xpath("./td/table/tr/td").each do|x|
               if x.text!=""
-                menub=menub+"$"+x.text
+                string=x.text
+                if string.index("(")!=nil
+                  substring=string[string.index("(")..string.index(")")]
+                  string.sub!(substring,"")
+                  string=string+'$'+substring[1...-1]
+                end
+                if string.index(",")!=nil&&string[-1]!='원'
+                  string.sub!(",","$")
+                end
+                menub=menub+"$"+string
               end
             end
             Menub.new(:date =>today,:menu => menub).save
           end
         end
+        
       end
       num=num+1
     end
     ###############################스카이라운지 파싱 끝######################
-    
   end
-  
-  
 end

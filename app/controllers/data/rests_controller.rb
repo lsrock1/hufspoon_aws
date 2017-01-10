@@ -70,7 +70,7 @@ class Data::RestsController < ApplicationController
   def edit
     @rest=Rest.find(params[:id])
   end
-  
+
   def update
     @rest=Rest.find(params[:id])
     if params[:rest][:name]
@@ -89,6 +89,7 @@ class Data::RestsController < ApplicationController
       arr=@rest.picture.split('http')[1..-1]
       arr.delete_at(params[:number].to_i)
       @rest.picture='http'+arr.join('http')
+      @rest.picture= (@rest.picture=='http' ? '' : @rest.picture)
       @rest.save
     else
       @rest=Rest.find(params[:id])
