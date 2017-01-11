@@ -1,5 +1,11 @@
+require 'Parser'
+require 'Stringfy'
+
 class ChatbotController < ApplicationController
-    
+  include Parser
+  include Stringfy
+  
+  
     def keyboard
         render :json =>
         {

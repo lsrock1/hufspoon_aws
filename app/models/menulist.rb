@@ -3,7 +3,7 @@ class Menulist < ActiveRecord::Base
   def self.gettrans kname,id
     menu=self.find_by(kname: kname)
     if nil==menu
-      self.new(:kname => kname,
+      menulist=self.new(:kname => kname,
         :ename => kname,
         :ername => kname,
         :jnamea => kname,
@@ -14,8 +14,9 @@ class Menulist < ActiveRecord::Base
         :germany => kname,
         :italia => kname,
         :portugal => kname,
-        :french => kname).save()
-      return kname
+        :french => kname)
+        menulist.save()
+      return [kname, menulist.updated_at.to_i]
     else
       if id==0#영어
         word= menu.ename
@@ -41,9 +42,9 @@ class Menulist < ActiveRecord::Base
         word= menu.french
       end
       if word!=""&&word!=nil
-        return word
+        return [word, menu.updated_at.to_i]
       else
-        return kname
+        return [kname,menu.updated_at.to_i]
       end
     end
   end

@@ -1,4 +1,10 @@
+require 'Parser'
+require 'Stringfy'
+
 class HomeController < ApplicationController
+  include Parser
+  include Stringfy
+  
   before_action :banned_user
   
   def like
@@ -101,6 +107,7 @@ class HomeController < ApplicationController
     end
     @menulist=[Breakfast,Lunch1,Lunch2,Lunchnoodle,Dinner,Snack,Flunch,Fdinner,Menua,Menub].map{|data| make_list(data,@day,@id)}
   end
+  
   
 end
 
