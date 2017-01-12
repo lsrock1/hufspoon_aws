@@ -160,15 +160,15 @@
                 		  <%end%>
                 		<%if menu['name']=="Breakfast"||menu['name']=='dinner'||menu['name']=='Lunch 1'||menu['name']=='Lunch 2'||menu['name']=='Lunch Noodles' %>	  
               			    <%if cookies[menu['main'].kname.to_sym]=="1"||session[menu['main'].kname.to_sym]=="1"%>
-                          <div class="card-bottom-right like white red-text text-lighten-3" id="<%=menu['main'].id%>">
+                          <div class="card-bottom-right like white red-text text-lighten-3"id="<%=menu['main'].id%>">
                             <i class="material-icons">favorite</i>&nbsp;&nbsp;<%=menu['main'].u_like%>
                           </div>
                         <%elsif cookies[menu['main'].kname.to_sym]=="0"||session[menu['main'].kname.to_sym]=="0"%>
-                          <div class="card-bottom-right like white grey-text" id="<%=menu['main'].id%>">
+                          <div class="card-bottom-right like white grey-text"id="<%=menu['main'].id%>">
                             <i class="material-icons">favorite_border</i>&nbsp;&nbsp;<%=menu['main'].u_like%>
                           </div>
                         <%elsif cookies[menu['main'].kname.to_sym]==nil||session[menu['main'].kname.to_sym]==nil%>
-                          <div class="card-bottom-right like white grey-text" id="<%=menu['main'].id%>">
+                          <div class="card-bottom-right like white grey-text"id="<%=menu['main'].id%>">
                             <i class="material-icons">favorite_border</i>&nbsp;&nbsp;<%=menu['main'].u_like%>
                           </div>
                         <%end%>
@@ -187,22 +187,22 @@
       
   </div>
     
-  <div class="fixed-action-btn click-to-toggle" style="bottom: 14px; right: 14px; opacity: 0.8;">
-    <a class="btn-floating btn-large white addbtn" style="text-align:center;">
-      <i class="material-icons black-text" data-angle="0">add</i>
+  <div class="fixed-action-btn click-to-toggle" style="bottom: 14px; right: 14px;">
+    <a class="btn-floating btn-large white">
+      <i class="material-icons addbtn black-text align-center" data-angle="0">add</i>
     </a>
     <ul>
-      <%if @id!=0%><li><a class="btn-floating red" style="text-align:center;" href="/0/<%=@day%>">EN</a></li><%end%>
-      <%if @id!=4%><li><a class="btn-floating yellow darken-1" style="text-align:center;" href="/4/<%=@day%>">한글</a></li><%end%>
+      <%if @id!=0%><li><a class="btn-floating red align-center" href="/0/<%=@day%>">EN</a></li><%end%>
+      <%if @id!=4%><li><a class="btn-floating yellow darken-1 align-center" href="/4/<%=@day%>">한글</a></li><%end%>
       <!--<%if @id!=1%><li><a class="btn-floating yellow darken-1"style="text-align:center;" href="/1/<%=@day%>">日本</a></li><%end%>-->
-      <%if @id!=2%><li><a class="btn-floating green" style="text-align:center;" href="/2/<%=@day%>">汉语</a></li><%end%>
+      <%if @id!=2%><li><a class="btn-floating green align-center" href="/2/<%=@day%>">汉语</a></li><%end%>
       <!--<%if @id!=3%><li><a class="btn-floating blue" style="text-align:center;" href="/3/<%=@day%>">繁体</a></li> <%end%>-->
-      <%if @id!=6%><li><a class="btn-floating blue" style="text-align:center;" href="/6/<%=@day%>">ES</a></li><%end%>
-      <%if @id!=7%><li><a class="btn-floating orange" style="text-align:center;" href="/7/<%=@day%>">DE</a></li><%end%>
-      <%if @id!=8%><li><a class="btn-floating brown" style="text-align:center;" href="/8/<%=@day%>">ITA</a></li><%end%>
-      <%if @id!=9%><li><a class="btn-floating teal" style="text-align:center;" href="/9/<%=@day%>">PO</a></li><%end%>
-      <%if @id!=9%><li><a class="btn-floating pink" style="text-align:center;" href="/10/<%=@day%>">FR</a></li><%end%>
-      <%if admin_signed_in?%><li><a class="btn-floating black" style="text-align:center;" href="/refresh/<%=@day%>"><i class="material-icons">refresh</i></a></li><%end%>
+      <%if @id!=6%><li><a class="btn-floating blue align-center" href="/6/<%=@day%>">ES</a></li><%end%>
+      <%if @id!=7%><li><a class="btn-floating orange align-center" href="/7/<%=@day%>">DE</a></li><%end%>
+      <%if @id!=8%><li><a class="btn-floating light-blue align-center" href="/8/<%=@day%>">ITA</a></li><%end%>
+      <%if @id!=9%><li><a class="btn-floating teal align-center" href="/9/<%=@day%>">PO</a></li><%end%>
+      <%if @id!=9%><li><a class="btn-floating amber align-center" href="/10/<%=@day%>">FR</a></li><%end%>
+      <%if admin_signed_in?%><li><a class="btn-floating black align-center" href="/refresh/<%=@day%>"><i class="material-icons">refresh</i></a></li><%end%>
     </ul>
   </div>
   
@@ -221,13 +221,13 @@
         <a>Co-founder Designer</a>
         <h5>Soyoung Kim</h5>
       </div>
-          
+
       <div class="divider"></div>
       <div class="section">
         <a>Co-founder Developer</a>
         <h5>Sangrok Lee</h5>
       </div>
-          
+
       <div class="divider"></div>
       <div class="section">
         <a>Co-founder Marketer & Operator</a>
@@ -257,19 +257,16 @@
         <a>Italian Language Translator</a>
         <h5>Arianna Colciago</h5>
       </div>
-      
       <div class="divider"></div>
       <div class="section">
         <a>Portuguese Language Translator</a>
         <h5>Laura Torelli</h5>
       </div>
-      
       <div class="divider"></div>
       <div class="section">
         <a>Spanish Language Translator</a>
         <h5>Maria Jose Alejandra - Valencia Ramirez</h5>
       </div>
-      
       <div class="divider"></div>
       <div class="section">
         <a>French Language Translator</a>
@@ -287,10 +284,19 @@
 <script>
   $(document).ready(function(){
     $('.addbtn').click(function(){
-      $this=$(this).find('i');
-      var angle=($this.data('angle')+45)%360;
-      $this.velocity({rotateZ: angle+'deg'},{duration: 250});
-      $this.data('angle',angle);
+      $this=$(this);
+      var word= $this.html()=='add' ? 'clear' : 'add' 
+      var angle=$this.data('angle')+90;
+      $this.velocity(
+        {rotateY: angle+'deg'},
+        {duration: 300,
+          complete: function(){
+            angle+=90
+            $(this).html(word).velocity({rotateY: angle+'deg'},{duration: 300})
+            $this.data('angle',angle);
+          }
+        }
+      );
     })
     $('.carousel.carousel-slider').carousel({full_width: true, indicators: true});
     $(".button-collapse").sideNav();
@@ -324,16 +330,28 @@
         url: "/like",
         dataType: "json",
         data: { id: did},
+        context: this,
         success: function(data)  {
-          if($("#"+did).hasClass("red-text")){
-            $("#"+did).html("<i class='material-icons'>favorite_border</i>&nbsp;&nbsp;"+data.like);
-            $("#"+did).removeClass("red-text text-lighten-3");
-            $("#"+did).addClass("grey-text");
+          $this=$(this);
+          if($this.hasClass("red-text")){
+            $this.velocity(
+              {scaleX: 0,scaleY: 0},
+              {duration: 300, complete: function(){
+                $(this).removeClass("red-text text-lighten-3").addClass("grey-text")
+                .html("<i class='material-icons'>favorite_border</i>&nbsp;&nbsp;"+data.like)
+                .velocity({scaleX: 1,scaleY: 1},{duration: 300})
+              }}
+            );
           }
           else{
-            $("#"+did).html("<i class='material-icons'>favorite</i>&nbsp;&nbsp;"+data.like);
-            $("#"+did).removeClass("grey-text");
-            $("#"+did).addClass("red-text text-lighten-3");
+            $this.velocity(
+              {scaleX: 0,scaleY: 0},
+              {duration: 300, complete: function(){
+                $(this).removeClass("grey-text").addClass("red-text text-lighten-3")
+                .html("<i class='material-icons'>favorite</i>&nbsp;&nbsp;"+data.like)
+                .velocity({scaleX: 1,scaleY: 1},{duration: 300})
+              }}
+            );
           }
         }
       })
