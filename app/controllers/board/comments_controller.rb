@@ -1,27 +1,24 @@
 class Board::CommentsController < ApplicationController
   
   def destroy
-    if admin_signed_in?||session[:num]=="0"&&session[:name]=="admin"&&session[:level]=="인문관영양사"
+    if admin_signed_in?
       id=params[:id]
       delcomment=Comment.find(id)
       delcomment.destroy
-        
-      redirect_to :back
-    else
-      redirect_to :back 
-    end 
+    end
+    redirect_to :back 
   end
   
   def create
     @comment=Comment.new(comment_params)
     @comment.ip=request.remote_ip
     if admin_signed_in?
-      @post.name='admin'
-      @post.num=0
-      if current_admin.email==ENV['admin@hufs.ac.kr']
-        @post.level="hufspoon"
+      @comment.name='admin'
+      @comment.num=0
+      if current_admin.email=='admin@hufs.ac.kr'
+        @comment.level="hufspoon"
       else
-        @post.level="인문관영양사"
+        @comment.level="인문관영양사"
       end
     end
     @comment.save
@@ -32,10 +29,6 @@ class Board::CommentsController < ApplicationController
   
   private
     def comment_params
-      if admin_signed_in?||session[:num]=="0"&&session[:name]=="admin"&&session[:level]=="인문관영양사"
-        params.require(:comment).permit(:num,:name,:level,:content,:post_id)
-      else
-        params.require(:comment).permit(:content,:post_id)
-      end
+      params.require(:comment).permit(:content,:post_id)
     end
 end

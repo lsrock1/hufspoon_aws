@@ -26,7 +26,7 @@ class Board::PostsController < ApplicationController
     if admin_signed_in?
       @post.name='admin'
       @post.num=0
-      if current_admin.email==ENV['admin@hufs.ac.kr']
+      if current_admin.email=='admin@hufs.ac.kr'
         @post.level="hufspoon"
       else
         @post.level="인문관영양사"
@@ -39,7 +39,7 @@ class Board::PostsController < ApplicationController
   
   
   def destroy
-    if admin_signed_in?||session[:num]=="0"&&session[:name]=="admin"&&session[:level]=="인문관영양사"
+    if admin_signed_in?
       id=params[:id]
       delpost=Post.find(id)
       delpost.destroy
@@ -51,10 +51,6 @@ class Board::PostsController < ApplicationController
   
   private
     def post_params
-      if admin_signed_in?||session[:num]=="0"&&session[:name]=="admin"&&session[:level]=="인문관영양사"
-        params.require(:post).permit(:num,:name,:level,:content,:title)
-      else
-        params.require(:post).permit(:content,:title)
-      end
+      params.require(:post).permit(:content,:title)
     end
 end

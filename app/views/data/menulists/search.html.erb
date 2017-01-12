@@ -1,6 +1,19 @@
 <%content_for :menu do%>
   <li><%=link_to "돌아가기",data_menulists_path(page: @page)%></li>
 <%end%>
+<% content_for :search_form do%>
+  <div class="nav-wrapper nav_form">
+    <%=form_tag search_data_menulists_path(page: @page),method: :get do%>
+      <div class="input-field">
+        <%=text_field_tag :keyword, '', type: :search %>
+        <%=label :keyword, '' do%>
+          <i class="material-icons">search</i>
+        <%end%>
+        <i class="material-icons closer">close</i>
+      </div>
+    <%end%>
+  </div>
+<%end%>
 <div class="container">
     <h3>검색결과</h3>
     <h2><%=notice%></h1>
@@ -43,4 +56,13 @@
 </div>
 <script>
   $(".button-collapse").sideNav();
+  $(".opener").click(function(){
+    $(".main_nav").hide();
+    $(".nav_form").fadeIn();
+    document.getElementById("keyword").focus();
+  })
+  $(".closer").click(function(){
+    $(".nav_form").hide();
+    $(".main_nav").fadeIn();
+  })
 </script>

@@ -188,20 +188,20 @@
   </div>
     
   <div class="fixed-action-btn click-to-toggle" style="bottom: 14px; right: 14px; opacity: 0.8;">
-    <a class="btn-floating btn-large white">
-      <i class="material-icons black-text">add</i>
+    <a class="btn-floating btn-large white addbtn" style="text-align:center;">
+      <i class="material-icons black-text" data-angle="0">add</i>
     </a>
     <ul>
       <%if @id!=0%><li><a class="btn-floating red" style="text-align:center;" href="/0/<%=@day%>">EN</a></li><%end%>
-      <%if @id!=4%><li><a class="btn-floating orange lighten-2 " style="text-align:center;" href="/4/<%=@day%>">한글</a></li><%end%>
+      <%if @id!=4%><li><a class="btn-floating yellow darken-1" style="text-align:center;" href="/4/<%=@day%>">한글</a></li><%end%>
       <!--<%if @id!=1%><li><a class="btn-floating yellow darken-1"style="text-align:center;" href="/1/<%=@day%>">日本</a></li><%end%>-->
-      <%if @id!=2%><li><a class="btn-floating indigo" style="text-align:center;" href="/2/<%=@day%>">汉语</a></li><%end%>
+      <%if @id!=2%><li><a class="btn-floating green" style="text-align:center;" href="/2/<%=@day%>">汉语</a></li><%end%>
       <!--<%if @id!=3%><li><a class="btn-floating blue" style="text-align:center;" href="/3/<%=@day%>">繁体</a></li> <%end%>-->
-      <%if @id!=6%><li><a class="btn-floating red darken-2" style="text-align:center;" href="/6/<%=@day%>">ES</a></li><%end%>
-      <%if @id!=7%><li><a class="btn-floating black" style="text-align:center;" href="/7/<%=@day%>">DE</a></li><%end%>
-      <%if @id!=8%><li><a class="btn-floating green" style="text-align:center;" href="/8/<%=@day%>">ITA</a></li><%end%>
+      <%if @id!=6%><li><a class="btn-floating blue" style="text-align:center;" href="/6/<%=@day%>">ES</a></li><%end%>
+      <%if @id!=7%><li><a class="btn-floating orange" style="text-align:center;" href="/7/<%=@day%>">DE</a></li><%end%>
+      <%if @id!=8%><li><a class="btn-floating brown" style="text-align:center;" href="/8/<%=@day%>">ITA</a></li><%end%>
       <%if @id!=9%><li><a class="btn-floating teal" style="text-align:center;" href="/9/<%=@day%>">PO</a></li><%end%>
-      <%if @id!=9%><li><a class="btn-floating light-blue darken-2" style="text-align:center;" href="/10/<%=@day%>">FR</a></li><%end%>
+      <%if @id!=9%><li><a class="btn-floating pink" style="text-align:center;" href="/10/<%=@day%>">FR</a></li><%end%>
       <%if admin_signed_in?%><li><a class="btn-floating black" style="text-align:center;" href="/refresh/<%=@day%>"><i class="material-icons">refresh</i></a></li><%end%>
     </ul>
   </div>
@@ -275,16 +275,6 @@
         <a>French Language Translator</a>
         <h5>Charline Zammit</h5>
       </div>
-      
-      <div class="divider"></div>
-      <div class="section">
-        <div class="right">
-          <a class="btn-floating btn-small white closebtn">
-              <i class="small material-icons black-text">clear</i>
-          </a>
-        </div>
-      </div>
-      
       <br>
     </div>
   </div>
@@ -296,6 +286,12 @@
   </div>
 <script>
   $(document).ready(function(){
+    $('.addbtn').click(function(){
+      $this=$(this).find('i');
+      var angle=($this.data('angle')+45)%360;
+      $this.velocity({rotateZ: angle+'deg'},{duration: 250});
+      $this.data('angle',angle);
+    })
     $('.carousel.carousel-slider').carousel({full_width: true, indicators: true});
     $(".button-collapse").sideNav();
     $('.modal-trigger').leanModal();
@@ -312,37 +308,36 @@
       $('.modal-trigger-map').leanModal();
     })
     $(".representer").click(function(){
-    picker.open();
-    event.stopPropagation();
-    event.preventDefault();
-  })
-  $(".closebtn").click(function(){
-    $('ul.tabs').tabs('select_tab', 'test1');
-    $('#modal1').closeModal();
-  })
-  $(".like").click(function(){
-    var did=$(this).attr("id");
-    //$(this).html(did);
-    $.ajax({
-      method: "get",
-      url: "/like",
-      dataType: "json",
-      data: { id: did},
-      success: function(data)  {
-        if($("#"+did).hasClass("red-text")){
-          $("#"+did).html("<i class='material-icons'>favorite_border</i>&nbsp;&nbsp;"+data.like);
-          $("#"+did).removeClass("red-text text-lighten-3");
-          $("#"+did).addClass("grey-text");
-        }
-        else{
-          $("#"+did).html("<i class='material-icons'>favorite</i>&nbsp;&nbsp;"+data.like);
-          $("#"+did).removeClass("grey-text");
-          $("#"+did).addClass("red-text text-lighten-3");
-        }
-      }
+      picker.open();
+      event.stopPropagation();
+      event.preventDefault();
     })
-    
-  })
+    $(".closebtn").click(function(){
+      $('ul.tabs').tabs('select_tab', 'test1');
+      $('#modal1').closeModal();
+    })
+    $(".like").click(function(){
+      var did=$(this).attr("id");
+      //$(this).html(did);
+      $.ajax({
+        method: "get",
+        url: "/like",
+        dataType: "json",
+        data: { id: did},
+        success: function(data)  {
+          if($("#"+did).hasClass("red-text")){
+            $("#"+did).html("<i class='material-icons'>favorite_border</i>&nbsp;&nbsp;"+data.like);
+            $("#"+did).removeClass("red-text text-lighten-3");
+            $("#"+did).addClass("grey-text");
+          }
+          else{
+            $("#"+did).html("<i class='material-icons'>favorite</i>&nbsp;&nbsp;"+data.like);
+            $("#"+did).removeClass("grey-text");
+            $("#"+did).addClass("red-text text-lighten-3");
+          }
+        }
+      })
+    })
   })
   var $input =  $('#datepicker').pickadate({
     format: 'yyyymmdd',

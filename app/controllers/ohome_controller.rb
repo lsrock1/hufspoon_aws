@@ -87,14 +87,14 @@ class OhomeController < ApplicationController
     all=Rmenu.where("menuname like ?", "%" + @keyword + "%")
     result=all.map {|i| i.rest_id }
     result=result.uniq
-    @rest=Rest.where("name like ?","%"+@keyword+"%")
-    @result=Rest.where(id: result)
+    @rest=Rest.includes(:rmenus).where("name like ?","%"+@keyword+"%")
+    @result=Rest.includes(:rmenus).where(id: result)
     
     if @rest.length==0&&@result.length==0
       all=Rmenu.where("emenuname like ?", "%" + @keyword + "%")
       result=all.map {|i| i.rest_id }
       result=result.uniq
-      @result=Rest.where(id: result)
+      @result=Rest.includes(:rmenus).where(id: result)
     end
   end
   
