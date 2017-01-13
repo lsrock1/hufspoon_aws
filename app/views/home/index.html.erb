@@ -7,14 +7,13 @@
   <li><a><i class="material-icons representer">date_range</i></a></li>
 </ul>
 <%end%>
-<div class="navbar-fixed">
 <ul class="tabs navi blue lighten-2">
   <li class="tab col s3"><a class="active" href="#test1">Humanities</a></li>
   <li class="tab col s3"><a href="#test2">Faculty</a></li>
   <li class="tab col s3"><a href="#test4">Sky Lounge</a></li>
 </ul>
-</div>
 <p class="center" style="margin-bottom: 7px;"><a class="representer"><%if @id==1||@id==2||@id==3||@id==4%><%=@y%> / <%=@m%> / <%=@d%> &nbsp;<%=@date%><%else%><%=@date%>&nbsp; <%=@d%> / <%=@m%> / <%=@y%><%end%></a><input style="display:none;" id="datepicker" type="date"/></p>
+ <p id="show"></p>
  <div class="row" id="row">
       <% @menulist.each do |menu| %>
       
@@ -325,17 +324,17 @@
     var $ham=$("#row").hammer();
     $lists=$tabs.find('li');
     $ham.on('swipeleft',function(event){
-      var next=$lists.find('a.active').parent().next();
+      var next=$lists.find('a.active').parent().next().find('a').attr('href');
       if (next){
-        $tabs.tabs('select_tab',next.find('a').attr('href').slice(1));
+        $tabs.tabs('select_tab',next.slice(1));
       }
     })
     
     $ham.on('swiperight',function(event){
-      var prev=$lists.find('a.active').parent().prev();
-        if (prev){
-          $tabs.tabs('select_tab',prev.find('a').attr('href').slice(1));
-        }
+      var prev=$lists.find('a.active').parent().prev().find('a').attr('href');
+      if (prev){
+        $tabs.tabs('select_tab',prev.slice(1));
+      }
      })
     $(".like").click(function(){
       var did=$(this).attr("id");
