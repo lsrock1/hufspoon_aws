@@ -189,19 +189,21 @@
     
   <div class="fixed-action-btn click-to-toggle" style="bottom: 14px; right: 14px;">
     <a class="btn-floating btn-large white">
-      <i class="material-icons addbtn black-text align-center" data-angle="0">add</i>
+      <i class="material-icons addbtn black-text" data-angle="0">add</i>
     </a>
     <ul>
-      <%if @id!=0%><li><a class="btn-floating red align-center" href="/0/<%=@day%>">EN</a></li><%end%>
-      <%if @id!=4%><li><a class="btn-floating yellow darken-1 align-center" href="/4/<%=@day%>">한글</a></li><%end%>
-      <!--<%if @id!=1%><li><a class="btn-floating yellow darken-1"style="text-align:center;" href="/1/<%=@day%>">日本</a></li><%end%>-->
-      <%if @id!=2%><li><a class="btn-floating green align-center" href="/2/<%=@day%>">汉语</a></li><%end%>
-      <!--<%if @id!=3%><li><a class="btn-floating blue" style="text-align:center;" href="/3/<%=@day%>">繁体</a></li> <%end%>-->
-      <%if @id!=6%><li><a class="btn-floating blue align-center" href="/6/<%=@day%>">ES</a></li><%end%>
-      <%if @id!=7%><li><a class="btn-floating orange align-center" href="/7/<%=@day%>">DE</a></li><%end%>
-      <%if @id!=8%><li><a class="btn-floating light-blue align-center" href="/8/<%=@day%>">ITA</a></li><%end%>
-      <%if @id!=9%><li><a class="btn-floating teal align-center" href="/9/<%=@day%>">PO</a></li><%end%>
-      <%if @id!=9%><li><a class="btn-floating amber align-center" href="/10/<%=@day%>">FR</a></li><%end%>
+      <%=lan_button({
+        0 => ['EN','red'],
+        4 => ['한글','yellow darken-1'],
+        2 => ['汉语','green'],
+        6 => ['ES','blue'],
+        7 => ['DE','orange'],
+        8 => ['ITA', 'light-blue'],
+        9 => ['PO','teal'],
+        10 => ['FR','amber']
+      }.except(@id),
+      @day
+      )%>
       <%if admin_signed_in?%><li><a class="btn-floating black align-center" href="/refresh/<%=@day%>"><i class="material-icons">refresh</i></a></li><%end%>
     </ul>
   </div>
@@ -362,10 +364,7 @@
     onSet: function(e) {
       if (e.select) {
         window.location.href="/<%=@id%>/"+picker.get();
-        //alert(picker.get());
         this.close();
-      } else {
-        
       }
     },
     onClose: function(){
