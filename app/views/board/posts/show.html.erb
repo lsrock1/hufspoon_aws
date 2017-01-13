@@ -12,7 +12,7 @@
           <%=@p.content%>
           <br><br>
           Date: <%=@p.created_at.in_time_zone("Asia/Seoul").strftime("%m/%d  %H:%M")%> &nbsp
-          Ip: <%if @p.ip!=nil%><%=@p.ip[0..7]%><%end%>
+          Ip: <%if @p.ip!=nil%><%=admin_signed_in? ? @p.ip : @p.ip[0..7]%><%end%>
         </div>
         <%if @p.name=='admin'%>
           <div class="divider"></div>
@@ -35,7 +35,7 @@
             <%=a.content%>
             <br><br>
             Date: <%=a.created_at.in_time_zone("Asia/Seoul").strftime("%m/%d  %H:%M")%> &nbsp
-            Ip: <%if a.ip!=nil%><%=a.ip[0...7]%><%end%>  
+            Ip: <%if a.ip!=nil%><%=admin_signed_in? ? a.ip : a.ip[0...7]%><%end%>  
             <%if a.name=='admin'%>
               <div class="divider"></div>
               <h6 style="color:#002D56;"><%=a.level%></h6>
