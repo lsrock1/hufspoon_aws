@@ -31,7 +31,7 @@
                         <%end%>
                       </div>
                       <%else%>
-                      <img class="materialboxed" src="https://s19.postimg.org/yqsm53ntd/always.png" style="max-width: 100%;">
+                      <img src="https://s19.postimg.org/yqsm53ntd/always.png" style="max-width: 100%;">
                       <%end%>
                     </div>
                     <div class="card-content">
@@ -291,10 +291,10 @@
       var angle=$this.data('angle')+90;
       $this.velocity(
         {rotateY: angle+'deg'},
-        {duration: 300,
+        {duration: 250,
           complete: function(){
             angle+=90
-            $(this).html(word).velocity({rotateY: angle+'deg'},{duration: 300})
+            $(this).html(word).velocity({rotateY: angle+'deg'},{duration: 250})
             $this.data('angle',angle);
           }
         }
@@ -304,15 +304,15 @@
     $(".button-collapse").sideNav();
     $('.modal-trigger').leanModal();
     $('.modal-trigger-map').leanModal();
-    $('.materialboxed').materialbox();
+    var $tabs=$('ul.tabs')
     $('.modal-trigger').click(function(){
       $('.button-collapse').sideNav('hide');
-      $('ul.tabs').tabs('select_tab', 'test4');
+      $tabs.tabs('select_tab', 'test4');
       $('.modal-trigger').leanModal();
     })
     $('.modal-trigger-map').click(function(){
       $('.button-collapse').sideNav('hide');
-      $('ul.tabs').tabs('select_tab', 'test4');
+      $tabs.tabs('select_tab', 'test4');
       $('.modal-trigger-map').leanModal();
     })
     $(".representer").click(function(){
@@ -320,13 +320,23 @@
       event.stopPropagation();
       event.preventDefault();
     })
-    $(".closebtn").click(function(){
-      $('ul.tabs').tabs('select_tab', 'test1');
-      $('#modal1').closeModal();
+    var $ham=$("#row").hammer();
+    $lists=$tabs.find('li');
+    $ham.on('swipeleft',function(event){
+      var next=$lists.find('a.active').parent().next();
+      if (next){
+        $tabs.tabs('select_tab',next.find('a').attr('href').slice(1));
+      }
     })
+    
+    $ham.on('swiperight',function(event){
+      var prev=$lists.find('a.active').parent().prev();
+        if (prev){
+          $tabs.tabs('select_tab',prev.find('a').attr('href').slice(1));
+        }
+     })
     $(".like").click(function(){
       var did=$(this).attr("id");
-      //$(this).html(did);
       $.ajax({
         method: "get",
         url: "/like",
@@ -338,20 +348,20 @@
           if($this.hasClass("red-text")){
             $this.velocity(
               {scaleX: 0,scaleY: 0},
-              {duration: 300, complete: function(){
+              {duration: 200, complete: function(){
                 $(this).removeClass("red-text text-lighten-3").addClass("grey-text")
                 .html("<i class='material-icons'>favorite_border</i>&nbsp;&nbsp;"+data.like)
-                .velocity({scaleX: 1,scaleY: 1},{duration: 300})
+                .velocity({scaleX: 1,scaleY: 1},{duration: 200})
               }}
             );
           }
           else{
             $this.velocity(
               {scaleX: 0,scaleY: 0},
-              {duration: 300, complete: function(){
+              {duration: 200, complete: function(){
                 $(this).removeClass("grey-text").addClass("red-text text-lighten-3")
                 .html("<i class='material-icons'>favorite</i>&nbsp;&nbsp;"+data.like)
-                .velocity({scaleX: 1,scaleY: 1},{duration: 300})
+                .velocity({scaleX: 1,scaleY: 1},{duration: 200})
               }}
             );
           }
