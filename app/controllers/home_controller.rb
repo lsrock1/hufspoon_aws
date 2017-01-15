@@ -1,10 +1,11 @@
 require 'Parser'
 require 'Stringfy'
+require 'Getlist'
 
 class HomeController < ApplicationController
   include Parser
   include Stringfy
-  
+  include Getlist
   before_action :banned_user
   
   def like
@@ -51,7 +52,7 @@ class HomeController < ApplicationController
   def index
     @id=params[:id].to_i
     @day=params[:day]
-   
+    @languageHash=languageHash().except(@id)
     #루트로 접속하면 번역은 0이고 데이는 nil이 된다
     if @id==0&&@day==nil
       if cookies[:my_language]!=nil

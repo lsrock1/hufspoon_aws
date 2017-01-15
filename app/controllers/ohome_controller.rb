@@ -1,12 +1,14 @@
+require 'Getlist'
 class OhomeController < ApplicationController
   before_action :banned_user,:ohomecookie, except: [:search]
+  include Getlist
   
   def show
     @search=true
     @search_page=true
     @menuarray=[]
     id=params[:id]
-    @rest=Rest.find(id)
+    @rest=Rest.includes(:rmenu).find(id)
     @map=Map.find(@rest.map_id)
     begin
       @pages=@rest.page.split(",")
@@ -14,57 +16,32 @@ class OhomeController < ApplicationController
       @pages=nil
     end
     menupage=@rest.rmenu.map{|m| m.pagenum}
-    menupage=menupage.uniq
+    menupage.uniq!
     menupage.delete(0)
     menupage.sort!
     menupage.each do |d|
       @menuarray.append(@rest.rmenu.where(:pagenum => d).order('created_at ASC'))
     end
     @num=@menuarray.length
-    if params[:index]
-      @back=-1 #최초페이지로 돌아감
-    elsif @rest.food=="한식"
-      @back=0
-    elsif @rest.food=="일식"
-      @back=1
-    elsif @rest.food=="양식"
-      @back=2
-    elsif @rest.food=="중식"
-      @back=3
-    elsif @rest.food=="치킨"
-      @back=4
-    elsif @rest.food=="고기"
-      @back=5
-    else
-      @back=6
-    end
+    
+    restCategoryHash=restCategoryHash().map{|key,value| value[0]}
+    @back=restCategoryHash.index(@rest.food) ? restCategoryHash.index(@rest.food) : -1
   end
   
   def index
     @search=true
-    @num=params[:num] ? params[:num] : "0" #음식종류별 화면
+    @num=params[:num] ? params[:num].to_i : 0 #음식종류별 화면
     @all=[]
     @list=[]
-    if @num=="0" #korean
-      n="한식"
-    elsif @num=="1" #japanese
-      n="일식"
-    elsif @num=="2" #western
-      n="양식"
-    elsif @num=="3" #chinese
-      n="중식"
-    elsif @num=="4"
-     n="치킨"
-    elsif @num=="5"
-    n="고기"
-    elsif @num=="6"
-     n="분식/면"
-    end
+    @restCategoryHash=restCategoryHash
+    @restCategoryHash[@num].append("active")
+    
+    categoryName=@restCategoryHash[@num][0]
     
     Map.includes(:rests).all.each do|m|
      temp=[]
      string=[]
-     restaurants=m.rests.where(food: n)
+     restaurants=m.rests.where(food: categoryName)
      if restaurants.length>0 #한식,중식,일식으로 레스토랑 검색
        temp.append(m.lat)
        temp.append(m.lon)
@@ -76,7 +53,7 @@ class OhomeController < ApplicationController
      end
     end
     
-    @list=Rest.where(food: n).sort{|a,b| a.name <=> b.name}
+    @list=Rest.where(food: categoryName).sort{|a,b| a.name <=> b.name}
   end
   
   def search
@@ -106,26 +83,26 @@ class OhomeController < ApplicationController
           
           if cookies[:my_language]==nil
             
-            @language="4"
+            @language=4
             
           else
             
             if cookies[:my_language]=="4"
-              @language=cookies[:my_language]
+              @language=cookies[:my_language].to_i
             else
-              @language="0"
+              @language=0
             end
             
           end
           cookies.permanent[:my_ohome_language]=@language
         else
           
-          @language=cookies[:my_ohome_language]
+          @language=cookies[:my_ohome_language].to_i
           
         end
         
       else
-        @language=params[:language]
+        @language=params[:language].to_i
         cookies.permanent[:my_ohome_language]=@language
       end
     end

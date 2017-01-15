@@ -192,18 +192,7 @@
       <i class="material-icons addbtn black-text" data-angle="0">add</i>
     </a>
     <ul>
-      <%=lan_button({
-        0 => ['EN','red'],
-        4 => ['한글','yellow darken-1'],
-        2 => ['汉语','green'],
-        6 => ['ES','blue'],
-        7 => ['DE','orange'],
-        8 => ['ITA', 'light-blue'],
-        9 => ['PO','teal'],
-        10 => ['FR','amber']
-      }.except(@id),
-      @day
-      )%>
+      <%=lan_button(@languageHash,@day)%>
       <%if admin_signed_in?%><li><a class="btn-floating black align-center" href="/refresh/<%=@day%>"><i class="material-icons">refresh</i></a></li><%end%>
     </ul>
   </div>
