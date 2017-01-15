@@ -3,6 +3,21 @@ module HomeHelper
     "menus-#{menu['name']}-#{menu['update']}-#{menu['id']}"
   end
   
+  def tabs(day)
+    hash={
+      0 =>[['Around HUFS']],
+      6 =>[['humanities']]
+    }
+    hash[day]= hash[day] ? hash[day] : [['humanities','active'],['faculty'],['skylounge']]
+    capture do
+      hash[day].collect{|name|
+        concat (content_tag(:li,class: "tab col s3") do
+          content_tag(:a,name[0].titleize,class: name[1],href: '#'+name[0])
+        end)
+      }
+    end
+  end
+  
   def lan_button(language,day)
     capture do
       language.collect{|key,value|
@@ -20,7 +35,7 @@ module HomeHelper
       concat content_tag(:span,menu['name'].titleize,class: "card-title card-time")
       concat content_tag(:div,'',class: :divider)
       concat(content_tag(:div,class: :section) do
-        concat content_tag(:div,menu['time']+' / '+menu['price'],class: "caf_times")
+        concat content_tag(:div,"#{menu['time']} / #{menu['price']}",class: "caf_times")
         concat content_tag(:div,menu['menu'].shift.titleize,class: "caf_rep")
         concat(content_tag(:p) do
           concat card_content(menu['menu'])
@@ -34,22 +49,25 @@ module HomeHelper
     html=''
     menu.each do |item|
       if menu[0]!=item
+        length+=item.length+3
         if length>=32
           html+='<br/>'
+          length=0
           length+=item.length+3
         else
           html+=" , "
         end
+      else
+        length+=item.length+3
       end
       html += item.titleize
-      length+=item.length+3
     end
     return html.html_safe
   end
   
   def card_img(img)
     if img!=nil&&img!=""
-      return '<img src="'+img+'" height="150" class="u_picture">'
+      image_tag(img,height: 150,class: :u_picture)
     end
   end
   
@@ -67,7 +85,7 @@ module HomeHelper
   def card_bottom_middle(kcal)
     content_tag(:div, class: "card-bottom-middle") do
       concat(content_tag(:p) do
-        concat kcal
+        concat kcal||""
         concat "&nbsp;".html_safe
       end)
     end
