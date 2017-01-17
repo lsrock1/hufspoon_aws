@@ -4,8 +4,6 @@ class OhomeController < ApplicationController
   include Getlist
   
   def show
-    @search=true
-    @search_page=true
     @menuarray=[]
     id=params[:id]
     @rest=Rest.includes(:rmenu).find(id)
@@ -54,24 +52,24 @@ class OhomeController < ApplicationController
     end
     
     @list=Rest.where(food: categoryName).sort{|a,b| a.name <=> b.name}
+    
+    render layout: 'home'
   end
   
   def search
-    @search=true
-    @search_page=true
     @keyword=params[:keyword]
     @back=params[:back]
     all=Rmenu.where("menuname like ?", "%" + @keyword + "%")
     result=all.map {|i| i.rest_id }
     result=result.uniq
-    @rest=Rest.includes(:rmenus).where("name like ?","%"+@keyword+"%")
-    @result=Rest.includes(:rmenus).where(id: result)
+    @rest=Rest.includes(:rmenu).where("name like ?","%"+@keyword+"%")
+    @result=Rest.includes(:rmenu).where(id: result)
     
     if @rest.length==0&&@result.length==0
       all=Rmenu.where("emenuname like ?", "%" + @keyword + "%")
       result=all.map {|i| i.rest_id }
       result=result.uniq
-      @result=Rest.includes(:rmenus).where(id: result)
+      @result=Rest.includes(:rmenu).where(id: result)
     end
   end
   

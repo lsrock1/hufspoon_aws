@@ -24,7 +24,18 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  
+  <nav>
+    <div class="nav-wrapper main_nav">
+      <ul class="left">
+        <%=yield :left%>
+      </ul>
+      <a href="/" class="brand-logo center" style="height: 100%"><%=image_tag 'title.png',class: :title%></a>
+      <ul class="right">
+        <li><a><i class="material-icons opener">search</i></a></li>
+      </ul>
+    </div>
+    <%=yield :search_form%>
+  </nav>
 <%= yield %>
 
 </body>

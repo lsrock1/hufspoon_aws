@@ -31,17 +31,14 @@ module HomeHelper
   end
   
   def card_top(menu)
-    capture do
-      concat content_tag(:span,menu['name'].titleize,class: "card-title card-time")
-      concat content_tag(:div,'',class: :divider)
-      concat(content_tag(:div,class: :section) do
+      content_tag(:div,class: 'card-content') do
+        concat content_tag(:span,menu['name'].titleize,class: 'card-title')
         concat content_tag(:div,"#{menu['time']} / #{menu['price']}",class: "caf_times")
         concat content_tag(:div,menu['menu'].shift.titleize,class: "caf_rep")
         concat(content_tag(:p) do
           concat card_content(menu['menu'])
         end)
-      end)
-    end
+      end
   end
   
   def card_content(menu)
@@ -65,50 +62,58 @@ module HomeHelper
     return html.html_safe
   end
   
-  def card_img(img)
-    if img!=nil&&img!=""
-      image_tag(img,height: 150,class: :u_picture)
+  def card_img(menu)
+    if menu['main'].u_picture!=nil&&menu['main'].u_picture!=""
+      content_tag(:div,class: 'card-image') do
+        concat image_tag(menu['main'].u_picture,class: 'u_picture')
+      end
     end
   end
   
-  def card_bottom_left(ingre)
+  def card_bottom_left(menu)
     content_tag(:div, class: "card-bottom-left") do
       concat(content_tag(:p) do
-        if ingre!=nil
-          concat ingre.map{|item| item.titleize}.join(",")
+        if menu['ingre']!=nil
+          concat menu['ingre'].map{|item| item.titleize}.join(",")
         end
         concat "&nbsp;".html_safe
       end)
     end
   end
   
-  def card_bottom_middle(kcal)
+  def card_bottom_middle(menu)
     content_tag(:div, class: "card-bottom-middle") do
       concat(content_tag(:p) do
-        concat kcal||""
+        concat "#{menu['kcal']}"
         concat "&nbsp;".html_safe
       end)
     end
   end
   
-  def card_bottom_right(main)
-    if cookies[main.kname.to_sym]=="1"||session[main.kname.to_sym]=="1"
-      content_tag(:div, class: "card-bottom-right like white red-text text-lighten-3",id: main.id) do
-        concat content_tag(:i,'favorite',class: "material-icons")
-        concat "&nbsp;&nbsp;".html_safe
-        concat main.u_like
+  def card_bottom_right(menu)
+    if cookies[menu['main'].kname.to_sym]=="1"||session[menu['main'].kname.to_sym]=="1"
+      content_tag(:div, class: "card-bottom-right like white red-text text-lighten-3",id: menu['main'].id) do
+        concat (content_tag(:p) do
+          concat content_tag(:i,'favorite',class: "material-icons")
+          concat "&nbsp;&nbsp;".html_safe
+          concat menu['main'].u_like
+        end)
       end
-    elsif cookies[main.kname.to_sym]=="0"||session[main.kname.to_sym]=="0"
-      content_tag(:div, class: "card-bottom-right like white grey-text",id: main.id) do
-        concat content_tag(:i,'favorite_border',class: "material-icons")
-        concat "&nbsp;&nbsp;".html_safe
-        concat main.u_like
+    elsif cookies[menu['main'].kname.to_sym]=="0"||session[menu['main'].kname.to_sym]=="0"
+      content_tag(:div, class: "card-bottom-right like white grey-text",id: menu['main'].id) do
+        concat (content_tag(:p) do
+          concat content_tag(:i,'favorite_border',class: "material-icons")
+          concat "&nbsp;&nbsp;".html_safe
+          concat menu['main'].u_like
+        end)
       end
-    elsif cookies[main.kname.to_sym]==nil||session[main.kname.to_sym]==nil
-      content_tag(:div, class: "card-bottom-right like white grey-text",id: main.id) do
-        concat content_tag(:i,'favorite_border',class: "material-icons")
-        concat "&nbsp;&nbsp;".html_safe
-        concat main.u_like
+    elsif cookies[menu['main'].kname.to_sym]==nil||session[menu['main'].kname.to_sym]==nil
+      content_tag(:div, class: "card-bottom-right like white grey-text",id: menu['main'].id) do
+        concat (content_tag(:p) do
+          concat content_tag(:i,'favorite_border',class: "material-icons")
+          concat "&nbsp;&nbsp;".html_safe
+          concat menu['main'].u_like
+        end)
       end
     end
   end

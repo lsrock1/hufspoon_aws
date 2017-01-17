@@ -1,35 +1,38 @@
 <%content_for :link do %>
-  <li><a href="/rests">AROUND HUFS</a></li>
-  <li><a class="modal-trigger-map" href="#modal2">MAP</a></li>
+  <li><a href="/rests" >AROUND HUFS</a></li>
+  <li><a class="modal-trigger-map" href="#modal2" >MAP</a></li>
 <%end%>
 <%content_for :right do%>
 <ul class="right">
-  <li><a><i class="material-icons representer">date_range</i></a></li>
+  <li><a><i class="material-icons representer grey-text">date_range</i></a></li>
 </ul>
 <%end%>
-<ul class="tabs navi blue lighten-2">
+<%content_for :tabs do %>
+<ul class="tabs navi tabs-transparent home">
   <%=tabs(@w)%>
 </ul>
-<p class="center" style="margin-bottom: 7px;"><a class="representer"><%if @id==1||@id==2||@id==3||@id==4%><%=@y%> / <%=@m%> / <%=@d%> &nbsp;<%=@date%><%else%><%=@date%>&nbsp; <%=@d%> / <%=@m%> / <%=@y%><%end%></a><input style="display:none;" id="datepicker" type="date"/></p>
- <div class="row" id="row">
+<%end%>
+<input style="display:none;" id="datepicker" type="date"/>
+
+<div class="row" id="row">
+  
     <div id="humanities" class="col s12">
-      
+      <br/>
+      <br/>
+      <p class="center" style="margin-bottom: 7px; margin-top: 14px;"><a class="representer red-text text-lighten-2"><%if @id==1||@id==2||@id==3||@id==4%><%=@m%> / <%=@d%> &nbsp;<%=@date%><%else%><%=@date%>&nbsp; <%=@d%> / <%=@m%> <%end%></a></p>
       <%@menulist[0..4].each do |menu|%>
       <%if (menu["price"]!=nil)||(menu["kcal"]!=nil) %>
       <div class="col s12 m8 offset-m2 l6 offset-l3">
         <div class="card">
-          <div class="card-content">
-            <%cache menu_cache_key(menu) do%>
+          <%cache menu_cache_key(menu) do%>
             <%=card_top(menu)%>
-    			  <%=card_img(menu['main'].u_picture)%>
-    			  <div class="divider"></div>
-    			  <div class="section contain">
-      			  <%=card_bottom_left(menu['ingre'])%>
-      			  <%=card_bottom_middle(menu['kcal'])%>
+    			  <%=card_img(menu)%>
+    			  <div class="card-action contain">
+      			  <%=card_bottom_left(menu)%>
+      			  <%=card_bottom_middle(menu)%>
       		  <%end%>
-      		  <%=card_bottom_right(menu['main'])%>
+      		  <%=card_bottom_right(menu)%>
             </div>
-          </div>
         </div>
       </div>
       <%end%>
@@ -61,7 +64,7 @@
       <%elsif @menulist[5]['menu']==nil%>
         <div class="col s12 m8 offset-m2 l6 offset-l3">
           <div class="card">
-            <div class="card-content  ">
+            <div class="card-content">
               <span class="card-title">Wait, Not Yet!</span>
             </div>
           </div>
@@ -71,14 +74,12 @@
         <div class="col s12 m8 offset-m2 l6 offset-l3">
           <div class="card">
             <div class="card-content">
-              <span class="card-title card-time">Snack</span>
-              <div class="divider"></div>
-              <p>
-                <div class="section"><%if @w!=0&&@w!=6%><div class="caf_times">09:00~18:40</div><%end%></div>
+              <span class="card-title">Snack</span>
+                <%if @w!=0&&@w!=6%><div class="caf_times">09:00~18:40</div><%end%>
+                <br/>
                 <p>
       					<%=card_content(@menulist[5]['menu'])%>
       	    	  </p>
-              </p>
             </div>
           </div>
         </div>
@@ -87,21 +88,21 @@
     </div>
     
     <div id="faculty" class="col s12">
+      <br/>
+      <br/>
+      <p class="center" style="margin-bottom: 7px; margin-top: 14px;"><a class="representer red-text text-lighten-2"><%if @id==1||@id==2||@id==3||@id==4%><%=@m%> / <%=@d%> &nbsp;<%=@date%><%else%><%=@date%>&nbsp; <%=@d%> / <%=@m%> <%end%></a></p>
       
       <%@menulist[6..7].each do |menu|%>
       <%if (menu["price"]!=nil)||(menu["kcal"]!=nil) %>
       <div class="col s12 m8 offset-m2 l6 offset-l3">
         <div class="card">
-          <div class="card-content">
             <%cache menu_cache_key(menu) do%>
             <%=card_top(menu)%>
-    			  <div class="divider"></div>
-    			  <div class="section contain">
-      			  <%=card_bottom_left(menu['ingre'])%>
-      			  <%=card_bottom_middle(menu['kcal'])%>
+    			  <div class="card-action contain">
+      			  <%=card_bottom_left(menu)%>
+      			  <%=card_bottom_middle(menu)%>
       		  <%end%>
             </div>
-          </div>
         </div>
       </div>
       <%end%>
@@ -110,20 +111,21 @@
     </div>
     
     <div id="skylounge" class="col s12">
+      <br/>
+      <br/>
+      <p class="center" style="margin-bottom: 7px; margin-top: 14px;"><a class="representer red-text text-lighten-2"><%if @id==1||@id==2||@id==3||@id==4%><%=@m%> / <%=@d%> &nbsp;<%=@date%><%else%><%=@date%>&nbsp; <%=@d%> / <%=@m%> <%end%></a></p>
+      
       <%@menulist[8..9].each do |menu|%>
       <%if (menu["price"]!=nil)||(menu["kcal"]!=nil) %>
       <div class="col s12 m8 offset-m2 l6 offset-l3">
         <div class="card">
-          <div class="card-content">
             <%cache menu_cache_key(menu) do%>
             <%=card_top(menu)%>
-    			  <div class="divider"></div>
-    			  <div class="section contain">
-      			  <%=card_bottom_left(menu['ingre'])%>
-      			  <%=card_bottom_middle(menu['kcal'])%>
+    			  <div class="card-action contain">
+      			  <%=card_bottom_left(menu)%>
+      			  <%=card_bottom_middle(menu)%>
       		  <%end%>
             </div>
-          </div>
         </div>
       </div>
       <%end%>
@@ -285,7 +287,7 @@
               {scaleX: 0,scaleY: 0},
               {duration: 200, complete: function(){
                 $(this).removeClass("red-text text-lighten-3").addClass("grey-text")
-                .html("<i class='material-icons'>favorite_border</i>&nbsp;&nbsp;"+data.like)
+                .html("<p><i class='material-icons'>favorite_border</i>&nbsp;&nbsp;"+data.like+"</p>")
                 .velocity({scaleX: 1,scaleY: 1},{duration: 200})
               }}
             );
@@ -295,7 +297,7 @@
               {scaleX: 0,scaleY: 0},
               {duration: 200, complete: function(){
                 $(this).removeClass("grey-text").addClass("red-text text-lighten-3")
-                .html("<i class='material-icons'>favorite</i>&nbsp;&nbsp;"+data.like)
+                .html("<p><i class='material-icons'>favorite</i>&nbsp;&nbsp;"+data.like+"</p>")
                 .velocity({scaleX: 1,scaleY: 1},{duration: 200})
               }}
             );
@@ -313,7 +315,7 @@
       }
     },
     onClose: function(){
-        $(document.activeElement).blur()
+        document.activeElement.blur()
     }
   });
   var picker = $input.pickadate('picker');

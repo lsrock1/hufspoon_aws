@@ -1,9 +1,9 @@
 <%content_for :left do%>
-  <%if @back==-1%><a href="/"><%else%><a href="/rests?num=<%=@back%>"><%end%><i class="material-icons">undo</i></a>
+  <%if @back==-1%><a href="/"><%else%><a href="/rests?num=<%=@back%>" class="grey-text"><%end%><i class="material-icons">undo</i></a>
 <%end%>
 <%content_for :search_form do%>
   <div class="nav-wrapper nav_form">
-    <form action="/rests/search">
+    <form action="/rests/search" class="white">
       <div class="input-field">
         <input id="search" type="search" name="keyword"required>
         <label for="search"><i class="material-icons">search</i></label>

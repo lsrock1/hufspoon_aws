@@ -27,30 +27,6 @@
         </p>
       </div>
     </div>
-    
-    <% @allcom.each do |a|%>
-      <div class="card">
-        <div class="card-panel">
-          <span>
-            <%=a.content%>
-            <br><br>
-            Date: <%=a.created_at.in_time_zone("Asia/Seoul").strftime("%m/%d  %H:%M")%> &nbsp
-            Ip: <%if a.ip!=nil%><%=admin_signed_in? ? a.ip : a.ip[0...7]%><%end%>  
-            <%if a.name=='admin'%>
-              <div class="divider"></div>
-              <h6 style="color:#002D56;"><%=a.level%></h6>
-            <%end%>
-            <%if admin_signed_in?%>
-              <br>
-              <%=link_to '삭제','/comments/'+a.id.to_s,{class: :btn, method: :delete, data: {confirm: '정말 삭제 하시겠습니까?'}}%>
-              <%=link_to '차단','/block/comment/'+a.id.to_s,{class: :btn, method: :get, data: {confirm: '정말 차단 하시겠습니까?'}}%>
-              <%=link_to 'ip차단','/block/ip/comment'+a.id.to_s,{class: :btn, method: :get, data: {confirm: '정말 ip차단 하시겠습니까?'}}%>
-            <%end%>
-          </span>
-        </div>
-      </div>
-    <%end%>
-    
     <div class="card">
       <div class="card-content">
         <span class="card-title">Reply</span>
@@ -67,7 +43,35 @@
         </p>
       </div>
     </div>
-      
+    
+      <div class="card">
+        <table class="bordered">
+          <% @allcom.each do |a|%>
+          <tr>
+            <td class="card-content">
+              <span>
+                <%=a.content%>
+                <br><br>
+                Date: <%=a.created_at.in_time_zone("Asia/Seoul").strftime("%m/%d  %H:%M")%> &nbsp
+                Ip: <%if a.ip!=nil%><%=admin_signed_in? ? a.ip : a.ip[0...7]%><%end%>  
+                <%if a.name=='admin'%>
+                  <div class="divider"></div>
+                  <h6 style="color:#002D56;"><%=a.level%></h6>
+                <%end%>
+                <%if admin_signed_in?%>
+                  <br>
+                  <%=link_to '삭제','/comments/'+a.id.to_s,{class: :btn, method: :delete, data: {confirm: '정말 삭제 하시겠습니까?'}}%>
+                  <%=link_to '차단','/block/comment/'+a.id.to_s,{class: :btn, method: :get, data: {confirm: '정말 차단 하시겠습니까?'}}%>
+                  <%=link_to 'ip차단','/block/ip/comment'+a.id.to_s,{class: :btn, method: :get, data: {confirm: '정말 ip차단 하시겠습니까?'}}%>
+                <%end%>
+              </span>
+            </td>
+          </tr>
+          <%end%>
+        </table>
+      </div>
+    
+    
   </div>
 </div>
 <script>

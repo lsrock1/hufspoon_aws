@@ -24,7 +24,39 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  
+  <div class="navbar-fixed main_nav">
+  <nav class="nav-extended">
+    <div class="nav-wrapper">
+      <ul id="slide-out" class="side-nav">
+        <%= yield :link%>
+        <li><a href="/posts">Q & A</a></li>
+        <li><a href="https://www.facebook.com/hufspoon/?ref=aymt_homepage_panel" >HUFSPOON PAGE</a></li>
+        <li><a class="modal-trigger" href="#modal1" >MONDAYSPOON</a></li>
+      </ul>
+      
+      <ul class="left hide-on-med-and-down">
+        <%=yield :link%>
+        <li><a href="/posts">Q & A</a></li>
+        <li><a href="https://www.facebook.com/hufspoon/?ref=aymt_homepage_panel">HUFSPOON PAGE</a></li>
+        <li><a class="modal-trigger" href="#modal1">MONDAYSPOON</a></li>
+      </ul>
+      
+      <a href="#" data-activates="slide-out" class="button-collapse grey-text"><i class="material-icons">menu</i></a>
+
+      <a href="/" class="brand-logo center" ><%=image_tag 'title.png',class: :title%></a>
+      <%= yield :right%>
+      <%if @search%>
+      <ul class="right">
+        <li><a><i class="material-icons opener">search</i></a></li>
+      </ul>
+      <%end%>
+      <%= yield :tabs%>
+      
+    </div>
+    
+  </nav>
+  </div>
+  <%=yield :search_form%>
 <%= yield %>
 
 </body>

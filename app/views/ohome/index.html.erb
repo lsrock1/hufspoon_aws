@@ -2,7 +2,8 @@
   <li><a href="/">HUFS</a></li>
 <%end%>
 <%content_for :search_form do%>
-  <div class="nav-wrapper nav_form">
+<nav class="nav_form">
+  <div class="nav-wrapper white">
     <form action="/rests/search">
       <div class="input-field">
         <input id="search" type="search" name="keyword"required>
@@ -12,11 +13,17 @@
       </div>
     </form>
   </div>
+</nav>
 <%end%>
-<ul class="tabs navi blue lighten-2" style="font-size:12px;">
+<%content_for :tabs do %>
+<ul class="tabs navi tabs-transparent ohome">
 <%=tab_lists(@restCategoryHash,@language)%>
 </ul>
+<%end%>
 <div class="row">
+  <br/>
+  <br/>
+  <br/>
   <div class="col s12 m10 offset-m1 l8 offset-l2">
     <div class="card">
       <div class="card-content" id="map" style="height:300px;"></div>
