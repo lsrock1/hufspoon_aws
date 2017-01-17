@@ -123,6 +123,15 @@ li.tab >a:active{
 body{
   background-color: #FAFAFA;
 }
+.picker__date-display{
+  background-color: #ef9a9a;
+}
+.picker__weekday-display{
+  background-color: #ef5350;
+}
+.picker__day.picker__day--today,.picker__close, .picker__today{
+ color: #ef9a9a; 
+}
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.
