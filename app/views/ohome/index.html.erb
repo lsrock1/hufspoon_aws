@@ -142,7 +142,11 @@
 <script src="//apis.daum.net/maps/maps3.js?apikey=23598cdf36f0c5f5bf1f1bfda70b8e80&libraries=services"></script>
 <script>
   $(document).ready(function(){
-    $('.modal-trigger').modal();
+    $('.modal-trigger').modal({
+      ready: function(){
+        $('.button-collapse').sideNav('hide');
+      }
+    });
     $(".button-collapse").sideNav();
     $(".opener").click(function(){
       $(".main_nav").hide();
@@ -154,10 +158,6 @@
       $(".main_nav").fadeIn();
     })
     $("ul.tabs").tabs();
-    $('.modal-trigger').click(function(){
-      $('.button-collapse').sideNav('hide');
-      $('.modal-trigger').modal();
-    })
   })
 	var container = document.getElementById('map');
 	var option = {

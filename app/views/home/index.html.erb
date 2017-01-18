@@ -225,7 +225,8 @@
           }
         }
       );
-    })
+    });
+    
     $('.rotate').on('click',function(){
       var $this=$(this);
       var angle=$this.data('angle')==360 ? 0 : $this.data('angle')+90;
@@ -235,23 +236,27 @@
       );
       console.log(angle);
       $this.data('angle',angle);
-    })
+    });
+    
     $('.carousel.carousel-slider').carousel({full_width: true, indicators: true});
     $(".button-collapse").sideNav();
-    $('.modal-trigger').modal();
-    $('.modal-trigger-map').modal();
+    
     var $tabs=$('ul.tabs');
     $tabs.tabs();
-    $('.modal-trigger').click(function(){
-      $('.button-collapse').sideNav('hide');
-      $tabs.tabs('select_tab', 'test4');
-      $('.modal-trigger').modal();
-    })
-    $('.modal-trigger-map').click(function(){
-      $('.button-collapse').sideNav('hide');
-      $tabs.tabs('select_tab', 'test4');
-      $('.modal-trigger-map').modal();
-    })
+    
+    var modaloption={
+      ready: function(){
+        $('.button-collapse').sideNav('hide');
+        $tabs.tabs('select_tab', 'skylounge');
+      },
+      complete: function(){
+        $tabs.tabs('select_tab', 'humanities');
+      }
+    };
+    
+    $('.modal-trigger').modal(modaloption);
+    $('.modal-trigger-map').modal(modaloption);
+    
     $(".representer").click(function(){
       picker.open();
       event.stopPropagation();
