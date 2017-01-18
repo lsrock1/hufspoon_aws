@@ -8,18 +8,15 @@
 </ul>
 <%end%>
 <%content_for :tabs do %>
-<ul class="tabs navi tabs-transparent home">
+<ul class="tabs navi tabs-transparent home tabs-fixed-width">
   <%=tabs(@w)%>
 </ul>
 <%end%>
 <input style="display:none;" id="datepicker" type="date"/>
-
+<p class="center" style="margin-bottom: 7px; margin-top: 14px;"><a class="representer red-text text-lighten-2"><%if @id==1||@id==2||@id==3||@id==4%><%=@m%> / <%=@d%> &nbsp;<%=@date%><%else%><%=@date%>&nbsp; <%=@d%> / <%=@m%> <%end%></a></p>
 <div class="row" id="row">
   
     <div id="humanities" class="col s12">
-      <br/>
-      <br/>
-      <p class="center" style="margin-bottom: 7px; margin-top: 14px;"><a class="representer red-text text-lighten-2"><%if @id==1||@id==2||@id==3||@id==4%><%=@m%> / <%=@d%> &nbsp;<%=@date%><%else%><%=@date%>&nbsp; <%=@d%> / <%=@m%> <%end%></a></p>
       <%@menulist[0..4].each do |menu|%>
       <%if (menu["price"]!=nil)||(menu["kcal"]!=nil) %>
       <div class="col s12 m8 offset-m2 l6 offset-l3">
@@ -88,10 +85,6 @@
     </div>
     
     <div id="faculty" class="col s12">
-      <br/>
-      <br/>
-      <p class="center" style="margin-bottom: 7px; margin-top: 14px;"><a class="representer red-text text-lighten-2"><%if @id==1||@id==2||@id==3||@id==4%><%=@m%> / <%=@d%> &nbsp;<%=@date%><%else%><%=@date%>&nbsp; <%=@d%> / <%=@m%> <%end%></a></p>
-      
       <%@menulist[6..7].each do |menu|%>
       <%if (menu["price"]!=nil)||(menu["kcal"]!=nil) %>
       <div class="col s12 m8 offset-m2 l6 offset-l3">
@@ -111,10 +104,6 @@
     </div>
     
     <div id="skylounge" class="col s12">
-      <br/>
-      <br/>
-      <p class="center" style="margin-bottom: 7px; margin-top: 14px;"><a class="representer red-text text-lighten-2"><%if @id==1||@id==2||@id==3||@id==4%><%=@m%> / <%=@d%> &nbsp;<%=@date%><%else%><%=@date%>&nbsp; <%=@d%> / <%=@m%> <%end%></a></p>
-      
       <%@menulist[8..9].each do |menu|%>
       <%if (menu["price"]!=nil)||(menu["kcal"]!=nil) %>
       <div class="col s12 m8 offset-m2 l6 offset-l3">
@@ -222,8 +211,8 @@
   </div>
 <script>
   $(document).ready(function(){
-    $('.addbtn').click(function(){
-      $this=$(this);
+    $('.addbtn').on('click',function(){
+      var $this=$(this);
       var word= $this.html()=='add' ? 'clear' : 'add' 
       var angle=$this.data('angle')+90;
       $this.velocity(
@@ -237,20 +226,31 @@
         }
       );
     })
+    $('.rotate').on('click',function(){
+      var $this=$(this);
+      var angle=$this.data('angle')==360 ? 0 : $this.data('angle')+90;
+      $this.velocity(
+        {rotateZ: angle+'deg'},
+        {duration: 200}
+      );
+      console.log(angle);
+      $this.data('angle',angle);
+    })
     $('.carousel.carousel-slider').carousel({full_width: true, indicators: true});
     $(".button-collapse").sideNav();
-    $('.modal-trigger').leanModal();
-    $('.modal-trigger-map').leanModal();
-    var $tabs=$('ul.tabs')
+    $('.modal-trigger').modal();
+    $('.modal-trigger-map').modal();
+    var $tabs=$('ul.tabs');
+    $tabs.tabs();
     $('.modal-trigger').click(function(){
       $('.button-collapse').sideNav('hide');
       $tabs.tabs('select_tab', 'test4');
-      $('.modal-trigger').leanModal();
+      $('.modal-trigger').modal();
     })
     $('.modal-trigger-map').click(function(){
       $('.button-collapse').sideNav('hide');
       $tabs.tabs('select_tab', 'test4');
-      $('.modal-trigger-map').leanModal();
+      $('.modal-trigger-map').modal();
     })
     $(".representer").click(function(){
       picker.open();

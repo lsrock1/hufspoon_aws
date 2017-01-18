@@ -1,6 +1,7 @@
 module OhomeHelper
-  def tab_lists(language,select_language)
+  def tab_lists(language,select_language,food)
     select_language = select_language==4 ? 0 : 1
+    language[food].append('active')
     capture do
       language.collect{|key,value|
       concat(

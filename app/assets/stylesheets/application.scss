@@ -47,8 +47,8 @@ $primary-color: color("white","base") !default;
 .card-bottom-middle{
 	width: 34%;
 	float: left;
-	border-right: thin solid #bdbdbd;
-	border-left: thin solid #bdbdbd;
+	border-right: thin solid #ececec;
+	border-left: thin solid #ececec;
 	height: 100%;
 	text-align: center;
 }
@@ -75,6 +75,14 @@ $primary-color: color("white","base") !default;
 	display:none;
 }
 
+.tabs > li > a{
+  color: #ef9a9a !important;
+}
+
+.tabs > .indicator{
+  background-color: #ef9a9a !important;
+}
+
 .tabs.navi.home > li > a {
     font-size: 0.9rem;
 }
@@ -85,12 +93,12 @@ $primary-color: color("white","base") !default;
   color: #e57373;
 }
 .title{
-  height: 45%;
+  height: 60%;
   max-height: 100%;
-  margin-top: 14px;
+  margin-top: 10px;
 }
 .brand-logo{
-  height: 64px;
+  height: 56px;
   max-height: 100%;
 }
 .card-action{
@@ -108,18 +116,6 @@ ul.right > li > a{
 ul.left > li > a{
   color: #e0e0e0;
 }
-li.tab >a:visited{
-  background-color:white;
-}
-li.tab >a:hover{
-  background-color:white;
-}
-li.tab > a:focus{
-  background-color:white;
-}
-li.tab >a:active{
-  background-color:white;
-}
 body{
   background-color: #FAFAFA;
 }
@@ -131,6 +127,31 @@ body{
 }
 .picker__day.picker__day--today,.picker__close, .picker__today{
  color: #ef9a9a; 
+}
+.tabs{
+  background-color: transparent;
+}
+.navbar-extended-fixed {
+  position: relative;
+  height: 104px;
+  z-index: 998;
+}
+
+.navbar-extended-fixed nav {
+    position: fixed;
+  }
+
+@media only screen and (min-width: 601px){
+  .navbar-extended-fixed {
+    height: 112px;
+  }
+}
+
+i.rotate{
+  border-radius: 50%;
+  padding: 6px;
+  background-color: #fce4ec;
+  margin-right: 3px;
 }
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
