@@ -1,6 +1,6 @@
 <%content_for :link do %>
   <li><a href="/rests" >AROUND HUFS</a></li>
-  <li><a class="modal-trigger-map" href="#modal2" >MAP</a></li>
+  <li><a class="modal-trigger" href="#modal2" >MAP</a></li>
 <%end%>
 <%content_for :right do%>
 <ul class="right">
@@ -234,7 +234,6 @@
         {rotateZ: angle+'deg'},
         {duration: 200}
       );
-      console.log(angle);
       $this.data('angle',angle);
     });
     
@@ -244,7 +243,7 @@
     var $tabs=$('ul.tabs');
     $tabs.tabs();
     
-    var modaloption={
+    $('.modal').modal({
       ready: function(){
         $('.button-collapse').sideNav('hide');
         $tabs.tabs('select_tab', 'skylounge');
@@ -252,10 +251,7 @@
       complete: function(){
         $tabs.tabs('select_tab', 'humanities');
       }
-    };
-    
-    $('.modal-trigger').modal(modaloption);
-    $('.modal-trigger-map').modal(modaloption);
+    });
     
     $(".representer").click(function(){
       picker.open();
