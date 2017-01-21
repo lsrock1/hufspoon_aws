@@ -63,28 +63,20 @@ class HomeController < ApplicationController
    
    
     begin
-      time=Date.parse(@day) 
+      @time=Date.parse(@day)#get 파라미터로 날짜를 분석
     rescue
-      time=Time.new.in_time_zone("Seoul")
-       dd=time.day
-       mm=time.month
-        if dd<10 
-          dd='0'+dd.to_s
-        end
-          
-        if mm<10 
-            mm='0'+mm.to_s
-        end 
-       @day=time.year.to_s+mm.to_s+dd.to_s
+      @time=Time.new.in_time_zone("Seoul")#실패하면 오늘 날짜를 타임존에서 꺼내온다
     end
-    @date=time.strftime("%a")
-    # #요일
-    @w=time.wday
-    #선택한 날짜
-    @d=time.day
-    @m=time.month
+    @d=@time.day
+    @m=@time.month
+    dd = @d<10 ? '0'+@d.to_s : @d.to_s
+    mm=@m<10 ? '0'+@m.to_s : @m
     
-    #아예 처음이면
+    @day=@time.year.to_s+mm.to_s+dd.to_s #오늘날짜를 yyyymmdd로 합친다
+    @time=@time.class.name == 'Date' ? @time : Date.parse(@day) #오늘날짜를 타임존에서 꺼내왔을 경우 time 객체라서 날짜연산이 부정확하므로 다시 date 객체로 변환한다.
+    
+    @date=@time.strftime("%a").upcase #요일
+    @w=@time.wday #숫자로 나타낸 요일
     
     check=Lunch1.find_by(date: @day)
     checkf=Flunch.find_by(date: @day)

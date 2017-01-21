@@ -13,7 +13,7 @@
 </ul>
 <%end%>
 <input style="display:none;" id="datepicker" type="date"/>
-<p class="center" style="margin-bottom: 7px; margin-top: 14px;"><a class="representer red-text text-lighten-2"><%if @id==1||@id==2||@id==3||@id==4%><%=@m%> / <%=@d%> &nbsp;<%=@date%><%else%><%=@date%>&nbsp; <%=@d%> / <%=@m%> <%end%></a></p>
+<p class="center-align dateselect"><i class="material-icons adate dleft">navigate_before</i><a class="representer red-text text-lighten-2"><%if @id==1||@id==2||@id==3||@id==4%><%=@m%> / <%=@d%> &nbsp;<%=@date%><%else%><%=@date%>&nbsp; <%=@d%> / <%=@m%> <%end%></a><i class="material-icons adate dright">navigate_next</i></p>
 <div class="row" id="row">
   
     <div id="humanities" class="col s12">
@@ -235,6 +235,28 @@
         {duration: 200}
       );
       $this.data('angle',angle);
+    });
+    
+    $('.adate').on('click',function(){
+      var $this=$(this);
+      var para,add;
+      if ($this.hasClass('dleft')){
+        para=-1;
+        add='<%=@time-1%>'
+      }
+      else{
+        para=1;
+        add='<%=@time+1%>'
+      }
+      $this.velocity(
+        {translateX: 10*para+'px'},
+        {duration: 200,
+          complete: function(){
+            $(this).velocity({translateX: '0px'},{duration: 200})
+          }
+        }
+      );
+      window.location.href="/<%=@id%>/"+add;
     });
     
     $('.carousel.carousel-slider').carousel({full_width: true, indicators: true});
