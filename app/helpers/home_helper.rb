@@ -23,7 +23,7 @@ module HomeHelper
       language.collect{|key,value|
       concat(
         content_tag(:li) do
-          content_tag(:a,value[0],class: "btn-floating align-center "+value[1],href: '/'+key.to_s+'/'+day.to_s)
+          content_tag(:a,value[0],class: "btn-floating align-center ",style: "background-color: #{value[1]};",href: '/'+key.to_s+'/'+day.to_s)
         end
         )
       }
