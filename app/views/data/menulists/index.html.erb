@@ -9,6 +9,7 @@
   </li>
   <li><a href="/data/menulists.csv">DB 다운로드</a></li>
   <li><a class="modal-trigger" href="#modal">DB 업로드</a></li>
+  <li><a href="/data/menulists/top">자주나오는 500</a></li>
 <%end%>
 <% content_for :search_form do%>
   <div class="nav-wrapper nav_form">
@@ -42,15 +43,10 @@
       <th> </th>
       <th> </th>
     </tr>
-    <%if @page!=0%>
-      <%row=(@page-1)*300+1%>
-    <%else%>
-      <%row=1%>
-    <%end%>
     <%if @list!=nil%>
-      <% @list.each do|l|%>
+      <% @list.each_with_index do|l,number|%>
         <tr>
-          <td><%=row%></td><%row=row+1%>
+          <td><%if @page!=0%><%=number+(@page-1)*300+1%><%else%><%=number+1%><%end%></td>
           <td><%=l.kname%></td>
           <td><%=l.ename%></td>
           <!--<td><%=l.ername%></td>-->
@@ -98,7 +94,7 @@
   </div>
 </div>
 <script>
-  $('.modal-trigger').leanModal();
+  $('.modal').modal();
   $(".button-collapse").sideNav();
   $(".opener").click(function(){
     $(".main_nav").hide();

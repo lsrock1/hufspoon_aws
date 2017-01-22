@@ -54,8 +54,7 @@ module Parser
                 string=x.text
                 if string.index("(")!=nil
                   substring=string[string.index("(")..string.index(")")]
-                  string.sub!(substring,"")
-                  string=string+'$'+substring[1...-1]
+                  string.sub!(substring,'$'+substring[1...-1])
                 end
                 if string.index(",")!=nil&&string[-1]!='원'
                   string.sub!(",","$")
@@ -73,8 +72,7 @@ module Parser
                 string=x.text
                 if string.index("(")!=nil
                   substring=string[string.index("(")..string.index(")")]
-                  string.sub!(substring,"")
-                  string=string+'$'+substring[1...-1]
+                  string.sub!(substring,'$'+substring[1...-1])
                 end
                 if string.index(",")!=nil&&string[-1]!='원'
                   string.sub!(",","$")
@@ -92,8 +90,7 @@ module Parser
                 string=x.text
                 if string.index("(")!=nil
                   substring=string[string.index("(")..string.index(")")]
-                  string.sub!(substring,"")
-                  string=string+'$'+substring[1...-1]
+                  string.sub!(substring,'$'+substring[1...-1])
                 end
                 if string.index(",")!=nil&&string[-1]!='원'
                   string.sub!(",","$")
@@ -111,8 +108,7 @@ module Parser
                 string=x.text
                 if string.index("(")!=nil
                   substring=string[string.index("(")..string.index(")")]
-                  string.sub!(substring,"")
-                  string=string+'$'+substring[1...-1]
+                  string.sub!(substring,'$'+substring[1...-1])
                 end
                 if string.index(",")!=nil&&string[-1]!='원'
                   string.sub!(",","$")
@@ -130,8 +126,7 @@ module Parser
                 string=x.text
                 if string.index("(")!=nil
                   substring=string[string.index("(")..string.index(")")]
-                  string.sub!(substring,"")
-                  string=string+'$'+substring[1...-1]
+                  string.sub!(substring,'$'+substring[1...-1])
                 end
                 if string.index(",")!=nil&&string[-1]!='원'
                   string.sub!(",","$")
@@ -162,8 +157,7 @@ module Parser
                 string=x.text
                 if string.index("(")!=nil
                   substring=string[string.index("(")..string.index(")")]
-                  string.sub!(substring,"")
-                  string=string+'$'+substring[1...-1]
+                  string.sub!(substring,'$'+substring[1...-1])
                 end
                 if string.index(",")!=nil&&string[-1]!='원'
                   string.sub!(",","$")
@@ -181,8 +175,7 @@ module Parser
                 string=x.text
                 if string.index("(")!=nil
                   substring=string[string.index("(")..string.index(")")]
-                  string.sub!(substring,"")
-                  string=string+'$'+substring[1...-1]
+                  string.sub!(substring,'$'+substring[1...-1])
                 end
                 if string.index(",")!=nil&&string[-1]!='원'
                   string.sub!(",","$")
@@ -213,8 +206,7 @@ module Parser
                 string=x.text
                 if string.index("(")!=nil
                   substring=string[string.index("(")..string.index(")")]
-                  string.sub!(substring,"")
-                  string=string+'$'+substring[1...-1]
+                  string.sub!(substring,'$'+substring[1...-1])
                 end
                 if string.index(",")!=nil&&string[-1]!='원'
                   string.sub!(",","$")
@@ -232,8 +224,7 @@ module Parser
                 string=x.text
                 if string.index("(")!=nil
                   substring=string[string.index("(")..string.index(")")]
-                  string.sub!(substring,"")
-                  string=string+'$'+substring[1...-1]
+                  string.sub!(substring,'$'+substring[1...-1])
                 end
                 if string.index(",")!=nil&&string[-1]!='원'
                   string.sub!(",","$")

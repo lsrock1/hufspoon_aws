@@ -1,10 +1,8 @@
+require 'top'
 class Breakfast < ActiveRecord::Base
+  include Top
   
   def self.getname
-    return 'Breakfast'
-  end
-  
-  def getname
     return 'Breakfast'
   end
 end

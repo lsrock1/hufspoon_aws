@@ -11,7 +11,7 @@ class Data::MenulistsController < ApplicationController
     if @page==0
       @list=@menulist.select{|item| item.kname==item.ename}
     else
-      @list=@menulist.all.sort{|a,b| a.kname <=> b.kname}[(@page-1)*300..300*(@page)-1]
+      @list=@menulist.all.sort_by{|a| a.kname}[(@page-1)*300..300*(@page)-1]
     end
   end
   
@@ -99,6 +99,14 @@ class Data::MenulistsController < ApplicationController
     @page=params[:page]
     @keyword=params[:keyword]
     @menulist=Menulist.where('kname Like ?', '%'+@keyword+'%').all
+  end
+  
+  def top
+    @menu=Hash.new(0)
+    [Breakfast,Lunch1,Lunch2,Lunchnoodle,Dinner].map{|cafe| cafe.make_hash(@menu)}
+    @menu=@menu.sort_by {|_,number| number}.reverse[0...500]
+    items=@menu.map{|item| item[0]}
+    @list=Menulist.all.where(kname: items)
   end
   
   private

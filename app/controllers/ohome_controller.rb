@@ -23,7 +23,7 @@ class OhomeController < ApplicationController
     @num=@menuarray.length
     
     restCategoryHash=restCategoryHash().map{|key,value| value[0]}
-    @back=restCategoryHash.index(@rest.food) ? restCategoryHash.index(@rest.food) : -1
+    @back=params[:index] ? -1 : restCategoryHash.index(@rest.food)
   end
   
   def index
@@ -51,7 +51,7 @@ class OhomeController < ApplicationController
      end
     end
     
-    @list=Rest.where(food: categoryName).sort{|a,b| a.name <=> b.name}
+    @list=Rest.where(food: categoryName).sort_by{|a| a.name}
     
     render layout: 'home'
   end

@@ -4,7 +4,7 @@
     <%if @intinfo>=0%>
     <%=link_to "돌아가기",data_menulists_path(:page => @page)%>
     <%else%>
-    <a href="/data/rests/<%=(@intinfo*-1).to_s%>">돌아가기</a>
+    <a href="/data/rests/<%=(@intinfo*-1)%>">돌아가기</a>
     <%end%>
   <%else%>
     <%=link_to "돌아가기",search_data_menulists_path(page: 0,keyword: @page)%>

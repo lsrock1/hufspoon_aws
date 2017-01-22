@@ -1,0 +1,54 @@
+<% content_for :menu do%>
+  <li><%=link_to "번역추가",new_data_menulist_path(:page => @page)%></li>
+  <li>
+      <%=link_to "모든메뉴보기",data_menulists_path(:page => 1)%>
+  </li>
+  <li><a href="/data/menulists/top.csv">DB 다운로드</a></li>
+<%end%>
+<br>
+<div class="table-responsive">
+  <table class="table">
+    <tr>
+      <th>순번</th>
+      <th>한글</th>
+      <th>en</th>
+      <!--<th>독음</th>-->
+      <!--<th>일훈</th>-->
+      <th>간체</th>
+      <!--<th>번체</th>-->
+      <!--<th>아랍어</th>-->
+      <th>es</th>
+      <th>de</th>
+      <th>ita</th>
+      <th>po</th>
+      <th>빈도</th>
+      <th> </th>
+      <th> </th>
+    </tr>
+    <%if @list!=nil%>
+      <% @list.each_with_index do|l,number|%>
+        <tr>
+          <td><%=number+1%></td>
+          <td><%=l.kname%></td>
+          <td><%=l.ename%></td>
+          <!--<td><%=l.ername%></td>-->
+          <!--<td><%=l.jnamea%></td>-->
+          <td><%=l.cname%></td>
+          <!--<td><%=l.cnameb%></td>-->
+          <!--<td><%=l.aname%></td>-->
+          <td><%=l.spanish%></td>
+          <td><%=l.germany%></td>
+          <td><%=l.italia%></td>
+          <td><%=l.portugal%></td>
+          <td><%=@menu[number][1]%></td>
+          <td><%=link_to '수정',edit_data_menulist_path(id: l.id,page: 0),{class: :btn, data: {confirm: '정말 수정 하시겠습니까?'}}%></td>
+          <td><%=link_to '삭제',data_menulist_path(l),{class: :btn, method: :delete, data: {confirm: '정말 삭제 하시겠습니까?'}}%></td>
+        </tr>
+      <%end%>
+    <%end%>
+  </table>
+</div>
+<script>
+  $('.modal').modal();
+  $(".button-collapse").sideNav();
+</script>

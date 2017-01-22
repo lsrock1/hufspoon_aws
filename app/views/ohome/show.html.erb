@@ -1,5 +1,5 @@
 <%content_for :left do%>
-  <%if @back==-1%><a href="/"><%else%><a href="/rests?num=<%=@back%>" class="grey-text"><%end%><i class="material-icons">undo</i></a>
+  <a href="<%if @back==-1%>/<%else%>/rests?num=<%=@back%><%end%>" class="grey-text"><i class="material-icons">undo</i></a>
 <%end%>
 <%content_for :search_form do%>
   <div class="nav-wrapper nav_form">

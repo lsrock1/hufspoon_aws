@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   namespace :data do
     resources :menulists, path_names: {edit: "/edit/:page"} do
       get :search, on: :collection
+      get :top, on: :collection
     end
     resources :rests do
       delete '/picture/:number', on: :member, action: :destroy
