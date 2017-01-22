@@ -40,7 +40,7 @@
           <td><%=l.germany%></td>
           <td><%=l.italia%></td>
           <td><%=l.portugal%></td>
-          <td><%=@menu[number][1]%></td>
+          <td><%=@menu[l.kname]%></td>
           <td><%=link_to '수정',edit_data_menulist_path(id: l.id,page: 0),{class: :btn, data: {confirm: '정말 수정 하시겠습니까?'}}%></td>
           <td><%=link_to '삭제',data_menulist_path(l),{class: :btn, method: :delete, data: {confirm: '정말 삭제 하시겠습니까?'}}%></td>
         </tr>

@@ -104,9 +104,10 @@ class Data::MenulistsController < ApplicationController
   def top
     @menu=Hash.new(0)
     [Breakfast,Lunch1,Lunch2,Lunchnoodle,Dinner].map{|cafe| cafe.make_hash(@menu)}
-    @menu=@menu.sort_by {|_,number| number}.reverse[0...500]
+    @menu=@menu.sort_by {|_,number| number}.reverse[0...500].concat([['닭강정',1],['순대',1],['떡라면',1],['치즈라면',1],['김밥',1],['토스트',1],['떡볶이',1],['치즈',1],['공기밥',1],['라면',1]])
     items=@menu.map{|item| item[0]}
-    @list=Menulist.all.where(kname: items)
+    @menu=@menu.to_h
+    @list=Menulist.all.where(kname: items).sort_by{|a| @menu[a.kname]}.reverse
   end
   
   private
