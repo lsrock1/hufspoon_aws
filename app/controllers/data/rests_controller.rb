@@ -75,7 +75,6 @@ class Data::RestsController < ApplicationController
     @rest=Rest.find(params[:id])
     if params[:rest][:name]
       @rest.update(rest_params)
-      @rest.save
     elsif params[:rest][:picture]
       @rest.picture=@rest.picture+params[:rest][:picture]
       @rest.save
