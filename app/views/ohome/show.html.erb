@@ -17,7 +17,9 @@
     <br>
     <div class="col s12 m10 offset-m1 l8 offset-l2">
       <div class="card">
-        <div class="card-content" id="map" style="height:300px;"></div>
+        <div id="map" style="height:300px;"></div>
+        <div id="roadView" style="display:none; height:330px;"></div>
+        <a class="waves-effect waves-light btn red lighten-2" style="position: absolute; top:5px;left:5px;" id="roadBtn" data-type="ROAD">ROAD</a>
       </div>
     </div>
     <div class="col s12 m10 offset-m1 l8 offset-l2">
@@ -101,6 +103,17 @@
     $(".main_nav").fadeIn();
   })
   $('ul.tabs').tabs();
+  $('#roadBtn').click(function(){
+    var $this=$(this);
+    if($this.data('type')=='ROAD'){
+      $this.text('MAP').data('type','MAP');
+    }
+    else{
+      $this.text('ROAD').data('type','ROAD');
+    }
+    $('#map').toggle();
+    $('#roadView').toggle();
+  });
   Kakao.init('3a6d3b6e790c8028083ec1a6888a0868');
   Kakao.Link.createTalkLinkButton({
     container: '#kakao-link-btn',
@@ -118,20 +131,23 @@
  })
 	var container = document.getElementById('map');
 	var option = {
-	  lat: <%=@map.lat%>,
-	  lng: <%=@map.lon%>,
+	  center: [<%=@map.lat%>,<%=@map.lon%>],
 		level: 2
 	};
+	
+	var roadContainer=document.getElementById('roadView');
 
-	var map = daumMap(container, option);
+	var map = new daumMap(container, option);
+  var roadView=new daumRoadView(roadContainer);
+  
+  roadView.position({position: [<%=@map.lat%>,<%=@map.lon%>]});
   
   var markerOption={
-    lat: <%=@map.lat%>,
-    lng: <%=@map.lon%>,
+    position: [<%=@map.lat%>,<%=@map.lon%>],
     map: map,
     clickable: true
   };
-    
+  
   var overlayOption={
     content: '<div class="placeinfo_wrap"><div class="placeinfo"><a class="title" ><%=@rest.name%></a><span>'+
               '<span style="text-align: right;" class="material-icons close" aria-hidden="true">clear</span>'+
@@ -139,12 +155,12 @@
     clickable: true
   };
   
-  var marker=marker(markerOption);
-  var overlay=customOverlay(overlayOption);
+  var markerMap=new marker(markerOption);
+  var overlay=new customOverlay(overlayOption);
   
   overlay.onClose('overlay');
   
-  marker.on('click',function(){
+  markerMap.on('click',function(){
     overlay.open(marker);
   });
 </script>

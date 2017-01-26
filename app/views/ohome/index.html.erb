@@ -161,23 +161,22 @@
   })
 	var container = document.getElementById('map');
 	var option = {
-	  lat: 37.596418,
-	  lng: 127.060246,
+	  center: [37.596418,127.060246],
 		level: 3
 	};
+	var easyMap=new easyMap();
 
-	var map = daumMap(container, option);
+	var map =new daumMap(container, option);
 
   var markers=[];
   var overlays=[];
   <%@all.each do |m|%>
-    markers.push(marker({
-      lat: <%=m[0]%>,
-      lng: <%=m[1]%>,
+    markers.push(new marker({
+      position: [<%=m[0]%>,<%=m[1]%>],
       map: map,
       clickable: true
     }));
-    overlays.push(customOverlay({
+    overlays.push(new customOverlay({
       content: '<div class="placeinfo_wrap"><div class="placeinfo"><%m[2].each do |r|%><a class="title" href="/rests/<%=r.id%>"><%=r.name%></a><%end%>'+
                 '<span>'+
                 '<span style="text-align: right;" class="material-icons close" aria-hidden="true">clear</span>'+

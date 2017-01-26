@@ -328,6 +328,24 @@
         }
       })
     })
+    if(window.Android){
+      $('#humanities').find('.alarm').each(function(){
+        var $this=$(this);
+        $this.css("display","block");
+        window.Android.checkAlarm($this.data("id"))=='1' ? $this.removeClass('grey-text').addClass('red-text text-lighten-2') : $this.removeClass('red-text text-lighten-2').addClass('grey-text');
+      })
+      $(".alarm").click(function(){
+        var $this=$(this);
+        if($this.hasClass('grey-text')){
+          $this.removeClass('grey-text').addClass('red-text text-lighten-2');
+          window.Android.register($this.data('id'),'1');
+        }
+        else{
+          $this.removeClass('red-text text-lighten-2').addClass('grey-text');
+          window.Android.register($this.data('id'),'0');
+        }
+      })
+    }
   })
   var $input =  $('#datepicker').pickadate({
     format: 'yyyymmdd',
@@ -342,4 +360,5 @@
     }
   });
   var picker = $input.pickadate('picker');
+  
 </script>
