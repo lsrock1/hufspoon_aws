@@ -32,7 +32,7 @@ module HomeHelper
   
   def card_top(menu)
       content_tag(:div,class: 'card-content') do
-        concat content_tag(:a,content_tag(:i,'&#xE561;'.html_safe,class: "material-icons rotate red-text text-lighten-2",'data-angle' => 0))
+        concat content_tag(:a,content_tag(:i,'restaurant_menu'.html_safe,class: "material-icons rotate red-text text-lighten-2",'data-angle' => 0))
         concat content_tag(:span,menu['name'].titleize,class: 'card-title')
         concat content_tag(:a,content_tag(:i,'alarm_on'.html_safe,class: 'material-icons grey-text alarm right z-depth-1','data-id' => menu['main'].id, style: "display:none;"))
         concat content_tag(:div,"#{menu['time']} / #{menu['price']}",class: "caf_times")
