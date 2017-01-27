@@ -227,7 +227,7 @@
       );
     });
     
-    $('.rotate').on('click',function(){
+    $('.rotate').show().on('click',function(){
       var $this=$(this);
       var angle=$this.data('angle')==360 ? 0 : $this.data('angle')+90;
       $this.velocity(
