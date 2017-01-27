@@ -332,16 +332,16 @@
       $('#humanities').find('.alarm').each(function(){
         var $this=$(this);
         $this.css("display","block");
-        window.Android.checkAlarm($this.data("id"))=='1' ? $this.removeClass('grey-text').addClass('red-text text-lighten-2') : $this.removeClass('red-text text-lighten-2').addClass('grey-text');
+        window.Android.checkAlarm($this.data("id"))=='1' ? $this.removeClass('grey-text').addClass('red-text') : $this.removeClass('red-text').addClass('grey-text');
       })
       $(".alarm").click(function(){
         var $this=$(this);
         if($this.hasClass('grey-text')){
-          $this.removeClass('grey-text').addClass('red-text text-lighten-2');
+          $this.removeClass('grey-text').addClass('red-text');
           window.Android.register($this.data('id'),'1');
         }
         else{
-          $this.removeClass('red-text text-lighten-2').addClass('grey-text');
+          $this.removeClass('red-text').addClass('grey-text');
           window.Android.register($this.data('id'),'0');
         }
       })
