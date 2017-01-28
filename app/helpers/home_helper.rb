@@ -44,7 +44,7 @@ module HomeHelper
   def card_middle(menu)
     content_tag(:div,class: 'card-content card_middle') do
       concat content_tag(:span,menu['menu'].shift.titleize,class: "caf_main")
-      concat(content_tag(:p,class: 'caf_menu') do
+      concat(content_tag(:div,class: 'caf_menu') do
         concat card_content(menu['menu'])
       end)
       concat (content_tag(:div,class: 'caf_ingre') do
