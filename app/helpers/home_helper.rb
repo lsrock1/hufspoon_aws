@@ -57,7 +57,7 @@ module HomeHelper
   
   def card_bottom(menu)
     content_tag(:div,class: 'card-action card-icon') do
-      concat content_tag(:div,content_tag(:i,'alarm_off'.html_safe,class: 'material-icons'),class:  'grey-text alarm','data-id' => menu['main'].id,'data-name' => menu['main'].kname, style: "display:none;")
+      concat content_tag(:div,content_tag(:i,'alarm_on'.html_safe,class: 'material-icons'),class:  'grey-text alarm','data-id' => menu['main'].id,'data-name' => menu['main'].kname, style: "display:none;")
       concat like_icon(menu)    
     end
   end
