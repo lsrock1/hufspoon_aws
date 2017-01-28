@@ -34,16 +34,16 @@ module HomeHelper
     content_tag(:div,class: 'card-content card_top') do
       concat content_tag(:span, menu['name'].titleize,class: 'card-title')
       concat tag('br')
-      concat (content_tag(:div,class: 'grey-text') do
-        concat "#{menu['time']} / #{menu['price']}"
-        concat content_tag(:span,"#{menu['kcal']}",class: :right )
-      end)
+      concat content_tag(:span,"#{menu['time']} / #{menu['price']}",class: "grey-text")
     end
   end
   
   def card_middle(menu)
     content_tag(:div,class: 'card-content card_middle') do
-      concat content_tag(:span,menu['menu'].shift.titleize,class: "caf_main")
+      concat (content_tag(:div) do
+        concat content_tag(:span,menu['menu'].shift.titleize,class: "caf_main")
+        concat content_tag(:span,"#{menu['kcal']}",class: 'right grey-text' )
+      end)
       concat(content_tag(:div,class: 'caf_menu') do
         concat card_content(menu['menu'])
       end)
