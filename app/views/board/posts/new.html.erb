@@ -6,7 +6,8 @@
 <%end%>
 <div class="row">
   <br/>
-  <div class="col s12 m8 offset-m2 l8 offset-l2">
+  <div class="col s12 m8 offset-m2 l8 offset-l2 card">
+    <div class="card-content">
     <%=form_for(@post) do |f|%>
       <div class="text_field">
         <%=f.label :title%>
@@ -18,6 +19,7 @@
       </div>
       <%=f.submit :send,class: :btn%>
     <%end%>
+    </div>
   </div>
 </div>
 <script>

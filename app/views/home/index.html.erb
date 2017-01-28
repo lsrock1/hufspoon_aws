@@ -24,12 +24,9 @@
           <%cache menu_cache_key(menu) do%>
             <%=card_top(menu)%>
     			  <%=card_img(menu)%>
-    			  <div class="card-action contain">
-      			  <%=card_bottom_left(menu)%>
-      			  <%=card_bottom_middle(menu)%>
-      		  <%end%>
-      		  <%=card_bottom_right(menu)%>
-            </div>
+    			  <%=card_middle(menu)%>
+    			<%end%>
+    			<%=card_bottom(menu)%>
         </div>
       </div>
       <%end%>
@@ -72,9 +69,9 @@
           <div class="card">
             <div class="card-content">
               <span class="card-title">Snack</span>
-                <%if @w!=0&&@w!=6%><div class="caf_times">09:00~18:40</div><%end%>
+                <%if @w!=0&&@w!=6%><div>09:00~18:40</div><%end%>
                 <br/>
-                <p>
+                <p class="caf_menu">
       					<%=card_content(@menulist[5]['menu'])%>
       	    	  </p>
             </div>
@@ -89,13 +86,11 @@
       <%if (menu["price"]!=nil)||(menu["kcal"]!=nil) %>
       <div class="col s12 m8 offset-m2 l6 offset-l3">
         <div class="card">
-            <%cache menu_cache_key(menu) do%>
+          <%cache menu_cache_key(menu) do%>
             <%=card_top(menu)%>
-    			  <div class="card-action contain">
-      			  <%=card_bottom_left(menu)%>
-      			  <%=card_bottom_middle(menu)%>
-      		  <%end%>
-            </div>
+    			  <%=card_img(menu)%>
+    			  <%=card_middle(menu)%>
+    			<%end%>
         </div>
       </div>
       <%end%>
@@ -108,13 +103,11 @@
       <%if (menu["price"]!=nil)||(menu["kcal"]!=nil) %>
       <div class="col s12 m8 offset-m2 l6 offset-l3">
         <div class="card">
-            <%cache menu_cache_key(menu) do%>
+          <%cache menu_cache_key(menu) do%>
             <%=card_top(menu)%>
-    			  <div class="card-action contain">
-      			  <%=card_bottom_left(menu)%>
-      			  <%=card_bottom_middle(menu)%>
-      		  <%end%>
-            </div>
+    			  <%=card_img(menu)%>
+    			  <%=card_middle(menu)%>
+    			<%end%>
         </div>
       </div>
       <%end%>
@@ -227,16 +220,6 @@
       );
     });
     
-    $('.rotate').show().on('click',function(){
-      var $this=$(this);
-      var angle=$this.data('angle')==360 ? 0 : $this.data('angle')+90;
-      $this.velocity(
-        {rotateZ: angle+'deg'},
-        {duration: 200}
-      );
-      $this.data('angle',angle);
-    });
-    
     $('.adate').on('click',function(){
       var $this=$(this);
       var para,add;
@@ -296,7 +279,7 @@
       }
      })
     $(".like").click(function(){
-      var did=$(this).attr("id");
+      var did=$(this).data("id");
       $.ajax({
         method: "get",
         url: "/like",
@@ -309,8 +292,8 @@
             $this.velocity(
               {scaleX: 0,scaleY: 0},
               {duration: 200, complete: function(){
-                $(this).removeClass("red-text text-lighten-3").addClass("grey-text")
-                .html("<p><i class='material-icons'>favorite_border</i>&nbsp;&nbsp;"+data.like+"</p>")
+                $this.removeClass("red-text text-lighten-3").addClass("grey-text")
+                .html("<i class='material-icons'>favorite_border</i>&nbsp;&nbsp;"+data.like)
                 .velocity({scaleX: 1,scaleY: 1},{duration: 200})
               }}
             );
@@ -320,7 +303,7 @@
               {scaleX: 0,scaleY: 0},
               {duration: 200, complete: function(){
                 $(this).removeClass("grey-text").addClass("red-text text-lighten-3")
-                .html("<p><i class='material-icons'>favorite</i>&nbsp;&nbsp;"+data.like+"</p>")
+                .html("<i class='material-icons'>favorite</i>&nbsp;&nbsp;"+data.like)
                 .velocity({scaleX: 1,scaleY: 1},{duration: 200})
               }}
             );
@@ -328,23 +311,42 @@
         }
       })
     })
-    if(window.Android){
-      $('#humanities').find('.alarm').each(function(){
+    if(window.Hybrid){
+      $('.alarm').each(function(){
         var $this=$(this);
-        $this.css("display","block");
-        window.Android.checkAlarm($this.data("id"))=='1' ? $this.removeClass('grey-text').addClass('red-text') : $this.removeClass('red-text').addClass('grey-text');
+        $this.show();
+        if(window.Hybrid.alarmInit($this.data("id"))=='1') $this.removeClass('grey-text').addClass('red-text') ;
+      })
+      $('.like').each(function(){
+        var $this=$(this); 
+        if (window.Hybrid.likeInit($this.data('id'))=='1'){
+          if($this.hasClass('grey-text')) $this.removeClass('grey-text').addClass('red-text text-lighten-3').find('i').text('favorite');
+        }
+        else{
+          if($this.hasClass('red-text')) $this.removeClass('red-text text-lighten-3').addClass('grey-text').find('i').text('favorite_border');
+        }
       })
       $(".alarm").click(function(){
         var $this=$(this);
         if($this.hasClass('grey-text')){
           $this.removeClass('grey-text').addClass('red-text');
-          window.Android.register($this.data('id'),'1');
+          window.Hybrid.alarmOn($this.data('id'),$this.data('name'));
         }
         else{
           $this.removeClass('red-text').addClass('grey-text');
-          window.Android.register($this.data('id'),'0');
+          window.Hybrid.alarmOff($this.data('id'),$this.data('name'));
         }
       })
+      $(".like").click(function(){
+        var $this=$(this);
+        if($this.hasClass('grey-text')){
+          window.Hybrid.like($this.data('id'),$this.data('name'));
+        }
+        else{
+          window.Hybrid.unlike($this.data('id'),$this.data('name'));
+        }
+      })
+      
     }
   })
   var $input =  $('#datepicker').pickadate({

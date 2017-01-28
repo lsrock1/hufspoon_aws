@@ -6,69 +6,55 @@
     <div class="card">
       <div class="card-content">
         <span class="card-title"><%=@p.title%></span>
-        <div class="divider"></div>
         <p>
-        <div class="section">
-          <%=@p.content%>
-          <br><br>
-          Date: <%=@p.created_at.in_time_zone("Asia/Seoul").strftime("%m/%d  %H:%M")%> &nbsp
-          Ip: <%if @p.ip!=nil%><%=admin_signed_in? ? @p.ip : @p.ip[0..7]%><%end%>
-        </div>
         <%if @p.name=='admin'%>
-          <div class="divider"></div>
-          <h6 style="color:#002D56;"><%=@p.level%></h6>
+          <span style="color:#002D56;"><%=@p.level%></span>
+        <%else%>
+          <span style="font-weight:bold;">Guest</span>
         <%end%>
+          <span class="grey-text right"><%=@p.created_at.in_time_zone("Asia/Seoul").strftime("%m/%d  %H:%M")%><%if @p.ip!=nil&&admin_signed_in?%>/<%=@p.ip%><%end%></span>
+        </p>
+        <div class="divider"></div>
+        <div class="section"><%=simple_format(@p.content)%></div>
         <%if admin_signed_in?%>
           <br>
           <%=link_to '삭제','/posts/'+@p.id.to_s,{class: :btn, method: :delete, data: {confirm: '정말 삭제 하시겠습니까?'}}%>
           <%=link_to '차단','/block/post/'+@p.id.to_s,{class: :btn, method: :get, data: {confirm: '정말 차단 하시겠습니까?'}}%>
           <%=link_to 'ip차단','/block/ip/post'+@p.id.to_s,{class: :btn, method: :get, data: {confirm: '정말 ip차단 하시겠습니까?'}}%>
         <%end%>
-        </p>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-content">
-        <span class="card-title">Reply</span>
-        <div class="divider"></div>
-        <p>
-          <%=form_for(@comment) do|f|%>
-      		  <%=f.text_field :post_id,type: :hidden, value: @p.id%>
-      		  <div class="input-field">
-      		    <%=f.label :content%>
-      		    <%=f.text_area :content,class: 'materialize-textarea'%>
-      		  </div>
-      		  <%=f.submit 'send',class: :btn%>
-          <%end%>
-        </p>
       </div>
     </div>
     
       <div class="card">
-        <table class="bordered">
+        <ul class="collection">
           <% @allcom.each do |a|%>
-          <tr>
-            <td class="card-content">
-              <span>
-                <%=a.content%>
-                <br><br>
-                Date: <%=a.created_at.in_time_zone("Asia/Seoul").strftime("%m/%d  %H:%M")%> &nbsp
-                Ip: <%if a.ip!=nil%><%=admin_signed_in? ? a.ip : a.ip[0...7]%><%end%>  
-                <%if a.name=='admin'%>
-                  <div class="divider"></div>
-                  <h6 style="color:#002D56;"><%=a.level%></h6>
-                <%end%>
-                <%if admin_signed_in?%>
-                  <br>
-                  <%=link_to '삭제','/comments/'+a.id.to_s,{class: :btn, method: :delete, data: {confirm: '정말 삭제 하시겠습니까?'}}%>
-                  <%=link_to '차단','/block/comment/'+a.id.to_s,{class: :btn, method: :get, data: {confirm: '정말 차단 하시겠습니까?'}}%>
-                  <%=link_to 'ip차단','/block/ip/comment'+a.id.to_s,{class: :btn, method: :get, data: {confirm: '정말 ip차단 하시겠습니까?'}}%>
-                <%end%>
-              </span>
-            </td>
-          </tr>
+            <li class="collection-item">
+              <%if a.name=='admin'%>
+                <span style="color:#002D56; font-weight:bold;"><%=a.level%></span>
+              <%else%>
+                <span style="font-weight:bold;">Guest</span>
+              <%end%>
+              <span class="grey-text right"><%=a.created_at.in_time_zone("Asia/Seoul").strftime("%m/%d  %H:%M")%><%if a.ip!=nil&&admin_signed_in?%>/<%=a.ip%><%end%> </span>
+              
+              <%=simple_format(a.content)%>
+              <%if admin_signed_in?%>
+                <br>
+                <%=link_to '삭제','/comments/'+a.id.to_s,{class: :btn, method: :delete, data: {confirm: '정말 삭제 하시겠습니까?'}}%>
+                <%=link_to '차단','/block/comment/'+a.id.to_s,{class: :btn, method: :get, data: {confirm: '정말 차단 하시겠습니까?'}}%>
+                <%=link_to 'ip차단','/block/ip/comment'+a.id.to_s,{class: :btn, method: :get, data: {confirm: '정말 ip차단 하시겠습니까?'}}%>
+              <%end%>
+            </li>
           <%end%>
-        </table>
+          <li class="collection-item">
+            <%=form_for(@comment) do|f|%>
+      		  <%=f.text_field :post_id,type: :hidden, value: @p.id%>
+      		  <div class="input-field">
+      		    <%=f.label "Add a comment"%>
+      		    <%=f.text_area :content,class: "materialize-textarea"%>
+      		  </div>
+          <%end%>
+          </li>
+        </ul>
       </div>
     
     
@@ -76,4 +62,11 @@
 </div>
 <script>
 $('#ex2').trigger('autoresize');
+$('textarea').keydown(function(event) {
+        if (event.keyCode == 13&& !event.shiftKey) {
+
+            this.form.submit();
+            return false;
+         }
+    });
 </script>
