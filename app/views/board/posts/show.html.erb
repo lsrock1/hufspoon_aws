@@ -45,14 +45,24 @@
               <%end%>
             </li>
           <%end%>
-          <li class="collection-item">
+          <li class="collection-item hide-on-med-and-down">
             <%=form_for(@comment) do|f|%>
-      		  <%=f.text_field :post_id,type: :hidden, value: @p.id%>
-      		  <div class="input-field">
-      		    <%=f.label "Add a comment"%>
-      		    <%=f.text_area :content,class: "materialize-textarea"%>
-      		  </div>
-          <%end%>
+        		  <%=f.text_field :post_id,type: :hidden, value: @p.id%>
+        		  <div class="input-field">
+        		    <%=f.label "Add a comment"%>
+        		    <%=f.text_area :content,class: "materialize-textarea pc"%>
+        		  </div>
+            <%end%>
+          </li>
+          <li class="collection-item hide-on-large-only">
+            <%=form_for(@comment) do|f|%>
+        		  <%=f.text_field :post_id,type: :hidden, value: @p.id%>
+        		  <div class="input-field">
+        		    <%=f.label "Add a comment"%>
+        		    <%=f.text_area :content,class: "materialize-textarea"%>
+        		  </div>
+        		  <%=f.submit :send,class: :btn%>
+            <%end%>
           </li>
         </ul>
       </div>
@@ -62,11 +72,10 @@
 </div>
 <script>
 $('#ex2').trigger('autoresize');
-$('textarea').keydown(function(event) {
-        if (event.keyCode == 13&& !event.shiftKey) {
-
-            this.form.submit();
-            return false;
-         }
-    });
+$('.pc').keydown(function(event) {
+  if (event.keyCode == 13&& !event.shiftKey) {
+    this.form.submit();
+    return false;
+   }
+});
 </script>
