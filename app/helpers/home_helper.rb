@@ -41,11 +41,11 @@ module HomeHelper
   def card_middle(menu)
     content_tag(:div,class: 'card-content card_middle') do
       concat (content_tag(:div) do
-        concat content_tag(:span,menu['menu'].shift.titleize,class: "caf_main")
+        concat content_tag(:span,menu['menu'][0].titleize,class: "caf_main")
         concat content_tag(:span,"#{menu['kcal']}",class: 'right grey-text' )
       end)
       concat(content_tag(:div,class: 'caf_menu') do
-        concat card_content(menu['menu'])
+        concat card_content(menu['menu'][1..-1])
       end)
       concat (content_tag(:div,class: 'caf_ingre') do
         if menu['ingre']!=nil
@@ -57,8 +57,8 @@ module HomeHelper
   
   def card_bottom(menu)
     content_tag(:div,class: 'card-action card-icon') do
-      concat content_tag(:div,content_tag(:i,'alarm_on'.html_safe,class: 'material-icons'),class:  'grey-text alarm','data-id' => menu['main'].id,'data-name' => menu['main'].kname, style: "display:none;")
-      concat like_icon(menu)    
+      concat content_tag(:div,content_tag(:i,'alarm_on'.html_safe,class: 'material-icons'),class:  'grey-text alarm','data-id' => menu['main'].id,'data-name' => menu['menu'][0], style: "display:none;")
+      concat like_icon(menu)
     end
   end
   
@@ -93,19 +93,19 @@ module HomeHelper
   
   def like_icon(menu)
     if cookies[menu['main'].kname.to_sym]=="1"||session[menu['main'].kname.to_sym]=="1"
-      content_tag(:div,class: 'like red-text text-lighten-3','data-id' => menu['main'].id,'data-name' => menu['main'].kname) do
+      content_tag(:div,class: 'like red-text text-lighten-3','data-id' => menu['main'].id,'data-name' => menu['menu'][0]) do
         concat content_tag(:i,'favorite',class: "material-icons")
         concat "&nbsp;&nbsp;".html_safe
         concat menu['main'].u_like
       end
     elsif cookies[menu['main'].kname.to_sym]=="0"||session[menu['main'].kname.to_sym]=="0"
-      content_tag(:div,class: 'like grey-text','data-id' => menu['main'].id,'data-name' => menu['main'].kname) do
+      content_tag(:div,class: 'like grey-text','data-id' => menu['main'].id,'data-name' => menu['menu'][0]) do
         concat content_tag(:i,'favorite_border',class: "material-icons")
         concat "&nbsp;&nbsp;".html_safe
         concat menu['main'].u_like
       end
     elsif cookies[menu['main'].kname.to_sym]==nil||session[menu['main'].kname.to_sym]==nil
-      content_tag(:div,class: 'like grey-text', 'data-id' => menu['main'].id,'data-name' => menu['main'].kname) do
+      content_tag(:div,class: 'like grey-text', 'data-id' => menu['main'].id,'data-name' => menu['menu'][0]) do
         concat content_tag(:i,'favorite_border', class: "material-icons")
         concat "&nbsp;&nbsp;".html_safe
         concat menu['main'].u_like

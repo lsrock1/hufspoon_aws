@@ -315,7 +315,7 @@
       $('.alarm').each(function(){
         var $this=$(this);
         $this.show();
-        if(window.Hybrid.alarmInit($this.data("id"))=='1') $this.removeClass('grey-text').addClass('red-text') ;
+        if(window.Hybrid.alarmInit($this.data("id"),$this.data('name'))=='1') $this.removeClass('grey-text').addClass('red-text') ;
       })
       $('.like').each(function(){
         var $this=$(this); 
