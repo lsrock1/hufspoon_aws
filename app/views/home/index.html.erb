@@ -118,7 +118,7 @@
   </div>
     
   <div class="fixed-action-btn click-to-toggle" style="bottom: 14px; right: 14px;">
-    <a class="btn-floating btn-large white">
+    <a class="btn-floating btn-large white scale-transition">
       <i class="material-icons addbtn black-text" data-angle="0">add</i>
     </a>
     <ul>
@@ -311,6 +311,20 @@
         }
       })
     })
+    var lastScrollTop = 0;
+    var $scale=$('.scale-transition');
+    $(window).scroll(function(event){
+      var st = $(this).scrollTop();
+      if (lastScrollTop!==0){
+        if (st > lastScrollTop){
+          $scale.velocity({scaleX: 0,scaleY: 0},{duration: 10});
+        }
+        else{
+          $scale.velocity({scaleX: 1,scaleY: 1},{duration: 10});
+        }
+      }
+      lastScrollTop = st;
+    });
     if(window.Hybrid){
       $('.alarm').each(function(){
         var $this=$(this);
@@ -346,7 +360,6 @@
           window.Hybrid.unlike($this.data('id'),$this.data('name'));
         }
       })
-      
     }
   })
   var $input =  $('#datepicker').pickadate({
