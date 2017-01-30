@@ -118,7 +118,7 @@
   </div>
     
   <div class="fixed-action-btn click-to-toggle" style="bottom: 14px; right: 14px;">
-    <a class="btn-floating btn-large white scale-transition">
+    <a class="btn-floating btn-large white scale-btn scrollUp">
       <i class="material-icons addbtn black-text" data-angle="0">add</i>
     </a>
     <ul>
@@ -312,15 +312,24 @@
       })
     })
     var lastScrollTop = 0;
-    var $scale=$('.scale-transition');
+    var $scaleBtn=$('.scale-btn');
     $(window).scroll(function(event){
       var st = $(this).scrollTop();
       if (lastScrollTop!==0){
-        if (st > lastScrollTop){
-          $scale.velocity({scaleX: 0,scaleY: 0},{duration: 10});
+        if (st > lastScrollTop&&$scaleBtn.hasClass('scrollUp')){
+          
+          $scaleBtn.removeClass('scrollUp').addClass('scrollDown').velocity({scaleX: 0,scaleY: 0},{duration: 10});
+          if($scaleBtn.parent().hasClass('active'))$scaleBtn.trigger('click').addClass('opened');
         }
-        else{
-          $scale.velocity({scaleX: 1,scaleY: 1},{duration: 10});
+        else if(st<=lastScrollTop&&$scaleBtn.hasClass('scrollDown')){
+          var com=null;
+          if($scaleBtn.hasClass('opened')){
+            $scaleBtn.removeClass('opened');
+            com=function(){
+              $scaleBtn.trigger('click');
+            };
+          } 
+          $scaleBtn.removeClass('scrollDown').addClass('scrollUp').velocity({scaleX: 1,scaleY: 1},{duration: 10,complete: com});
         }
       }
       lastScrollTop = st;
