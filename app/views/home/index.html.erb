@@ -118,7 +118,7 @@
   </div>
     
   <div class="fixed-action-btn click-to-toggle" style="bottom: 14px; right: 14px;">
-    <a class="btn-floating btn-large white scale-btn scrollUp">
+    <a class="btn-floating btn-large white scale-btn scrollUp black-text">
       <i class="material-icons addbtn black-text" data-angle="0">add</i>
     </a>
     <ul>
@@ -313,10 +313,11 @@
     })
     var lastScrollTop = 0;
     var $scaleBtn=$('.scale-btn');
+    $scaleBtn.velocity({scaleX: 1,scaleY: 1});
     $(window).scroll(function(event){
       var st = $(this).scrollTop();
         if (st > lastScrollTop&&$scaleBtn.hasClass('scrollUp')){
-          $scaleBtn.removeClass('scrollUp').addClass('scrollDown').velocity({scaleX: 0,scaleY: 0},{duration: 10});
+          $scaleBtn.velocity({scaleX: 0,scaleY: 0},{duration: 10}).removeClass('scrollUp').addClass('scrollDown');
           if($scaleBtn.parent().hasClass('active'))$scaleBtn.trigger('click').addClass('opened');
         }
         else if(st<=lastScrollTop&&$scaleBtn.hasClass('scrollDown')){
