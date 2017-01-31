@@ -316,21 +316,23 @@
     $scaleBtn.velocity({scaleX: 1,scaleY: 1});
     $(window).scroll(function(event){
       var st = $(this).scrollTop();
-        if (st > lastScrollTop&&$scaleBtn.hasClass('scrollUp')){
-          $scaleBtn.velocity({scaleX: 0,scaleY: 0},{duration: 10}).removeClass('scrollUp').addClass('scrollDown');
-          if($scaleBtn.parent().hasClass('active'))$scaleBtn.trigger('click').addClass('opened');
+      if (st -lastScrollTop>14 &&$scaleBtn.hasClass('scrollUp')){
+        $scaleBtn.velocity({scaleX: 0,scaleY: 0},{duration: 10}).removeClass('scrollUp').addClass('scrollDown');
+        if($scaleBtn.parent().hasClass('active'))$scaleBtn.trigger('click').addClass('opened');
+        lastScrollTop = st;
+      }
+      else if(st-lastScrollTop< -14&&$scaleBtn.hasClass('scrollDown')){
+        var com=null;
+        if($scaleBtn.hasClass('opened')){
+          $scaleBtn.removeClass('opened');
+          com=function(){
+            $scaleBtn.trigger('click');
+          };
         }
-        else if(st<=lastScrollTop&&$scaleBtn.hasClass('scrollDown')){
-          var com=null;
-          if($scaleBtn.hasClass('opened')){
-            $scaleBtn.removeClass('opened');
-            com=function(){
-              $scaleBtn.trigger('click');
-            };
-          }
-          $scaleBtn.removeClass('scrollDown').addClass('scrollUp').velocity({scaleX: 1,scaleY: 1},{duration: 10,complete: com});
-        }
-      lastScrollTop = st;
+        $scaleBtn.removeClass('scrollDown').addClass('scrollUp').velocity({scaleX: 1,scaleY: 1},{duration: 10,complete: com});
+        lastScrollTop = st;
+      }
+      if(st-lastScrollTop>14||st-lastScrollTop<-14) lastScrollTop=st;
     });
     if(window.Hybrid){
       $('.alarm').each(function(){
