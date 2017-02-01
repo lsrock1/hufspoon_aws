@@ -284,7 +284,7 @@
         method: "get",
         url: "/like",
         dataType: "json",
-        data: { id: did},
+        data: {id: did},
         context: this,
         success: function(data)  {
           $this=$(this);
@@ -338,7 +338,7 @@
       $('.alarm').each(function(){
         var $this=$(this);
         $this.show();
-        if(window.Hybrid.alarmInit($this.data("id"),$this.data('name'))=='1') $this.removeClass('grey-text').addClass('red-text') ;
+        if(window.Hybrid.alarmInit($this.data("id"),$this.data('language'))=='1') $this.removeClass('grey-text').addClass('red-text') ;
       })
       $('.like').each(function(){
         var $this=$(this); 
@@ -353,20 +353,20 @@
         var $this=$(this);
         if($this.hasClass('grey-text')){
           $this.removeClass('grey-text').addClass('red-text');
-          window.Hybrid.alarmOn($this.data('id'),$this.data('name'));
+          window.Hybrid.alarmOn($this.data('id'),$this.data('name'),$this.data('language'));
         }
         else{
           $this.removeClass('red-text').addClass('grey-text');
-          window.Hybrid.alarmOff($this.data('id'),$this.data('name'));
+          window.Hybrid.alarmOff($this.data('id'),$this.data('name'),$this.data('language'));
         }
       })
       $(".like").click(function(){
         var $this=$(this);
         if($this.hasClass('grey-text')){
-          window.Hybrid.like($this.data('id'),$this.data('name'));
+          window.Hybrid.like($this.data('id'),$this.data('name'),$this.data('language'));
         }
         else{
-          window.Hybrid.unlike($this.data('id'),$this.data('name'));
+          window.Hybrid.unlike($this.data('id'),$this.data('name'),$this.data('language'));
         }
       })
     }
