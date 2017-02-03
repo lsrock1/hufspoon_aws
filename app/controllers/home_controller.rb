@@ -90,6 +90,8 @@ class HomeController < ApplicationController
         rescue
         @ran_rest=nil
         end
+      elsif @w==6&&check==nil
+        parsing_func(@day)
       elsif check==nil||checkf==nil||checks==nil
         parsing_func(@day)
       end
