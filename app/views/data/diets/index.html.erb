@@ -1,0 +1,55 @@
+<% content_for :menu do%>
+  <li><%=link_to "번역추가",new_data_menulist_path(:page => @page)%></li>
+  <li>
+    <%if @page==0%>
+      <%=link_to "모든메뉴보기",data_menulists_path(:page => 1)%>
+    <%else%>
+      <%=link_to "신메뉴만보기",data_menulists_path(:page => 0)%>
+    <%end%>
+  </li>
+  <li><a href="/data/menulists.csv">DB 다운로드</a></li>
+  <li><a class="modal-trigger" href="#modal">DB 업로드</a></li>
+  <li><a href="/data/menulists/top">자주나오는 500</a></li>
+<%end%>
+<input style="display:none;" id="datepicker" type="date"/>
+<p class="center-align dateselect"><a class="representer red-text text-lighten-2"><%=@day%></a></p>
+
+<br>
+<div class="table-responsive">
+  <table class="table">
+    <tr>
+      <th>시간</th>
+      <th>메뉴</th>
+      <th></th>
+    </tr>
+    <%@menulist.each do|menu|%>
+      <tr>
+        <td><%=menu[0]%></td>
+        <td><%if menu[1]!=nil%><%=menu[1].menu%><%end%></td>
+        <td><%if menu[1]!=nil%><%=link_to '수정',edit_data_diets_path(menu[1].id,name: menu[0]),{class: :btn, data: {confirm: '정말 수정 하시겠습니까?'}}%><%else%>생성<%end%></td>
+      </tr>
+    <%end%>
+  </table>
+</div>
+
+<script>
+  $(".button-collapse").sideNav();
+  $(".representer").click(function(){
+      picker.open();
+      event.stopPropagation();
+      event.preventDefault();
+    })
+  var $input =  $('#datepicker').pickadate({
+    format: 'yyyymmdd',
+    onSet: function(e) {
+      if (e.select) {
+        window.location.href="/data/diets?day="+picker.get();
+        this.close();
+      }
+    },
+    onClose: function(){
+        document.activeElement.blur()
+    }
+  });
+  var picker = $input.pickadate('picker');
+</script>

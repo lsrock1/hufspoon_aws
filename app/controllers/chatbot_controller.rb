@@ -143,13 +143,13 @@ class ChatbotController < ApplicationController
             menulist=[]
             #----------------파싱 그대로 가져옴----------------------
                 if content=="Humanities"
-                  menulist=[Breakfast,Lunch1,Lunch2,Lunchnoodle,Dinner].map{|data| make_list(data,@day,@id)}
+                  menulist=[Breakfast,Lunch1,Lunch2,Lunchnoodle,Dinner].map{|data| data.make_list(@day,@id)}
                     
                 elsif content=="Faculty"
-                  menulist=[Flunch,Fdinner,Menua,Menub].map{|data| make_list(data,@day,@id)}
+                  menulist=[Flunch,Fdinner,Menua,Menub].map{|data| data.make_list(@day,@id)}
                     
                 else
-                  menulist=[Menua,Menub].map{|data| make_list(data,@day,@id)}
+                  menulist=[Menua,Menub].map{|data| data.make_list(@day,@id)}
                     
                 end
                 info=""

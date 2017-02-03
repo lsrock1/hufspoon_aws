@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     end
     resources :rmenus, except: [:index,:show,:edit,:new]
     resources :curates
+    resources :diets,except: [:destroy, :show, :new], path_names: {edit: "/edit/:name"}
   end
   
   get '/rests/search' => 'ohome#search'

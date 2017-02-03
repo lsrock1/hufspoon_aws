@@ -3,21 +3,40 @@ require 'open-uri'
 module Parser
   extend ActiveSupport::Concern
   
+  def htmlToString info, menu
+    menuString=info
+    menu.each do|x|
+      if x.text!=""
+        string=x.text
+        if string.index("(")!=nil
+          substring=string[string.index("(")..string.index(")")]
+          string.sub!(substring,'$'+substring[1...-1])
+        end
+        if string.index(",")!=nil&&string[-1]!='원'
+          string.sub!(",","$")
+        end
+        menuString=menuString+"$"+string
+      end
+    end
+    return menuString
+  end
+  
+  
   def parsing_func today
     mainadd="https://webs.hufs.ac.kr/jsp/HUFS/cafeteria/viewWeek.jsp"
     resultadd=mainadd+"?startDt="+today+"&endDt="+today+"&caf_name="+URI.encode("인문관식당")+"&caf_id=h101"
-    doc = Nokogiri::HTML(open(resultadd))
+    doc = Nokogiri::HTML(open(resultadd, :read_timeout => 10))
     humanity=doc.xpath("//html/body/form/table/tr")
     ###################인문관식당 파싱##########################
     
     resultadd=mainadd+"?startDt="+today+"&endDt="+today+"&caf_name="+URI.encode("교수회관식당")+"&caf_id=h102"
-    doc =Nokogiri::HTML(open(resultadd))
+    doc =Nokogiri::HTML(open(resultadd, :read_timeout => 10))
     faculty=doc.xpath("//html/body/form/table/tr")
     ###################교수회관 파싱##############
     
     
     resultadd=mainadd+"?startDt="+today+"&endDt="+today+"&caf_name="+URI.encode("스카이라운지")+"&caf_id=h103"
-    doc =Nokogiri::HTML(open(resultadd))
+    doc =Nokogiri::HTML(open(resultadd, :read_timeout => 10))
     sky=doc.xpath("//html/body/form/table/tr")
     ###############스카이라운지 파싱##############
     
@@ -38,206 +57,80 @@ module Parser
       end
     end
     
-    num=0
-    humanity.each do |n|
+    humanity.each_with_index do |n,num|
       unless num==0 
       
         humanity_list=n.xpath("./td[@class='headerStyle']")
         
         if humanity_list.text[0..4]=="중식(1)"
           if Lunch1.find_by(:date => today)==nil
-            #시간 저장
-            lunch1=humanity_list.text[5..6]+":"+humanity_list.text[7..11]+":"+humanity_list.text[12..13]
-            
-            n.xpath("./td/table/tr/td").each do|x|
-              if x.text!=""
-                string=x.text
-                if string.index("(")!=nil
-                  substring=string[string.index("(")..string.index(")")]
-                  string.sub!(substring,'$'+substring[1...-1])
-                end
-                if string.index(",")!=nil&&string[-1]!='원'
-                  string.sub!(",","$")
-                end
-                lunch1=lunch1+"$"+string
-              end
-            end
-            Lunch1.new(:date => today,:menu =>lunch1).save
+            menuString=htmlToString(humanity_list.text[5..6]+":"+humanity_list.text[7..11]+":"+humanity_list.text[12..13], n.xpath("./td/table/tr/td"))
+            Lunch1.new(date: today, menu: menuString).save
           end
         elsif humanity_list.text[0..4]=="중식(2)"
           if Lunch2.find_by(:date => today)==nil
-            lunch2=humanity_list.text[5..6]+":"+humanity_list.text[7..11]+":"+humanity_list.text[12..13]
-            n.xpath("./td/table/tr/td").each do|x|
-              if x.text!=""
-                string=x.text
-                if string.index("(")!=nil
-                  substring=string[string.index("(")..string.index(")")]
-                  string.sub!(substring,'$'+substring[1...-1])
-                end
-                if string.index(",")!=nil&&string[-1]!='원'
-                  string.sub!(",","$")
-                end
-                lunch2=lunch2+"$"+string
-              end
-            end
-            Lunch2.new(:date => today,:menu => lunch2).save
+            menuString=htmlToString(humanity_list.text[5..6]+":"+humanity_list.text[7..11]+":"+humanity_list.text[12..13], n.xpath("./td/table/tr/td"))
+            Lunch2.new(date: today, menu: menuString).save
           end
         elsif humanity_list.text[0..4]=="중식(면)"
           if Lunchnoodle.find_by(:date =>today)==nil
-            lunchnoodle= humanity_list.text[5..6]+":"+humanity_list.text[7..11]+":"+humanity_list.text[12..13]
-            n.xpath("./td/table/tr/td").each do|x|
-              if x.text!=""
-                string=x.text
-                if string.index("(")!=nil
-                  substring=string[string.index("(")..string.index(")")]
-                  string.sub!(substring,'$'+substring[1...-1])
-                end
-                if string.index(",")!=nil&&string[-1]!='원'
-                  string.sub!(",","$")
-                end
-                lunchnoodle=lunchnoodle+"$"+string
-              end
-            end
-            Lunchnoodle.new(:date => today,:menu =>lunchnoodle).save
+            menuString=htmlToString(humanity_list.text[5..6]+":"+humanity_list.text[7..11]+":"+humanity_list.text[12..13], n.xpath("./td/table/tr/td"))
+            Lunchnoodle.new(date: today, menu: menuString).save
           end
         elsif humanity_list.text[0..1]=="조식"
           if Breakfast.find_by(:date =>today)==nil
-            breakfast = humanity_list.text[2..3]+":"+humanity_list.text[4..8]+":"+humanity_list.text[9..10]
-            n.xpath("./td/table/tr/td").each do|x|
-              if x.text!=""
-                string=x.text
-                if string.index("(")!=nil
-                  substring=string[string.index("(")..string.index(")")]
-                  string.sub!(substring,'$'+substring[1...-1])
-                end
-                if string.index(",")!=nil&&string[-1]!='원'
-                  string.sub!(",","$")
-                end
-                breakfast=breakfast+"$"+string
-              end
-            end
-            Breakfast.new(:date => today,:menu => breakfast).save
+            menuString=htmlToString(humanity_list.text[2..3]+":"+humanity_list.text[4..8]+":"+humanity_list.text[9..10], n.xpath("./td/table/tr/td"))
+            Breakfast.new(date: today, menu: menuString).save
           end
         elsif humanity_list.text[0..1]=="석식"
           if Dinner.find_by(:date =>today)==nil
-            dinner= humanity_list.text[2..3]+":"+humanity_list.text[4..8]+":"+humanity_list.text[9..10]
-            n.xpath("./td/table/tr/td").each do|x|
-              if x.text!=""
-                string=x.text
-                if string.index("(")!=nil
-                  substring=string[string.index("(")..string.index(")")]
-                  string.sub!(substring,'$'+substring[1...-1])
-                end
-                if string.index(",")!=nil&&string[-1]!='원'
-                  string.sub!(",","$")
-                end
-                dinner=dinner+"$"+string
-              end
-            end
-            Dinner.new(:date =>today,:menu =>dinner).save
+            menuString=htmlToString(humanity_list.text[2..3]+":"+humanity_list.text[4..8]+":"+humanity_list.text[9..10], n.xpath("./td/table/tr/td"))
+            Dinner.new(date: today, menu: menuString).save
           end
         end
       end
-      num=num+1
     end
     ################인문관식당 파싱 분석 끝####################
     
-    ###################교수회관식당 파싱 분석 시작##############
-    num=0
-    faculty.each do |n|
-      unless num==0 ||num==3
+    ###################교수회관식당 파싱 분석 시작#############
+    faculty.each_with_index do |n, num|
+      unless num==0 || num==3
       
         faculty_list=n.xpath("./td[@class='headerStyle']")
         
         if faculty_list.text[0..1]=="중식"
           if Flunch.find_by(:date => today)==nil
-            flunch = faculty_list.text[2..3]+":"+faculty_list.text[4..8]+":"+faculty_list.text[9..10]
-            n.xpath("./td/table/tr/td").each do|x|
-              if x.text!=""
-                string=x.text
-                if string.index("(")!=nil
-                  substring=string[string.index("(")..string.index(")")]
-                  string.sub!(substring,'$'+substring[1...-1])
-                end
-                if string.index(",")!=nil&&string[-1]!='원'
-                  string.sub!(",","$")
-                end
-                flunch=flunch+"$"+string
-              end
-            end
-            Flunch.new(:date => today, :menu =>flunch).save
+            menuString=htmlToString(faculty_list.text[2..3]+":"+faculty_list.text[4..8]+":"+faculty_list.text[9..10], n.xpath("./td/table/tr/td"))
+            Flunch.new(date: today, menu: menuString).save
           end
         elsif faculty_list.text.to_s[0..1]=="석식"
           if Fdinner.find_by(:date => today)==nil
-            fdinner= faculty_list.text[2..3]+":"+faculty_list.text[4..8]+":"+faculty_list.text[9..10]
-            n.xpath("./td/table/tr/td").each do|x|
-              if x.text!=""
-                string=x.text
-                if string.index("(")!=nil
-                  substring=string[string.index("(")..string.index(")")]
-                  string.sub!(substring,'$'+substring[1...-1])
-                end
-                if string.index(",")!=nil&&string[-1]!='원'
-                  string.sub!(",","$")
-                end
-                fdinner=fdinner+"$"+string
-              end
-            end
-            Fdinner.new(:date => today,:menu =>fdinner).save
+            menuString=htmlToString(faculty_list.text[2..3]+":"+faculty_list.text[4..8]+":"+faculty_list.text[9..10], n.xpath("./td/table/tr/td"))
+            Fdinner.new(date: today,menu: menuString).save
           end
         end
       end
-      num=num+1
     end
     ####################교수회관 끝################
     
     #####################스카이라운지 시작#################
-    num=0
-    sky.each do |n|
-      unless num==0 ||num==3
+    sky.each_with_index do |n, num|
+      unless num==0 || num==3
       
         sky_list=n.xpath("./td[@class='headerStyle']")
         
         if sky_list.text.to_s[0..2]=="메뉴A"
           if Menua.find_by(:date => today)==nil
-            menua=sky_list.text.to_s[3..4]+":"+sky_list.text.to_s[5..9]+":"+sky_list.text.to_s[10..11]
-            n.xpath("./td/table/tr/td").each do|x|
-              if x.text!=""
-                string=x.text
-                if string.index("(")!=nil
-                  substring=string[string.index("(")..string.index(")")]
-                  string.sub!(substring,'$'+substring[1...-1])
-                end
-                if string.index(",")!=nil&&string[-1]!='원'
-                  string.sub!(",","$")
-                end
-                menua=menua+"$"+string
-              end
-            end
-            Menua.new(:date => today,:menu =>menua).save
+            menuString=htmlToString(sky_list.text.to_s[3..4]+":"+sky_list.text.to_s[5..9]+":"+sky_list.text.to_s[10..11], n.xpath("./td/table/tr/td"))
+            Menua.new(date: today,menu: menuString).save
           end
         elsif sky_list.text.to_s[0..2]=="메뉴B"
           if Menub.find_by(:date =>today)==nil
-            menub=sky_list.text.to_s[3..4]+":"+sky_list.text.to_s[5..9]+":"+sky_list.text.to_s[10..11]
-            n.xpath("./td/table/tr/td").each do|x|
-              if x.text!=""
-                string=x.text
-                if string.index("(")!=nil
-                  substring=string[string.index("(")..string.index(")")]
-                  string.sub!(substring,'$'+substring[1...-1])
-                end
-                if string.index(",")!=nil&&string[-1]!='원'
-                  string.sub!(",","$")
-                end
-                menub=menub+"$"+string
-              end
-            end
-            Menub.new(:date =>today,:menu => menub).save
+            menuString=htmlToString(sky_list.text.to_s[3..4]+":"+sky_list.text.to_s[5..9]+":"+sky_list.text.to_s[10..11], n.xpath("./td/table/tr/td"))
+            Menub.new(date: today,menu: menuString).save
           end
         end
-        
       end
-      num=num+1
     end
     ###############################스카이라운지 파싱 끝######################
   end

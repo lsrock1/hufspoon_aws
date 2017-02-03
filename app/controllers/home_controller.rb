@@ -1,10 +1,8 @@
 require 'Parser'
-require 'Stringfy'
 require 'Getlist'
 
 class HomeController < ApplicationController
   include Parser
-  include Stringfy
   include Getlist
   before_action :banned_user
   
@@ -98,7 +96,9 @@ class HomeController < ApplicationController
     rescue Exception => e
     puts e.message
     end
-    @menulist=[Breakfast,Lunch1,Lunch2,Lunchnoodle,Dinner,Snack,Flunch,Fdinner,Menua,Menub].map{|data| make_list(data,@day,@id)}
+    @menulist=[Breakfast,Lunch1,Lunch2,Lunchnoodle,Dinner,Snack,Flunch,Fdinner,Menua,Menub].map do |data|
+      data.make_list(@day,@id)
+    end
   end
   
   
