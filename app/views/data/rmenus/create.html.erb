@@ -4,11 +4,12 @@
 <div class="container">
   <h2>번역 추가가 필요합니다</h2>
   <%=form_for @rmenu, url: data_rmenus_path do |f|%>
-    <%=f.text_field :menuname,type: :hidden%>
-    <%=f.text_field :content,type: :hidden%>
-    <%=f.text_field :pagenum,type: :hidden%>
-    <%=f.text_field :cost,type: :hidden%>
-    <%=f.text_field :rest_id,type: :hidden%>
+    <%=f.text_field :menuname, type: :hidden%>
+    <%=f.text_field :content, type: :hidden%>
+    <%=f.text_field :pagenum, type: :hidden%>
+    <%=f.text_field :cost, type: :hidden%>
+    <%=f.text_field :rest_id, type: :hidden%>
+    <%=f.text_field :picture, type: hidden%>
     
     <div class="input-field">
       <%=label :menulist,"한글이름"%>

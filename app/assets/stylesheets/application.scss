@@ -10,7 +10,7 @@ $primary-color: color("white","base") !default;
 .placeinfo a, .placeinfo a:hover, .placeinfo a:active{color:#fff;text-decoration: none;}
 .placeinfo a, .placeinfo span {display: block;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
 .placeinfo span {margin:5px 5px 0 5px;cursor: default;font-size:13px;}
-.placeinfo .title {font-weight: bold; font-size:14px;border-radius: 6px 6px 0 0;margin: -1px -1px 0 -1px;padding:10px; color: #fff;background: #002D56;background: #002D56 url(http://i1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png) no-repeat right 14px center;}
+.placeinfo .ptitle {font-weight: bold; font-size:14px;border-radius: 6px 6px 0 0;margin: -1px -1px 0 -1px;padding:10px; color: #fff;background: #002D56;background: #002D56 url(http://i1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png) no-repeat right 14px center;}
 #menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
 #menu_wrap .option{text-align: center;}
 #menu_wrap .option p {margin:10px 0;}  
@@ -116,7 +116,10 @@ body{
   height: 104px;
   z-index: 998;
 }
-
+.collapsible-body{
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
 .navbar-extended-fixed nav {
     position: fixed;
   }
@@ -125,6 +128,10 @@ body{
   .navbar-extended-fixed {
     height: 112px;
   }
+}
+.divider{
+  background-color: #A0A0A0;
+  opacity: 0.2;
 }
 
 .adate{

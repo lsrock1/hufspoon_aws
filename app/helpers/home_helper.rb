@@ -3,6 +3,10 @@ module HomeHelper
     "menus-#{menu['name']}-#{menu['update']}-#{menu['id']}-bride"
   end
   
+  def list_cache_key menu_list
+    "list-#{menu_list.map{|menu| menu[1]['update']}.reduce :+}"
+  end
+  
   def tabs(day)
     hash={
       0 =>[['Around HUFS']],

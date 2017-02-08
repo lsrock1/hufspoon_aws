@@ -31,7 +31,7 @@ class Data::RmenusController < ApplicationController
   end
   
   def update
-    @menulist=Menulist.find_by(:kname => params[:rmenu][:menuname])
+    @menulist=Menulist.find_by(kname: params[:rmenu][:menuname])
     unless @menulist==nil
       @rmenu=Rmenu.find(params[:id])
       @rmenu.update(rmenu_params)
@@ -53,7 +53,7 @@ class Data::RmenusController < ApplicationController
   
   private
     def rmenu_params
-      params.require(:rmenu).permit(:rest_id,:menuname,:content,:pagenum,:cost)
+      params.require(:rmenu).permit(:rest_id,:menuname,:content, :pagenum, :cost, :picture)
     end
     
     def menulist_params
@@ -64,6 +64,7 @@ class Data::RmenusController < ApplicationController
       rest=Rest.find(rmenu.rest_id)
       rest.re_menu=rmenu.menuname
       rest.ere_menu=rmenu.emenuname
+      rest.chinese=rmenu.cmenuname
       rest.save
     end
 end

@@ -18,10 +18,10 @@ class OhomeController < ApplicationController
     menupage.delete(0)
     menupage.sort!
     menupage.each do |d|
-      @menuarray.append(@rest.rmenu.where(:pagenum => d).order('created_at ASC'))
+      @menuarray.append(@rest.rmenu.where(pagenum: d).order('created_at ASC'))
     end
     @num=@menuarray.length
-    
+    @picture_exist=@rest.rmenu.select{|item| !item.picture.blank?}
     restCategoryHash=restCategoryHash().map{|key,value| value[0]}
     @back=params[:index] ? -1 : restCategoryHash.index(@rest.food)
   end

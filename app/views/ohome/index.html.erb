@@ -28,45 +28,37 @@
   </div>
    
   <div class="col s12 m10 offset-m1 l8 offset-l2">
-    <div class="card">
-      <div class="card-content">
-        <table class="bordered">
-          <thead>
-            <tr>
-              <th>
-                <i class="material-icons">restaurant</i>
-              </th>
-              <th>
-                <i class="material-icons">thumb_up</i>
-              </th>
-            </tr>
-          </thead>
-    
-          <tbody style="font-size: 12px;">
-              <%@list.each do |re|%>
-              <tr>
-                <td><a href="/rests/<%=re.id%>"><%=re.name%></a></td>
-                <td><%if @language=="4"%><%=re.re_menu%><%else%><%if re.ere_menu!=nil%><%=re.ere_menu.titleize%><%end%><%end%></td>
-              </tr>
-              <%end%>
-          </tbody>
-        </table>
-      </div>
-    </div>
+    <ul class="collection">
+      <%@list.each do |re|%>
+      <li class="collection-item avatar">
+        <%if re.picture==nil||re.picture==""%><i class="material-icons red circle">restaurant</i><%else%><img src="<%='http'+re.picture.split('http')[1]%>" alt="" class="circle"><%end%>
+        <span class="title"><a href="/rests/<%=re.id%>"><%=re.name%></a></span>
+        <p>
+          <%if re.re_menu%>
+          <%=re.re_menu%><br/>
+          <%=re.ere_menu.titleize%><br/>
+          <%=re.chinese%>
+          <%else%>
+          Welcome to the Restaurant!
+          <%end%>
+        </p>
+      </li>
+      <%end%>
+    </ul>
   </div>
     
   
 </div>        
 
-<div class="fixed-action-btn horizontal click-to-toggle" style="bottom: 14px; right: 14px; opacity: 0.8;">
-  <a class="btn-floating btn-large white ">
-    <i class="material-icons black-text">add</i>
-  </a>
-  <ul>
-    <%if @language!=4%><li><a class="btn-floating orange lighten-2" style="text-align:center;" href="/rests?num=<%=@num%>&language=4">한국</a></li><%end%>
-    <%if @language!=0%><li><a class="btn-floating red" style="text-align:center;" href="/rests?num=<%=@num%>&language=0">EN</a></li><%end%>
-  </ul>
-</div>
+<!--<div class="fixed-action-btn horizontal click-to-toggle" style="bottom: 14px; right: 14px; opacity: 0.8;">-->
+<!--  <a class="btn-floating btn-large white ">-->
+<!--    <i class="material-icons black-text">add</i>-->
+<!--  </a>-->
+<!--  <ul>-->
+<!--    <%if @language!=4%><li><a class="btn-floating orange lighten-2" style="text-align:center;" href="/rests?num=<%=@num%>&language=4">한국</a></li><%end%>-->
+<!--    <%if @language!=0%><li><a class="btn-floating red" style="text-align:center;" href="/rests?num=<%=@num%>&language=0">EN</a></li><%end%>-->
+<!--  </ul>-->
+<!--</div>-->
 <div id="modal1" class="modal">
   <div class="modal-content">
     <h4>Mondayspoon</h4>
@@ -164,20 +156,20 @@
 	  center: [37.596418,127.060246],
 		level: 3
 	};
-	var easyMap=new easyMap();
+	var easyMap=own.EasyMap
 
-	var map =new daumMap(container, option);
+	var map =new own.DaumMap(container, option);
 
   var markers=[];
   var overlays=[];
   <%@all.each do |m|%>
-    markers.push(new marker({
+    markers.push(new own.Marker({
       position: [<%=m[0]%>,<%=m[1]%>],
       map: map,
       clickable: true
     }));
-    overlays.push(new customOverlay({
-      content: '<div class="placeinfo_wrap"><div class="placeinfo"><%m[2].each do |r|%><a class="title" href="/rests/<%=r.id%>"><%=r.name%></a><%end%>'+
+    overlays.push(new own.CustomOverlay({
+      content: '<div class="placeinfo_wrap"><div class="placeinfo"><%m[2].each do |r|%><a class="ptitle" href="/rests/<%=r.id%>"><%=r.name%></a><%end%>'+
                 '<span>'+
                 '<span style="text-align: right;" class="material-icons close" aria-hidden="true">clear</span>'+
                 '</span></div>'+
@@ -186,5 +178,5 @@
     }));
   <%end%>
   easyMap.customOverlayOnClose(overlays,'overlays');
-  easyMap.markerClick(markers,overlays);
+  easyMap.markerClickOpen(markers,overlays);
 </script>

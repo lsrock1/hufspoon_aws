@@ -73,7 +73,7 @@ class HomeController < ApplicationController
     @day=@time.year.to_s+mm.to_s+dd.to_s #오늘날짜를 yyyymmdd로 합친다
     @time=@time.class.name == 'Date' ? @time : Date.parse(@day) #오늘날짜를 타임존에서 꺼내왔을 경우 time 객체라서 날짜연산이 부정확하므로 다시 date 객체로 변환한다.
     
-    @date=@time.strftime("%a").upcase #요일
+    @date=@time.strftime("%^a") #요일
     @w=@time.wday #숫자로 나타낸 요일
     
     check=Lunch1.find_by(date: @day)
@@ -93,10 +93,19 @@ class HomeController < ApplicationController
         parsing_func(@day)
       end
     rescue Exception => e
-    puts e.message
+      puts e.message
     end
-    @menulist=[Breakfast,Lunch1,Lunch2,Lunchnoodle,Dinner,Snack,Flunch,Fdinner,Menua,Menub].map do |data|
-      data.make_list(@day,@id)
+    if @w!=0
+      @menulist=[Breakfast,Lunch1,Lunch2,Lunchnoodle,Dinner,Snack,Flunch,Fdinner,Menua,Menub].map do |data|
+        data.make_list(@day,@id)
+      end
+    else
+      @list=[]
+      dateList=[@time+1,@time+2,@time+3,@time+4,@time+5].map{|time| time.to_s.gsub!('-',"")}
+      @dayOfWeek=[@time+1,@time+2,@time+3,@time+4,@time+5].map{|time| time.strftime("%^A")}
+      dateList.each do |d|
+        @list.push([Breakfast,Lunch1,Lunch2,Lunchnoodle,Dinner].map{|l| [l.getname,l.make_list(d,@id)]}.select{|l| l[1]['main']})
+      end
     end
   end
   

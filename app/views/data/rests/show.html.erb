@@ -21,6 +21,10 @@
       <%=f.label "가격"%>
       <%=f.text_field :cost%>
     </div>
+    <div class="input-field">
+      <%=f.label "사진"%>
+      <%=f.text_field :picture%>
+    </div>
     <%=f.text_field :rest_id,value: @rest.id,type: :hidden%>
     <%=f.submit "저장",class: :btn,id: :mrebut%>
   <%end%>
@@ -56,7 +60,10 @@
           <td><%=link_to "삭제",data_rmenu_path(r),{method: :delete,class: :btn,data: {confirm: "정말 삭제하시겠습니까?"}}%></td>
         </tr>
         <tr <%if r.content==""%>style="display:none"<%end%>>
-          <td id="content<%=r.id%>" class="center" colspan=6><%=r.content%></td>
+          <td id="content<%=r.id%>" colspan=6><%=r.content%></td>
+        </tr>
+        <tr>
+          <td id="picture<%=r.id%>" colspan=6><%=r.picture%></td>
         </tr>
       <%end%>
     </table>
@@ -83,6 +90,8 @@
     }
     var cost=$("#cost"+thisid).html();
     $("#rmenu_cost").val(cost);
+    var picture=$("#rmenu_picture"+thisid).html();
+    $("#rmenu_picture").val(picture);
     $("#new_rmenu").attr("action","/data/rmenus/"+thisid).append('<input type="hidden" id="pat" name="_method" value="patch" />');
   });
   $("#mrecan").click(function(){
@@ -92,6 +101,7 @@
     $("#rmenu_content").val("");
     $("#rmenu_pagenum").val(1);
     $("#rmenu_cost").val("");
+    $("#rmenu_picture").val("");
     $("#new_rmenu").attr("action","/data/rmenus");
     $("#pat").remove();
     $(".mre").show();

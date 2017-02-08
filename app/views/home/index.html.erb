@@ -15,14 +15,70 @@
 <input style="display:none;" id="datepicker" type="date"/>
 <p class="center-align dateselect"><i class="material-icons adate dleft">navigate_before</i><a class="representer red-text text-lighten-2"><%if @id==1||@id==2||@id==3||@id==4%><%=@m%> / <%=@d%> &nbsp;<%=@date%><%else%><%=@date%>&nbsp; <%=@d%> / <%=@m%> <%end%></a><i class="material-icons adate dright">navigate_next</i></p>
 <div class="row" id="row">
-  
+  <%if @w.to_i==0&&@ran_rest%>
+  <div id="humanities" class="col s12">
+    
+    <div class="col s12 m8 offset-m2 l6 offset-l3">
+      <div class="card">
+        <div class="card-image">
+          <%if @ran_rest.picture!=""&&@ran_rest.picture%>
+          <div class="carousel carousel-slider" style="max-width: 100%; height: 200px;">
+            <% @ran_rest.picture.split('http')[1..-1].each do |p|%>
+              <a class="carousel-item"><img src="http<%=p%>" height="200"></a>
+            <%end%>
+          </div>
+          <%else%>
+          <img src="https://s19.postimg.org/yqsm53ntd/always.png" style="max-width: 100%;">
+          <%end%>
+        </div>
+        <div class="card-content">
+          <span class="card-title">Try eating outside!</span>
+          <p class="center"><a href="/rests/<%=@ran_rest.id%>?index=1">How about <span style="font-weight:bold;"><%=@ran_rest.ere_menu%></span> in <span style="font-weight:bold;"><%=@ran_rest.name%></span>?</a></p>
+        </div>
+        <div class="card-action">
+          <a href="/rests">More Restaurants</a>
+        </div>
+      </div>
+      
+      <ul class="collapsible" data-collapsible="accordion">
+        <%@list.each_with_index do |var,num|%>
+        
+        <li>
+          <div class="collapsible-header"><i class="material-icons">restaurant_menu</i><%=@dayOfWeek[num]%></div>
+          <div class="collapsible-body">
+            <ul class="collection">
+              <%if !var.blank? %>
+                <%cache list_cache_key(var) do%>
+                <%var.each do |content|%>
+                <li class="collection-item">
+                  <div><%=content[0].titleize%>: <%if content[1]['main']%><%=content[1]['menu'][0]%><%else%>Not Yet!<%end%>
+                    <div class="secondary-content alarm" data-language="<%=@hashData[content[1]['id'].to_i][2]%>" data-id="<%=content[1]['main'].id%>" data-name="<%=content[1]['menu'][0]%>">
+                      <i class="material-icons grey-text">alarm</i>
+                    </div>
+                  </div>
+                </li>
+                <%end%>
+                <%end%>
+              <%else%>
+                <li class="collection-item"><div>Sorry, Not Yet!<a href="#!" class="secondary-content"><i class="material-icons grey-text">pan_tool</i></a></div></li>
+              <%end%>
+            </ul>
+          </div>
+        </li>
+        
+        <%end%>
+      </ul>
+    </div>
+  </div>
+  <%else%>
     <div id="humanities" class="col s12">
       <%@menulist[0..4].each do |menu|%>
-      <%if (menu["price"]!=nil)||(menu["kcal"]!=nil) %>
+      <%if (menu["price"])||(menu["kcal"]) %>
       <div class="col s12 m8 offset-m2 l6 offset-l3">
         <div class="card">
           <%cache menu_cache_key(menu) do%>
             <%=card_top(menu)%>
+            <div class="divider"></div>
     			  <%=card_img(menu)%>
     			  <%=card_middle(menu)%>
     			<%end%>
@@ -32,30 +88,7 @@
       <%end%>
       <%end%>
       
-      <%if @w.to_i==0&&@ran_rest!=nil%>
-      <div class="col s12 m8 offset-m2 l6 offset-l3">
-        <div class="card">
-          <div class="card-image">
-            <%if @ran_rest.picture!=""&&@ran_rest.picture!=nil%>
-            <div class="carousel carousel-slider" style="max-width: 100%; height: 200px;">
-              <% @ran_rest.picture.split('http')[1..-1].each do |p|%>
-                <a class="carousel-item"><img src="http<%=p%>" height="200"></a>
-              <%end%>
-            </div>
-            <%else%>
-            <img src="https://s19.postimg.org/yqsm53ntd/always.png" style="max-width: 100%;">
-            <%end%>
-          </div>
-          <div class="card-content">
-            <span class="card-title">Try eating outside!</span>
-            <p class="center"><a href="/rests/<%=@ran_rest.id%>?index=1">How about <span style="font-weight:bold;"><%=@ran_rest.ere_menu%></span> in <span style="font-weight:bold;"><%=@ran_rest.name%></span>?</a></p>
-          </div>
-          <div class="card-action">
-            <a href="/rests">More Restaurants</a>
-          </div>
-        </div>
-      </div>
-      <%elsif @menulist[5]['menu']==nil%>
+      <%if @menulist[5]['menu']==nil%>
         <div class="col s12 m8 offset-m2 l6 offset-l3">
           <div class="card">
             <div class="card-content">
@@ -83,12 +116,12 @@
     
     <div id="faculty" class="col s12">
       <%@menulist[6..7].each do |menu|%>
-      <%if (menu["price"]!=nil)||(menu["kcal"]!=nil) %>
+      <%if (menu["price"])||(menu["kcal"]) %>
       <div class="col s12 m8 offset-m2 l6 offset-l3">
         <div class="card">
           <%cache menu_cache_key(menu) do%>
             <%=card_top(menu)%>
-    			  <%=card_img(menu)%>
+            <div class="divider"></div>
     			  <%=card_middle(menu)%>
     			<%end%>
         </div>
@@ -100,12 +133,12 @@
     
     <div id="skylounge" class="col s12">
       <%@menulist[8..9].each do |menu|%>
-      <%if (menu["price"]!=nil)||(menu["kcal"]!=nil) %>
+      <%if (menu["price"])||(menu["kcal"]) %>
       <div class="col s12 m8 offset-m2 l6 offset-l3">
         <div class="card">
           <%cache menu_cache_key(menu) do%>
             <%=card_top(menu)%>
-    			  <%=card_img(menu)%>
+            <div class="divider"></div>
     			  <%=card_middle(menu)%>
     			<%end%>
         </div>
@@ -114,12 +147,12 @@
       <%end%>
     </div>
       
-      
+  <%end%>    
   </div>
     
   <div class="fixed-action-btn click-to-toggle" style="bottom: 14px; right: 14px;">
     <a class="btn-floating btn-large white scale-btn scrollUp black-text">
-      <i class="material-icons addbtn black-text" data-angle="0">add</i>
+      <i class="material-icons addbtn black-text" data-angle="0">translate</i>
     </a>
     <ul>
       <%=lan_button(@languageHash,@day)%>
@@ -206,7 +239,7 @@
   $(document).ready(function(){
     $('.addbtn').on('click',function(){
       var $this=$(this);
-      var word= $this.html()=='add' ? 'clear' : 'add' 
+      var word= $this.html()=='translate' ? 'clear' : 'translate' 
       var angle=$this.data('angle')+90;
       $this.velocity(
         {rotateY: angle+'deg'},

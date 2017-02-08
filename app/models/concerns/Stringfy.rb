@@ -20,7 +20,7 @@ module Stringfy
         if self.getname!='Snack'
           time=menu_data.shift
           menu_data.each do |l|
-            if l.index(':')!=nil||l.index(';')!=nil
+            if l.index(':')||l.index(';')
               menulist=makeingre(l,id)
               ingre.concat([menulist[0]])
               update=update+menulist[1]
@@ -30,7 +30,7 @@ module Stringfy
               price=l[0..-2]+" won"
             else
               xfood=l.strip
-              if xfood.index("&")!=nil||xfood.index("/")!=nil||xfood.index("-")!=nil
+              if xfood.index("&")||xfood.index("/")||xfood.index("-")
                 menulist=spliter(xfood,id)
                 menu_list.push(menulist[0])
                 update=update+menulist[1]
@@ -51,7 +51,7 @@ module Stringfy
         else
           time='09:00~18:40'
           menu_data.each do|s|
-            if s.index("(")!=nil
+            if s.index("(")
               s.sub!("원"," won").sub!("-브라질산","")
               sfirst=s.index("(")-1
               food=s[0..sfirst]
@@ -87,8 +87,8 @@ module Stringfy
     
     #특수문자로 엮인 메뉴를 각각 번역해서 다시 특수문자로 엮음
     def spliter xfood,tid
-      ['&','/','-'].each do |word|
-        if xfood.index(word)!=nil
+      ['&','/','-','*'].each do |word|
+        if xfood.index(word)
           result=xfood.split(word).map{|item| Menulist.gettrans(item,tid)}
           @result_string=result.map{|item| item[0]}.join(word)
           @result_update=result.map{|item| item[1]}.inject(0, :+)
@@ -99,9 +99,9 @@ module Stringfy
     
     #특수문자로 엮인 메인 메뉴에서 메인 요리만 뽑아냄
     def extract xfood
-      if xfood.index("&")!=nil
+      if xfood.index("&")
          divide=xfood.split("&")
-      elsif xfood.index("/")!=nil
+      elsif xfood.index("/")
          divide=xfood.split("/")
       else
          divide=xfood.split("-")

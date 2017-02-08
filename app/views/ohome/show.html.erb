@@ -14,84 +14,112 @@
   </div>
 <%end%>
 <div class="row">
-    <br>
-    <div class="col s12 m10 offset-m1 l8 offset-l2">
-      <div class="card">
-        <div id="map" style="height:300px;"></div>
-        <div id="roadView" style="display:none; height:330px;"></div>
-        <a class="waves-effect waves-light btn red lighten-2" style="position: absolute; top:5px;left:5px;" id="roadBtn" data-type="ROAD">ROAD</a>
+  <br>
+  <div class="col s12 m10 offset-m1 l8 offset-l2">
+    <div class="card">
+      <div id="map" style="height:300px;"></div>
+      <div id="roadView" style="display:none; height:330px;"></div>
+      <a class="waves-effect waves-light btn red lighten-2" style="position: absolute; top:5px;left:5px;" id="roadBtn" data-type="ROAD">ROAD</a>
+    </div>
+
+    <div class="card">
+      <div class="card-content card_top">
+        <span class="card-title"><%=@rest.name%><a id="kakao-link-btn" href="javascript:;"class="waves-effect waves-light right"><img src="//dev.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_small.png"/></a></span>
+      </div>
+      <%if @rest.picture!=""&&@rest.picture!=nil%>
+      <div class="carousel carousel-slider card-image" style="max-width: 100%; height: 200px;">
+        <%@rest.picture.split("http")[1..-1].each do |p|%>
+        <a class="carousel-item"><img src="http<%=p%>" height="200"></a>
+        <%end%>
+      </div>
+      <%end%>
+      <div class="card-content">
+        <table>
+          <tbody>
+            <tr>
+              <td><i class="material-icons">schedule</i></td>
+              <td><%=@rest.open%></td>
+            </tr>
+            <tr>
+              <td><i class="material-icons">call</i></td>
+              <td><%=@rest.phone%></td>
+            </tr>
+            <tr>
+              <td><i class="material-icons">place</i></td>
+              <td><%=@rest.address%></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
-    <div class="col s12 m10 offset-m1 l8 offset-l2">
-      <div class="card">
-        <div class="card-content">
-          <span class="card-title"><%=@rest.name%><a id="kakao-link-btn" href="javascript:;"class="waves-effect waves-light right"><img src="//dev.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_small.png"/></a></span>
-          <div class="divider"></div>
-          <div class="section">
-            <%if @rest.picture!=""&&@rest.picture!=nil%>
-            <div class="carousel carousel-slider" style="max-width: 100%; height: 200px;">
-              <%@rest.picture.split("http")[1..-1].each do |p|%>
-              <a class="carousel-item"><img src="http<%=p%>" height="200"></a>
-              <%end%>
-            </div>
-            <%end%>
-            <table>
+  </div>
+  <%(@picture_exist.length/2.0).ceil.times do |number|%>
+  <%card=@picture_exist[number*2]%>
+  <%if card%>
+  <div class="col s6 m5 offset-m1 l4 offset-l2">
+    <div class="card">
+      <div class="card-image">
+        <img src="<%=card.picture%>">
+      </div>
+      <div class="card-content">
+        <p class="center-align"><span><%=card.menuname%> / <%=card.emenuname%> / <%=card.cmenuname%></span><br/>
+        <%=card.cost%> 원
+        </p>
+      </div>
+    </div>
+  </div>
+  <%end%>
+  <%card = @picture_exist[number*2+1]%>
+  <%if card%>
+  <div class="col s6 m5 l4">
+    <div class="card">
+      <div class="card-image">
+        <img src="<%=card.picture%>">
+      </div>
+      <div class="card-content">
+        <p class="center-align"><span><%=card.menuname%> / <%=card.emenuname%> / <%=card.cmenuname%></span><br/>
+        <%=card.cost%> 원
+        </p>
+      </div>
+    </div>
+  </div>
+  <%end%>
+  <%end%>
+  
+  
+  <div class="col s12 m10 offset-m1 l8 offset-l2">
+    <%@num.times do |m|%>
+      <ul class="collapsible" data-collapsible="accordion">
+        <li>
+          <div class="collapsible-header active"><i class="material-icons">restaurant_menu</i><%if @pages==nil%>MENU<%else%><%=@pages[m]%><%end%></div>
+          <div class="collapsible-body">
+            <table class="bordered"style="font-size: 12px;">
               <tbody>
+                <%@menuarray[m].each do|a|%>
                 <tr>
-                  <td><i class="material-icons">schedule</i></td>
-                  <td><%=@rest.open%></td>
+                  <td>
+                    <span class="k"><%=a.menuname%></span><br/>
+                    <span class="e"><%=a.emenuname.titleize%></span><br/>
+                    <span class="e"><%=a.cmenuname%></span><br/>
+                    <%if a.content!=""%><span class="grey-text"><%=a.content%></span><%end%>
+                  </td>
+                  <td class="right-align"><%=a.cost%> won</td>
                 </tr>
-                <tr>
-                  <td><i class="material-icons">call</i></td>
-                  <td><%=@rest.phone%></td>
-                </tr>
-                <tr>
-                  <td><i class="material-icons">place</i></td>
-                  <td><%=@rest.address%></td>
-                </tr>
+                <%end%>
               </tbody>
             </table>
           </div>
-        </div>
-      </div>
-    </div>
-    
-    <div class="col s12 m10 offset-m1 l8 offset-l2">
-      <ul class="tabs">
-        <li class="tab col s12"><a class="active"href="#Restaurants">MENUS</a></li>
+        </li>
       </ul>
-    </div>
-    
-    <%@num.times do |m|%>
-    <div class="col s12 m10 offset-m1 l8 offset-l2">
-      <div class="card">
-        <div class="card-content">
-          <span class="card-title red-text"><%if @pages!=nil%><%=@pages[m]%><%end%></span>
-          <div class="divider"></div>
-          <table class="bordered"style="font-size: 12px;">
-            <tbody>
-              <%@menuarray[m].each do|a|%>
-              <tr>
-                <td>
-                  <span class="k"><%=a.menuname%></span><br/>
-                  <span class="e"><%=a.emenuname.titleize%></span><br/>
-                  <span class="e"><%=a.cmenuname%></span><br/>
-                  <%if a.content!=""%><span class="grey-text"><%=a.content%></span><%end%>
-                </td>
-                <td class="right-align"><%=a.cost%> won</td>
-              </tr>
-              <%end%>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
     <%end%>
+  </div>
+    
 </div>
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script src="//apis.daum.net/maps/maps3.js?apikey=23598cdf36f0c5f5bf1f1bfda70b8e80&libraries=services"></script>
 <script>
  $(document).ready(function(){
+   $('.collapsible').collapsible();
    $('.carousel.carousel-slider').carousel({full_width: true, indicators: true});
   $(".opener").click(function(){
     $(".main_nav").hide();
@@ -107,9 +135,11 @@
     var $this=$(this);
     if($this.data('type')=='ROAD'){
       $this.text('MAP').data('type','MAP');
+      map.relayout();
     }
     else{
       $this.text('ROAD').data('type','ROAD');
+      roadView.relayout();
     }
     $('#map').toggle();
     $('#roadView').toggle();
@@ -137,8 +167,8 @@
 	
 	var roadContainer=document.getElementById('roadView');
 
-	var map = new daumMap(container, option);
-  var roadView=new daumRoadView(roadContainer);
+	var map = new own.DaumMap(container, option);
+  var roadView=new own.DaumRoadView(roadContainer);
   
   roadView.position({position: [<%=@map.lat%>,<%=@map.lon%>]});
   
@@ -149,18 +179,18 @@
   };
   
   var overlayOption={
-    content: '<div class="placeinfo_wrap"><div class="placeinfo"><a class="title" ><%=@rest.name%></a><span>'+
+    content: '<div class="placeinfo_wrap"><div class="placeinfo"><a class="ptitle" ><%=@rest.name%></a><span>'+
               '<span style="text-align: right;" class="material-icons close" aria-hidden="true">clear</span>'+
               '</span></div><div class="after"></div></div>',
     clickable: true
   };
   
-  var markerMap=new marker(markerOption);
-  var overlay=new customOverlay(overlayOption);
+  var markerMap=new own.Marker(markerOption);
+  var overlay=new own.CustomOverlay(overlayOption);
   
   overlay.onClose('overlay');
   
   markerMap.on('click',function(){
-    overlay.open(marker);
+    overlay.open(markerMap);
   });
 </script>

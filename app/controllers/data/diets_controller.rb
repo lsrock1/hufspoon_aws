@@ -13,7 +13,7 @@ class Data::DietsController < ApplicationController
     mm = @time.month < 10 ? '0' + @time.month.to_s : @time.month
     
     @day = @time.year.to_s + mm.to_s + dd.to_s #오늘날짜를 yyyymmdd로 합친다
-    @menulist=[Breakfast,Lunch1,Lunch2,Lunchnoodle,Dinner,Snack,Flunch,Fdinner,Menua,Menub].map{|data| [data.getname,data.find_by(date: @day)]}
+    @menulist=[Breakfast,Lunch1,Lunch2,Lunchnoodle,Dinner,Flunch,Fdinner,Menua,Menub].map{|data| [data.getname,data.find_by(date: @day)]}
   end
   
   def edit

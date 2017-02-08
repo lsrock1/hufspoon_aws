@@ -8,12 +8,15 @@ module Parser
     menu.each do|x|
       if x.text!=""
         string=x.text
-        if string.index("(")!=nil
+        if string.index("(")
           substring=string[string.index("(")..string.index(")")]
           string.sub!(substring,'$'+substring[1...-1])
         end
-        if string.index(",")!=nil&&string[-1]!='원'
+        if string.index(",")&&string[-1]!='원'
           string.sub!(",","$")
+        end
+        if string.index(":")&&(string.index("/")||string.index("&")||string.index("-")||string.index("*"))
+          string.sub!(/ - | \/ | & | * /,"$")
         end
         menuString=menuString+"$"+string
       end

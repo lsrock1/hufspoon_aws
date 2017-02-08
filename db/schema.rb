@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170106084713) do
+ActiveRecord::Schema.define(version: 20170207134606) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -170,8 +170,9 @@ ActiveRecord::Schema.define(version: 20170106084713) do
     t.string   "phone"
     t.string   "open"
     t.integer  "count",      default: 0
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.string   "chinese",    default: ""
   end
 
   create_table "rmenus", force: :cascade do |t|
@@ -185,6 +186,7 @@ ActiveRecord::Schema.define(version: 20170106084713) do
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
     t.string   "cmenuname",  default: ""
+    t.string   "picture",    default: ""
   end
 
   create_table "snacks", force: :cascade do |t|

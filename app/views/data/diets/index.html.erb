@@ -26,7 +26,7 @@
       <tr>
         <td><%=menu[0]%></td>
         <td><%if menu[1]!=nil%><%=menu[1].menu%><%end%></td>
-        <td><%if menu[1]!=nil%><%=link_to '수정',edit_data_diets_path(menu[1].id,name: menu[0]),{class: :btn, data: {confirm: '정말 수정 하시겠습니까?'}}%><%else%>생성<%end%></td>
+        <td><%if menu[1]!=nil%><%=link_to '수정',edit_data_diet_path(menu[1].id,name: menu[0]),{class: :btn, data: {confirm: '정말 수정 하시겠습니까?'}}%><%else%>생성<%end%></td>
       </tr>
     <%end%>
   </table>
