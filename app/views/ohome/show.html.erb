@@ -116,7 +116,7 @@
         <li>
           <div class="collapsible-header active red-text text-lighten-3"><i class="material-icons">restaurant_menu</i><%if @pages==nil%>MENU<%else%><%=@pages[m]%><%end%></div>
           <div class="collapsible-body" style="padding: 0px;">
-            <table class="striped"style="font-size: 12px;">
+            <table class="striped">
               <tbody>
                 <%@menuarray[m].each do|a|%>
                 <tr>
@@ -182,8 +182,8 @@
       url: 'http://www.hfspn.co/rests/<%=@rest.id%>' // 앱 설정의 웹 플랫폼에 등록한 도메인의 URL이어야 합니다.
     }
   });
- })
-	var container = document.getElementById('map');
+  
+  var container = document.getElementById('map');
 	var option = {
 	  center: [<%=@map.lat%>,<%=@map.lon%>],
 		level: 2
@@ -217,4 +217,10 @@
   markerMap.on('click',function(){
     overlay.open(markerMap);
   });
+  
+  if(window.Hybrid){
+    
+  }
+ })
+	
 </script>

@@ -33,7 +33,7 @@ class OhomeController < ApplicationController
     @list=[]
     @restCategoryHash=restCategoryHash
     @restCategoryHash[@num].append("active")
-    
+    @languageHash=oLanguageHash.except(@language)
     categoryName=@restCategoryHash[@num][0]
     
     Map.includes(:rests).all.each do|m|
@@ -76,31 +76,36 @@ class OhomeController < ApplicationController
   private
     def ohomecookie
       if params[:language]==nil
-        
+        #언어가 URI로 설정되지 않는다면
         if cookies[:my_ohome_language]==nil
-          
+          #쿠키에 ohome 설정이 없다면
           if cookies[:my_language]==nil
-            
+            #home 언어 설정이 없으면
             @language=4
-            
           else
-            
+            #home 언어 설정이 있으면 그것을 쓴다
             if cookies[:my_language]=="4"
-              @language=cookies[:my_language].to_i
+              @language=4
+            elsif cookies[:my_language]=="2"
+              @language=2
             else
               @language=0
             end
-            
           end
           cookies.permanent[:my_ohome_language]=@language
         else
-          
+          #쿠키에 ohome 설정이 있으면 그것을 사용한다
           @language=cookies[:my_ohome_language].to_i
-          
         end
-        
       else
-        @language=params[:language].to_i
+        #언어가 URI로 설정되면
+        if params[:language]=="4"
+          @language=4
+        elsif params[:language]=="2"
+          @language=2
+        else
+          @language=0
+        end
         cookies.permanent[:my_ohome_language]=@language
       end
     end

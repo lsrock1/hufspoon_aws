@@ -12,4 +12,16 @@ module OhomeHelper
       }
     end
   end
+  
+  def lan_button(language,num)
+    capture do
+      language.collect{|key,value|
+      concat(
+        content_tag(:li) do
+          content_tag(:a,value[0],class: "btn-floating align-center ",style: "background-color: #{value[1]};",href: "/rests?num=#{num}&language=#{key}")
+        end
+        )
+      }
+    end
+  end
 end
