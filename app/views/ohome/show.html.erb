@@ -114,19 +114,19 @@
     <%@num.times do |m|%>
       <ul class="collapsible" data-collapsible="accordion">
         <li>
-          <div class="collapsible-header active"><i class="material-icons">restaurant_menu</i><%if @pages==nil%>MENU<%else%><%=@pages[m]%><%end%></div>
-          <div class="collapsible-body">
+          <div class="collapsible-header active red-text text-lighten-3"><i class="material-icons">restaurant_menu</i><%if @pages==nil%>MENU<%else%><%=@pages[m]%><%end%></div>
+          <div class="collapsible-body" style="padding: 0px;">
             <table class="striped"style="font-size: 12px;">
               <tbody>
                 <%@menuarray[m].each do|a|%>
                 <tr>
-                  <td>
+                  <td class="center">
                     <span class="k"><%=a.menuname%></span><br/>
                     <span class="e"><%=a.emenuname.titleize%></span><br/>
                     <span class="e"><%=a.cmenuname%></span><br/>
                     <%if a.content!=""%><span class="grey-text"><%=a.content%></span><%end%>
                   </td>
-                  <td class="right-align"><%=number_with_delimiter(a.cost, :delimiter => ',')%> won</td>
+                  <td class="center blue-text text-lighten-2"><%=number_with_delimiter(a.cost, :delimiter => ',')%> won</td>
                 </tr>
                 <%end%>
               </tbody>
