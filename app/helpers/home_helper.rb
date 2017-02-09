@@ -91,6 +91,8 @@ module HomeHelper
       content_tag(:div,class: 'card-image c-image') do
         concat image_tag(menu['main'].u_picture,class: 'u_picture')
       end
+    else
+      content_tag(:div,"",class: "divider")
     end
   end
   

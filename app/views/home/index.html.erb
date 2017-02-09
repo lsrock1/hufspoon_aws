@@ -78,7 +78,6 @@
         <div class="card">
           <%cache menu_cache_key(menu) do%>
             <%=card_top(menu)%>
-            <div class="divider"></div>
     			  <%=card_img(menu)%>
     			  <%=card_middle(menu)%>
     			<%end%>
@@ -103,7 +102,7 @@
             <div class="card-content">
               <span class="card-title">Snack</span>
                 <%if @w!=0&&@w!=6%><div>09:00~18:40</div><%end%>
-                <br/>
+                <div class="divider"></div>
                 <p class="caf_menu">
       					<%=card_content(@menulist[5]['menu'])%>
       	    	  </p>
