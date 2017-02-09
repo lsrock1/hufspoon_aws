@@ -17,12 +17,6 @@
   <br>
   <div class="col s12 m10 offset-m1 l8 offset-l2">
     <div class="card">
-      <div id="map" style="height:300px;"></div>
-      <div id="roadView" style="display:none; height:330px;"></div>
-      <a class="waves-effect waves-light btn red lighten-2" style="position: absolute; top:5px;left:5px;" id="roadBtn" data-type="ROAD">ROAD</a>
-    </div>
-
-    <div class="card">
       <div class="card-content card_top">
         <span class="card-title"><%=@rest.name%><a id="kakao-link-btn" href="javascript:;"class="waves-effect waves-light right"><img src="//dev.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_small.png"/></a></span>
       </div>
@@ -33,59 +27,88 @@
         <%end%>
       </div>
       <%end%>
+      <div class="card-tabs">
+        <ul class="tabs tabs-fixed-width">
+          <li class="tab"><a class="active" href="#info">INFO</a></li>
+          <li class="tab"><a href="#dMap">MAP</a></li>
+        </ul>
+      </div>
       <div class="card-content">
-        <table>
-          <tbody>
-            <tr>
-              <td><i class="material-icons">schedule</i></td>
-              <td><%=@rest.open%></td>
-            </tr>
-            <tr>
-              <td><i class="material-icons">call</i></td>
-              <td><%=@rest.phone%></td>
-            </tr>
-            <tr>
-              <td><i class="material-icons">place</i></td>
-              <td><%=@rest.address%></td>
-            </tr>
-          </tbody>
-        </table>
+        <div id="info">
+          
+          <table>
+            <tbody class="aTable">
+              <tr>
+                <td><i class="material-icons">schedule</i></td>
+                <td><%=@rest.open%></td>
+              </tr>
+              <tr>
+                <td><i class="material-icons">call</i></td>
+                <td><%=@rest.phone%></td>
+              </tr>
+              <tr>
+                <td><i class="material-icons">place</i></td>
+                <td><%=@rest.address%></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div id="dMap" style="position: relative">
+          <div id="map" style="height:300px;"></div>
+          <div id="roadView" style="display:none; height:330px;"></div>
+          <a class="waves-effect waves-light btn red lighten-2" style="position: absolute; top:5px;right:5px;" id="roadBtn" data-type="ROAD">ROAD</a>
+        </div>
       </div>
     </div>
   </div>
-  <%(@picture_exist.length/2.0).ceil.times do |number|%>
-  <%card=@picture_exist[number*2]%>
-  <%if card%>
-  <div class="col s6 m5 offset-m1 l4 offset-l2">
-    <div class="card">
-      <div class="card-image">
-        <img src="<%=card.picture%>">
-      </div>
-      <div class="card-content">
-        <p class="center-align"><span><%=card.menuname%> / <%=card.emenuname%> / <%=card.cmenuname%></span><br/>
-        <%=card.cost%> 원
-        </p>
-      </div>
-    </div>
-  </div>
-  <%end%>
-  <%card = @picture_exist[number*2+1]%>
-  <%if card%>
-  <div class="col s6 m5 l4">
-    <div class="card">
-      <div class="card-image">
-        <img src="<%=card.picture%>">
-      </div>
-      <div class="card-content">
-        <p class="center-align"><span><%=card.menuname%> / <%=card.emenuname%> / <%=card.cmenuname%></span><br/>
-        <%=card.cost%> 원
-        </p>
-      </div>
-    </div>
-  </div>
-  <%end%>
-  <%end%>
   
+  <div class="col s12 m10 offset-m1 l8 offset-l2">
+    <ul class="collapsible" data-collapsible="accordion">
+      <li>
+        <div class="collapsible-header active"><i class="material-icons">restaurant_menu</i>대표 메뉴</div>
+        <div class="collapsible-body" style="padding: 0px;">
+          <table>
+            <tbody>
+              <%(@picture_exist.length/2.0).ceil.times do |number|%>
+              <tr>
+              <%card=@picture_exist[number*2]%>
+              <%if card%>
+              <td>
+                <div class="card pMenu">
+                  <div class="card-image">
+                    <img class="materialboxed" src="<%=card.picture%>">
+                  </div>
+                  <div class="card-content">
+                    <p class="center-align"><%=card.menuname%> / <%=card.emenuname%> / <%=card.cmenuname%><br/>
+                    <span class="blue-text text-lighten-2"><%=number_with_delimiter(card.cost, :delimiter => ',')%> won</span>
+                    </p>
+                  </div>
+                </div>
+              </td>
+              <%end%>
+              <%card = @picture_exist[number*2+1]%>
+              <%if card%>
+              <td>
+                <div class="card pMenu">
+                  <div class="card-image">
+                    <img class="materialboxed" src="<%=card.picture%>">
+                  </div>
+                  <div class="card-content">
+                    <p class="center-align"><%=card.menuname%> / <%=card.emenuname%> / <%=card.cmenuname%><br/>
+                    <span class="blue-text text-lighten-2"><%=number_with_delimiter(card.cost, :delimiter => ',')%> won</span>
+                    </p>
+                  </div>
+                </div>
+              </td>
+              <%end%>
+              </tr>
+              <%end%>
+            </tbody>
+          </table>
+        </div>
+      </li>
+    </ul>
+  </div>
   
   <div class="col s12 m10 offset-m1 l8 offset-l2">
     <%@num.times do |m|%>
@@ -93,7 +116,7 @@
         <li>
           <div class="collapsible-header active"><i class="material-icons">restaurant_menu</i><%if @pages==nil%>MENU<%else%><%=@pages[m]%><%end%></div>
           <div class="collapsible-body">
-            <table class="bordered"style="font-size: 12px;">
+            <table class="striped"style="font-size: 12px;">
               <tbody>
                 <%@menuarray[m].each do|a|%>
                 <tr>
@@ -103,7 +126,7 @@
                     <span class="e"><%=a.cmenuname%></span><br/>
                     <%if a.content!=""%><span class="grey-text"><%=a.content%></span><%end%>
                   </td>
-                  <td class="right-align"><%=a.cost%> won</td>
+                  <td class="right-align"><%=number_with_delimiter(a.cost, :delimiter => ',')%> won</td>
                 </tr>
                 <%end%>
               </tbody>
@@ -120,7 +143,8 @@
 <script>
  $(document).ready(function(){
    $('.collapsible').collapsible();
-   $('.carousel.carousel-slider').carousel({full_width: true, indicators: true});
+   $('.materialboxed').materialbox();
+   $('.carousel').carousel({fullWidth: true, indicators: true});
   $(".opener").click(function(){
     $(".main_nav").hide();
     $(".nav_form").fadeIn();
@@ -135,14 +159,14 @@
     var $this=$(this);
     if($this.data('type')=='ROAD'){
       $this.text('MAP').data('type','MAP');
-      map.relayout();
     }
     else{
       $this.text('ROAD').data('type','ROAD');
-      roadView.relayout();
     }
     $('#map').toggle();
     $('#roadView').toggle();
+    map.relayout();
+    roadView.relayout();
   });
   Kakao.init('3a6d3b6e790c8028083ec1a6888a0868');
   Kakao.Link.createTalkLinkButton({

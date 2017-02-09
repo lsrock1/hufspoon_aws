@@ -36,8 +36,7 @@ module HomeHelper
   
   def card_top(menu)
     content_tag(:div,class: 'card-content card_top') do
-      concat content_tag(:span, menu['name'].titleize,class: 'card-title')
-      concat tag('br')
+      concat content_tag(:div, menu['name'].titleize,class: 'card-title')
       concat content_tag(:span,"#{menu['time']} / #{menu['price']}",class: "grey-text")
     end
   end

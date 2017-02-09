@@ -31,7 +31,7 @@
     <ul class="collection">
       <%@list.each do |re|%>
       <li class="collection-item avatar">
-        <%if re.picture==nil||re.picture==""%><i class="material-icons red circle">restaurant</i><%else%><img src="<%='http'+re.picture.split('http')[1]%>" alt="" class="circle"><%end%>
+        <%if re.picture==nil||re.picture==""%><i class="material-icons red lighten-3 circle">restaurant</i><%else%><img src="<%='http'+re.picture.split('http')[1]%>" alt="" class="circle"><%end%>
         <span class="title"><a href="/rests/<%=re.id%>"><%=re.name%></a></span>
         <p>
           <%if re.re_menu%>

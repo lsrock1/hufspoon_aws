@@ -151,8 +151,8 @@
   </div>
     
   <div class="fixed-action-btn click-to-toggle" style="bottom: 14px; right: 14px;">
-    <a class="btn-floating btn-large white scale-btn scrollUp black-text">
-      <i class="material-icons addbtn black-text" data-angle="0">translate</i>
+    <a class="btn-floating btn-large scale-btn scrollUp red">
+      <i class="material-icons addbtn" data-angle="0">translate</i>
     </a>
     <ul>
       <%=lan_button(@languageHash,@day)%>
@@ -275,12 +275,11 @@
       window.location.href="/<%=@id%>/"+add;
     });
     
-    $('.carousel.carousel-slider').carousel({full_width: true, indicators: true});
+    $('.carousel.carousel-slider').carousel({fullWidth: true, indicators: true});
     $(".button-collapse").sideNav();
-    
+    var tHeight=$('#humanities').height();
     var $tabs=$('ul.tabs');
     $tabs.tabs();
-    
     $('.modal').modal({
       ready: function(){
         $('.button-collapse').sideNav('hide');
@@ -310,7 +309,7 @@
       if (prev){
         $tabs.tabs('select_tab',prev.slice(1));
       }
-     })
+    })
     $(".like").click(function(){
       var did=$(this).data("id");
       $.ajax({

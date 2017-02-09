@@ -1,5 +1,4 @@
 source 'https://rubygems.org'
-gem 'materialize-sass'
 gem 'rails_12factor', group: :production
 gem'nokogiri'
 gem 'devise'
