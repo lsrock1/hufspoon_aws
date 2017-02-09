@@ -1,7 +1,7 @@
 result=''
-result << "식당,이름,종류,페이지구성,사진,대표메뉴,대표메뉴(영),주소,전화번호,영업시간,위도,경도"
+result << "식당,이름,종류,페이지구성,사진,대표메뉴,대표메뉴(영),대표메뉴(중),주소,전화번호,영업시간,위도,경도"
 result << "\r"
-result << "메뉴,이름,이름(영),설명,가격,종류,페이지"
+result << "메뉴,이름,이름(중),이름(영),설명,사진,가격,종류,페이지"
 result << "\r"
 @rests.each do |r|
   result << ['rest',r.name,r.food,r.page,r.picture,r.re_menu,r.ere_menu,r.chinese,r.address,r.phone,r.open,r.map.lat.to_s,r.map.lon.to_s].join(',')
