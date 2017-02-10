@@ -13,7 +13,7 @@ module OhomeHelper
     end
   end
   
-  def lan_button(language,num)
+  def oLan_button(language,num)
     capture do
       language.collect{|key,value|
       concat(

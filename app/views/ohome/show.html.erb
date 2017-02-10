@@ -161,20 +161,12 @@
     clickable: true
   };
   
-  var rMarkerOption={
-    position: [<%=@map.lat%>,<%=@map.lon%>],
-    map: roadView
-  };
-  
   var overlayOption={
     content: '<div class="placeinfo_wrap"><div class="placeinfo"><a class="ptitle" ><%=@rest.name%></a><span>'+
               '<span style="text-align: right;" class="material-icons close" aria-hidden="true">clear</span>'+
               '</span></div><div class="after"></div></div>',
     clickable: true
   };
-  roadView.on('init',function(){
-    console.log(new own.Marker(rMarkerOption));
-  });
   
   var markerMap=new own.Marker(markerOption);
   overlay=new own.CustomOverlay(overlayOption);
