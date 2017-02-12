@@ -32,6 +32,10 @@
       <%=f.label "시간 1: 0~1시 순서, 00: 항상 표시"%>
       <%=f.text_field :time%>
     </div>
+    <div class="input-field">
+      <%=f.select :language, options_for_select([["영어",0],["한국어",4],["중국어",2],["스페인어",6],["독일어",7],["이탈리아어",8],['포어',9],['프어',10]],@curate.language)%>
+      <%=f.label :language%>
+    </div>
     <%=f.submit "등록",class: :btn%>
   <%end%>
 </div>
@@ -41,4 +45,5 @@
     selectMonths: true, // Creates a dropdown to control month
     selectYears: 15 // Creates a dropdown of 15 years to control year
   });
+  $('select').material_select();
 </script>

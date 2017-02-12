@@ -1,4 +1,5 @@
 class Data::CuratesController < ApplicationController
+  include Getlist
   before_action :require_login
   layout 'data'
   
@@ -6,6 +7,7 @@ class Data::CuratesController < ApplicationController
     @id=params[:id]? params[:id].to_i : 1
     @curate=Curate.all
     @num=(@curate.length/10)+1
+    @languageHash=languageHash()
     if @id==0
       @curate=@curate.select{|item| item.show!=0}
     else
@@ -43,6 +45,6 @@ class Data::CuratesController < ApplicationController
   
   private
     def curate_params
-       params.require(:curate).permit(:address,:keyword,:show,:startDate, :endDate, :dayOfWeek, :time) 
+       params.require(:curate).permit(:address,:keyword,:show,:startDate, :endDate, :dayOfWeek, :time, :language) 
     end
 end

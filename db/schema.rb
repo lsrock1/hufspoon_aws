@@ -67,6 +67,7 @@ ActiveRecord::Schema.define(version: 20170212052627) do
     t.date     "endDate",    default: '2017-03-14'
     t.string   "dayOfWeek",  default: "8"
     t.string   "time",       default: "00"
+    t.integer  "language",   default: 0
   end
 
   create_table "dinners", force: :cascade do |t|

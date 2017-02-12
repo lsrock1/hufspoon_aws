@@ -107,8 +107,7 @@ class HomeController < ApplicationController
         data.make_list(@day,@id)
       end
       
-      @nowC=Curate.nowCurate
-      puts @nowC
+      @nowC=Curate.nowCurate(@id)
     end
   end
   

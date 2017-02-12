@@ -14,6 +14,7 @@
       <td class="hide-on-small-only">순서</td>
       <td>사진</td>
       <td>링크</td>
+      <td>언어</td>
       <td>위치</td>
       <td>시작일</td>
       <td>종료일</td>
@@ -29,6 +30,7 @@
         <td class="hide-on-small-only"><%=row%></td>
         <td><img class="materialboxed" src="<%=curate.address%>" width="100" height="100"></td>
         <td><%=curate.keyword%></td>
+        <td><%=@languageHash[curate.language][0]%></td>
         <td><%=curate.show%></td>
         <td><%=curate.startDate%></td>
         <td><%=curate.endDate%></td>

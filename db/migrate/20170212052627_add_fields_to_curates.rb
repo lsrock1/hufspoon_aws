@@ -5,6 +5,7 @@ class AddFieldsToCurates < ActiveRecord::Migration
       t.date :endDate, default: 30.days.from_now
       t.string :dayOfWeek, default: "8"
       t.string :time, default: "00"
+      t.integer :language, default: 0
     end
   end
 end
