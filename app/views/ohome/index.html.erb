@@ -46,7 +46,7 @@
           Welcome to the Restaurant!
           <%end%>
         </p>
-        <a href="#!" class="secondary-content"><i class="material-icons grey-text">star_border</i></a>
+        <div class="secondary-content grey-text" style="display: none;"><i class="material-icons">star_border</i></div>
       </li>
       <%end%>
     </ul>
@@ -192,6 +192,24 @@
       $(".main_nav").fadeIn();
     })
     $("ul.tabs").tabs();
+    if(window.Hybrid){
+      $('.alarm').each(function(){
+        var $this=$(this);
+        $this.show();
+        if(window.Hybrid.alarmInit($this.data("id"),$this.data('language'))=='1') $this.removeClass('grey-text').addClass('red-text');
+      })
+      $(".alarm").click(function(){
+        var $this=$(this);
+        if($this.hasClass('grey-text')){
+          $this.removeClass('grey-text').addClass('red-text');
+          window.Hybrid.alarmOn($this.data('id'),$this.data('name'),$this.data('language'));
+        }
+        else{
+          $this.removeClass('red-text').addClass('grey-text');
+          window.Hybrid.alarmOff($this.data('id'),$this.data('name'),$this.data('language'));
+        }
+      })
+    }
   })
 	var container = document.getElementById('map');
 	var option = {

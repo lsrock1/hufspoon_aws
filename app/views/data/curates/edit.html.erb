@@ -2,8 +2,8 @@
   <li><%=link_to "돌아가기",data_curates_path%></li>
 <%end%>
 <div class="container">
-  <h3>사진추가</h3>
-  <%=form_for @curate, url: data_curates_path do |f|%>
+  <h3>사진수정</h3>
+  <%=form_for @curate, url: data_curate_path do |f|%>
     <div class="input-field">
       <%=f.label "사진 url"%>
       <%=f.text_field :address%>
@@ -21,7 +21,7 @@
       <%=f.text_field :startDate%>
     </div>
     <div class="input-field">
-      <%=f.label "종료일 없을시 30일디폴트"%>
+      <%=f.label "종료일"%>
       <%=f.text_field :endDate%>
     </div>
     <div class="input-field">

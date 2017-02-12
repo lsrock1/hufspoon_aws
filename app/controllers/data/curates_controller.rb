@@ -30,19 +30,19 @@ class Data::CuratesController < ApplicationController
   end
   
   def update
-    
-    if params[:curate][:show].to_i<6&&params[:curate][:show].to_i>=0
-        @curate=Curate.find(params[:id])
-        if params[:curate][:show].to_i==0||Curate.find_by(show: params[:curate][:show])==nil
-          @curate.show=params[:curate][:show]
-          @curate.save
-        end
+    if params[:curate][:show].to_i<8&&params[:curate][:show].to_i>=0
+      @curate=Curate.find(params[:id])
+      @curate.update(curate_params)
     end
     redirect_to :back
   end
   
+  def edit
+    @curate=Curate.find(params[:id])
+  end
+  
   private
     def curate_params
-       params.require(:curate).permit(:address,:keyword,:show) 
+       params.require(:curate).permit(:address,:keyword,:show,:startDate, :endDate, :dayOfWeek, :time) 
     end
 end

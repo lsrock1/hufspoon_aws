@@ -35,7 +35,6 @@
       </div>
       <div class="card-content">
         <div id="info">
-          
           <table>
             <tbody class="aTable">
               <tr>
@@ -116,7 +115,7 @@
         <li>
           <div class="collapsible-header active red-text text-lighten-3"><i class="material-icons">restaurant_menu</i><%if @pages.blank?||@pages[m].blank?%>MENU<%else%><%=@pages[m]%><%end%></div>
           <div class="collapsible-body" style="padding: 0px;">
-            <table class="striped">
+            <table class="striped" style="font-size: 12px;">
               <tbody>
                 <%@menuarray[m].each do|a|%>
                 <tr>
@@ -222,10 +221,6 @@
       url: 'http://www.hfspn.co/rests/<%=@rest.id%>' // 앱 설정의 웹 플랫폼에 등록한 도메인의 URL이어야 합니다.
     }
   });
-
-  if(window.Hybrid){
-    
-  }
  })
 	
 </script>

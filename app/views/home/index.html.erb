@@ -15,10 +15,10 @@
 <input style="display:none;" id="datepicker" type="date"/>
 <p class="center-align dateselect"><i class="material-icons adate dleft">navigate_before</i><a class="representer red-text text-lighten-2"><%if @id==1||@id==2||@id==3||@id==4%><%=@m%> / <%=@d%> &nbsp;<%=@date%><%else%><%=@date%>&nbsp; <%=@d%> / <%=@m%> <%end%></a><i class="material-icons adate dright">navigate_next</i></p>
 <div class="row" id="row">
-  <%if @w.to_i==0&&@ran_rest%>
+  <%if @w==0%>
   <div id="humanities" class="col s12">
-    
     <div class="col s12 m8 offset-m2 l6 offset-l3">
+      <% if @ran_rest%>
       <div class="card">
         <div class="card-image">
           <%if @ran_rest.picture!=""&&@ran_rest.picture%>
@@ -39,21 +39,24 @@
           <a href="/rests">More Restaurants</a>
         </div>
       </div>
+      <%end%>
       
       <ul class="collapsible" data-collapsible="accordion">
-        <%@list.each_with_index do |var,num|%>
-        
         <li>
-          <div class="collapsible-header"><i class="material-icons">restaurant_menu</i><%=@dayOfWeek[num]%></div>
-          <div class="collapsible-body">
+          <div class="collapsible-header">Next Week Preview</div>
+        </li>
+        <%@list.each_with_index do |var,num|%>
+        <li>
+          <div class="collapsible-header"><i class="material-icons">arrow_drop_down</i><%=@dayOfWeek[num]%></div>
+          <div class="collapsible-body" style="padding: 0px;">
             <ul class="collection">
               <%if !var.blank? %>
-                <%cache list_cache_key(var) do%>
+                <%cache list_cache_key(var,var[0][1]['id']) do%>
                 <%var.each do |content|%>
                 <li class="collection-item">
                   <div><%=content[0].titleize%>: <%if content[1]['main']%><%=content[1]['menu'][0]%><%else%>Not Yet!<%end%>
-                    <div class="secondary-content alarm" data-language="<%=@hashData[content[1]['id'].to_i][2]%>" data-id="<%=content[1]['main'].id%>" data-name="<%=content[1]['menu'][0]%>">
-                      <i class="material-icons grey-text">alarm</i>
+                    <div class="secondary-content alarm grey-text" style="display: none;" data-language="<%=@hashData[content[1]['id'].to_i][2]%>" data-id="<%=content[1]['main'].id%>" data-name="<%=content[1]['menu'][0]%>">
+                      <i class="material-icons">alarm</i>
                     </div>
                   </div>
                 </li>
@@ -65,16 +68,16 @@
             </ul>
           </div>
         </li>
-        
         <%end%>
       </ul>
     </div>
   </div>
   <%else%>
     <div id="humanities" class="col s12">
-      <%@menulist[0..4].each do |menu|%>
+      <%@menulist[0..4].each_with_index do |menu,num|%>
       <%if (menu["price"])||(menu["kcal"]) %>
       <div class="col s12 m8 offset-m2 l6 offset-l3">
+        <%=curate(@nowC[num])%>
         <div class="card">
           <%cache menu_cache_key(menu) do%>
             <%=card_top(menu)%>
@@ -84,20 +87,35 @@
     			<%=card_bottom(menu)%>
         </div>
       </div>
+      <%else%>
+        <div class="col s12 m8 offset-m2 l6 offset-l3">
+          <%=curate(@nowC[num])%>
+        </div>
       <%end%>
       <%end%>
       
       <%if @menulist[5]['menu']==nil%>
         <div class="col s12 m8 offset-m2 l6 offset-l3">
+          <%unless @nowC[6].blank?%>
+          <%@nowC[6].each do |n|%>
+          <div class="card">
+            <div class="card-image">
+              <img src="<%=n.address%>">
+            </div>
+          </div>
+          <%end%>
+          <%end%>
           <div class="card">
             <div class="card-content">
               <span class="card-title">Wait, Not Yet!</span>
             </div>
           </div>
+          <%=curate(@nowC[7])%>
         </div>
       <%else%>
-        <%cache menu_cache_key(@menulist[5]) do%>
         <div class="col s12 m8 offset-m2 l6 offset-l3">
+          <%=curate(@nowC[6])%>
+        <%cache menu_cache_key(@menulist[5]) do%>
           <div class="card">
             <div class="card-content">
               <span class="card-title">Snack</span>
@@ -109,9 +127,10 @@
       	    	  </p>
             </div>
           </div>
-        </div>
         <%end%>
+        <%=curate(@nowC[7])%>
       <%end%>
+      </div>
     </div>
     
     <div id="faculty" class="col s12">

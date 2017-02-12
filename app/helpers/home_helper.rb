@@ -3,8 +3,8 @@ module HomeHelper
     "menus-#{menu['name']}-#{menu['update']}-#{menu['id']}-bride"
   end
   
-  def list_cache_key menu_list
-    "list-#{menu_list.map{|menu| menu[1]['update']}.reduce :+}"
+  def list_cache_key menu_list, lan
+    "list-#{menu_list.map{|menu| menu[1]['update']}.reduce :+}-#{lan}"
   end
   
   def tabs(day)
@@ -115,6 +115,20 @@ module HomeHelper
         concat "&nbsp;&nbsp;".html_safe
         concat menu['main'].u_like
       end
+    end
+  end
+  
+  def curate(list)
+    unless list.blank?
+    capture do
+      list.collect{|n|
+        concat(content_tag(:div,class: :card) do
+          concat(content_tag(:div,class: 'card-image') do
+            concat(content_tag(:a,image_tag(n.address),href: "#{n.keyword}"))
+          end)
+        end)
+      }
+    end
     end
   end
 end

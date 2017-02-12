@@ -95,17 +95,20 @@ class HomeController < ApplicationController
     rescue Exception => e
       puts e.message
     end
-    if @w!=0
-      @menulist=[Breakfast,Lunch1,Lunch2,Lunchnoodle,Dinner,Snack,Flunch,Fdinner,Menua,Menub].map do |data|
-        data.make_list(@day,@id)
-      end
-    else
+    if @w==0
       @list=[]
       dateList=[@time+1,@time+2,@time+3,@time+4,@time+5].map{|time| time.to_s.gsub!('-',"")}
       @dayOfWeek=[@time+1,@time+2,@time+3,@time+4,@time+5].map{|time| time.strftime("%^A")}
       dateList.each do |d|
         @list.push([Breakfast,Lunch1,Lunch2,Lunchnoodle,Dinner].map{|l| [l.getname,l.make_list(d,@id)]}.select{|l| l[1]['main']})
       end
+    else
+      @menulist=[Breakfast,Lunch1,Lunch2,Lunchnoodle,Dinner,Snack,Flunch,Fdinner,Menua,Menub].map do |data|
+        data.make_list(@day,@id)
+      end
+      
+      @nowC=Curate.nowCurate
+      puts @nowC
     end
   end
   

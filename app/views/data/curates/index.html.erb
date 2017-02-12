@@ -14,7 +14,12 @@
       <td class="hide-on-small-only">순서</td>
       <td>사진</td>
       <td>링크</td>
-      <td>등록</td>
+      <td>위치</td>
+      <td>시작일</td>
+      <td>종료일</td>
+      <td>요일</td>
+      <td>시간</td>
+      <td>수정</td>
       <td>삭제</td>
     </tr>
   </thead>
@@ -22,19 +27,14 @@
     <%@curate.each do |curate|%>
       <tr>
         <td class="hide-on-small-only"><%=row%></td>
-        
         <td><img class="materialboxed" src="<%=curate.address%>" width="100" height="100"></td>
         <td><%=curate.keyword%></td>
-        <td>
-          <%=form_for curate,url: data_curate_path(id: curate.id) do |f|%>
-            <div class="row">
-              <div class="input-field col s3">
-                <%=f.text_field :show%>
-              </div>
-            </div>
-            <%=f.submit "변경",class: :btn%>
-          <%end%>
-        </td>
+        <td><%=curate.show%></td>
+        <td><%=curate.startDate%></td>
+        <td><%=curate.endDate%></td>
+        <td><%=curate.dayOfWeek%></td>
+        <td><%=curate.time%></td>
+        <td><%=link_to "수정",edit_data_curate_path(curate),class: :btn%></td>
         <td><%=link_to "삭제",data_curate_path(curate),{class: :btn, method: :delete, data: {confirm: '정말 삭제 하시겠습니까?'}}%></td>
       </tr>
       <%row=row+1%>
