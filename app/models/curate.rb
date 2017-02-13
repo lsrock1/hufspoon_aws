@@ -5,7 +5,7 @@ class Curate < ActiveRecord::Base
     q = self
     .where('"curates"."startDate" <= ?', now)
     .where('? <= "curates"."endDate"',now)
-    .where("dayOfWeek LIKE ? OR dayOfWeek LIKE ?", "%#{now.wday}%", "%#{8}%")
+    .where('"curates"."dayOfWeek" LIKE ? OR "curates"."dayOfWeek" LIKE ?', "%#{now.wday}%", "%#{8}%")
     .where("time LIKE ? OR time LIKE ?", "%#{now.hour+1}%", "%#{00}%")
     list=[]
     7.times do |num|
