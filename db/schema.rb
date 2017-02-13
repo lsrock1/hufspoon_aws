@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170212052627) do
+ActiveRecord::Schema.define(version: 20170213061016) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -61,13 +61,13 @@ ActiveRecord::Schema.define(version: 20170212052627) do
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
     t.string   "address"
-    t.string   "keyword"
     t.integer  "show",       default: 0
-    t.date     "startDate",  default: '2017-02-12', null: false
-    t.date     "endDate",    default: '2017-03-14'
+    t.date     "startDate",  default: '2017-02-13', null: false
+    t.date     "endDate",    default: '2017-03-15'
     t.string   "dayOfWeek",  default: "8"
     t.string   "time",       default: "00"
     t.integer  "language",   default: 0
+    t.string   "keyword"
   end
 
   create_table "dinners", force: :cascade do |t|
