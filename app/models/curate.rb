@@ -1,9 +1,9 @@
 class Curate < ActiveRecord::Base
+
   def self.nowCurate id
     now=Time.now.in_time_zone("Seoul")
     q = self
-    .where('startDate <= ?', now)
-    .where('endDate >= ?', now)
+    .where('"curates"."startDate" <= ? <= "curates"."endDate"', now)
     .where("dayOfWeek LIKE ? OR dayOfWeek LIKE ?", "%#{now.wday}%", "%#{8}%")
     .where("time LIKE ? OR time LIKE ?", "%#{now.hour+1}%", "%#{00}%")
     list=[]
@@ -18,4 +18,5 @@ class Curate < ActiveRecord::Base
     end
     return list
   end
+
 end
