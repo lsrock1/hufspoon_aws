@@ -4,7 +4,7 @@ require 'Getlist'
 class HomeController < ApplicationController
   include Parser
   include Getlist
-  before_action :banned_user
+  before_action :banned_user, :randomToken
   
   def like
     id=params[:id]

@@ -385,11 +385,37 @@
       }
       if(st-lastScrollTop>14||st-lastScrollTop<-14) lastScrollTop=st;
     });
+    
+    if((window.Hybrid&&!window.Hybrid.sheet)||!window.Hybrid){
+      $(".like").click(function(){
+        $this=$(this);
+        var sdata={id: "<%=@idToken%>"}
+        $this.hasClass("red-text") ? sdata['unlike']=$this.data("name") : sdata['like'] = $this.data("name");
+        $.ajax({
+          url : "https://script.google.com/macros/s/AKfycbyWHxlrR0PTrhykLQUtd7JAagdezT4TzK3ICFwnj0MiwhNUrao/exec",
+          dataType : "json",
+          method: "get",
+          crossDomain: true,
+          data: sdata,
+          jsonp : "callback",
+          success : function(d){
+          }
+        });
+
+      })
+    }
+    
     if(window.Hybrid){
       $('.alarm').each(function(){
         var $this=$(this);
-        $this.show();
-        if(window.Hybrid.alarmInit($this.data("id"),$this.data('language'))=='1') $this.removeClass('grey-text').addClass('red-text') ;
+        var check = window.Hybrid.alarmInit($this.data("id"),$this.data('language'));
+        if(check == '1'){
+          $this.show();
+          $this.removeClass('grey-text').addClass('red-text');
+        }
+        else if(check =='0'){
+          $this.show();
+        }
       })
       $('.like').each(function(){
         var $this=$(this); 

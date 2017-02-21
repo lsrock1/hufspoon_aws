@@ -38,4 +38,10 @@ class ApplicationController < ActionController::Base
     return nil
   end
   
+  def randomToken
+    if cookies[:idToken].blank?
+      cookies.permanent[:idToken]=SecureRandom.uuid
+    end
+    @idToken=cookies[:idToken]
+  end
 end
