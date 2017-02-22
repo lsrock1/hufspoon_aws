@@ -90,7 +90,7 @@
     }
     var cost=$("#cost"+thisid).html();
     $("#rmenu_cost").val(cost);
-    var picture=$("#rmenu_picture"+thisid).html();
+    var picture=$("#picture"+thisid).html();
     $("#rmenu_picture").val(picture);
     $("#new_rmenu").attr("action","/data/rmenus/"+thisid).append('<input type="hidden" id="pat" name="_method" value="patch" />');
   });
