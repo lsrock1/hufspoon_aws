@@ -198,21 +198,38 @@
         var $this=$(this);
         $this.show();
         if(window.Hybrid.favoriteInit($this.data("id"),$this.data("name"))=="1"){
-          $this.removeClass('grey-text');
-          $( "ul li:nth-child("+count+")" ).before($this.parent());
+          $this.removeClass('grey-text').find('i').html('star');
+          $( "ul.collection > li:nth-child("+count+")" ).before($this.parent());
           count=count+1;
         }
       })
       $(".favorite").click(function(){
         var $this=$(this);
         if($this.hasClass('grey-text')){
-          $this.removeClass('grey-text');
+          $this.removeClass('grey-text').find('i').html('star');;
           window.Hybrid.favOn($this.data('id'),$this.data('name'));
         }
         else{
-          $this.addClass('grey-text');
+          $this.addClass('grey-text').find('i').html('star_border');;
           window.Hybrid.favOff($this.data('id'),$this.data('name'));
         }
+      })
+    }
+    else{
+      $(".favorite").click(function(){
+        $this=$(this);
+        var sdata={id: "<%=@idToken%>"}
+        $this.hasClass("grey-text") ? sdata['favorite']=$this.data("name") : sdata['unfavorite'] = $this.data("name");
+        $.ajax({
+          url : "https://script.google.com/macros/s/AKfycbyWHxlrR0PTrhykLQUtd7JAagdezT4TzK3ICFwnj0MiwhNUrao/exec",
+          dataType : "json",
+          method: "get",
+          crossDomain: true,
+          data: sdata,
+          jsonp : "callback",
+          success : function(d){
+          }
+        });
       })
     }
   })
