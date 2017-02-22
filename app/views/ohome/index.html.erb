@@ -46,7 +46,7 @@
           Welcome to the Restaurant!
           <%end%>
         </p>
-        <div class="secondary-content grey-text" style="display: none;"><i class="material-icons">star_border</i></div>
+        <div class="secondary-content grey-text favorite" style="display: none;" data-id="<%=re.id%>" data-name="<%=re.name%>" ><i class="material-icons">star_border</i></div>
       </li>
       <%end%>
     </ul>
@@ -192,21 +192,26 @@
       $(".main_nav").fadeIn();
     })
     $("ul.tabs").tabs();
-    if(window.Hybrid){
-      $('.alarm').each(function(){
+    if(window.Hybrid&&window.Hybrid.favoriteInit){
+      var count=1;
+      $('.favorite').each(function(){
         var $this=$(this);
         $this.show();
-        if(window.Hybrid.alarmInit($this.data("id"),$this.data('language'))=='1') $this.removeClass('grey-text').addClass('red-text');
+        if(window.Hybrid.favoriteInit($this.data("id"),$this.data("name"))=="1"){
+          $this.removeClass('grey-text');
+          $( "ul li:nth-child("+count+")" ).before($this.parent());
+          count=count+1;
+        }
       })
-      $(".alarm").click(function(){
+      $(".favorite").click(function(){
         var $this=$(this);
         if($this.hasClass('grey-text')){
-          $this.removeClass('grey-text').addClass('red-text');
-          window.Hybrid.alarmOn($this.data('id'),$this.data('name'),$this.data('language'));
+          $this.removeClass('grey-text');
+          window.Hybrid.favOn($this.data('id'),$this.data('name'));
         }
         else{
-          $this.removeClass('red-text').addClass('grey-text');
-          window.Hybrid.alarmOff($this.data('id'),$this.data('name'),$this.data('language'));
+          $this.addClass('grey-text');
+          window.Hybrid.favOff($this.data('id'),$this.data('name'));
         }
       })
     }
