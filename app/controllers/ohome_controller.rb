@@ -1,6 +1,6 @@
 require 'Getlist'
 class OhomeController < ApplicationController
-  before_action :banned_user, randomToken, :ohomecookie, except: [:search]
+  before_action :banned_user, :randomToken, :ohomecookie, except: [:search]
   
   include Getlist
   
