@@ -118,6 +118,10 @@ class Data::MenulistsController < ApplicationController
       menulist=Menulist.find_by(kname: string[1])
       keys=["id","kname", "ername", "ename", "jnamea", "cname", "cnameb", "aname", "spanish", "germany", "italia", "portugal","french",'u_picture','u_like']
       name_hash=keys[1..-1].zip(string[1..-1]).to_h
-      menulist ? menulist.update(name_hash.delete_if{|k,v| v.blank?}) : Menulist.new(name_hash).save
+      if menulist
+        menulist.update(name_hash.delete_if{|k,v| v.blank?})
+      elsif !name_hash['kname'].blank?
+        Menulist.new(name_hash).save
+      end
     end
 end

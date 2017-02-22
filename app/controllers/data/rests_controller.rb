@@ -109,7 +109,7 @@ class Data::RestsController < ApplicationController
   
   private
     def rest_params
-      params.require(:rest).permit(:name,:food,:picture,:address,:phone,:open)
+      params.require(:rest).permit(:name,:food,:picture,:address,:phone,:open, :page)
     end
     
     def map_params
