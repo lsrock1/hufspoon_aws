@@ -76,7 +76,7 @@ class Data::RestsController < ApplicationController
     if params[:rest][:name]||params[:rest][:page]
       @rest.update(rest_params)
     elsif params[:rest][:picture]
-      @rest.picture=@rest.picture+params[:rest][:picture]
+      @rest.picture=(@rest.picture||"")+params[:rest][:picture]
       @rest.save
     end
     redirect_to :back
