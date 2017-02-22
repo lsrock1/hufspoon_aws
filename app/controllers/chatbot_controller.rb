@@ -46,11 +46,11 @@ class ChatbotController < ApplicationController
                 user.language=2
             elsif content=="Español"
                 user.language=6
-            elsif content="Deutsch"
+            elsif content=="Deutsch"
                 user.language=7
-            elsif content="Italiano"
+            elsif content=="Italiano"
                 user.language=8
-            elsif content="Português"
+            elsif content=="Português"
                 user.language=9
             end
             user.step=1
