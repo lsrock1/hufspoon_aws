@@ -60,7 +60,7 @@ module HomeHelper
   
   def card_bottom(menu)
     content_tag(:div,class: 'card-action card-icon') do
-      concat content_tag(:div,content_tag(:i,'alarm_on'.html_safe,class: 'material-icons'),class:  'grey-text alarm','data-id' => menu['main'].id,'data-name' => menu['menu'][0],'data-language' => @hashData[menu['id'].to_i][2], style: "display:none;")
+      concat content_tag(:div,content_tag(:i,'alarm_on'.html_safe,class: 'material-icons'),class:  'grey-text alarm','data-id' => menu['main'].id,'data-name' => menu['menu'][0],'data-language' => @hashData[menu['id'].to_i][2], 'data-kname' => menu['main']['kname'], style: "display:none;")
       concat like_icon(menu)
     end
   end
@@ -98,19 +98,19 @@ module HomeHelper
   
   def like_icon(menu)
     if cookies[menu['main'].kname.to_sym]=="1"||session[menu['main'].kname.to_sym]=="1"
-      content_tag(:div,class: 'like red-text text-lighten-3','data-id' => menu['main'].id,'data-name' => menu['menu'][0],'data-language' => @hashData[menu['id'].to_i][2]) do
+      content_tag(:div,class: 'like red-text text-lighten-3','data-id' => menu['main'].id,'data-name' => menu['main']['kname'],'data-language' => @hashData[menu['id'].to_i][2]) do
         concat content_tag(:i,'favorite',class: "material-icons")
         concat "&nbsp;&nbsp;".html_safe
         concat menu['main'].u_like
       end
     elsif cookies[menu['main'].kname.to_sym]=="0"||session[menu['main'].kname.to_sym]=="0"
-      content_tag(:div,class: 'like grey-text','data-id' => menu['main'].id,'data-name' => menu['menu'][0],'data-language' => @hashData[menu['id'].to_i][2]) do
+      content_tag(:div,class: 'like grey-text','data-id' => menu['main'].id,'data-name' => menu['main']['kname'],'data-language' => @hashData[menu['id'].to_i][2]) do
         concat content_tag(:i,'favorite_border',class: "material-icons")
         concat "&nbsp;&nbsp;".html_safe
         concat menu['main'].u_like
       end
     elsif cookies[menu['main'].kname.to_sym]==nil||session[menu['main'].kname.to_sym]==nil
-      content_tag(:div,class: 'like grey-text', 'data-id' => menu['main'].id,'data-name' => menu['menu'][0],'data-language' => @hashData[menu['id'].to_i][2]) do
+      content_tag(:div,class: 'like grey-text', 'data-id' => menu['main'].id,'data-name' => menu['main']['kname'],'data-language' => @hashData[menu['id'].to_i][2]) do
         concat content_tag(:i,'favorite_border', class: "material-icons")
         concat "&nbsp;&nbsp;".html_safe
         concat menu['main'].u_like
