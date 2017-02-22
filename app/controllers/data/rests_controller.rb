@@ -69,12 +69,11 @@ class Data::RestsController < ApplicationController
   
   def edit
     @rest=Rest.find(params[:id])
-    @rest.update(rest_params)
   end
 
   def update
     @rest=Rest.find(params[:id])
-    if params[:rest][:name]
+    if params[:rest][:name]||params[:rest][:page]
       @rest.update(rest_params)
     elsif params[:rest][:picture]
       @rest.picture=@rest.picture+params[:rest][:picture]
