@@ -1,4 +1,4 @@
-require 'SecureRandom'
+require 'securerandom'
 
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
