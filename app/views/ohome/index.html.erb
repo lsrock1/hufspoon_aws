@@ -4,11 +4,10 @@
 <%content_for :search_form do%>
 <nav class="nav_form">
   <div class="nav-wrapper white">
-    <form action="/rests/search">
+    <form action="/rests">
       <div class="input-field">
-        <input id="search" type="search" name="keyword"required>
-        <label for="search"><i class="material-icons">search</i></label>
-        <input name="back" type="hidden" value="<%=@num%>">
+        <input id="search" type="search" name="q"required>
+        <label for="q"><i class="material-icons">search</i></label>
         <i class="material-icons closer">close</i>
       </div>
     </form>
@@ -16,8 +15,8 @@
 </nav>
 <%end%>
 <%content_for :tabs do %>
-<ul class="tabs navi tabs-transparent ohome row">
-<%=tab_lists(@restCategoryHash,@language,@num)%>
+<ul class="tabs navi tabs-transparent ohome">
+<%=tab_lists%>
 </ul>
 <%end%>
 <div class="row">
@@ -28,26 +27,41 @@
   </div>
    
   <div class="col s12 m10 offset-m1 l8 offset-l2">
-    <ul class="collection">
+    <ul class="collection with-header">
+      <%if params[:q]%><li class="collection-header"><h5><%=@q%></h5></li><%end%>
       <%@list.each do |re|%>
       <li class="collection-item avatar">
         <%if re.picture==nil||re.picture==""%><i class="material-icons red lighten-3 circle">restaurant</i><%else%><img src="<%='http'+re.picture.split('http')[1]%>" alt="" class="circle"><%end%>
-        <span class="title"><a href="/rests/<%=re.id%>"><%=re.name%></a></span>
+        <span class="title"><a href="/rests/<%=re.id%>"><%=highlight(re.name,@q)%></a></span>
         <p>
-          <%if re.re_menu%>
-            <%if @language==4%>
-              <%=re.re_menu%>
-            <%elsif @language==0%>
-              <%=re.ere_menu.titleize%>
+          <%if (re.food.include? @q)||(re.name.include? @q)%>
+            <%if re.re_menu%>
+              <%if @language==4%>
+                <%=re.re_menu%>
+              <%elsif @language==0%>
+                <%=re.ere_menu.titleize%>
+              <%else%>
+                <%=re.chinese%>
+              <%end%>
             <%else%>
-              <%=re.chinese%>
+            Welcome to the Restaurant!
             <%end%>
           <%else%>
-          Welcome to the Restaurant!
+            <%temp = re.rmenu.where("menuname like ? or emenuname like ? or cmenuname like ?","%#{@q}%","%#{@q}%","%#{@q}%").order(:pagenum)%>
+            <%if temp.length>0%>
+              <%if temp[0].menuname.include? @q%>
+                <%=highlight(temp[0].menuname, @q)%>
+              <%elsif temp[0].emenuname.include? @q%>
+                <%=highlight(temp[0].emenuname, @q)%>
+              <%else%>
+                <%=highlight(temp[0].cmenuname, @q)%>
+              <%end%>
+            <%end%>
           <%end%>
         </p>
         <div class="secondary-content grey-text favorite" style="display: none;" data-id="<%=re.id%>" data-name="<%=re.name%>" ><i class="material-icons">star_border</i></div>
       </li>
+      <%@all[re.map].append(re)%>
       <%end%>
     </ul>
   </div>
@@ -60,80 +74,8 @@
     <i class="material-icons addbtn" data-angle="0">translate</i>
   </a>
   <ul>
-    <%=oLan_button(@languageHash,@num)%>
+    <%=oLan_button%>
   </ul>
-</div>
-<div id="modal1" class="modal">
-  <div class="modal-content">
-    <h4>Mondayspoon</h4>
-    <p>Email: mondayspoon@gmail.com</p>
-    <div class="divider"></div>
-    <div class="section">
-      <a>Co-founder Marketer & Operator</a>
-      <h5>Jincheol Juhn</h5>
-    </div>
-        
-    <div class="divider"></div>
-    <div class="section">
-      <a>Co-founder Designer</a>
-      <h5>Soyoung Kim</h5>
-    </div>
-        
-    <div class="divider"></div>
-    <div class="section">
-      <a>Co-founder Developer</a>
-      <h5>Sangrok Lee</h5>
-    </div>
-        
-    <div class="divider"></div>
-    <div class="section">
-      <a>Co-founder Marketer & Operator</a>
-      <h5>Seungjoon Lee</h5>
-    </div>
-    
-    <div class="divider"></div>
-    <div class="section">
-      <a>Chinese Language Translator</a>
-      <h5>孙林同</h5>
-    </div>
-        
-    <div class="divider"></div>
-    <div class="section">
-      <a>German Language Translator</a>
-      <h5>Nane Sönnichsen</h5>
-    </div>
-    
-    <div class="divider"></div>
-    <div class="section">
-      <a>Italian Language Translator</a>
-      <h5>Francesca Liyanage</h5>
-    </div>
-    
-    <div class="divider"></div>
-    <div class="section">
-      <a>Italian Language Translator</a>
-      <h5>Arianna Colciago</h5>
-    </div>
-    
-    <div class="divider"></div>
-    <div class="section">
-      <a>Portuguese Language Translator</a>
-      <h5>Laura Torelli</h5>
-    </div>
-    
-    <div class="divider"></div>
-    <div class="section">
-      <a>Spanish Language Translator</a>
-      <h5>Maria Jose Alejandra - Valencia Ramirez</h5>
-    </div>
-    
-    <div class="divider"></div>
-    <div class="section">
-      <a>French Language Translator</a>
-      <h5>Charline Zammit</h5>
-    </div>
-    <br>
-  </div>
 </div>
 <script src="//apis.daum.net/maps/maps3.js?apikey=23598cdf36f0c5f5bf1f1bfda70b8e80&libraries=services"></script>
 <script>
@@ -244,14 +186,14 @@
 
   var markers=[];
   var overlays=[];
-  <%@all.each do |m|%>
+  <%@all.each do |key, value|%>
     markers.push(new own.Marker({
-      position: [<%=m[0]%>,<%=m[1]%>],
+      position: [<%=key.lat%>,<%=key.lon%>],
       map: map,
       clickable: true
     }));
     overlays.push(new own.CustomOverlay({
-      content: '<div class="placeinfo_wrap"><div class="placeinfo"><%m[2].each do |r|%><a class="ptitle" href="/rests/<%=r.id%>"><%=r.name%></a><%end%>'+
+      content: '<div class="placeinfo_wrap"><div class="placeinfo"><%value.each do |r|%><a class="ptitle" href="/rests/<%=r.id%>"><%=r.name%></a><%end%>'+
                 '<span>'+
                 '<span style="text-align: right;" class="material-icons close" aria-hidden="true">clear</span>'+
                 '</span></div>'+

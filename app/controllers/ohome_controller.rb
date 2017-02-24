@@ -29,49 +29,13 @@ class OhomeController < ApplicationController
   
   def index
     @search=true
-    @num=params[:num] ? params[:num].to_i : 0 #음식종류별 화면
-    @all=[]
-    @list=[]
+    @q=params[:q] ? params[:q] : "한식" #음식종류별 화면
+    @all=Hash.new([])
     @restCategoryHash=restCategoryHash
-    @restCategoryHash[@num].append("active")
     @languageHash=oLanguageHash.except(@language)
-    categoryName=@restCategoryHash[@num][0]
-    
-    Map.includes(:rests).all.each do|m|
-     temp=[]
-     string=[]
-     restaurants=m.rests.where(food: categoryName)
-     if restaurants.length>0 #한식,중식,일식으로 레스토랑 검색
-       temp.append(m.lat)
-       temp.append(m.lon)
-       restaurants.each do|e|
-        string.append(e)
-       end
-       temp.append(string)
-       @all.append(temp)
-     end
-    end
-    
-    @list=Rest.where(food: categoryName).sort_by{|a| a.name}
+    @list=Rest.search(@q).sort_by{|a| a.name}
     
     render layout: 'home'
-  end
-  
-  def search
-    @keyword=params[:keyword]
-    @back=params[:back]
-    all=Rmenu.where("menuname like ?", "%" + @keyword + "%")
-    result=all.map {|i| i.rest_id }
-    result=result.uniq
-    @rest=Rest.includes(:rmenu).where("name like ?","%"+@keyword+"%")
-    @result=Rest.includes(:rmenu).where(id: result)
-
-    if @rest.length==0&&@result.length==0
-      all=Rmenu.where("emenuname like ?", "%" + @keyword + "%")
-      result=all.map {|i| i.rest_id }
-      result=result.uniq
-      @result=Rest.includes(:rmenu).where(id: result)
-    end
   end
   
   private

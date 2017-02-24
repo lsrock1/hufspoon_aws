@@ -22,14 +22,25 @@ module HomeHelper
     end
   end
   
-  def lan_button(language,day)
-    capture do
-      language.collect{|key,value|
+  def lan_button
+    left=-90
+    content_tag(:ul) do
+      @languageHash.collect.with_index{|value, index|
       concat(
         content_tag(:li) do
-          content_tag(:a,value[0],class: "btn-floating align-center ",style: "background-color: #{value[1]};",href: '/'+key.to_s+'/'+day.to_s)
+          content_tag(:a, value[1][0], class: "btn-floating align-center", style: "background-color: #{value[1][1]}; background-image: url(#{image_url(value[1][3])}); background-size: cover; background-repeat: no-repeat;",href: "/#{value[0]}/#{@day}")
         end
         )
+      if (index+1)%6==0&&index>0
+        concat("</ul><ul style='left: #{left}px;'>".html_safe)
+        left=left-90
+      elsif index==@languageHash.length-1&&admin_signed_in?
+        concat(
+          content_tag(:li) do
+            content_tag(:a, content_tag(:i, 'refresh', class: 'material-icons'), class: 'btn-floating black align-center', href: '/refresh/#{@day}')
+          end
+        )
+      end
       }
     end
   end

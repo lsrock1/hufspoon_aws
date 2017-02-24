@@ -1,24 +1,22 @@
 module OhomeHelper
-  def tab_lists(language,select_language,food)
-    select_language = select_language==4 ? 0 : 1
-    language[food].append('active')
+  def tab_lists
     capture do
-      language.collect{|key,value|
+      @restCategoryHash.collect{|key,value|
       concat(
-        content_tag(:li,class: 'tab col s3') do
-          content_tag(:a,value[select_language],class: value[2] ,target: "_self",href: "/rests?num="+key.to_s)
+        content_tag(:li,class: 'tab') do
+          content_tag(:a, value[@language], class: (@restCategoryHash[@q]==value)&&'active' ,target: "_self",href: "/rests?q=#{key}")
         end
         )
       }
     end
   end
   
-  def oLan_button(language,num)
+  def oLan_button
     capture do
-      language.collect{|key,value|
+      @languageHash.collect{|key,value|
       concat(
         content_tag(:li) do
-          content_tag(:a,value[0],class: "btn-floating align-center ",style: "background-color: #{value[1]};",href: "/rests?num=#{num}&language=#{key}")
+          content_tag(:a, value[0], class: "btn-floating align-center ", style: "background-color: #{value[1]};", href: "/rests?q=#{@q}&language=#{key}")
         end
         )
       }

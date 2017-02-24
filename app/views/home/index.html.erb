@@ -173,10 +173,7 @@
     <a class="btn-floating btn-large scale-btn scrollUp red">
       <i class="material-icons addbtn" data-angle="0">translate</i>
     </a>
-    <ul>
-      <%=lan_button(@languageHash,@day)%>
-      <%if admin_signed_in?%><li><a class="btn-floating black align-center" href="/refresh/<%=@day%>"><i class="material-icons">refresh</i></a></li><%end%>
-    </ul>
+    <%=lan_button%>
   </div>
   
   <div id="modal1" class="modal">

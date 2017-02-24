@@ -86,6 +86,7 @@ GEM
     orm_adapter (0.5.0)
     pg (0.18.4)
     pkg-config (1.1.7)
+    polyglot (0.3.5)
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -133,6 +134,8 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    search_cop (1.0.7)
+      treetop
     spring (1.7.2)
     sprockets (3.7.0)
       concurrent-ruby (~> 1.0)
@@ -145,6 +148,8 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (2.0.5)
+    treetop (1.6.8)
+      polyglot (~> 0.3)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (3.0.1)
@@ -172,6 +177,7 @@ DEPENDENCIES
   rails_12factor
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
+  search_cop
   spring
   sqlite3
   uglifier (>= 1.3.0)

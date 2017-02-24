@@ -111,12 +111,12 @@ class Data::MenulistsController < ApplicationController
   
   private
     def menulist_params
-      params.require(:menulist).permit(:kname,:ename,:ername,:jnamea,:cname,:cnameb,:aname,:spanish,:germany,:portugal,:italia,:french,:u_picture)
+      params.require(:menulist).permit(:kname,:ename,:ername,:jnamea,:cname,:cnameb,:aname,:spanish,:germany,:portugal,:italia,:french,:esperanto,:u_picture)
     end
     
     def csv_hash string
       menulist=Menulist.find_by(kname: string[1])
-      keys=["id","kname", "ername", "ename", "jnamea", "cname", "cnameb", "aname", "spanish", "germany", "italia", "portugal","french",'u_picture','u_like']
+      keys=["id","kname", "ername", "ename", "jnamea", "cname", "cnameb", "aname", "spanish", "germany", "italia", "portugal","french","esperanto",'u_picture','u_like']
       name_hash=keys[1..-1].zip(string[1..-1]).to_h
       if menulist
         menulist.update(name_hash.delete_if{|k,v| v.blank?})

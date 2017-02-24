@@ -3,11 +3,10 @@
 <%end%>
 <%content_for :search_form do%>
   <div class="nav-wrapper nav_form">
-    <form action="/rests/search" class="white">
+    <form action="/rests" class="white">
       <div class="input-field">
-        <input id="search" type="search" name="keyword"required>
+        <input id="search" type="search" name="q"required>
         <label for="search"><i class="material-icons">search</i></label>
-        <input name="back" value="<%=@back%>" type="hidden">
         <i class="material-icons closer">close</i>
       </div>
     </form>
