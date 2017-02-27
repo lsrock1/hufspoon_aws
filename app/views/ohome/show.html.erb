@@ -12,6 +12,7 @@
     </form>
   </div>
 <%end%>
+
 <div class="row">
   <br>
   <div class="col s12 m10 offset-m1 l8 offset-l2">
@@ -74,10 +75,10 @@
               <td style="width: 50%">
                 <div class="card pMenu">
                   <div class="card-image">
-                    <img class="materialboxed" src="<%=card.picture%>" style="height: 160px;">
+                    <img class="materialboxed showImg" src="<%=card.picture%>">
                   </div>
                   <div class="card-content">
-                    <p class="center-align"><%=card.menuname%> / <%=card.emenuname%> / <%=card.cmenuname%><br/>
+                    <p class="center-align"><%=card.menuname%><br/><%=card.emenuname%><br/><%=card.cmenuname%><br/>
                     <span class="blue-text text-lighten-2"><%=number_with_delimiter(card.cost, :delimiter => ',')%> won</span>
                     </p>
                   </div>
@@ -89,10 +90,10 @@
               <td style="width: 50%">
                 <div class="card pMenu">
                   <div class="card-image">
-                    <img class="materialboxed" src="<%=card.picture%>" style="height: 160px;">
+                    <img class="materialboxed showImg" src="<%=card.picture%>">
                   </div>
                   <div class="card-content">
-                    <p class="center-align"><%=card.menuname%> / <%=card.emenuname%> / <%=card.cmenuname%><br/>
+                    <p class="center-align"><%=card.menuname%><br/><%=card.emenuname%><br/><%=card.cmenuname%><br/>
                     <span class="blue-text text-lighten-2"><%=number_with_delimiter(card.cost, :delimiter => ',')%> won</span>
                     </p>
                   </div>
@@ -114,17 +115,17 @@
         <li>
           <div class="collapsible-header active red-text text-lighten-3"><i class="material-icons">restaurant_menu</i><%if @pages.blank?||@pages[m].blank?%>MENU<%else%><%=@pages[m]%><%end%></div>
           <div class="collapsible-body" style="padding: 0px;">
-            <table class="striped" style="font-size: 12px;">
+            <table class="bordered" style="font-size: 12px;">
               <tbody>
                 <%@menuarray[m].each do|a|%>
                 <tr>
-                  <td class="center">
+                  <td class="center" style="width: 70%">
                     <span class="k"><%=a.menuname%></span><br/>
                     <span class="e"><%=a.emenuname.titleize%></span><br/>
                     <span class="e"><%=a.cmenuname%></span><br/>
                     <%if a.content!=""%><span class="grey-text"><%=a.content%></span><%end%>
                   </td>
-                  <td class="center blue-text text-lighten-2"><%=number_with_delimiter(a.cost, :delimiter => ',')%> won</td>
+                  <td class="center blue-text text-lighten-2" style="width: 30%"><%=number_with_delimiter(a.cost, :delimiter => ',')%> won</td>
                 </tr>
                 <%end%>
               </tbody>

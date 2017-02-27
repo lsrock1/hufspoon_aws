@@ -22,7 +22,7 @@
       </div>
       
       <div class="input-field">
-        <%=f.select :food,options_for_select([["한식","한식"],["일식","일식"],["양식","양식"],["치킨","치킨"],["고기","고기"],["분식/면","분식/면"]],@rest.food)%>
+        <%=f.select :food,options_for_select(@restCategory,@rest.food)%>
         <%=f.label :식당종류%>
       </div>
       

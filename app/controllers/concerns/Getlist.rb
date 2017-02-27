@@ -1,7 +1,7 @@
 module Getlist
   extend ActiveSupport::Concern
   def languageHash
-    return {
+    return {#숫자 => 언어, 버튼색, 언어풀네임(영어로), 배경이미지
         0 => ['EN','#fbadb9','english'],
         4 => ['한글','#f15c63','korean'],
         2 => ['汉语','#fb8354','chinese'],
@@ -16,13 +16,13 @@ module Getlist
   
   def restCategoryHash
     return{#쿼리 => [영어,독음,중국어,일어,한국어]
-      '한식' => ['Korean',"Korean","Korean","Korean","한식"],
-      '일식' => ['Japanese',"Japanese","Japanese","Japanese","일식"],
-      '양식' => ['Western',"Western","Western","Western","양식"],
-      '중식' => ['Chinese','Chinese','Chinese','Chinese',"중식"],
-      '치킨' => ['Chicken','Chicken','Chicken','Chicken',"치킨"],
-      '고기' => ['Meat','Meat','Meat','Meat',"고기"],
-      '분식/면' => ['Snack','Snack','Snack','Snack',"분식/면"]
+      "한식" => ["Korean", "Korean","Korean","Korean","한식"],
+      "일식" => ["Japanese", "Japanese","Japanese","Japanese","일식"],
+      "양식" => ["Western", "Western","Western","Western","양식"],
+      "중식" => ["Chinese", "Chinese","Chinese","Chinese","중식"],
+      "치킨" => ["Chicken", "Chicken","Chicken","Chicken","치킨"],
+      "고기" => ["Meat", "Meat","Meat","Meat","고기"],
+      "분식/면" => ["Snack", "Snack","Snack","Snack","분식/면"]
     }
   end
   

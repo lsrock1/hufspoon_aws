@@ -2,6 +2,7 @@ require 'csv'
 class Data::RestsController < ApplicationController
   before_action :require_login
   layout 'data'
+  include Getlist
   
   def index
     @page=params[:page] ? params[:page].to_i : 1
@@ -11,6 +12,7 @@ class Data::RestsController < ApplicationController
   end
   
   def new
+    @restCategory=restCategoryHash.keys.map{|key| [key, key]}
     @rest=Rest.new
   end
   
@@ -69,6 +71,7 @@ class Data::RestsController < ApplicationController
   
   def edit
     @rest=Rest.find(params[:id])
+    @restCategory=restCategoryHash.keys.map{|key| [key, key]}
   end
 
   def update
