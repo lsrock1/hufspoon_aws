@@ -62,8 +62,8 @@ ActiveRecord::Schema.define(version: 20170224155419) do
     t.datetime "updated_at",                        null: false
     t.string   "address"
     t.integer  "show",       default: 0
-    t.date     "startDate",  default: '2017-02-13', null: false
-    t.date     "endDate",    default: '2017-03-15'
+    t.date     "startDate",  default: '2017-02-27', null: false
+    t.date     "endDate",    default: '2017-03-29'
     t.string   "dayOfWeek",  default: "8"
     t.string   "time",       default: "00"
     t.integer  "language",   default: 0

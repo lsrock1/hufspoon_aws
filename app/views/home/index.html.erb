@@ -253,56 +253,56 @@
   </div>
 <script>
   $(document).ready(function(){
-    $('.addbtn').on('click',function(){
-      var $this=$(this);
-      var word= $this.html()=='translate' ? 'clear' : 'translate' 
-      var angle=$this.data('angle')+90;
+    $(".addbtn").on("click",function(){
+      var $this = $(this),
+        word = $this.html() === "translate" ? "clear" : "translate",
+        angle = $this.data("angle") + 90;
       $this.velocity(
-        {rotateY: angle+'deg'},
+        {rotateY: angle + "deg"},
         {duration: 250,
           complete: function(){
             angle+=90
-            $(this).html(word).velocity({rotateY: angle+'deg'},{duration: 250})
-            $this.data('angle',angle);
+            $(this).html(word).velocity({rotateY: angle + "deg"}, {duration: 250});
+            $this.data("angle", angle);
           }
         }
       );
     });
     
-    $('.adate').on('click',function(){
-      var $this=$(this);
-      var para,add;
-      if ($this.hasClass('dleft')){
-        para=-1;
-        add='<%=@time-1%>'
+    $(".adate").on("click",function(){
+      var $this = $(this),
+        para,
+        add;
+      if ($this.hasClass("dleft")){
+        para = -1;
+        add="<%=@time-1%>";
       }
       else{
-        para=1;
-        add='<%=@time+1%>'
+        para = 1;
+        add = "<%=@time+1%>"
       }
       $this.velocity(
-        {translateX: 10*para+'px'},
+        {translateX: 10 * para + "px"},
         {duration: 200,
           complete: function(){
-            $(this).velocity({translateX: '0px'},{duration: 200})
+            $(this).velocity({translateX: "0px"}, {duration: 200})
           }
         }
       );
-      window.location.href="/<%=@id%>/"+add;
+      window.location.href = "/<%=@id%>/" + add;
     });
     
-    $('.carousel.carousel-slider').carousel({fullWidth: true, indicators: true});
+    $(".carousel.carousel-slider").carousel({fullWidth: true, indicators: true});
     $(".button-collapse").sideNav();
-    var tHeight=$('#humanities').height();
-    var $tabs=$('ul.tabs');
+    var $tabs=$("ul.tabs");
     $tabs.tabs();
-    $('.modal').modal({
+    $(".modal").modal({
       ready: function(){
-        $('.button-collapse').sideNav('hide');
-        $tabs.tabs('select_tab', 'skylounge');
+        $(".button-collapse").sideNav("hide");
+        $("body").bind("touchmove", function(e){e.preventDefault()}).addClass("stop");
       },
       complete: function(){
-        $tabs.tabs('select_tab', 'humanities');
+        $("body").unbind("touchmove").removeClass("stop");
       }
     });
     
@@ -310,24 +310,26 @@
       picker.open();
       event.stopPropagation();
       event.preventDefault();
-    })
+    });
+
     var $ham=$("#row").hammer();
-    $lists=$tabs.find('li');
-    $ham.on('swipeleft',function(event){
-      var next=$lists.find('a.active').parent().next().find('a').attr('href');
+    $lists = $tabs.find("li");
+    $ham.on("swipeleft", function(event){
+      var next=$lists.find("a.active").parent().next().find("a").attr("href");
       if (next){
-        $tabs.tabs('select_tab',next.slice(1));
+        $tabs.tabs("select_tab", next.slice(1));
       }
     })
     
-    $ham.on('swiperight',function(event){
-      var prev=$lists.find('a.active').parent().prev().find('a').attr('href');
+    $ham.on("swiperight", function(event){
+      var prev=$lists.find("a.active").parent().prev().find("a").attr("href");
       if (prev){
-        $tabs.tabs('select_tab',prev.slice(1));
+        $tabs.tabs("select_tab", prev.slice(1));
       }
-    })
+    });
+
     $(".like").click(function(){
-      var did=$(this).data("id");
+      var did = $(this).data("id");
       $.ajax({
         method: "get",
         url: "/like",
@@ -335,59 +337,58 @@
         data: {id: did},
         context: this,
         success: function(data)  {
-          $this=$(this);
+          $this = $(this);
           if($this.hasClass("red-text")){
             $this.velocity(
-              {scaleX: 0,scaleY: 0},
+              {scaleX: 0, scaleY: 0},
               {duration: 200, complete: function(){
                 $this.removeClass("red-text text-lighten-3").addClass("grey-text")
-                .html("<i class='material-icons'>favorite_border</i>&nbsp;&nbsp;"+data.like)
-                .velocity({scaleX: 1,scaleY: 1},{duration: 200})
+                .html("<i class='material-icons'>favorite_border</i>&nbsp;&nbsp;" + data.like)
+                .velocity({scaleX: 1, scaleY: 1}, {duration: 200})
               }}
             );
           }
           else{
             $this.velocity(
-              {scaleX: 0,scaleY: 0},
+              {scaleX: 0, scaleY: 0},
               {duration: 200, complete: function(){
                 $(this).removeClass("grey-text").addClass("red-text text-lighten-3")
-                .html("<i class='material-icons'>favorite</i>&nbsp;&nbsp;"+data.like)
-                .velocity({scaleX: 1,scaleY: 1},{duration: 200})
+                .html("<i class='material-icons'>favorite</i>&nbsp;&nbsp;" + data.like)
+                .velocity({scaleX: 1, scaleY: 1}, {duration: 200})
               }}
             );
           }
         }
       })
     })
-    var lastScrollTop = 0;
-    var $scaleBtn=$('.scale-btn');
-    $scaleBtn.velocity({scaleX: 1,scaleY: 1});
+    var lastScrollTop = 0,
+      $scaleBtn = $('.scale-btn');
+    $scaleBtn.velocity({scaleX: 1, scaleY: 1});
     $(window).scroll(function(event){
       var st = $(this).scrollTop();
-      if (st -lastScrollTop>14 &&$scaleBtn.hasClass('scrollUp')){
-        $scaleBtn.velocity({scaleX: 0,scaleY: 0},{duration: 10}).removeClass('scrollUp').addClass('scrollDown');
-        if($scaleBtn.parent().hasClass('active'))$scaleBtn.trigger('click').addClass('opened');
+      if (st - lastScrollTop > 14 && $scaleBtn.hasClass('scrollUp')){
+        $scaleBtn.velocity({scaleX: 0, scaleY: 0}, {duration: 10}).removeClass('scrollUp').addClass('scrollDown');
+        if($scaleBtn.parent().hasClass('active')) $scaleBtn.trigger('click').addClass('opened');
         lastScrollTop = st;
       }
-      else if(st-lastScrollTop< -14&&$scaleBtn.hasClass('scrollDown')){
-        var com=null;
+      else if(st - lastScrollTop < -14 && $scaleBtn.hasClass('scrollDown')){
+        var com = null;
         if($scaleBtn.hasClass('opened')){
           $scaleBtn.removeClass('opened');
-          com=function(){
+          com = function(){
             $scaleBtn.trigger('click');
           };
         }
-        $scaleBtn.removeClass('scrollDown').addClass('scrollUp').velocity({scaleX: 1,scaleY: 1},{duration: 10,complete: com});
+        $scaleBtn.removeClass('scrollDown').addClass('scrollUp').velocity({scaleX: 1, scaleY: 1},{duration: 10,complete: com});
         lastScrollTop = st;
       }
-      if(st-lastScrollTop>14||st-lastScrollTop<-14) lastScrollTop=st;
+      if(st - lastScrollTop > 14 || st - lastScrollTop < -14) lastScrollTop = st;
     });
-    
-    if((window.Hybrid&&!window.Hybrid.sheet)||!window.Hybrid){
+    if((window.Hybrid && !window.Hybrid.sheet) || !window.Hybrid){
       $(".like").click(function(){
-        $this=$(this);
-        var sdata={id: "<%=@idToken%>"}
-        $this.hasClass("red-text") ? sdata['unlike']=$this.data("name") : sdata['like'] = $this.data("name");
+        var $this = $(this),
+        sdata = {id: "<%=@idToken%>", language: $this.data("language")};
+        $this.hasClass("red-text") ? sdata["unlike"] = $this.data("name") : sdata["like"] = $this.data("name");
         $.ajax({
           url : "https://script.google.com/macros/s/AKfycbyWHxlrR0PTrhykLQUtd7JAagdezT4TzK3ICFwnj0MiwhNUrao/exec",
           dataType : "json",
@@ -402,60 +403,61 @@
     }
     
     if(window.Hybrid){
-      $('.alarm').each(function(){
-        var $this=$(this);
-        var check = window.Hybrid.alarmInit($this.data("id"),$this.data('language'));
-        if(check == '1'){
+      $(".alarm").each(function(){
+        var $this = $(this),
+          check = window.Hybrid.alarmInit($this.data("id"), $this.data("language"));
+        if(check === "1"){
           $this.show();
-          $this.removeClass('grey-text').addClass('red-text');
+          $this.removeClass("grey-text").addClass("red-text");
         }
-        else if(check =='0'){
+        else if(check === "0"){
           $this.show();
         }
       })
-      $('.like').each(function(){
-        var $this=$(this); 
-        if (window.Hybrid.likeInit($this.data('id'))=='1'){
-          if($this.hasClass('grey-text')) $this.removeClass('grey-text').addClass('red-text text-lighten-3').find('i').text('favorite');
+      $(".like").each(function(){
+        var $this = $(this); 
+        if (window.Hybrid.likeInit($this.data("id")) === "1"){
+          if($this.hasClass("grey-text")) $this.removeClass("grey-text").addClass("red-text text-lighten-3").find("i").text("favorite");
         }
         else{
-          if($this.hasClass('red-text')) $this.removeClass('red-text text-lighten-3').addClass('grey-text').find('i').text('favorite_border');
+          if($this.hasClass("red-text")) $this.removeClass("red-text text-lighten-3").addClass("grey-text").find("i").text("favorite_border");
         }
       })
+
       $(".alarm").click(function(){
-        var $this=$(this);
-        if($this.hasClass('grey-text')){
-          $this.removeClass('grey-text').addClass('red-text');
-          window.Hybrid.alarmOn($this.data('id'),$this.data('name'),$this.data('language'),$this.data('kname'));
+        var $this = $(this);
+        if($this.hasClass("grey-text")){
+          $this.removeClass("grey-text").addClass("red-text");
+          window.Hybrid.alarmOn($this.data("id"),$this.data("name"),$this.data("language"),$this.data("kname"));
         }
         else{
-          $this.removeClass('red-text').addClass('grey-text');
-          window.Hybrid.alarmOff($this.data('id'),$this.data('name'),$this.data('language'),$this.data('kname'));
+          $this.removeClass("red-text").addClass("red-text");
+          window.Hybrid.alarmOff($this.data("id"),$this.data("name"),$this.data("language"),$this.data("kname"));
         }
       })
+
       $(".like").click(function(){
-        var $this=$(this);
-        if($this.hasClass('grey-text')){
-          window.Hybrid.like($this.data('id'),$this.data('name'),$this.data('language'));
+        var $this = $(this);
+        if($this.hasClass("grey-text")){
+          window.Hybrid.like($this.data("id"),$this.data("name"),$this.data("language"));
         }
         else{
-          window.Hybrid.unlike($this.data('id'),$this.data('name'),$this.data('language'));
+          window.Hybrid.unlike($this.data("id"),$this.data("name"),$this.data("language"));
         }
       })
-    }
-  })
-  var $input =  $('#datepicker').pickadate({
-    format: 'yyyymmdd',
-    onSet: function(e) {
-      if (e.select) {
-        window.location.href="/<%=@id%>/"+picker.get();
-        this.close();
+    };
+    var $input =  $("#datepicker").pickadate({
+      format: "yyyymmdd",
+      onSet: function(e) {
+        if (e.select) {
+          window.location.href = "/<%=@id%>/" + picker.get();
+          this.close();
+        }
+      },
+      onClose: function(){
+          document.activeElement.blur()
       }
-    },
-    onClose: function(){
-        document.activeElement.blur()
-    }
-  });
-  var picker = $input.pickadate('picker');
-  
+    });
+    var picker = $input.pickadate('picker');
+  })
 </script>

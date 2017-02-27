@@ -18,3 +18,5 @@
 
 #Ignore all excel file
 *.xlsx
+
+*.DS_store
