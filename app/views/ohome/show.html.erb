@@ -59,6 +59,7 @@
       </div>
     </div>
   
+  <%if @picture_exist.length != 0%>
     <ul class="collapsible" data-collapsible="accordion">
       <li>
         <div class="collapsible-header active red-text text-lighten-3"><i class="material-icons">restaurant_menu</i>대표 메뉴(Signature Menu)</div>
@@ -104,7 +105,7 @@
         </div>
       </li>
     </ul>
-
+    <%end%>
     <%@num.times do |m|%>
       <ul class="collapsible" data-collapsible="accordion">
         <li>
