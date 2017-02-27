@@ -56,9 +56,7 @@ class HomeController < ApplicationController
         @id=cookies[:my_language].to_i
       end
     end
-    if cookies.permanent[:my_language] != @id
-      cookies.permanent[:my_language] = @id
-    end
+    cookies.permanent[:my_language] = @id
     
     @languageHash = languageHash
     @current_language = @languageHash.delete(@id)[2]
