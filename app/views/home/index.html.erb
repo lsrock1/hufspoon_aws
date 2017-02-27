@@ -299,10 +299,10 @@
     $(".modal").modal({
       ready: function(){
         $(".button-collapse").sideNav("hide");
-        $("body").bind("touchmove", function(e){e.preventDefault()}).addClass("stop");
+        $("body").bind("touchmove", function(e){e.preventDefault()}).addClass("stop").parent().css("position","relative");
       },
       complete: function(){
-        $("body").unbind("touchmove").removeClass("stop");
+        $("body").unbind("touchmove").removeClass("stop").parent().css("position","");
       }
     });
     
