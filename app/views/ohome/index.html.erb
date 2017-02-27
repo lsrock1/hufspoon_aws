@@ -135,7 +135,7 @@
     })
     $("ul.tabs").tabs();
     if(window.Hybrid&&window.Hybrid.favoriteInit){
-      var count=1;
+      var count = 1;
       $('.favorite').each(function(){
         var $this=$(this);
         $this.show();
@@ -148,30 +148,13 @@
       $(".favorite").click(function(){
         var $this=$(this);
         if($this.hasClass('grey-text')){
-          $this.removeClass('grey-text').find('i').html('star');;
-          window.Hybrid.favOn($this.data('id'),$this.data('name'));
+          $this.removeClass('grey-text').find('i').html("star");;
+          window.Hybrid.favOn($this.data('id'), $this.data("name"), "<%=@current_language%>");
         }
         else{
           $this.addClass('grey-text').find('i').html('star_border');;
-          window.Hybrid.favOff($this.data('id'),$this.data('name'));
+          window.Hybrid.favOff($this.data('id'), $this.data("name"), "<%=@current_language%>");
         }
-      })
-    }
-    else{
-      $(".favorite").click(function(){
-        $this=$(this);
-        var sdata={id: "<%=@idToken%>"}
-        $this.hasClass("grey-text") ? sdata['favorite']=$this.data("name") : sdata['unfavorite'] = $this.data("name");
-        $.ajax({
-          url : "https://script.google.com/macros/s/AKfycbyWHxlrR0PTrhykLQUtd7JAagdezT4TzK3ICFwnj0MiwhNUrao/exec",
-          dataType : "json",
-          method: "get",
-          crossDomain: true,
-          data: sdata,
-          jsonp : "callback",
-          success : function(d){
-          }
-        });
       })
     }
   })

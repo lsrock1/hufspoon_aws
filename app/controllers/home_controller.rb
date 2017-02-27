@@ -50,15 +50,18 @@ class HomeController < ApplicationController
   def index
     @id=params[:id].to_i
     @day=params[:day]
-    @hashData=languageHash()
     #루트로 접속하면 번역은 0이고 데이는 nil이 된다
     if @id==0&&@day==nil
       if cookies[:my_language]!=nil
         @id=cookies[:my_language].to_i
       end
     end
-    cookies.permanent[:my_language]=@id
-    @languageHash=@hashData.except(@id)
+    if cookies.permanent[:my_language] != @id
+      cookies.permanent[:my_language] = @id
+    end
+    
+    @languageHash = languageHash
+    @current_language = @languageHash.delete(@id)[2]
    
     begin
       @time=Date.parse(@day)#get 파라미터로 날짜를 분석

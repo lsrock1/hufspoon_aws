@@ -55,7 +55,7 @@
                 <%var.each do |content|%>
                 <li class="collection-item">
                   <div><%=content[0].titleize%>: <%if content[1]['main']%><%=content[1]['menu'][0]%><%else%>Not Yet!<%end%>
-                    <div class="secondary-content alarm grey-text" style="display: none;" data-language="<%=@hashData[content[1]['id'].to_i][2]%>" data-id="<%=content[1]['main'].id%>" data-name="<%=content[1]['menu'][0]%>">
+                    <div class="secondary-content alarm grey-text" style="display: none;" data-language="<%=@current_language%>" data-id="<%=content[1]['main'].id%>" data-name="<%=content[1]['menu'][0]%>">
                       <i class="material-icons">alarm</i>
                     </div>
                   </div>
@@ -362,24 +362,24 @@
       })
     })
     var lastScrollTop = 0,
-      $scaleBtn = $('.scale-btn');
+      $scaleBtn = $(".scale-btn");
     $scaleBtn.velocity({scaleX: 1, scaleY: 1});
     $(window).scroll(function(event){
       var st = $(this).scrollTop();
-      if (st - lastScrollTop > 14 && $scaleBtn.hasClass('scrollUp')){
-        $scaleBtn.velocity({scaleX: 0, scaleY: 0}, {duration: 10}).removeClass('scrollUp').addClass('scrollDown');
-        if($scaleBtn.parent().hasClass('active')) $scaleBtn.trigger('click').addClass('opened');
+      if (st - lastScrollTop > 14 && $scaleBtn.hasClass("scrollUp")){
+        $scaleBtn.velocity({scaleX: 0, scaleY: 0}, {duration: 10}).removeClass("scrollUp").addClass("scrollDown");
+        if($scaleBtn.parent().hasClass("active")) $scaleBtn.trigger("click").addClass("opened");
         lastScrollTop = st;
       }
-      else if(st - lastScrollTop < -14 && $scaleBtn.hasClass('scrollDown')){
+      else if(st - lastScrollTop < -14 && $scaleBtn.hasClass("scrollDown")){
         var com = null;
-        if($scaleBtn.hasClass('opened')){
-          $scaleBtn.removeClass('opened');
+        if($scaleBtn.hasClass("opened")){
+          $scaleBtn.removeClass("opened");
           com = function(){
-            $scaleBtn.trigger('click');
+            $scaleBtn.trigger("click");
           };
         }
-        $scaleBtn.removeClass('scrollDown').addClass('scrollUp').velocity({scaleX: 1, scaleY: 1},{duration: 10,complete: com});
+        $scaleBtn.removeClass("scrollDown").addClass("scrollUp").velocity({scaleX: 1, scaleY: 1},{duration: 10,complete: com});
         lastScrollTop = st;
       }
       if(st - lastScrollTop > 14 || st - lastScrollTop < -14) lastScrollTop = st;
@@ -387,7 +387,7 @@
     if((window.Hybrid && !window.Hybrid.sheet) || !window.Hybrid){
       $(".like").click(function(){
         var $this = $(this),
-        sdata = {id: "<%=@idToken%>", language: $this.data("language")};
+        sdata = {id: "<%=@idToken%>", language: "<%=@current_language%>"};
         $this.hasClass("red-text") ? sdata["unlike"] = $this.data("name") : sdata["like"] = $this.data("name");
         $.ajax({
           url : "https://script.google.com/macros/s/AKfycbyWHxlrR0PTrhykLQUtd7JAagdezT4TzK3ICFwnj0MiwhNUrao/exec",
@@ -405,7 +405,7 @@
     if(window.Hybrid){
       $(".alarm").each(function(){
         var $this = $(this),
-          check = window.Hybrid.alarmInit($this.data("id"), $this.data("language"));
+          check = window.Hybrid.alarmInit($this.data("id"), "<%=@current_language%>");
         if(check === "1"){
           $this.show();
           $this.removeClass("grey-text").addClass("red-text");
@@ -428,21 +428,21 @@
         var $this = $(this);
         if($this.hasClass("grey-text")){
           $this.removeClass("grey-text").addClass("red-text");
-          window.Hybrid.alarmOn($this.data("id"),$this.data("name"),$this.data("language"),$this.data("kname"));
+          window.Hybrid.alarmOn($this.data("id"), $this.data("name"), "<%=@current_language%>", $this.data("kname"));
         }
         else{
           $this.removeClass("red-text").addClass("red-text");
-          window.Hybrid.alarmOff($this.data("id"),$this.data("name"),$this.data("language"),$this.data("kname"));
+          window.Hybrid.alarmOff($this.data("id"), $this.data("name"), "<%=@current_language%>", $this.data("kname"));
         }
       })
 
       $(".like").click(function(){
         var $this = $(this);
         if($this.hasClass("grey-text")){
-          window.Hybrid.like($this.data("id"),$this.data("name"),$this.data("language"));
+          window.Hybrid.like($this.data("id"), $this.data("name"), "<%=@current_language%>");
         }
         else{
-          window.Hybrid.unlike($this.data("id"),$this.data("name"),$this.data("language"));
+          window.Hybrid.unlike($this.data("id"), $this.data("name"), "<%=@current_language%>");
         }
       })
     };
