@@ -6,7 +6,7 @@
   <div class="nav-wrapper white">
     <form action="/rests">
       <div class="input-field">
-        <input id="search" type="search" name="q"required>
+        <input id="search" type="search" name="q" required>
         <label for="q"><i class="material-icons">search</i></label>
         <i class="material-icons closer">close</i>
       </div>
@@ -32,7 +32,7 @@
       <%@list.each do |re|%>
       <li class="collection-item avatar">
         <%if re.picture==nil||re.picture==""%><i class="material-icons red lighten-3 circle">restaurant</i><%else%><img src="<%='http'+re.picture.split('http')[1]%>" alt="" class="circle"><%end%>
-        <span class="title"><a href="/rests/<%=re.id%>"><%=highlight(re.name,@q)%></a></span>
+        <span class="title"><a href="/rests/<%=re.id%>?index=<%=@q%>"><%=highlight(re.name,@q)%></a></span>
         <p>
           <%if (re.food.include? @q)||(re.name.include? @q)%>
             <%if re.re_menu%>

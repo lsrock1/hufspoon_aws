@@ -1,11 +1,11 @@
 <%content_for :left do%>
-  <a href="<%if @back==-1%>/<%else%>/rests?num=<%=@back%><%end%>" class="grey-text"><i class="material-icons">undo</i></a>
+  <a href="<%if @back==-1%>/<%else%>/rests?q=<%=@back%><%end%>" class="grey-text"><i class="material-icons">undo</i></a>
 <%end%>
 <%content_for :search_form do%>
   <div class="nav-wrapper nav_form">
     <form action="/rests" class="white">
       <div class="input-field">
-        <input id="search" type="search" name="q"required>
+        <input id="search" type="search" name="q" required>
         <label for="search"><i class="material-icons">search</i></label>
         <i class="material-icons closer">close</i>
       </div>
@@ -14,7 +14,6 @@
 <%end%>
 
 <div class="row">
-  <br>
   <div class="col s12 m10 offset-m1 l8 offset-l2">
     <div class="card">
       <div class="card-content card_top">
@@ -59,9 +58,7 @@
         </div>
       </div>
     </div>
-  </div>
   
-  <div class="col s12 m10 offset-m1 l8 offset-l2">
     <ul class="collapsible" data-collapsible="accordion">
       <li>
         <div class="collapsible-header active red-text text-lighten-3"><i class="material-icons">restaurant_menu</i>대표 메뉴(Signature Menu)</div>
@@ -107,9 +104,7 @@
         </div>
       </li>
     </ul>
-  </div>
-  
-  <div class="col s12 m10 offset-m1 l8 offset-l2">
+
     <%@num.times do |m|%>
       <ul class="collapsible" data-collapsible="accordion">
         <li>
