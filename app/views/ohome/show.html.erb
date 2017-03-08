@@ -1,5 +1,5 @@
 <div class="card" style="margin-top: 0px;">
-  <nav style="display: none; position: absolute; top: 0px; width: 100%; height: 56px;" class="nav_form">
+  <nav style="display: none; position: absolute; top: 0px; width: 100%; height: 56px; box-shadow: none; z-index: 2;" class="nav_form">
     <form action="/rests">
       <div class="input-field">
         <input id="search" type="search" name="q" required>
@@ -8,13 +8,13 @@
       </div>
     </form>
   </nav>
-  <nav class="main_nav" style="position: absolute; top: 0px; width: 100%; opacity: 0.3; height: 56px; z-index: 2;">
+  <nav class="main_nav" style="position: absolute; top: 0px; width: 100%; opacity: 0.3; height: 56px; z-index: 2; box-shadow: none;">
     <ul class="left">
-      <li><a href="<%if @back==-1%>/<%else%>/rests?q=<%=@back%><%end%>"><i class="material-icons">undo</i></a></li>
+      <li><a href="<%if @back==-1%>/<%else%>/rests?q=<%=@back%><%end%>"><i class="material-icons black-text">undo</i></a></li>
     </ul>
     <ul class="right">
       <li><a id="kakao-link-btn" href="javascript:;" style="height: 56px;" class="waves-effect waves-light right"><img style = "height: 40px; vertical-align: middle;" src="//dev.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_small.png"/></a></li>
-      <li><a><i class="material-icons opener">search</i></a></li>
+      <li><a><i class="material-icons opener black-text">search</i></a></li>
     </ul>
   </nav>
   <%if @rest.picture!=""&&@rest.picture!=nil%>
@@ -140,40 +140,6 @@
 <script src="//apis.daum.net/maps/maps3.js?apikey=23598cdf36f0c5f5bf1f1bfda70b8e80&libraries=services"></script>
 <script>
  $(document).ready(function(){
-   var container = document.getElementById('map');
-	var option = {
-	  center: [<%=@map.lat%>,<%=@map.lon%>],
-		level: 2
-	};
-	
-	var roadContainer=document.getElementById('roadView');
-
-	var map = new own.DaumMap(container, option);
-  var roadView=new own.DaumRoadView(roadContainer);
-  
-  roadView.position({position: [<%=@map.lat%>,<%=@map.lon%>]});
-  
-  var markerOption={
-    position: [<%=@map.lat%>,<%=@map.lon%>],
-    map: map,
-    clickable: true
-  };
-  
-  var overlayOption={
-    content: '<div class="placeinfo_wrap"><div class="placeinfo"><a class="ptitle" ><%=@rest.name%></a><span>'+
-              '<span style="text-align: right;" class="material-icons close" aria-hidden="true">clear</span>'+
-              '</span></div><div class="after"></div></div>',
-    clickable: true
-  };
-  
-  var markerMap=new own.Marker(markerOption);
-  overlay=new own.CustomOverlay(overlayOption);
-  
-  overlay.onClose('overlay');
-
-  markerMap.on('click',function(){
-    overlay.open(markerMap);
-  });
    $('.collapsible').collapsible();
    $('.materialboxed').materialbox();
    $('.carousel').carousel({fullWidth: true, indicators: true});
@@ -217,8 +183,42 @@
     },
     webButton: {
       text: 'HUFSPOON',
-      url: 'http://www.hfspn.co/rests/<%=@rest.id%>' // 앱 설정의 웹 플랫폼에 등록한 도메인의 URL이어야 합니다.
+      url: 'http://www.hfspn.co/rests/<%=@rest.id%>'
     }
+  });
+  var container = document.getElementById('map');
+	var option = {
+	  center: [<%=@map.lat%>,<%=@map.lon%>],
+		level: 2
+	};
+	
+	var roadContainer=document.getElementById('roadView');
+
+	var map = new own.DaumMap(container, option);
+  var roadView=new own.DaumRoadView(roadContainer);
+  
+  roadView.position({position: [<%=@map.lat%>,<%=@map.lon%>]});
+  
+  var markerOption={
+    position: [<%=@map.lat%>,<%=@map.lon%>],
+    map: map,
+    clickable: true
+  };
+  
+  var overlayOption={
+    content: '<div class="placeinfo_wrap"><div class="placeinfo"><a class="ptitle" ><%=@rest.name%></a><span>'+
+              '<span style="text-align: right;" class="material-icons close" aria-hidden="true">clear</span>'+
+              '</span></div><div class="after"></div></div>',
+    clickable: true
+  };
+  
+  var markerMap=new own.Marker(markerOption);
+  overlay=new own.CustomOverlay(overlayOption);
+  
+  overlay.onClose('overlay');
+
+  markerMap.on('click',function(){
+    overlay.open(markerMap);
   });
  })
 	
