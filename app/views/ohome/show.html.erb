@@ -1,5 +1,5 @@
 <div class="card" style="margin-top: 0px;">
-  <nav style="display: none; position: absolute; top: 0px; width: 100%; height: 56px; box-shadow: none; z-index: 2;" class="nav_form">
+  <nav style="display: none; position: absolute; top: 0px; width: 100%; height: 56px; box-shadow: none; z-index: 2; background-color: transparent;" class="nav_form">
     <form action="/rests">
       <div class="input-field">
         <input id="search" type="search" name="q" required>
@@ -8,13 +8,13 @@
       </div>
     </form>
   </nav>
-  <nav class="main_nav" style="position: absolute; top: 0px; width: 100%; opacity: 0.3; height: 56px; z-index: 2; box-shadow: none;">
+  <nav class="main_nav" style="position: absolute; top: 0px; width: 100%; background-color: transparent; height: 56px; z-index: 2; box-shadow: none;">
     <ul class="left">
-      <li><a href="<%if @back==-1%>/<%else%>/rests?q=<%=@back%><%end%>"><i class="material-icons black-text">undo</i></a></li>
+      <li><a href="<%if @back==-1%>/<%else%>/rests?q=<%=@back%><%end%>"><i class="material-icons white-text">undo</i></a></li>
     </ul>
     <ul class="right">
       <li><a id="kakao-link-btn" href="javascript:;" style="height: 56px;" class="waves-effect waves-light right"><img style = "height: 40px; vertical-align: middle;" src="//dev.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_small.png"/></a></li>
-      <li><a><i class="material-icons opener black-text">search</i></a></li>
+      <li><a><i class="material-icons opener white-text">search</i></a></li>
     </ul>
   </nav>
   <%if @rest.picture!=""&&@rest.picture!=nil%>
