@@ -28,7 +28,7 @@ module HomeHelper
       @languageHash.collect.with_index{|value, index|
       concat(
         content_tag(:li) do
-          content_tag(:a, value[1][0], class: "btn-floating align-center", style: "background-color: #{value[1][1]}; background-image: url(#{image_url(value[1][3])}); background-size: cover; background-repeat: no-repeat;",href: "/#{value[0]}/#{@day}")
+          content_tag(:a, value[1][0], class: "btn-floating align-center", style: "background-color: #{value[1][1]}; background-image: url(#{image_url(value[1][3])}); background-size: cover; background-repeat: no-repeat;", onclick: "languageChange(#{value[0]}, #{@day})")
         end
         )
       if (index+1)%6==0&&index>0

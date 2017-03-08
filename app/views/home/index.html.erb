@@ -188,7 +188,7 @@
           
       <div class="divider"></div>
       <div class="section">
-        <a>Co-founder Designer</a>
+        <a>Co-founder Designer & Marketer</a>
         <h5>Soyoung Kim</h5>
       </div>
 
@@ -204,6 +204,18 @@
         <h5>Seungjoon Lee</h5>
       </div>
       
+      <div class="divider"></div>
+      <div class="section">
+        <a>Marketer</a>
+        <h5>Kyungho Jeung</h5>
+      </div>
+
+      <div class="divider"></div>
+      <div class="section">
+        <a>Marketer</a>
+        <h5>Minji Jeon</h5>
+      </div>
+
       <div class="divider"></div>
       <div class="section">
         <a>Chinese Language Translator</a>
@@ -458,6 +470,9 @@
           document.activeElement.blur()
       }
     });
-    var picker = $input.pickadate('picker');
+    var picker = $input.pickadate("picker");
   })
+  function languageChange(language, date){
+    window.location.replace("/"+ language + "/" + date);
+  }
 </script>

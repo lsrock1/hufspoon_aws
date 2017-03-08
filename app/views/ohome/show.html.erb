@@ -8,12 +8,12 @@
       </div>
     </form>
   </nav>
-  <nav class="main_nav" style="position: absolute; top: 0px; width: 100%; opacity: 0.3; height: 56px">
+  <nav class="main_nav" style="position: absolute; top: 0px; width: 100%; opacity: 0.3; height: 56px; z-index: 2;">
     <ul class="left">
-      <li><a href=""><i class="material-icons">undo</i></a></li>
+      <li><a href="<%if @back==-1%>/<%else%>/rests?q=<%=@back%><%end%>"><i class="material-icons">undo</i></a></li>
     </ul>
     <ul class="right">
-      <li><a id="kakao-link-btn" href="javascript:;" style="height: 56px;" class="waves-effect waves-light right"><img height="56px;" src="//dev.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_small.png"/></a></li>
+      <li><a id="kakao-link-btn" href="javascript:;" style="height: 56px;" class="waves-effect waves-light right"><img style = "height: 40px; vertical-align: middle;" src="//dev.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_small.png"/></a></li>
       <li><a><i class="material-icons opener">search</i></a></li>
     </ul>
   </nav>
