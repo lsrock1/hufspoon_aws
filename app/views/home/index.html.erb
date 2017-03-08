@@ -473,6 +473,11 @@
     var picker = $input.pickadate("picker");
   })
   function languageChange(language, date){
-    window.location.replace("/"+ language + "/" + date);
+    if(history.replaceState){
+      history.replaceState(null, document.title, "/"+ language + "/" + date);
+      history.go(0);
+    }else{
+      location.replace("/"+ language + "/" + date);
+    }
   }
 </script>
