@@ -34,7 +34,7 @@ class OhomeController < ApplicationController
     @languageHash = oLanguageHash
     @current_language = @languageHash.delete(@language)[2]
     @list=Rest.search(@q).sort_by{|a| a.name}
-    
+    @list.map{|item| @all[item.map].append(item)}
     render layout: "ah"
   end
   
