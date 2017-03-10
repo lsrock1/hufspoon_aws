@@ -28,11 +28,11 @@
    
   <div class="col s12 m10 offset-m1 l8 offset-l2">
     <ul class="collection with-header">
-      <%if params[:q]%><li class="collection-header"><h5><%=@q%></h5></li><%end%>
+      <%if params[:q]%><li class="collection-header"><h5><%if @restCategoryHash[@q]%><%=@restCategoryHash[@q][@language]%><%else%><%=@q%><%end%></h5></li><%end%>
       <%@list.each do |re|%>
       <li class="collection-item avatar">
         <%if re.picture==nil||re.picture==""%><i class="material-icons red lighten-3 circle">restaurant</i><%else%><img src="<%='http'+re.picture.split('http')[1]%>" alt="" class="circle"><%end%>
-        <span class="title"><a href="/rests/<%=re.id%>?index=<%=@q%>"><%=highlight(re.name,@q)%></a></span>
+        <span class="title"><a href="/rests/<%=re.id%><%if params[:q]%>?index=<%=@q%><%end%>"><%=highlight(re.name,@q)%></a></span>
         <p>
           <%if (re.food.include? @q)||(re.name.include? @q)%>
             <%if re.re_menu%>
@@ -148,11 +148,11 @@
       $(".favorite").click(function(){
         var $this=$(this);
         if($this.hasClass('grey-text')){
-          $this.removeClass('grey-text').find('i').html("star");;
+          $this.removeClass('grey-text').find('i').html("star");
           window.Hybrid.favOn($this.data('id'), $this.data("name"), "<%=@current_language%>");
         }
         else{
-          $this.addClass('grey-text').find('i').html('star_border');;
+          $this.addClass('grey-text').find('i').html('star_border');
           window.Hybrid.favOff($this.data('id'), $this.data("name"), "<%=@current_language%>");
         }
       })

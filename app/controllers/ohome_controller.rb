@@ -24,7 +24,7 @@ class OhomeController < ApplicationController
     @num=@menuarray.length
     @picture_exist=@rest.rmenu.select{|item| !item.picture.blank?}
     restCategoryHash=restCategoryHash().map{|key,value| value[0]}
-    @back = params[:index] ? params[:index] : -1
+    @back = params[:index]
   end
   
   def index
