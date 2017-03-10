@@ -311,10 +311,12 @@
     $(".modal").modal({
       ready: function(){
         $(".button-collapse").sideNav("hide");
-        $("html, body").on("touchmove touchstart", function(e){e.preventDefault()}).addClass("stop");
+        if (window.Hybrid && window.Hybrid.type === "android") $("html, body").on("touchmove touchstart", function(e){e.preventDefault()})
+        $("html, body").addClass("stop");
       },
       complete: function(){
-        $("html, body").off("touchmove touchstart").removeClass("stop");
+        if (window.Hybrid && window.Hybrid.type === "android") $("html, body").off("touchmove touchstart");
+        $("html, body").removeClass("stop");
       }
     });
     
