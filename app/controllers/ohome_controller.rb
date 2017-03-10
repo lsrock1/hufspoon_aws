@@ -29,12 +29,11 @@ class OhomeController < ApplicationController
   
   def index
     @q=params[:q] ? params[:q] : "한식" #음식종류별 화면
-    @all=Hash.new([])
+    @all=Hash.new( |hash, key| hash[key] = Array.new )
     @restCategoryHash = restCategoryHash
     @languageHash = oLanguageHash
     @current_language = @languageHash.delete(@language)[2]
     @list=Rest.search(@q).sort_by{|a| a.name}
-    @list.map{|item| @all[item.map].append(item)}
     render layout: "ah"
   end
   
