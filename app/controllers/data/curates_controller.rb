@@ -16,6 +16,7 @@ class Data::CuratesController < ApplicationController
   end
   
   def new
+    @language = languageHash.map{|key, value| [value[2], key]}
     @curate=Curate.new 
   end
   
@@ -40,6 +41,7 @@ class Data::CuratesController < ApplicationController
   end
   
   def edit
+    @language = languageHash.map{|key, value| [value[2], key]}
     @curate=Curate.find(params[:id])
   end
   
