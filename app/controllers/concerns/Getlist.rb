@@ -16,8 +16,8 @@ module Getlist
   
   def restCategoryHash
     return{#쿼리 => [영어,독음,중국어,일어,한국어]
-      "한식" => ["Korean", "Korean","Korean","Korean","한식"],
-      "세계" => ["World", "World","World","World","세계"]
+      "한식" => ["Korean", "Korean","韩式","Korean","한식"],
+      "세계" => ["World", "World","世界","World","세계"]
     }
   end
   
