@@ -27,24 +27,35 @@ class Data::RmenusController < ApplicationController
       end
       redirect_to '/data/rests/'+@rmenu.rest_id.to_s
     end
-    
   end
   
   def update
-    @menulist=Menulist.find_by(kname: params[:rmenu][:menuname])
-    unless @menulist==nil
-      @rmenu=Rmenu.find(params[:id])
-      @rmenu.update(rmenu_params)
-      @rmenu.emenuname=@menulist.ename
-      @rmenu.cmenuname=@menulist.cname
-      @rmenu.save
-      if params[:rmenu][:pagenum].to_i==0
-        rest_remenu @rmenu
+    if params[:all]
+      rest = Rest.find(params[:id])
+      rest.rmenu.each do |item|
+        menulist = Menulist.find_by(kname: item.menuname)
+        item.emenuname = menulist.ename
+        item.cmenuname = menulist.cname
+        item.save
+      end
+    else
+      @menulist=Menulist.find_by(kname: params[:rmenu][:menuname])
+      unless @menulist==nil
+        @rmenu=Rmenu.find(params[:id])
+        @rmenu.update(rmenu_params)
+        @rmenu.emenuname=@menulist.ename
+        @rmenu.cmenuname=@menulist.cname
+        @rmenu.save
+        if params[:rmenu][:pagenum].to_i==0
+          rest_remenu @rmenu
+        end
       end
     end
     redirect_to :back
   end
   
+  
+
   def destroy
     @rmenu=Rmenu.find(params[:id])
     @rmenu.destroy

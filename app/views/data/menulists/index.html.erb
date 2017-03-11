@@ -58,8 +58,8 @@
           <td><%=l.germany%></td>
           <td><%=l.italia%></td>
           <td><%=l.portugal%></td>
-          <td><%=link_to '수정',edit_data_menulist_path(l,:page => @page),{class: :btn, data: {confirm: '정말 수정 하시겠습니까?'}}%></td>
-          <td><%=link_to '삭제',data_menulist_path(l),{class: :btn, method: :delete, data: {confirm: '정말 삭제 하시겠습니까?'}}%></td>
+          <td><%=link_to '수정',edit_data_menulist_path(l, page: @page),{class: :btn, data: {confirm: '정말 수정 하시겠습니까?'}}%></td>
+          <td><%=link_to '삭제',data_menulist_path(l), {class: :btn, method: :delete, data: {confirm: '정말 삭제 하시겠습니까?'}}%></td>
         </tr>
       <%end%>
     <%end%>
@@ -79,7 +79,7 @@
 <%end%>
 <div id="modal" class="modal">
   <div class="modal-content">
-    <%=form_tag({action: :create},multipart: true) do%>
+    <%=form_tag({action: :create}, multipart: true) do%>
       <div class="file-field input-field">
         <div class="btn">
           <span>CSV File</span>

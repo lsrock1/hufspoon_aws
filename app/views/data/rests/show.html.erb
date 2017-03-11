@@ -3,7 +3,7 @@
 <%end%>
 <div class="container">
   <h2><%=@rest.name%></h2>
-  
+  <%=link_to "전체 번역 업데이트", data_rmenu_path(@rest, all: "true"),{class: :btn, method: :patch}%>
   <%=form_for @rmenu, url: data_rmenus_path do |f|%>
     <div class="input-field">
       <%=f.label "메뉴이름"%>
@@ -29,7 +29,7 @@
     <%=f.submit "저장",class: :btn,id: :mrebut%>
   <%end%>
   
-  <button style="display:none"id="mrecan"class="btn">수정취소</button>
+  <button style="display:none" id="mrecan" class="btn">수정취소</button>
   
   <%=form_for @rest, url: data_rest_path do |f|%>
     <div class="form-group">

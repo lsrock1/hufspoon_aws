@@ -14,7 +14,7 @@
 <div class="container">
   <h2>수정해 주세요</h2>
   <%=form_for @menulist, url: data_menulist_path do |f|%>
-    <%=f.text_field :page,value: @page,type: :hidden%>
+    <%=f.text_field :page, value: @page, type: :hidden%>
     <div class="input-field">
       <%=f.label "한글이름"%>
       <%=f.text_field :kname%>
