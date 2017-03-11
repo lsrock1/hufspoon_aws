@@ -18,11 +18,11 @@
     </div>
     <div class="input-field">
       <%=f.label "시작일"%>
-      <%=f.text_field :startDate%>
+      <%=f.text_field :startDate, class: :datepicker%>
     </div>
     <div class="input-field">
       <%=f.label "종료일"%>
-      <%=f.text_field :endDate%>
+      <%=f.text_field :endDate, class: :datepicker%>
     </div>
     <div class="input-field">
       <%=f.label "요일 0:일 1:월 순서, 8: 매일"%>
@@ -43,7 +43,10 @@
   $(".button-collapse").sideNav();
   $('.datepicker').pickadate({
     selectMonths: true, // Creates a dropdown to control month
-    selectYears: 15 // Creates a dropdown of 15 years to control year
+    selectYears: 15, // Creates a dropdown of 15 years to control year
+    onClose: function(){
+      document.activeElement.blur();
+    }
   });
   $('select').material_select();
 </script>
