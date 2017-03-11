@@ -47,14 +47,14 @@
             Welcome to the Restaurant!
             <%end%>
           <%else%>
-            <%temp = re.rmenu.where("menuname like ? or emenuname like ? or cmenuname like ?","%#{@q}%","%#{@q}%","%#{@q}%").order(:pagenum)%>
+            <%temp = re.rmenu.where("lower(menuname) like ? or lower(emenuname) like ? or lower(cmenuname) like ?","%#{@q.to_s.downcase}%","%#{@q.to_s.downcase}%","%#{@q.to_s.downcase}%").order(:pagenum)%>
             <%if temp.length>0%>
-              <%if temp[0].menuname.include? @q%>
-                <%=highlight(temp[0].menuname, @q)%>
-              <%elsif temp[0].emenuname.include? @q%>
-                <%=highlight(temp[0].emenuname, @q)%>
+              <%if temp[0].menuname.downcase.include? @q.downcase%>
+                <%=highlight(temp[0].menuname.downcase, @q.downcase)%>
+              <%elsif temp[0].emenuname.downcase.include? @q.downcase%>
+                <%=highlight(temp[0].emenuname.downcase, @q.downcase)%>
               <%else%>
-                <%=highlight(temp[0].cmenuname, @q)%>
+                <%=highlight(temp[0].cmenuname.downcase, @q.downcase)%>
               <%end%>
             <%end%>
           <%end%>

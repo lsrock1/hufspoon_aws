@@ -81,7 +81,7 @@
                 <img class="materialboxed showImg" src="<%=card.picture%>">
               </div>
               <div class="card-content">
-                <p class="center-align"><%=card.menuname%><br/><%=card.emenuname%><br/><%=card.cmenuname%><br/>
+                <p class="center-align"><%=card.menuname%><br/><%=card.emenuname.titleize%><br/><%=card.cmenuname%><br/>
                 <span class="blue-text text-lighten-2"><%=number_with_delimiter(card.cost, :delimiter => ',')%> won</span>
                 </p>
               </div>
@@ -96,7 +96,7 @@
                 <img class="materialboxed showImg" src="<%=card.picture%>">
               </div>
               <div class="card-content">
-                <p class="center-align"><%=card.menuname%><br/><%=card.emenuname%><br/><%=card.cmenuname%><br/>
+                <p class="center-align"><%=card.menuname%><br/><%=card.emenuname.titleize%><br/><%=card.cmenuname%><br/>
                 <span class="blue-text text-lighten-2"><%=number_with_delimiter(card.cost, :delimiter => ',')%> won</span>
                 </p>
               </div>
