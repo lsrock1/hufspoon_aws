@@ -8,12 +8,11 @@
 </ul>
 <%end%>
 <%content_for :tabs do %>
-<ul class="tabs navi tabs-transparent home tabs-fixed-width">
-  <%=tabs(@w)%>
+<ul class="tabs home navi">
+  <%= tabs %>
 </ul>
 <%end%>
 <input style="display:none;" id="datepicker" type="date"/>
-<p class="center-align dateselect"><i class="material-icons adate dleft">navigate_before</i><a class="representer red-text text-lighten-2"><%if @id==1||@id==2||@id==3||@id==4%><%=@m%> / <%=@d%> &nbsp;<%=@date%><%else%><%=@date%>&nbsp; <%=@d%> / <%=@m%> <%end%></a><i class="material-icons adate dright">navigate_next</i></p>
 <div class="row" id="row">
   <%if @w==0%>
   <div id="humanities" class="col s12">
@@ -166,14 +165,15 @@
       <%end%>
     </div>
       
-  <%end%>    
-  </div>
-    
-  <div class="fixed-action-btn click-to-toggle" style="bottom: 14px; right: 14px;">
-    <a class="btn-floating btn-large scale-btn scrollUp red">
-      <i class="material-icons addbtn" data-angle="0">translate</i>
-    </a>
-    <%=lan_button%>
+  <%end%>
+    <div id="language">
+      <div class="collection">
+        <a href="#!" class="collection-item">Alvin</a>
+        <a href="#!" class="collection-item">Alvin</a>
+        <a href="#!" class="collection-item">Alvin</a>
+        <a href="#!" class="collection-item">Alvin</a>
+      </div>
+    </div>
   </div>
   
   <div id="modal1" class="modal">
@@ -265,10 +265,20 @@
   </div>
 <script>
   $(document).ready(function(){
+    var $tabs = $("ul.tabs"),
+        $nav_extended = $(".nav-extended"),
+        $ham = $("#row").hammer(),
+        lastScrollTop = 0,
+        $scaleBtn = $(".scale-btn"),
+        lastScrollTopNav = 0,
+        $nav_content = $(".nav-content"),
+        nav_height = $nav_extended.height() - $nav_content.height();
+    
     $(".addbtn").on("click",function(){
       var $this = $(this),
         word = $this.html() === "translate" ? "clear" : "translate",
         angle = $this.data("angle") + 90;
+        
       $this.velocity(
         {rotateY: angle + "deg"},
         {duration: 250,
@@ -306,7 +316,6 @@
     
     $(".carousel.carousel-slider").carousel({fullWidth: true, indicators: true});
     $(".button-collapse").sideNav();
-    var $tabs=$("ul.tabs");
     $tabs.tabs();
     $(".modal").modal({
       ready: function(){
@@ -326,7 +335,6 @@
       event.preventDefault();
     });
 
-    var $ham=$("#row").hammer();
     $lists = $tabs.find("li");
     $ham.on("swipeleft", function(event){
       var next=$lists.find("a.active").parent().next().find("a").attr("href");
@@ -375,29 +383,20 @@
         }
       })
     })
-    var lastScrollTop = 0,
-      $scaleBtn = $(".scale-btn");
-    $scaleBtn.velocity({scaleX: 1, scaleY: 1});
+
     $(window).scroll(function(event){
       var st = $(this).scrollTop();
-      if (st - lastScrollTop > 14 && $scaleBtn.hasClass("scrollUp")){
-        $scaleBtn.velocity({scaleX: 0, scaleY: 0}, {duration: 10}).removeClass("scrollUp").addClass("scrollDown");
-        if($scaleBtn.parent().hasClass("active")) $scaleBtn.trigger("click").addClass("opened");
+      if (st - lastScrollTop > 14 && $nav_extended.hasClass("scrollUp")){
+        $nav_extended.velocity({translateY: -1 * nav_height}, {duration: 500}).removeClass("scrollUp").addClass("scrollDown");
         lastScrollTop = st;
       }
-      else if(st - lastScrollTop < -14 && $scaleBtn.hasClass("scrollDown")){
-        var com = null;
-        if($scaleBtn.hasClass("opened")){
-          $scaleBtn.removeClass("opened");
-          com = function(){
-            $scaleBtn.trigger("click");
-          };
-        }
-        $scaleBtn.removeClass("scrollDown").addClass("scrollUp").velocity({scaleX: 1, scaleY: 1},{duration: 10,complete: com});
+      else if(st - lastScrollTop < -14 && $nav_extended.hasClass("scrollDown")){
+        $nav_extended.velocity({translateY: 0}, {duration: 500}).removeClass("scrollDown").addClass("scrollUp");
         lastScrollTop = st;
       }
       if(st - lastScrollTop > 14 || st - lastScrollTop < -14) lastScrollTop = st;
     });
+
     if((window.Hybrid && !window.Hybrid.sheet) || !window.Hybrid){
       $(".like").click(function(){
         var $this = $(this),

@@ -67,7 +67,9 @@
 }
 
 .tabs.navi.home > li > a {
-    font-size: 0.9rem;
+    font-size: 0.7rem;
+    line-height: 15px;
+    padding-top: 2px;
 }
 .tabs.navi.ohome > li > a {
     font-size: 0.7rem;
@@ -108,7 +110,7 @@ ul.left > li > a{
 }
 .navbar-extended-fixed {
   position: relative;
-  height: 104px;
+  height: 112px;
   z-index: 998;
 }
 .navbar-extended-fixed nav {
@@ -117,28 +119,13 @@ ul.left > li > a{
 
 @media only screen and (min-width: 601px){
   .navbar-extended-fixed {
-    height: 112px;
+    height: 120px;
   }
 }
 
 .divider{
   background-color: #A0A0A0;
   opacity: 0.2;
-}
-
-.adate{
- vertical-align: middle;
- font-weight: bold;
- font-size: 23px;
- color: #ef5350;
-}
-
-.dleft{
-  margin-right: 10px;
-}
-
-.dright{
-  margin-left: 10px;
 }
 
 .dateselect{
@@ -163,6 +150,21 @@ ul.left > li > a{
 .showImg{
   height: 160px;
 }
+
+.toolbar{
+  position: fixed;
+  bottom: 0px;
+  height: 48px;
+  width: 100%;
+}
+
+body{
+  padding-bottom: 48px;
+}
+// .toolbar ul{
+//   position: fixed;
+//   bottom: 0;
+// }
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.
