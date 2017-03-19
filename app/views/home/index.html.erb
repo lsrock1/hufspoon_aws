@@ -265,9 +265,8 @@
         lastScrollTop = 0,
         $toolbar = $(".toolbar"),
         lastScrollTopNav = 0,
-        $nav_content = $(".nav-content"),
-        nav_height = $nav_extended.height() - $nav_content.height();
-    
+        $nav_content = $(".nav-content");
+
     $(".adate").on("click",function(){
       var $this = $(this),
         para,
@@ -292,7 +291,12 @@
     });
     
     $(".carousel.carousel-slider").carousel({fullWidth: true, indicators: true});
-    $(".button-collapse").sideNav();
+    $(".button-collapse").sideNav(
+      {
+        menuWidth: 250,
+        draggable: false
+      }
+      );
     $tabs.tabs();
     $(".modal").modal({
       ready: function(){
@@ -348,18 +352,26 @@
       })
     })
 
-    $nav_extended.velocity({translateY: 0, complete: function(){$nav_extended.css("transform", "")}});
-
     $(window).scroll(function(event){
       var st = $(this).scrollTop();
       if (st - lastScrollTop > 14 && $nav_extended.hasClass("scrollUp")){
-        $nav_extended.velocity({translateY: -1 * nav_height}, {duration: 500}).removeClass("scrollUp").addClass("scrollDown");
-        $toolbar.slideUp();
+        $nav_extended.velocity({translateY: -1 * ($nav_extended.height()-$nav_content.height())}, {duration: 800}).removeClass("scrollUp").addClass("scrollDown");
+        $toolbar.velocity({translateY: 48}, {duration: 800});
         lastScrollTop = st;
       }
       else if(st - lastScrollTop < -14 && $nav_extended.hasClass("scrollDown")){
-        $nav_extended.velocity({translateY: 0}, {duration: 500, complete: function(){$nav_extended.css("transform", "")}}).removeClass("scrollDown").addClass("scrollUp");
-        $toolbar.slideDown();
+        $nav_extended.velocity(
+          {translateY: 0},
+          {
+            duration: 800,
+            complete: function(){
+            $nav_extended.css("transform", "");
+            }
+          }
+        )
+        .removeClass("scrollDown")
+        .addClass("scrollUp");
+        $toolbar.velocity({translateY: 0}, {duration: 800, complete: function(){$toolbar.css("transform", "")}});
         lastScrollTop = st;
       }
       if(st - lastScrollTop > 14 || st - lastScrollTop < -14) lastScrollTop = st;
