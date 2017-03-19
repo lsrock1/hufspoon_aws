@@ -59,7 +59,7 @@ class HomeController < ApplicationController
     cookies.permanent[:my_language] = @id
     
     @languageHash = languageHash
-    @current_language = @languageHash.delete(@id)[2]
+    @current_language = @languageHash[@id][2]
    
     begin
       @time=Date.parse(@day)#get 파라미터로 날짜를 분석

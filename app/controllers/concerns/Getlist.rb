@@ -2,15 +2,15 @@ module Getlist
   extend ActiveSupport::Concern
   def languageHash
     return {#숫자 => 언어, 버튼색, 언어풀네임(영어로), 배경이미지
-        0 => ['EN','#fbadb9','english'],
-        4 => ['한글','#f15c63','korean'],
-        2 => ['汉语','#fb8354','chinese'],
-        6 => ['ES','#ffb533','spanish'],
-        7 => ['DE','#9aca40','germany'],
-        8 => ['ITA', '#85c9f0','italia'],
-        9 => ['PO','#4b92c8','portugal'],
-        10 => ['FR','#ddc1fc','france'],
-        11 => ['EP','#ddc1fc','esperanto','flag.png']
+        4 => ["한국어",'#f15c63','korean'],
+        2 => ["汉语",'#fb8354','chinese'],
+        7 => ["Deutsch",'#9aca40','germany'],
+        0 => ["English",'#fbadb9','english'],
+        6 => ["Español",'#ffb533','spanish'],
+        11 => ["Esperanto",'#ddc1fc','esperanto'],
+        10 => ["Français",'#ddc1fc','france'],
+        8 => ["Italiano", '#85c9f0','italia'],
+        9 => ["Português",'#4b92c8','portugal'],
       }
   end
   

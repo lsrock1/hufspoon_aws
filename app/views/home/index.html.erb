@@ -167,12 +167,7 @@
       
   <%end%>
     <div id="language">
-      <div class="collection">
-        <a href="#!" class="collection-item">Alvin</a>
-        <a href="#!" class="collection-item">Alvin</a>
-        <a href="#!" class="collection-item">Alvin</a>
-        <a href="#!" class="collection-item">Alvin</a>
-      </div>
+      <%= lan_collection%>
     </div>
   </div>
   
@@ -267,29 +262,12 @@
   $(document).ready(function(){
     var $tabs = $("ul.tabs"),
         $nav_extended = $(".nav-extended"),
-        $ham = $("#row").hammer(),
+        $ham = $("html").hammer(),
         lastScrollTop = 0,
-        $scaleBtn = $(".scale-btn"),
+        $toolbar = $(".toolbar"),
         lastScrollTopNav = 0,
         $nav_content = $(".nav-content"),
         nav_height = $nav_extended.height() - $nav_content.height();
-    
-    $(".addbtn").on("click",function(){
-      var $this = $(this),
-        word = $this.html() === "translate" ? "clear" : "translate",
-        angle = $this.data("angle") + 90;
-        
-      $this.velocity(
-        {rotateY: angle + "deg"},
-        {duration: 250,
-          complete: function(){
-            angle+=90
-            $(this).html(word).velocity({rotateY: angle + "deg"}, {duration: 250});
-            $this.data("angle", angle);
-          }
-        }
-      );
-    });
     
     $(".adate").on("click",function(){
       var $this = $(this),
@@ -337,17 +315,11 @@
 
     $lists = $tabs.find("li");
     $ham.on("swipeleft", function(event){
-      var next=$lists.find("a.active").parent().next().find("a").attr("href");
-      if (next){
-        $tabs.tabs("select_tab", next.slice(1));
-      }
+      $("dright").trigger("click");
     })
     
     $ham.on("swiperight", function(event){
-      var prev=$lists.find("a.active").parent().prev().find("a").attr("href");
-      if (prev){
-        $tabs.tabs("select_tab", prev.slice(1));
-      }
+      $("dleft").trigger("click");
     });
 
     $(".like").click(function(){
@@ -388,10 +360,12 @@
       var st = $(this).scrollTop();
       if (st - lastScrollTop > 14 && $nav_extended.hasClass("scrollUp")){
         $nav_extended.velocity({translateY: -1 * nav_height}, {duration: 500}).removeClass("scrollUp").addClass("scrollDown");
+        $toolbar.slideUp();
         lastScrollTop = st;
       }
       else if(st - lastScrollTop < -14 && $nav_extended.hasClass("scrollDown")){
-        $nav_extended.velocity({translateY: 0}, {duration: 500}).removeClass("scrollDown").addClass("scrollUp");
+        $nav_extended.velocity({translateY: 0}, {duration: 500, complete: function(){$(this).css("transform", "")}}).removeClass("scrollDown").addClass("scrollUp");
+        $toolbar.slideDown();
         lastScrollTop = st;
       }
       if(st - lastScrollTop > 14 || st - lastScrollTop < -14) lastScrollTop = st;
@@ -473,6 +447,7 @@
     });
     var picker = $input.pickadate("picker");
   })
+
   function languageChange(language, date){
     if(history.replaceState){
       history.replaceState(null, document.title, "/"+ language + "/" + date);

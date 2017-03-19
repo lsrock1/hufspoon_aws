@@ -33,26 +33,17 @@ module HomeHelper
     end
   end
   
-  def lan_button
-    left=-90
-    content_tag(:ul) do
-      @languageHash.collect.with_index{|value, index|
-      concat(
-        content_tag(:li) do
-          content_tag(:a, value[1][0], class: "btn-floating align-center", style: "background-color: #{value[1][1]}; background-image: url(#{image_url(value[1][3])}); background-size: cover; background-repeat: no-repeat;", onclick: "languageChange(#{value[0]}, #{@day})")
-        end
-        )
-      if (index+1)%6==0&&index>0
-        concat("</ul><ul style='left: #{left}px;'>".html_safe)
-        left=left-90
-      elsif index==@languageHash.length-1&&admin_signed_in?
-        concat(
-          content_tag(:li) do
-            content_tag(:a, content_tag(:i, 'refresh', class: 'material-icons'), class: 'btn-floating black align-center', href: '/refresh/#{@day}')
-          end
-        )
+  def lan_collection
+    puts @languageHash
+    puts @id
+    @languageHash[@id].append("active")
+    content_tag(:div, class: :collection) do 
+      @languageHash.collect do |key, item|
+        concat content_tag(:a, item[0], class: "collection-item #{item[3]}", onclick: "languageChange(#{key}, #{@day})")
       end
-      }
+      if admin_signed_in?
+        concat content_tag(:a, "새로고침",class: "collection-item", href: "/refresh/#{@day}")
+      end
     end
   end
   
