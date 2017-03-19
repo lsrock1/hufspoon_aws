@@ -262,7 +262,6 @@
   $(document).ready(function(){
     var $tabs = $("ul.tabs"),
         $nav_extended = $(".nav-extended"),
-        $ham = $("html").hammer(),
         lastScrollTop = 0,
         $toolbar = $(".toolbar"),
         lastScrollTopNav = 0,
@@ -314,13 +313,6 @@
     });
 
     $lists = $tabs.find("li");
-    $ham.on("swipeleft", function(event){
-      $("dright").trigger("click");
-    })
-    
-    $ham.on("swiperight", function(event){
-      $("dleft").trigger("click");
-    });
 
     $(".like").click(function(){
       var did = $(this).data("id");
