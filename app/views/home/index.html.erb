@@ -348,6 +348,8 @@
       })
     })
 
+    $nav_extended.velocity({translateY: 0, complete: function(){$nav_extended.css("transform", "")}});
+
     $(window).scroll(function(event){
       var st = $(this).scrollTop();
       if (st - lastScrollTop > 14 && $nav_extended.hasClass("scrollUp")){
@@ -356,7 +358,7 @@
         lastScrollTop = st;
       }
       else if(st - lastScrollTop < -14 && $nav_extended.hasClass("scrollDown")){
-        $nav_extended.velocity({translateY: 0}, {duration: 500, complete: function(){$(this).css("transform", "")}}).removeClass("scrollDown").addClass("scrollUp");
+        $nav_extended.velocity({translateY: 0}, {duration: 500, complete: function(){$nav_extended.css("transform", "")}}).removeClass("scrollDown").addClass("scrollUp");
         $toolbar.slideDown();
         lastScrollTop = st;
       }
