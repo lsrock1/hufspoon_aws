@@ -38,14 +38,16 @@
     <nav class="nav-extended scrollUp">
       <div class="nav-wrapper">
         <ul id="slide-out" class="side-nav">
-          <%= yield :link%>
+          <li><a href="/rests" ><img src="https://s19.postimg.org/m3k4a1ukz/logo.png" style="height: 100%; vertical-align: middle;"></a></li>
+          <li><a class="modal-trigger" href="#modal2" >MAP</a></li>
           <li><a href="/posts">Q & A</a></li>
           <li><a href="https://www.facebook.com/hufspoon/?ref=aymt_homepage_panel" >HUFSPOON FACEBOOK</a></li>
           <li><a class="modal-trigger" href="#modal1" >MONDAYSPOON</a></li>
         </ul>
         
         <ul class="left hide-on-med-and-down">
-          <%=yield :link%>
+          <li><a href="/rests" ><img src="https://s19.postimg.org/m3k4a1ukz/logo.png" style="height: 100%; vertical-align: middle;"></a></li>
+          <li><a class="modal-trigger" href="#modal2" >MAP</a></li>
           <li><a href="/posts">Q & A</a></li>
           <li><a href="https://www.facebook.com/hufspoon/?ref=aymt_homepage_panel">HUFSPOON FACEBOOK</a></li>
           <li><a class="modal-trigger" href="#modal1">MONDAYSPOON</a></li>
@@ -53,7 +55,7 @@
         
         <a href=# data-activates="slide-out" class="button-collapse grey-text"><i class="material-icons">menu</i></a>
 
-        <a href="/" class="brand-logo center" ><%=image_tag 'title.png',class: :title%></a>
+        <a href="/" class="brand-logo center" ><%=image_tag 'title.png', class: :title%></a>
         
       </div>
       <div class="nav-content" style="height: 56px; vertical-align: middle; line-height: 56px">
