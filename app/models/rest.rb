@@ -6,6 +6,6 @@ class Rest < ActiveRecord::Base
     
     search_scope :search do
       attributes :food, :name
-      attributes :rmenu => ["rmenu.menuname","rmenu.emenuname","rmenu.cmenuname"]
+      attributes :rmenu => ["rmenu.menuname", "rmenu.emenuname", "rmenu.cmenuname"]
     end
 end

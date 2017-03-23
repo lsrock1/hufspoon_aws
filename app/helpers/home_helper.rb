@@ -34,8 +34,6 @@ module HomeHelper
   end
   
   def lan_collection
-    puts @languageHash
-    puts @id
     @languageHash[@id].append("active")
     content_tag(:div, class: :collection) do 
       @languageHash.collect do |key, item|
@@ -133,15 +131,16 @@ module HomeHelper
   
   def curate(list)
     unless list.blank?
-    capture do
-      list.collect{|n|
-        concat(content_tag(:div,class: :card) do
-          concat(content_tag(:div,class: 'card-image') do
-            concat(content_tag(:a,image_tag(n.address),href: "#{n.keyword}"))
+      capture do
+        list.collect{|n|
+          concat(content_tag(:div, class: :card) do
+            concat(content_tag(:div, class: "card-image") do
+              concat(content_tag(:a, image_tag(n.address), href: "#{n.keyword}"))
+            end)
           end)
-        end)
-      }
-    end
+        }
+      end
     end
   end
+
 end

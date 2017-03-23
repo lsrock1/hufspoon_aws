@@ -1,4 +1,6 @@
+require "Getlist"
 class Menulist < ActiveRecord::Base
+  include Getlist
   def self.gettrans kname,id
     menu = self.find_by(kname: kname)
     if nil == menu
@@ -19,21 +21,8 @@ class Menulist < ActiveRecord::Base
         menulist.save()
       return [kname, menulist.updated_at.to_i]
     else
-      word=menu[{
-          0 => 'ename',
-          1 => 'jnamea',
-          2 => 'cname',
-          3 => 'cnameb',
-          4 => 'kname',
-          5 => 'aname',
-          6 => 'spanish',
-          7 => 'germany',
-          8 => 'italia',
-          9 => 'portugal',
-          10 => 'french',
-          11 => 'esperanto'
-        }[id]]
-      if word!=""&&word!=nil
+      word = menu[Menulist.new.languageHash[id][1]]
+      if word != "" && word != nil
         return [word, menu.updated_at.to_i]
       else
         return [kname,menu.updated_at.to_i]
