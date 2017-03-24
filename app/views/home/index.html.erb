@@ -11,7 +11,7 @@
       <% if @ran_rest%>
       <div class="card">
         <div class="card-image">
-          <%if @ran_rest.picture!=""&&@ran_rest.picture%>
+          <%if @ran_rest.picture != "" && @ran_rest.picture%>
           <div class="carousel carousel-slider" style="max-width: 100%; height: 200px;">
             <% @ran_rest.picture.split('http')[1..-1].each do |p|%>
               <a class="carousel-item"><img src="http<%=p%>" height="200"></a>
@@ -345,25 +345,25 @@
 
     $(window).scroll(function(event){
       var st = $(this).scrollTop();
-      if (st - lastScrollTop > 14 && $nav_extended.hasClass("scrollUp")){
-        $nav_extended.velocity({translateY: -1 * ($nav_extended.height()-$nav_content.height())}, {duration: 800}).removeClass("scrollUp").addClass("scrollDown");
-        $toolbar.velocity({translateY: 48}, {duration: 800});
-        lastScrollTop = st;
-      }
-      else if(st - lastScrollTop < -14 && $nav_extended.hasClass("scrollDown")){
-        $nav_extended.velocity(
-          {translateY: 0},
-          {
-            duration: 800,
-            complete: function(){
-            $nav_extended.css("transform", "");
+      if (st >= 0 && st + $(window).height() <= document.body.clientHeight){
+        if (st - lastScrollTop > 14 && $nav_extended.hasClass("scrollUp")){
+          $nav_extended.velocity({translateY: -1 * ($nav_extended.height()-$nav_content.height())}, {duration: 800}).removeClass("scrollUp").addClass("scrollDown");
+          $toolbar.velocity({translateY: 48}, {duration: 800});
+        }
+        else if(st - lastScrollTop < -14 && $nav_extended.hasClass("scrollDown")){
+          $nav_extended.velocity(
+            {translateY: 0},
+            {
+              duration: 800,
+              complete: function(){
+              $nav_extended.css("transform", "");
+              }
             }
-          }
-        )
-        .removeClass("scrollDown")
-        .addClass("scrollUp");
-        $toolbar.velocity({translateY: 0}, {duration: 800, complete: function(){$toolbar.css("transform", "")}});
-        lastScrollTop = st;
+          )
+          .removeClass("scrollDown")
+          .addClass("scrollUp");
+          $toolbar.velocity({translateY: 0}, {duration: 800, complete: function(){$toolbar.css("transform", "")}});
+        }
       }
       if(st - lastScrollTop > 14 || st - lastScrollTop < -14) lastScrollTop = st;
     });
