@@ -73,9 +73,9 @@
         <tbody>
           <%(@picture_exist.length/2.0).ceil.times do |number|%>
           <tr>
-          <%card=@picture_exist[number*2]%>
+          <%card = @picture_exist[number*2]%>
           <%if card%>
-          <td style="width: 50%">
+          <td style="width: 50%; vertical-align: top;">
             <div class="card pMenu">
               <div class="card-image">
                 <img class="materialboxed showImg" src="<%=card.picture%>">
@@ -90,7 +90,7 @@
           <%end%>
           <%card = @picture_exist[number*2+1]%>
           <%if card%>
-          <td style="width: 50%">
+          <td style="width: 50%; vertical-align: top;">
             <div class="card pMenu">
               <div class="card-image">
                 <img class="materialboxed showImg" src="<%=card.picture%>">

@@ -2,7 +2,7 @@
   <li><a href="/">HUFS</a></li>
 <%end%>
 <%content_for :search_form do%>
-<nav class="nav_form">
+<nav class="nav_form" style="z-index: 997;">
   <div class="nav-wrapper white">
     <form action="/rests">
       <div class="input-field">
@@ -125,13 +125,13 @@
     });
     $(".button-collapse").sideNav();
     $(".opener").click(function(){
-      $(".main_nav").hide();
-      $(".nav_form").fadeIn();
+      $(".nav_extended").velocity({translateY: -56},{duration: 800});
+      $(".nav_form").show();
       document.getElementById("search").focus();
     })
     $(".closer").click(function(){
       $(".nav_form").hide();
-      $(".main_nav").fadeIn();
+      $(".nav_extended").velocity({translateY: 0},{duration: 800});
     })
     $("ul.tabs").tabs();
     if(window.Hybrid&&window.Hybrid.favoriteInit){
