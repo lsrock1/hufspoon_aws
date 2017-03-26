@@ -2,7 +2,7 @@
   <li><a href="/">HUFS</a></li>
 <%end%>
 <%content_for :search_form do%>
-<nav class="nav_form" style="z-index: 997;">
+<nav class="nav_form" style="z-index: 999; position: absolute; top: 0px;">
   <div class="nav-wrapper white">
     <form action="/rests">
       <div class="input-field">
@@ -80,10 +80,18 @@
 <script src="//apis.daum.net/maps/maps3.js?apikey=23598cdf36f0c5f5bf1f1bfda70b8e80&libraries=services"></script>
 <script>
   $(document).ready(function(){
+    var lastScrollTop = 0,
+      $scaleBtn = $('.scale-btn'),
+      $navbar_extended_fixed = $(".navbar-extended-fixed"),
+      $nav_form = $(".nav_form");
+    
+    $scaleBtn.velocity({scaleX: 1, scaleY: 1});
+    
     $('.addbtn').on('click',function(){
-      var $this=$(this);
-      var word= $this.html()=='translate' ? 'clear' : 'translate' 
-      var angle=$this.data('angle')+90;
+      var $this = $(this),
+        word = $this.html() === "translate" ? "clear" : "translate", 
+        angle = $this.data("angle") + 90;
+      
       $this.velocity(
         {rotateY: angle+'deg'},
         {duration: 250,
@@ -95,9 +103,7 @@
         }
       );
     });
-    var lastScrollTop = 0;
-    var $scaleBtn=$('.scale-btn');
-    $scaleBtn.velocity({scaleX: 1,scaleY: 1});
+    
     $(window).scroll(function(event){
       var st = $(this).scrollTop();
       if (st -lastScrollTop>14 &&$scaleBtn.hasClass('scrollUp')){
@@ -106,34 +112,39 @@
         lastScrollTop = st;
       }
       else if(st-lastScrollTop< -14&&$scaleBtn.hasClass('scrollDown')){
-        var com=null;
+        var com = null;
         if($scaleBtn.hasClass('opened')){
           $scaleBtn.removeClass('opened');
-          com=function(){
+          com = function(){
             $scaleBtn.trigger('click');
           };
         }
-        $scaleBtn.removeClass('scrollDown').addClass('scrollUp').velocity({scaleX: 1,scaleY: 1},{duration: 10,complete: com});
+        $scaleBtn.removeClass('scrollDown').addClass('scrollUp').velocity({scaleX: 1, scaleY: 1},{duration: 10,complete: com});
         lastScrollTop = st;
       }
-      if(st-lastScrollTop>14||st-lastScrollTop<-14) lastScrollTop=st;
+      if(st - lastScrollTop > 14 || st - lastScrollTop < -14) lastScrollTop=st;
     });
+    
     $('.modal').modal({
       ready: function(){
         $('.button-collapse').sideNav('hide');
       }
     });
+    
     $(".button-collapse").sideNav();
+    
     $(".opener").click(function(){
-      $(".nav_extended").velocity({translateY: -56},{duration: 800});
-      $(".nav_form").show();
+      $navbar_extended_fixed.velocity({translateY: -56},{duration: 800});
+      $nav_form.fadeIn();
       document.getElementById("search").focus();
     })
     $(".closer").click(function(){
-      $(".nav_form").hide();
-      $(".nav_extended").velocity({translateY: 0},{duration: 800});
+      $nav_form.fadeOut();
+      $navbar_extended_fixed.velocity({translateY: 0},{duration: 800});
     })
+    
     $("ul.tabs").tabs();
+    
     if(window.Hybrid&&window.Hybrid.favoriteInit){
       var count = 1;
       $('.favorite').each(function(){

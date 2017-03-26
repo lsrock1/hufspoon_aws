@@ -9,7 +9,7 @@ module HomeHelper
   
   def tabs
     hash={
-      0 =>[['Around HUFS']],
+      0 =>[['AroundHUFS'], ['MENU_Preview']],
       6 =>[['humanities']]
     }
     hash[@w]= hash[@w] ? hash[@w] : [['humanities','active'],['faculty'],['skylounge']]

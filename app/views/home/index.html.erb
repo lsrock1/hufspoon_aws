@@ -6,7 +6,7 @@
 <input style="display:none;" id="datepicker" type="date"/>
 <div class="row" id="row">
   <%if @w==0%>
-  <div id="humanities" class="col s12">
+  <div id="AroundHUFS" class="col s12">
     <div class="col s12 m8 offset-m2 l6 offset-l3">
       <% if @ran_rest%>
       <div class="card">
@@ -30,8 +30,10 @@
         </div>
       </div>
       <%end%>
-      
-      <ul class="collapsible" data-collapsible="accordion">
+    </div>
+  </div>
+  <div id="MENU_Preview">
+    <ul class="collapsible" data-collapsible="accordion">
         <li>
           <div class="collapsible-header">Next Week Preview</div>
         </li>
@@ -60,7 +62,6 @@
         </li>
         <%end%>
       </ul>
-    </div>
   </div>
   <%else%>
     <div id="humanities" class="col s12">
@@ -201,6 +202,12 @@
         <a>Marketer</a>
         <h5>Minji Jeon</h5>
       </div>
+      
+      <div class="divider"></div>
+      <div class="section">
+        <a>Marketer</a>
+        <h5>Jisoo Han</h5>
+      </div>
 
       <div class="divider"></div>
       <div class="section">
@@ -256,7 +263,8 @@
         lastScrollTop = 0,
         $toolbar = $(".toolbar"),
         lastScrollTopNav = 0,
-        $nav_content = $(".nav-content");
+        $nav_content = $(".nav-content"),
+        $lists = $tabs.find("li");
 
     $(".adate").on("click",function(){
       var $this = $(this),
@@ -306,8 +314,6 @@
       event.stopPropagation();
       event.preventDefault();
     });
-
-    $lists = $tabs.find("li");
 
     $(".like").click(function(){
       var did = $(this).data("id");
