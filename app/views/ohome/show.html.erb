@@ -1,5 +1,5 @@
-<div class="card" style="margin-top: 0px;">
-  <nav style="display: none; position: absolute; top: 0px; width: 100%; height: 56px; box-shadow: none; z-index: 2; background-color: transparent;" class="nav_form">
+<div class="card show">
+  <nav id="form_nav" style="display: none;">
     <form action="/rests">
       <div class="input-field">
         <input id="search" type="search" name="q" required>
@@ -8,7 +8,7 @@
       </div>
     </form>
   </nav>
-  <nav class="main_nav" style="position: absolute; top: 0px; width: 100%; background-color: transparent; height: 56px; z-index: 2; box-shadow: none;">
+  <nav id="main_nav">
     <ul class="left">
       <li><a href="<%if @back=="backhome"%>/<%elsif @back == nil%>/rests<%else%>/rests?q=<%=@back%><%end%>"><i class="material-icons <%if @rest.picture == "" || @rest.picture == nil%>black-text<%else%>white-text<%end%>">undo</i></a></li>
     </ul>
@@ -68,17 +68,17 @@
 <ul class="collapsible" data-collapsible="accordion">
   <li>
     <div class="collapsible-header active red-text text-lighten-3"><i class="material-icons">restaurant_menu</i>대표 메뉴(Signature Menu)</div>
-    <div class="collapsible-body" style="padding: 0px; background-color: white;">
+    <div class="collapsible-body show signature">
       <table>
         <tbody>
           <%(@picture_exist.length/2.0).ceil.times do |number|%>
           <tr>
           <%card = @picture_exist[number*2]%>
           <%if card%>
-          <td style="width: 50%; vertical-align: top;">
-            <div class="card pMenu">
+          <td>
+            <div class="card">
               <div class="card-image">
-                <img class="materialboxed showImg" src="<%=card.picture%>">
+                <img class="materialboxed" src="<%=card.picture%>">
               </div>
               <div class="card-content">
                 <p class="center-align"><%=card.menuname%><br/><%=card.emenuname.titleize%><br/><%=card.cmenuname%><br/>
@@ -90,10 +90,10 @@
           <%end%>
           <%card = @picture_exist[number*2+1]%>
           <%if card%>
-          <td style="width: 50%; vertical-align: top;">
-            <div class="card pMenu">
+          <td>
+            <div class="card">
               <div class="card-image">
-                <img class="materialboxed showImg" src="<%=card.picture%>">
+                <img class="materialboxed" src="<%=card.picture%>">
               </div>
               <div class="card-content">
                 <p class="center-align"><%=card.menuname%><br/><%=card.emenuname.titleize%><br/><%=card.cmenuname%><br/>
@@ -102,6 +102,8 @@
               </div>
             </div>
           </td>
+          <%else%>
+          <td></td>
           <%end%>
           </tr>
           <%end%>
@@ -115,18 +117,18 @@
   <ul class="collapsible" data-collapsible="accordion">
     <li>
       <div class="collapsible-header active red-text text-lighten-3"><i class="material-icons">restaurant_menu</i><%if @pages.blank?||@pages[m].blank?%>MENU<%else%><%=@pages[m]%><%end%></div>
-      <div class="collapsible-body" style="padding: 0px;">
-        <table class="bordered" style="font-size: 12px;">
+      <div class="collapsible-body show menus">
+        <table class="bordered">
           <tbody>
             <%@menuarray[m].each do|a|%>
             <tr>
-              <td class="center" style="width: 70%">
-                <span class="k"><%=a.menuname%></span><br/>
-                <span class="e"><%=a.emenuname.titleize%></span><br/>
-                <span class="e"><%=a.cmenuname%></span><br/>
+              <td class="center name">
+                <span><%=a.menuname%></span><br/>
+                <span><%=a.emenuname.titleize%></span><br/>
+                <span><%=a.cmenuname%></span><br/>
                 <%if a.content!=""%><span class="grey-text"><%=a.content%></span><%end%>
               </td>
-              <td class="center blue-text text-lighten-2" style="width: 30%"><%=number_with_delimiter(a.cost, :delimiter => ',')%> won</td>
+              <td class="center cost blue-text text-lighten-2"><%=number_with_delimiter(a.cost, :delimiter => ',')%> won</td>
             </tr>
             <%end%>
           </tbody>
@@ -140,24 +142,30 @@
 <script src="//apis.daum.net/maps/maps3.js?apikey=23598cdf36f0c5f5bf1f1bfda70b8e80&libraries=services"></script>
 <script>
  $(document).ready(function(){
+   var $main_nav = $("#main_nav"),
+     $form_nav = $("#form_nav");
+
    $('.collapsible').collapsible();
    $('.materialboxed').materialbox();
    $('.carousel').carousel({fullWidth: true, indicators: true});
-  $(".opener").click(function(){
-    $(".main_nav").hide();
-    $(".nav_form").fadeIn();
-    document.getElementById("search").focus();
-  })
-  $(".closer").click(function(){
-    $(".nav_form").hide();
-    $(".main_nav").fadeIn();
-  })
-  $('ul.tabs').tabs({
-    onShow: function(){
-      map.relayout();
-      map.center([<%=@map.lat%>,<%=@map.lon%>]);
-    }
-  });
+   
+   $(".opener").click(function(){
+     $main_nav.hide();
+     $form_nav.fadeIn();
+     document.getElementById("search").focus();
+   })
+
+   $(".closer").click(function(){
+     $form_nav.hide();
+     $main_nav.fadeIn();
+   })
+
+   $('ul.tabs').tabs({
+     onShow: function(){
+       map.relayout();
+       map.center([<%=@map.lat%>,<%=@map.lon%>]);
+     }
+   });
 
   $('#roadBtn').click(function(){
     var $this=$(this);

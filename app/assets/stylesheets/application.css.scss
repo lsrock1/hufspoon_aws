@@ -54,9 +54,6 @@
     -webkit-appearance: none;
     width: 0px;
 }
-.nav_form{
-	display: none;
-}
 
 .tabs.navi.ohome > li > a{
   color: #ef9a9a !important;
@@ -158,18 +155,10 @@ ul.left > li > a{
   padding: 5px;
 }
 
-.pMenu{
-  box-shadow: none;
-}
-
 .stop{
   height: 100%;
   overflow: hidden;
   position: relative;
-}
-
-.showImg{
-  height: 160px;
 }
 
 .toolbar{
@@ -182,6 +171,55 @@ ul.left > li > a{
 
 body{
   padding-bottom: 48px;
+}
+
+.card.show{
+  margin-top: 0px;
+}
+
+.card.show nav{
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  height: 56px;
+  box-shadow: none;
+  z-index: 2;
+  background-color: transparent;
+}
+
+.show.collapsible-body.signature{
+  padding: 0px;
+  background-color: white;
+  border-bottom: 0px !important;
+}
+
+.show.collapsible-body.signature td{
+  width: 50%;
+  vertical-align: top;
+}
+
+.show.collapsible-body.signature div.card{
+  box-shadow: none;
+}
+
+.show.collapsible-body.signature img{
+  height: 160px;
+}
+
+.show.collapsible-body.menus{
+  padding: 0px;
+}
+
+.show.collapsible-body.menus table{
+  font-size: 12px;
+}
+
+.show.collapsible-body.menus td.name{
+  width: 70%;
+}
+
+.show.collapsible-body.menus td.cost{
+  width: 30%;
 }
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
