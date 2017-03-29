@@ -1,28 +1,12 @@
-<%content_for :link do%>
-  <li><a href="/">HUFS</a></li>
-<%end%>
-<%content_for :search_form do%>
-<nav class="nav_form" style="z-index: 999; position: absolute; top: 0px;">
-  <div class="nav-wrapper white">
-    <form action="/rests">
-      <div class="input-field">
-        <input id="search" type="search" name="q" required>
-        <label for="q"><i class="material-icons">search</i></label>
-        <i class="material-icons closer">close</i>
-      </div>
-    </form>
-  </div>
-</nav>
-<%end%>
 <%content_for :tabs do %>
-<ul class="tabs navi tabs-transparent ohome">
-<%=tab_lists%>
+<ul class="tabs tabs-transparent">
+  <%=tab_lists%>
 </ul>
 <%end%>
 <div class="row">
   <div class="col s12 m10 offset-m1 l8 offset-l2">
     <div class="card">
-      <div class="card-content" id="map" style="height:300px;"></div>
+      <div class="card-content" id="map"></div>
     </div>
   </div>
    
@@ -83,7 +67,7 @@
     var lastScrollTop = 0,
       $scaleBtn = $('.scale-btn'),
       $navbar_extended_fixed = $(".navbar-extended-fixed"),
-      $nav_form = $(".nav_form");
+      $form_nav = $(".form_nav");
     
     $scaleBtn.velocity({scaleX: 1, scaleY: 1});
     
@@ -135,11 +119,11 @@
     
     $(".opener").click(function(){
       $navbar_extended_fixed.velocity({translateY: -56},{duration: 800});
-      $nav_form.fadeIn();
+      $form_nav.fadeIn();
       document.getElementById("search").focus();
     })
     $(".closer").click(function(){
-      $nav_form.fadeOut();
+      $form_nav.fadeOut();
       $navbar_extended_fixed.velocity({translateY: 0},{duration: 800});
     })
     

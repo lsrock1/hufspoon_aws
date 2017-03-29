@@ -55,12 +55,7 @@
     width: 0px;
 }
 
-.tabs.navi.ohome > li > a{
-  color: #ef9a9a !important;
-  font-size: 0.7rem;
-}
-
-.card-tabs.show{
+.card-tabs.show a{
   color: #ef9a9a !important;
 }
 
@@ -81,6 +76,7 @@
 .tabs.navi.home > li > a:not(.active){
   color: #e0e0e0;
 }
+
 .left.hide-on-med-and-down > li > a{
   color: #e57373;
 }
@@ -92,11 +88,6 @@
 .brand-logo{
   height: 56px;
   max-height: 100%;
-}
-
-.ahtitle{
-  height: 100%;
-  margin-top: 5px;
 }
 
 .date-title{
@@ -187,7 +178,7 @@ body{
   background-color: transparent;
 }
 
-.show.collapsible-body.signature{
+.show.collapsible-body{
   padding: 0px;
   background-color: white;
   border-bottom: 0px !important;
@@ -206,10 +197,6 @@ body{
   height: 160px;
 }
 
-.show.collapsible-body.menus{
-  padding: 0px;
-}
-
 .show.collapsible-body.menus table{
   font-size: 12px;
 }
@@ -220,6 +207,32 @@ body{
 
 .show.collapsible-body.menus td.cost{
   width: 30%;
+}
+
+body.around #logo{
+  vertical-align: middle;
+  max-height: 100%;
+  height: 2.1rem;
+}
+
+body.around #title{
+  height: 100%;
+  margin-top: 5px;
+}
+
+body.around .form_nav{
+  z-index: 999;
+  position: absolute;
+  top: 0px;
+}
+
+body.around .tabs a{
+  color: #ef9a9a !important;
+  font-size: 0.7rem;
+}
+
+body.around #map{
+  height: 300px;
 }
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
