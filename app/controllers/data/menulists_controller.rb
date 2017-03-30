@@ -36,12 +36,13 @@ class Data::MenulistsController < ApplicationController
       perms=['.csv']
       if perms.include?(File.extname(name).downcase)
         csv_text = file.tempfile.path
-        num=0
+        num = 0
+        keys = Menulist.column_names
         CSV.foreach(csv_text) do |row|
-          unless num==0
-            csv_hash(row)
+          if num == 0
+            num = num + 1
           else
-              num+=1
+            csv_hash(row, keys)
           end
         end
         
@@ -114,10 +115,9 @@ class Data::MenulistsController < ApplicationController
       params.require(:menulist).permit(:kname,:ename,:ername,:jnamea,:cname,:cnameb,:aname,:spanish,:germany,:portugal,:italia,:french,:esperanto,:u_picture)
     end
     
-    def csv_hash string
-      menulist=Menulist.find_by(kname: string[1])
-      keys=["id","kname", "ername", "ename", "jnamea", "cname", "cnameb", "aname", "spanish", "germany", "italia", "portugal","french","esperanto",'u_picture','u_like']
-      name_hash=keys[1..-1].zip(string[1..-1]).to_h
+    def csv_hash string, keys
+      menulist = Menulist.find_by(kname: string[1])
+      name_hash = keys[1..-1].zip(string[1..-1]).to_h
       if menulist
         menulist.update(name_hash.delete_if{|k,v| v.blank?})
       elsif !name_hash['kname'].blank?

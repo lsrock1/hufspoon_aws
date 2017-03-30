@@ -4,21 +4,15 @@ class Menulist < ActiveRecord::Base
   def self.gettrans kname,id
     menu = self.find_by(kname: kname)
     if nil == menu
-      menulist=self.new(
-        kname: kname,
-        ename: kname,
-        ername: kname,
-        jnamea: kname,
-        cname: kname,
-        cnameb: kname,
-        aname: kname,
-        spanish: kname,
-        germany: kname,
-        italia: kname,
-        portugal: kname,
-        french: kname,
-        esperanto: kname)
-        menulist.save()
+      keys = Menulist.column_names
+      keys.delete("id")
+      keys.delete("updated_at")
+      keys.delete("created_at")
+      keys.delete("u_like")
+      keys.delete("u_picture")
+      menulist = self.new(
+        keys.zip([kname]*keys.length))
+        .save()
       return [kname, menulist.updated_at.to_i]
     else
       word = menu[Menulist.new.languageHash[id][1]]

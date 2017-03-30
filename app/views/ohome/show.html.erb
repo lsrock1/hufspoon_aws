@@ -1,5 +1,4 @@
-<div class="card show">
-  <nav id="form_nav" style="display: none;">
+  <nav id="form_nav_show" style="display: none;">
     <form action="/rests">
       <div class="input-field">
         <input id="search" type="search" name="q" required>
@@ -8,17 +7,18 @@
       </div>
     </form>
   </nav>
-  <nav id="main_nav">
+  <nav id="main_nav_show">
     <ul class="left">
       <li><a href="<%if @back=="backhome"%>/<%elsif @back == nil%>/rests<%else%>/rests?q=<%=@back%><%end%>"><i class="material-icons <%if @rest.picture == "" || @rest.picture == nil%>black-text<%else%>white-text<%end%>">undo</i></a></li>
     </ul>
     <ul class="right">
       <li><a id="kakao-link-btn" href="javascript:;" style="height: 56px;" class="waves-effect waves-light right"><img style = "height: 40px; vertical-align: middle;" src="//dev.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_small.png"/></a></li>
-      <li><a><i class="material-icons opener <%if @rest.picture == "" || @rest.picture == nil%>black-text<%else%>white-text<%end%>">search</i></a></li>
+      <li><a><i class="material-icons opener black-text">search</i></a></li>
     </ul>
   </nav>
+<div class="card show">
   <%if @rest.picture!=""&&@rest.picture!=nil%>
-  <div class="carousel carousel-slider card-image" style="max-width: 100%; height: 200px;">
+  <div class="carousel carousel-slider card-image">
     <%@rest.picture.split("http")[1..-1].each do |p|%>
     <a class="carousel-item"><img src="http<%=p%>" height="200"></a>
     <%end%>
@@ -56,10 +56,10 @@
         </tbody>
       </table>
     </div>
-    <div id="dMap" style="position: relative">
-      <div id="map" style="height:300px;"></div>
-      <div id="roadView" style="display:none; height:330px;"></div>
-      <a class="waves-effect waves-light btn red lighten-2" style="position: absolute; top:5px;right:5px;" id="roadBtn" data-type="ROAD">ROAD</a>
+    <div id="dMap">
+      <div id="map"></div>
+      <div id="roadView" style="display:none;"></div>
+      <a class="waves-effect waves-light btn red lighten-2" id="roadBtn" data-type="ROAD">ROAD</a>
     </div>
   </div>
 </div>
