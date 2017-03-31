@@ -27,8 +27,6 @@
               <%else%>
                 <%=re.chinese%>
               <%end%>
-            <%else%>
-            Welcome to the Restaurant!
             <%end%>
           <%else%>
             <%temp = re.rmenu.where("lower(menuname) like ? or lower(emenuname) like ? or lower(cmenuname) like ?","%#{@q.to_s.downcase}%","%#{@q.to_s.downcase}%","%#{@q.to_s.downcase}%").order(:pagenum)%>

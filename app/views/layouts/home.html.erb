@@ -16,17 +16,17 @@
   <meta name="theme-color" content="#ef9a9a"/>
   <meta property="og:type" content="website">
   <meta property="og:title" content="HUFSPOON">
-  <meta property="og:description" content="HUFSPOON은 한국외국어대학교 푸드 플랫폼입니다. 학식 메뉴를 다양한 언어로 확인하고 스마트폰에서 알람을 받을 수 있으며, 주변 식당 또한 종류별로 메뉴 및 위치를 확인할 수 있습니다.">
+  <meta property="og:description" content="HUFSPOON에서 외대 학식 메뉴를 다양한 언어로 확인하고 주변 식당 메뉴 및 위치를 확인할 수 있습니다">
   <meta property="og:url" content="http://www.hfspn.co/">
   <meta property="og:image" content="https://s19.postimg.org/t6g4ugoyb/nail.jpg"/>
   <meta name="twitter:card" content="HUFSPOON은 한국외국어대학교 푸드 플랫폼입니다">
   <meta name="twitter:title" content="HUFSPOON">
-  <meta name="twitter:description" content="HUFSPOON은 한국외국어대학교 푸드 플랫폼입니다. 학식 메뉴를 다양한 언어로 확인하고 스마트폰에서 알람을 받을 수 있으며, 주변 식당 또한 종류별로 메뉴 및 위치를 확인할 수 있습니다.">
+  <meta name="twitter:description" content="HUFSPOON에서 외대 학식 메뉴를 다양한 언어로 확인하고 주변 식당 메뉴 및 위치를 확인할 수 있습니다">
   <meta name="twitter:image" content="http://www.hfspn.co/">
   <meta name="twitter:domain" content="HUFSPOON">
   <meta name="Author" content="MondaySpoon"/>
   <meta name="Keywords" content="korea,hufspoon,travel,journey,food,menu,translate,restaurant"/>
-  <meta name="Description" content="HUFSPOON은 한국외국어대학교 푸드 플랫폼입니다. 학식 메뉴를 다양한 언어로 확인하고 스마트폰에서 알람을 받을 수 있으며, 주변 식당 또한 종류별로 메뉴 및 위치를 확인할 수 있습니다."/>
+  <meta name="Description" content="HUFSPOON에서 외대 학식 메뉴를 다양한 언어로 확인하고 주변 식당 메뉴 및 위치를 확인할 수 있습니다"/>
   <link rel="apple-touch-icon" href="https://s19.postimg.org/6yflp6o0j/apple.png" />
   <%= favicon_link_tag 'favicon.ico' %>
   <%= stylesheet_link_tag    'application', media: 'all'  %>
@@ -38,11 +38,11 @@
     <nav class="nav-extended scrollUp">
       <div class="nav-wrapper">
         <ul id="slide-out" class="side-nav">
-          <li><a href="/rests" ><img src="https://s19.postimg.org/m3k4a1ukz/logo.png" style="height: 100%; vertical-align: middle;"></a></li>
-          <li><a class="modal-trigger" href="#modal2" >MAP</a></li>
-          <li><a href="/posts">Q & A</a></li>
-          <li><a href="https://www.facebook.com/hufspoon/?ref=aymt_homepage_panel" >HUFSPOON FACEBOOK</a></li>
-          <li><a class="modal-trigger" href="#modal1" >MONDAYSPOON</a></li>
+          <li><a href="/rests" onclick="ga('send', 'event', 'side', 'ahufs');"><img src="https://s19.postimg.org/m3k4a1ukz/logo.png" style="height: 100%; vertical-align: middle;"></a></li>
+          <li><a class="modal-trigger" href="#modal2" onclick="ga('send', 'event', 'side', 'map')">MAP</a></li>
+          <li><a href="/posts" onclick="ga('send', 'event', 'side', 'q&a')">Q & A</a></li>
+          <li><a href="https://www.facebook.com/hufspoon/?ref=aymt_homepage_panel" onclick="ga('send', 'event', 'side', 'page')">HUFSPOON FACEBOOK</a></li>
+          <li><a class="modal-trigger" href="#modal1" onclick="ga('send', 'event', 'side', 'member')">MONDAYSPOON</a></li>
         </ul>
         
         <ul class="left hide-on-med-and-down">
@@ -53,17 +53,17 @@
           <li><a class="modal-trigger" href="#modal1">MONDAYSPOON</a></li>
         </ul>
         
-        <a href=# data-activates="slide-out" class="button-collapse grey-text"><i class="material-icons">menu</i></a>
+        <a href=# data-activates="slide-out" class="button-collapse grey-text" onclick="ga('send', 'event', 'side', 'open')"><i class="material-icons">menu</i></a>
 
-        <a href="/" class="brand-logo center" ><%=image_tag 'title.png', class: :title%></a>
+        <a href="/" class="brand-logo center" onclick="ga('send', 'event', 'title', 'title')"><%=image_tag 'title.png', class: :title%></a>
         
       </div>
       <div class="nav-content" style="height: 56px; vertical-align: middle; line-height: 56px">
         <a class="date-title red-text text-lighten-3 left representer"><%if @id==1||@id==2||@id==3||@id==4%><%=@m%> / <%=@d%> &nbsp;<%=@date%><%else%><%=@date%>&nbsp; <%=@d%> / <%=@m%> <%end%></a>
         <ul class="right">
-          <li><a><i class="material-icons grey-text text-darken-2 adate dleft">navigate_before</i></a></li>
-          <li><a><i class="material-icons grey-text text-darken-2 adate dright">navigate_next</i></a></li>
-          <li><a><i class="material-icons grey-text text-darken-2 representer">date_range</i></a></li>
+          <li><a onclick="ga('send', 'event', 'date', 'left')"><i class="material-icons grey-text text-darken-2 adate dleft">navigate_before</i></a></li>
+          <li><a onclick="ga('send', 'event', 'side', 'right')"><i class="material-icons grey-text text-darken-2 adate dright">navigate_next</i></a></li>
+          <li><a onclick="ga('send', 'event', 'side', 'calender')"><i class="material-icons grey-text text-darken-2 representer">date_range</i></a></li>
         </ul>
       </div>
     </nav>

@@ -16,7 +16,7 @@ module HomeHelper
     capture do
       hash[@w].collect{|name|
         concat (content_tag(:li, class: :tab) do
-          content_tag(:a, class: "#{name[1]}", href: "##{name[0]}") do
+          content_tag(:a, class: "#{name[1]}", href: "##{name[0]}", onclick: "ga('send', 'event', 'tablick', #{name[0]});") do
             concat content_tag(:i, "restaurant", class: "material-icons")
             concat tag(:br)
             concat content_tag(:span, name[0].titleize)
@@ -24,7 +24,7 @@ module HomeHelper
         end)
       }
       concat (content_tag(:li, class: :tab) do
-        content_tag(:a, href: "#language") do
+        content_tag(:a, href: "#language", onclick: "ga('send', 'event', 'tablick', 'language');") do
           concat content_tag(:i, :translate, class: "material-icons")
           concat tag(:br)
           concat content_tag(:span, "LANGUAGE")
@@ -135,7 +135,7 @@ module HomeHelper
         list.collect{|n|
           concat(content_tag(:div, class: :card) do
             concat(content_tag(:div, class: "card-image") do
-              concat(content_tag(:a, image_tag(n.address), href: "#{n.keyword}"))
+              concat(content_tag(:a, image_tag(n.address), href: "#{n.keyword}", onclick: "ga('send', 'event', 'curate', '#{@current_language}');"))
             end)
           end)
         }
