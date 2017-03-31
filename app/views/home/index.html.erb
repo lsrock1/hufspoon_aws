@@ -296,7 +296,9 @@
         draggable: false
       }
       );
+
     $tabs.tabs();
+
     $(".modal").modal({
       ready: function(){
         $(".button-collapse").sideNav("hide");
@@ -308,6 +310,23 @@
         $("html, body").removeClass("stop");
       }
     });
+
+    $("#language").hammer().on("pandown", function(event){
+      if($nav_extended.hasClass("scrollDown")){
+        $nav_extended.velocity(
+          {translateY: 0},
+          {
+            duration: 800,
+            complete: function(){
+            $nav_extended.css("transform", "");
+            }
+          }
+        )
+        .removeClass("scrollDown")
+        .addClass("scrollUp");
+        $toolbar.velocity({translateY: 0}, {duration: 800, complete: function(){$toolbar.css("transform", "")}});
+      }
+    })
     
     $(".representer").click(function(){
       picker.open();
