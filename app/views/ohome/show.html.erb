@@ -9,7 +9,7 @@
   </nav>
   <nav id="main_nav_show">
     <ul class="left">
-      <li><a href="<%if @back=="backhome"%>/<%elsif @back == nil%>/rests<%else%>/rests?q=<%=@back%><%end%>"><i class="material-icons <%if @rest.picture == "" || @rest.picture == nil%>black-text<%else%>white-text<%end%>">undo</i></a></li>
+      <li><a href="<%if @back=="backhome"%>/<%elsif @back == nil%>/rests<%else%>/rests?q=<%=@back%><%end%>"><i class="material-icons black-text">undo</i></a></li>
     </ul>
     <ul class="right">
       <li><a id="kakao-link-btn" href="javascript:;" style="height: 56px;" class="waves-effect waves-light right"><img style = "height: 40px; vertical-align: middle;" src="//dev.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_small.png"/></a></li>
@@ -142,12 +142,14 @@
 <script src="//apis.daum.net/maps/maps3.js?apikey=23598cdf36f0c5f5bf1f1bfda70b8e80&libraries=services"></script>
 <script>
  $(document).ready(function(){
-   var $main_nav = $("#main_nav"),
-     $form_nav = $("#form_nav");
+   var $main_nav = $("#main_nav_show"),
+     $form_nav = $("#form_nav_show"),
+     $map = $("#map"),
+     $roadView = $("#roadView");
 
-   $('.collapsible').collapsible();
-   $('.materialboxed').materialbox();
-   $('.carousel').carousel({fullWidth: true, indicators: true});
+   $(".collapsible").collapsible();
+   $(".materialboxed").materialbox();
+   $(".carousel").carousel({fullWidth: true, indicators: true});
    
    $(".opener").click(function(){
      $main_nav.hide();
@@ -175,8 +177,8 @@
     else{
       $this.text('ROAD').data('type','ROAD');
     }
-    $('#map').toggle();
-    $('#roadView').toggle();
+    $map.toggle();
+    $roadView.toggle();
     map.relayout();
     roadView.relayout();
   });
