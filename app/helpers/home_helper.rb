@@ -135,7 +135,7 @@ module HomeHelper
         list.collect{|n|
           concat(content_tag(:div, class: :card) do
             concat(content_tag(:div, class: "card-image") do
-              concat(content_tag(:a, image_tag(n.address), href: "#{n.keyword}", onclick: "ga('send', 'event', 'curate', '#{@current_language}');"))
+              concat(content_tag(:a, image_tag(n.address), href: "#{n.keyword}", onclick: "ga('send', 'event', 'banner', 'click', '#{n.keyword}', '#{@current_language}');"))
             end)
           end)
         }
