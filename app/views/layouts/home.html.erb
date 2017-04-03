@@ -38,11 +38,11 @@
     <nav class="nav-extended scrollUp">
       <div class="nav-wrapper">
         <ul id="slide-out" class="side-nav">
-          <li><a href="/rests" onclick="ga('send', 'event', 'side', 'ahufs');"><img src="https://s19.postimg.org/m3k4a1ukz/logo.png" style="height: 100%; vertical-align: middle;"></a></li>
-          <li><a class="modal-trigger" href="#modal2" onclick="ga('send', 'event', 'side', 'map')">MAP</a></li>
-          <li><a href="/posts" onclick="ga('send', 'event', 'side', 'q&a')">Q & A</a></li>
-          <li><a href="https://www.facebook.com/hufspoon/?ref=aymt_homepage_panel" onclick="ga('send', 'event', 'side', 'page')">HUFSPOON FACEBOOK</a></li>
-          <li><a class="modal-trigger" href="#modal1" onclick="ga('send', 'event', 'side', 'member')">MONDAYSPOON</a></li>
+          <li><a href="/rests" onclick="ga('send', 'event', 'click', 'ahufs');"><img src="https://s19.postimg.org/m3k4a1ukz/logo.png" style="height: 100%; vertical-align: middle;"></a></li>
+          <li><a class="modal-trigger" href="#modal2" onclick="ga('send', 'event', 'click', 'map')">MAP</a></li>
+          <li><a href="/posts" onclick="ga('send', 'event', 'click', 'q&a')">Q & A</a></li>
+          <li><a href="https://www.facebook.com/hufspoon/?ref=aymt_homepage_panel" onclick="ga('send', 'event', 'click', 'facebookpage')">HUFSPOON FACEBOOK</a></li>
+          <li><a class="modal-trigger" href="#modal1" onclick="ga('send', 'event', 'click', 'member')">MONDAYSPOON</a></li>
         </ul>
         
         <ul class="left hide-on-med-and-down">
@@ -53,17 +53,17 @@
           <li><a class="modal-trigger" href="#modal1">MONDAYSPOON</a></li>
         </ul>
         
-        <a href=# data-activates="slide-out" class="button-collapse grey-text" onclick="ga('send', 'event', 'side', 'open')"><i class="material-icons">menu</i></a>
+        <a href=# data-activates="slide-out" class="button-collapse grey-text"><i class="material-icons">menu</i></a>
 
-        <a href="/" class="brand-logo center" onclick="ga('send', 'event', 'title', 'title')"><%=image_tag 'title.png', class: :title%></a>
+        <a href="/" class="brand-logo center" onclick="ga('send', 'event', 'click', 'title')"><%=image_tag 'title.png', class: :title%></a>
         
       </div>
       <div class="nav-content" style="height: 56px; vertical-align: middle; line-height: 56px">
         <a class="date-title red-text text-lighten-3 left representer"><%if @id==1||@id==2||@id==3||@id==4%><%=@m%> / <%=@d%> &nbsp;<%=@date%><%else%><%=@date%>&nbsp; <%=@d%> / <%=@m%> <%end%></a>
         <ul class="right">
-          <li><a onclick="ga('send', 'event', 'date', 'left')"><i class="material-icons grey-text text-darken-2 adate dleft">navigate_before</i></a></li>
-          <li><a onclick="ga('send', 'event', 'date', 'right')"><i class="material-icons grey-text text-darken-2 adate dright">navigate_next</i></a></li>
-          <li><a onclick="ga('send', 'event', 'date', 'calender')"><i class="material-icons grey-text text-darken-2 representer">date_range</i></a></li>
+          <li><a onclick="ga('send', 'event', 'click', 'yesterday')"><i class="material-icons grey-text text-darken-2 adate dleft">navigate_before</i></a></li>
+          <li><a onclick="ga('send', 'event', 'click', 'tomorrow')"><i class="material-icons grey-text text-darken-2 adate dright">navigate_next</i></a></li>
+          <li><a onclick="ga('send', 'event', 'click', 'calender')"><i class="material-icons grey-text text-darken-2 representer">date_range</i></a></li>
         </ul>
       </div>
     </nav>
