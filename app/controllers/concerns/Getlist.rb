@@ -23,9 +23,9 @@ module Getlist
   
   def oLanguageHash
     return {
-        0 => ['EN','#fbadb9','english'],
-        4 => ['한글','#f15c63','korean'],
-        2 => ['汉语','#fb8354','chinese']
+        0 => ["English", "english"],
+        4 => ["한국어", "korean"],
+        2 => ["汉语", "chinese"]
       }
   end
 end

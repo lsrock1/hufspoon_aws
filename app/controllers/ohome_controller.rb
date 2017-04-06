@@ -32,9 +32,8 @@ class OhomeController < ApplicationController
     @all=Hash.new{ |hash, key| hash[key] = Array.new }
     @restCategoryHash = restCategoryHash
     @languageHash = oLanguageHash
-    @current_language = @languageHash.delete(@language)[2]
+    @current_language = @languageHash[@language][1]
     @list=Rest.search(@q).sort_by{|a| a.name}
-    render layout: "ah"
   end
   
   private

@@ -63,18 +63,18 @@
   background-color: #ef9a9a !important;
 }
 
-.tabs.navi.home > li > a {
+.toolbar > .tabs > li > a {
   font-size: 0.7rem;
   line-height: 15px;
   padding-top: 2px;
 }
 
-.tabs.navi.home >li > a.active{
+.toolbar > .tabs > li > a.active{
   color: #ef9a9a;
 }
 
-.tabs.navi.home > li > a:not(.active){
-  color: #e0e0e0;
+.toolbar > .tabs > li > a:not(.active){
+  color: #e0e0e0 !important;
 }
 
 .left.hide-on-med-and-down > li > a{
@@ -164,10 +164,6 @@ body{
   padding-bottom: 48px;
 }
 
-.card.show{
-  margin-top: 0px;
-}
-
 .card.show .carousel{
   max-width: 100%;
   height: 200px;
@@ -185,10 +181,6 @@ body{
   position: absolute;
   top: 5px;
   right: 5px;
-}
-
-#form_nav_show, #main_nav_show{
-  height: 56px;
 }
 
 .show.collapsible-body{
@@ -230,18 +222,12 @@ body.around #logo{
 
 body.around #title{
   height: 100%;
-  margin-top: 5px;
 }
 
-body.around .form_nav{
+body.around .form{
   z-index: 999;
   position: absolute;
   top: 0px;
-}
-
-body.around .tabs a{
-  color: #ef9a9a !important;
-  font-size: 0.7rem;
 }
 
 body.around #map{

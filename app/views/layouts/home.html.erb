@@ -33,7 +33,7 @@
   <%= javascript_include_tag 'application'  %>
   <%= csrf_meta_tags %>
 </head>
-<body class="nav">
+<body>
   <div class="navbar-extended-fixed main_nav">
     <nav class="nav-extended scrollUp">
       <div class="nav-wrapper">
@@ -68,9 +68,7 @@
       </div>
     </nav>
   </div>
-  <div class="toolbar z-depth-2">
-    <%= yield :tabs %>
-  </div>
+  <%= yield :tabs %>
   <%= yield %>
   
 </body>

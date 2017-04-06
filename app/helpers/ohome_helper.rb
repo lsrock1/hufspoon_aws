@@ -1,25 +1,10 @@
 module OhomeHelper
-  def tab_lists
-    capture do
-      @restCategoryHash.collect{|key,value|
-      concat(
-        content_tag(:li,class: 'tab') do
-          content_tag(:a, value[@language], class: (@restCategoryHash[@q]==value)&&'active' ,target: "_self",href: "/rests?q=#{key}")
-        end
-        )
-      }
-    end
-  end
-  
-  def oLan_button
-    capture do
-      @languageHash.collect{|key,value|
-      concat(
-        content_tag(:li) do
-          content_tag(:a, value[0], class: "btn-floating align-center ", style: "background-color: #{value[1]};", href: "/rests?q=#{@q}&language=#{key}")
-        end
-        )
-      }
+  def oLan_collection
+    @languageHash[@language].append("active")
+    content_tag(:div, class: :collection) do 
+      @languageHash.collect do |key, item|
+        concat content_tag(:a, item[0], class: "collection-item #{item[2]}", onclick: "languageChange(#{key})")
+      end
     end
   end
 end

@@ -8,28 +8,30 @@ module HomeHelper
   end
   
   def tabs
-    hash={
+    hash = {
       0 =>[['AroundHUFS'], ['MENU_Preview']],
       6 =>[['humanities']]
     }
-    hash[@w]= hash[@w] ? hash[@w] : [['humanities','active'],['faculty'],['skylounge']]
-    capture do
-      hash[@w].collect{|name|
+    hash[@w] = hash[@w] ? hash[@w] : [['humanities','active'],['faculty'],['skylounge']]
+    content_tag(:div, class: "toolbar z-depth-2") do
+      content_tag(:ul, class: :tabs) do
+        hash[@w].collect{|name|
+          concat (content_tag(:li, class: :tab) do
+            content_tag(:a, class: "#{name[1]}", href: "##{name[0]}", onclick: "ga('send', 'event', 'click', #{name[0]}');") do
+              concat content_tag(:i, "restaurant", class: "material-icons")
+              concat tag(:br)
+              concat content_tag(:span, name[0].titleize)
+            end
+          end)
+        }
         concat (content_tag(:li, class: :tab) do
-          content_tag(:a, class: "#{name[1]}", href: "##{name[0]}", onclick: "ga('send', 'event', 'click', #{name[0]}');") do
-            concat content_tag(:i, "restaurant", class: "material-icons")
+          content_tag(:a, href: "#language", onclick: "ga('send', 'event', 'click', 'language');") do
+            concat content_tag(:i, :translate, class: "material-icons")
             concat tag(:br)
-            concat content_tag(:span, name[0].titleize)
+            concat content_tag(:span, "LANGUAGE")
           end
         end)
-      }
-      concat (content_tag(:li, class: :tab) do
-        content_tag(:a, href: "#language", onclick: "ga('send', 'event', 'click', 'language');") do
-          concat content_tag(:i, :translate, class: "material-icons")
-          concat tag(:br)
-          concat content_tag(:span, "LANGUAGE")
-        end
-      end)
+      end
     end
   end
   
