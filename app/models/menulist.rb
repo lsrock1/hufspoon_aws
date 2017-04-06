@@ -10,9 +10,10 @@ class Menulist < ActiveRecord::Base
       keys.delete("created_at")
       keys.delete("u_like")
       keys.delete("u_picture")
+      puts keys.zip([kname] * keys.length).to_h
       menulist = self.new(
-        keys.zip([kname]*keys.length))
-        .save()
+        keys.zip([kname] * keys.length).to_h)
+      menulist.save
       return [kname, menulist.updated_at.to_i]
     else
       word = menu[Menulist.new.languageHash[id][1]]

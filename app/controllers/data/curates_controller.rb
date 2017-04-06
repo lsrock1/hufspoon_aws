@@ -42,7 +42,7 @@ class Data::CuratesController < ApplicationController
   
   def edit
     @language = languageHash.map{|key, value| [value[2], key]}
-    @curate=Curate.find(params[:id])
+    @curate = Curate.find(params[:id])
   end
   
   private

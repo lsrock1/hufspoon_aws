@@ -8,32 +8,29 @@ class Data::MenulistsController < ApplicationController
     @page=params[:page] ? params[:page].to_i : 1
     @menulist=Menulist.all
     @num=(@menulist.length/300)+1
-    if @page==0
-      @list=@menulist.select{|item| item.kname==item.ename}
+    if @page == 0
+      @list = @menulist.select{|item| item.kname==item.ename}
     else
-      @list=@menulist.all.sort_by{|a| a.kname}[(@page-1)*300..300*(@page)-1]
+      @list = @menulist.all.sort_by{|a| a.kname}[(@page-1)*300..300*(@page)-1]
     end
   end
   
   def create
     if params[:menulist]
       @page=params[:page] ? params[:page] :params[:menulist][:page]
-      #메뉴가 존재하면 그 메뉴를 찾아서 보여준다
       if Menulist.find_by(:kname => params[:menulist][:kname])!=nil
         @menulist=Menulist.find_by(:kname => params[:menulist][:kname])
-      #메뉴가 존재하지 않으면 저장하되 안전성검사를 거친다   
-      else  
-        #이름과 영어 뜻 중 하나라도 비어있으면 저장하지 않는다
+      else
         unless (params[:menulist][:kname]=="")||(params[:menulist][:ename]=="")
-          @menulist=Menulist.new(menulist_params)
+          @menulist = Menulist.new(menulist_params)
           @menulist.save
         end
         redirect_to :back
       end
     elsif params[:upfile]
-      file=params[:upfile]
-      name=file.original_filename
-      perms=['.csv']
+      file = params[:upfile]
+      name = file.original_filename
+      perms = ['.csv']
       if perms.include?(File.extname(name).downcase)
         csv_text = file.tempfile.path
         num = 0
@@ -59,7 +56,7 @@ class Data::MenulistsController < ApplicationController
       delmenu.destroy
       redirect_to :back
     else
-      redirect_to :back,notice: '해당 번역을 사용하는 일반식당 메뉴가 있습니다!'
+      redirect_to :back, notice: '해당 번역을 사용하는 일반식당 메뉴가 있습니다!'
     end
   end
   
