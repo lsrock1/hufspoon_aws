@@ -102,7 +102,7 @@ module HomeHelper
   def card_img(menu)
     if menu['main'].u_picture!=nil&&menu['main'].u_picture!=""
       content_tag(:div,class: 'card-image c-image') do
-        concat image_tag(menu['main'].u_picture,class: 'u_picture')
+        concat image_tag(menu['main'].u_picture, class: 'u_picture')
       end
     else
       content_tag(:div,"",class: "divider")

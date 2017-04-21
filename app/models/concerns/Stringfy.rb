@@ -17,13 +17,13 @@ module Stringfy
         main=nil
         update=menu_data.updated_at.to_i
         menu_data=menu_data.menu.split("$")
-        if self.getname!='Snack'
-          time=menu_data.shift
+        if self.getname != 'Snack'
+          time = menu_data.shift
           menu_data.each do |l|
-            if l.index(':')||l.index(';')
-              menulist=makeingre(l,id)
+            if l.index(':') || l.index(';')
+              menulist = makeingre(l,id)
               ingre.concat([menulist[0]])
-              update=update+menulist[1]
+              update = update + menulist[1]
             elsif l[-1]=="l"
               kcal=l
             elsif l[-1]=="원"
@@ -31,9 +31,9 @@ module Stringfy
             else
               xfood=l.strip
               if xfood.index("&")||xfood.index("/")||xfood.index("-")
-                menulist=spliter(xfood,id)
+                menulist = spliter(xfood, id)
                 menu_list.push(menulist[0])
-                update=update+menulist[1]
+                update = update + menulist[1]
                 if innum==0
                   main=extract(xfood)
                 end
@@ -42,7 +42,7 @@ module Stringfy
                 menu_list.push(menulist[0])
                 update=update+menulist[1]
                 if innum==0
-                  main=Menulist.find_by(:kname => xfood)
+                  main = Menulist.find_by(kname: xfood)
                 end
               end
             end

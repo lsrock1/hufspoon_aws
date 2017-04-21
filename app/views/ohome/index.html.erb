@@ -226,7 +226,8 @@
           json[0].forEach(function(element){
             collectionItem(element, q, count);
           })
-          dataToMap(json[1])
+          dataToMap(json[1]);
+          $(".closer").trigger("click");
         },
       });
     }

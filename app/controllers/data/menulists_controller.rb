@@ -74,6 +74,7 @@ class Data::MenulistsController < ApplicationController
     else
       @menulist=Menulist.find(params[:id])
       @menulist.update(menulist_params)
+      @menulist.touch
       if @intinfo!=nil
         if @intinfo>=0
           redirect_to "/data/menulists/?page="+@page
