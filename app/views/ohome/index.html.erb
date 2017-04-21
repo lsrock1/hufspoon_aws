@@ -11,7 +11,7 @@
 <%content_for :form do %>
 <nav class="form" style="display: none;">
   <div class="nav-wrapper white">
-    <form action="/rests">
+    <form id="searchForm">
       <div class="input-field">
         <input id="search" type="search" name="q" required>
         <label for="q"><i class="material-icons">search</i></label>
@@ -26,14 +26,58 @@
 <div class="toolbar z-depth-2">
   <ul class="tabs">
     <li class="tab"><a class="active" href="#Category"><i class="material-icons">touch_app</i><br/>Category</a></li>
-    <li class="tab"><a href="#Map_View"><i class="material-icons">map</i><br/>Map_View</a></li>
+    <li class="tab"><a id="mView" href="#Map_View"><i class="material-icons">map</i><br/>Map View</a></li>
     <li class="tab"><a href="#language"><i class="material-icons">translate</i><br/>Language</a></li>
   </ul>
 </div>
 <%end%>
 <div class="row">
   <div id="Category">
+    <div class="col s12 m8 offset-m2 l6 offset-l3 clickTable" style="overflow: hidden;">
+      <div id="btnTable">
+        <div class="packageRow">
+          <%@categoryKeys[0..2].each do |key|%>
+            <%=button_table key%>
+          <%end%>
+          <div style="clear: both;"></div>
+        </div>
+        
+        <div class="packageRow">
+          <%=button_table @categoryKeys[3]%>
+  
+          <table class="package centered buttons card">
+            <tr>
+              <td data-x="34" data-y="34" <%if @categoryKeys[0]%>class="move"<%end%>><%=@categoryKeys[0]%></td>
+              <td data-x="0" data-y="34" <%if @categoryKeys[1]%>class="move"<%end%>><%=@categoryKeys[1]%></td>
+              <td data-x="-33" data-y="34" <%if @categoryKeys[2]%>class="move"<%end%>><%=@categoryKeys[2]%></td>
+            </tr>
+            <tr>
+              <td data-x="34" data-y="0" <%if @categoryKeys[3]%>class="move"<%end%>><%=@categoryKeys[3]%></td>
+              <td>외대맛집</td>
+              <td data-x="-33" data-y="0" <%if @categoryKeys[4]%>class="move"<%end%>><%=@categoryKeys[4]%></td>
+            </tr>
+            <tr>
+              <td data-x="34" data-y="-34" <%if @categoryKeys[5]%>class="move"<%end%>><%=@categoryKeys[5]%></td>
+              <td data-x="0" data-y="-34" <%if @categoryKeys[6]%>class="move"<%end%>><%=@categoryKeys[6]%></td>
+              <td data-x="-33" data-y="-34" <%if @categoryKeys[7]%>class="move"<%end%>><%=@categoryKeys[7]%></td>
+            </tr>
+          </table>
+  
+          <%=button_table @categoryKeys[4]%>
+          <div style="clear: both;"></div>
+        </div>
+        
+        <div class="packageRow">
+          <%@categoryKeys[5..7].each do |key|%>
+            <%=button_table key%>
+          <%end%>
+          <div style="clear: both;"></div>
+        </div>
+        
+      </div>
+    </div>
   </div>
+
   <div id="Map_View">
     <div class="col s12 m10 offset-m1 l8 offset-l2">
       <div class="card">
@@ -43,38 +87,24 @@
 
     <div class="col s12 m10 offset-m1 l8 offset-l2">
       <ul class="collection with-header">
-        <%if params[:q]%><li class="collection-header"><h5><%if @restCategoryHash[@q]%><%=@restCategoryHash[@q][@language]%><%else%><%=@q%><%end%></h5></li><%end%>
-        <%@list.each do |re|%>
-        <li class="collection-item avatar">
+        <%@rest.each do |re| %>
+        <li class="collection-item avatar <%=re.food%> all">
           <%if re.picture==nil||re.picture==""%><i class="material-icons red lighten-3 circle">restaurant</i><%else%><img src="<%='http'+re.picture.split('http')[1]%>" alt="" class="circle"><%end%>
-          <span class="title"><a href="/rests/<%=re.id%><%if params[:q]%>?index=<%=@q%><%end%>"><%=highlight(re.name,@q)%></a></span>
+          <span class="title"><a href="/rests/<%=re.id%>"><%=re.name%></a></span>
           <p>
-            <%if (re.food.include? @q)||(re.name.include? @q)%>
-              <%if re.re_menu%>
-                <%if @language==4%>
-                  <%=re.re_menu%>
-                <%elsif @language==0%>
-                  <%=re.ere_menu.titleize%>
-                <%else%>
-                  <%=re.chinese%>
-                <%end%>
-              <%end%>
-            <%else%>
-              <%temp = re.rmenu.where("lower(menuname) like ? or lower(emenuname) like ? or lower(cmenuname) like ?","%#{@q.to_s.downcase}%","%#{@q.to_s.downcase}%","%#{@q.to_s.downcase}%").order(:pagenum)%>
-              <%if temp.length>0%>
-                <%if temp[0].menuname.downcase.include? @q.downcase%>
-                  <%=highlight(temp[0].menuname.downcase, @q.downcase)%>
-                <%elsif temp[0].emenuname.downcase.include? @q.downcase%>
-                  <%=highlight(temp[0].emenuname.downcase, @q.downcase)%>
-                <%else%>
-                  <%=highlight(temp[0].cmenuname.downcase, @q.downcase)%>
-                <%end%>
+            <%if re.re_menu%>
+              <%if @language==4%>
+                <%=re.re_menu%>
+              <%elsif @language==0%>
+                <%=re.ere_menu.titleize%>
+              <%else%>
+                <%=re.chinese%>
               <%end%>
             <%end%>
           </p>
           <div class="secondary-content grey-text favorite" style="display: none;" data-id="<%=re.id%>" data-name="<%=re.name%>" ><i class="material-icons">star_border</i></div>
         </li>
-        <%@all[re.map].append(re)%>
+        <%@map[re.map].append(re)%>
         <%end%>
       </ul>
     </div>
@@ -89,63 +119,63 @@
 <script>
   $(document).ready(function(){
     var lastScrollTop = 0,
-      $scaleBtn = $(".scale-btn"),
       $main = $(".main"),
+      $btnTable = $("#btnTable"),
       $form = $(".form");
+
+    $btnTable.velocity({scaleX: 3, scaleY: 3});
     
-    $scaleBtn.velocity({scaleX: 1, scaleY: 1});
+    dataToMap(data);
     
-    $('.addbtn').on('click',function(){
+    $(".buttons").on("click", "td", function(){
       var $this = $(this),
-        word = $this.html() === "translate" ? "clear" : "translate", 
-        angle = $this.data("angle") + 90;
-      
-      $this.velocity(
-        {rotateY: angle+'deg'},
-        {duration: 250,
+        html = $this.html();
+
+      $btnTable.velocity(
+        {translateX: $this.data("x") + "%", translateY: $this.data("y") + "%"},
+        {
+          duration: 500,
           complete: function(){
-            angle+=90
-            $(this).html(word).velocity({rotateY: angle+'deg'},{duration: 250})
-            $this.data('angle',angle);
+            $btnTable.velocity({scaleX: 3, scaleY: 3}, {duration: 300})
           }
         }
-      );
-    });
-    
-    $(window).scroll(function(event){
-      var st = $(this).scrollTop();
-      if (st -lastScrollTop>14 &&$scaleBtn.hasClass('scrollUp')){
-        $scaleBtn.velocity({scaleX: 0,scaleY: 0},{duration: 10}).removeClass('scrollUp').addClass('scrollDown');
-        if($scaleBtn.parent().hasClass('active'))$scaleBtn.trigger('click').addClass('opened');
-        lastScrollTop = st;
+      )
+      
+      if ($this.hasClass("move")){
+        dataToMap(data, html);
+        $(".collection > :not(." + html + ")").fadeOut();
       }
-      else if(st-lastScrollTop< -14&&$scaleBtn.hasClass('scrollDown')){
-        var com = null;
-        if($scaleBtn.hasClass('opened')){
-          $scaleBtn.removeClass('opened');
-          com = function(){
-            $scaleBtn.trigger('click');
-          };
+    })
+    
+    $(".mid").click(function(){
+      $btnTable.velocity(
+        {translateX: "0", translateY: "0"},
+        {
+          duration: 500,
+          complete: function(){
+            $btnTable.velocity({scaleX: 3, scaleY: 3}, {duration: 300})
+          }
         }
-        $scaleBtn.removeClass('scrollDown').addClass('scrollUp').velocity({scaleX: 1, scaleY: 1},{duration: 10,complete: com});
-        lastScrollTop = st;
-      }
-      if(st - lastScrollTop > 14 || st - lastScrollTop < -14) lastScrollTop=st;
-    });
-    
+      )
+      dataToMap(data);
+      $(".all").fadeIn();
+    })
+
     $('.modal').modal({
       ready: function(){
         $('.button-collapse').sideNav('hide');
       }
     });
-    
+
     $(".button-collapse").sideNav();
-    
+
     $(".opener").click(function(){
-      $main.velocity({translateY: -56},{duration: 800});
+      $main.velocity({translateY: -56}, {duration: 800});
       $form.fadeIn();
+      $("#mView").trigger("click");
       document.getElementById("search").focus();
     })
+
     $(".closer").click(function(){
       $form.fadeOut();
       $main.velocity({translateY: 0},{duration: 800});
@@ -156,19 +186,19 @@
     if(window.Hybrid&&window.Hybrid.favoriteInit){
       var count = 1;
       $('.favorite').each(function(){
-        var $this=$(this);
+        var $this = $(this);
         $this.show();
-        if(window.Hybrid.favoriteInit($this.data("id"),$this.data("name"))=="1"){
+        if(window.Hybrid.favoriteInit($this.data("id"), $this.data("name")) === "1"){
           $this.removeClass('grey-text').find('i').html('star');
           $( "ul.collection > li:nth-child("+count+")" ).before($this.parent());
-          count=count+1;
+          count = count + 1;
         }
       })
-      $(".favorite").click(function(){
-        var $this=$(this);
+      $(".collection").on("click", ".favorite",function(){
+        var $this = $(this);
         if($this.hasClass('grey-text')){
           $this.removeClass('grey-text').find('i').html("star");
-          window.Hybrid.favOn($this.data('id'), $this.data("name"), "<%=@current_language%>");
+          window.Hybrid.favOn($this.data("id"), $this.data("name"), "<%=@current_language%>");
         }
         else{
           $this.addClass('grey-text').find('i').html('star_border');
@@ -177,34 +207,156 @@
       })
     }
   })
-	var container = document.getElementById('map');
-	var option = {
-	  center: [37.596418,127.060246],
-		level: 3
-	};
-	var easyMap=own.EasyMap
+  
+  $("#searchForm").submit(function (e) {
+    e.preventDefault();
+    var q = $('#search').val().replace(/(^\s*)|(\s*$)/g,"");
 
-	var map =new own.DaumMap(container, option);
+    if (q != "") {
 
-  var markers=[];
-  var overlays=[];
-  <%@all.each do |key, value|%>
-    markers.push(new own.Marker({
-      position: [<%=key.lat%>,<%=key.lon%>],
-      map: map,
-      clickable: true
-    }));
-    overlays.push(new own.CustomOverlay({
-      content: '<div class="placeinfo_wrap"><div class="placeinfo"><%value.each do |r|%><a class="ptitle" href="/rests/<%=r.id%>"><%=r.name%></a><%end%>'+
-                '<span>'+
-                '<span style="text-align: right;" class="material-icons close" aria-hidden="true">clear</span>'+
-                '</span></div>'+
-                '<div class="after"></div></div>',
-      clickable: true
-    }));
-  <%end%>
-  easyMap.customOverlayOnClose(overlays,'overlays');
-  easyMap.markerClickOpen(markers,overlays);
+      $.ajax({
+        type : 'get',
+        url : '/rests/search.json',
+        data : {q: q, language: "<%=@current_language%>"},
+        dataType : 'json',
+        success : function(json){
+          var count = 1;
+          $(".all").hide();
+          $(".query").remove();
+          json[0].forEach(function(element){
+            collectionItem(element, q, count);
+          })
+          dataToMap(json[1])
+        },
+      });
+    }
+  });
+  
+  var data = {
+      <%@category.each do |key, values|%>
+        <%=key%>:
+        [<%values.each do |value|%>{
+            name: "<%=value.name%>",
+            lat: <%=value.map.lat%>,
+            lon: <%=value.map.lon%>,
+            id: <%=value.id%>
+          },<%end%>],
+      <%end%>
+    },
+    container = document.getElementById('map'),
+	  option = {
+  	  center: [37.596418, 127.060246],
+  		level: 3
+  	},
+	  easyMap = own.EasyMap,
+	  markers = [],
+	  overlays = [],
+	  map = new own.DaumMap(container, option);
+  
+  function dataToMap(data, select){
+    var latlonToRest = {},
+      arr = null,
+      titleStr = "";
+    
+    easyMap.markerRemove(markers);
+    overlays.forEach(function(element){
+      element.close();
+    })
+    
+    markers = [];
+    overlays = [];
+
+    if (select === undefined){
+      arr = Object.keys(data);
+    }
+    else{
+      arr = [select];
+    }
+    
+    arr.forEach(function(element){
+      data[element].forEach(function(element){
+        if (latlonToRest[[element.lat, element.lon]] === undefined){
+          latlonToRest[[element.lat, element.lon]] = [{name: element.name, id: element.id}];
+        }
+        else{
+          latlonToRest[[element.lat, element.lon]].push({name: element.name, id: element.id});
+        }
+      })
+    })
+    
+    for(var key in latlonToRest){
+      titleStr = '';
+
+      latlonToRest[key].forEach(function(element){
+        titleStr += '<a class="ptitle" href="/rests/' + element.id + '">' + element.name + '</a>';
+      });
+      
+      markers.push(new own.Marker({
+        position: [key.split(",")[0], key.split(",")[1]],
+        map: map,
+        clickable: true
+      }));
+      overlays.push(new own.CustomOverlay({
+        content: '<div class="placeinfo_wrap"><div class="placeinfo">' +
+                  titleStr +
+                  '<span>'+
+                  '<span style="text-align: right;" class="material-icons close" aria-hidden="true">clear</span>'+
+                  '</span></div>'+
+                  '<div class="after"></div></div>',
+        clickable: true
+      }));
+    }
+    easyMap.customOverlayOnClose(overlays, 'overlays');
+    easyMap.markerClickOpen(markers, overlays);
+  }
+  
+  function collectionItem(rest, q, count){
+    var str = '<li class="collection-item avatar query">',
+      content = "",
+      name = rest.name,
+      pin = "";
+    if (rest.picture != ""){
+      str += '<img src="' + rest.picture + '" class="circle">';
+    }
+    else{
+      str += '<i class="material-icons red lighten-3 circle">restaurant</i>';
+    }
+
+    if (rest.name.search(q) != -1){
+      name = '<mark>' + rest.name + '</mark>';
+    }
+    else if(rest.korean){
+      pin = rest.korean.search(q);
+      content = rest.korean;
+    }
+    else if(rest.english){
+      pin = rest.english.search(q);
+      content = rest.english;
+    }
+    else if(rest.chinese){
+      pin = rest.chinese.search(q);
+      content = rest.chinese;
+    }
+
+    content = content.slice(0, pin) + '<mark>' + content.slice(pin, q.length + pin) + '</mark>' + content.slice(q.length + pin);
+
+    str = str + '<span class="title">' +
+          '<a href="/rests/' + rest.id + '">' + name + '</a>' +
+          '</span>' +
+          '<p>' + content + '</p>';
+
+    if(window.Hybrid&&window.Hybrid.favoriteInit&&window.Hybrid.favoriteInit(rest.id, name) === "1"){
+      str = str +
+      '<div class="secondary-content favorite" data-id="' + rest.id + '" data-name="' + name + '" ><i class="material-icons">star</i></div>';
+      $( "ul.collection > li:nth-child("+count+")" ).before(str);
+      count = count + 1;
+    }
+    else{
+      $("ul.collection").append(str);
+    }
+    
+    return count;
+  }
 
   function languageChange(language){
     if(history.replaceState){
@@ -214,4 +366,5 @@
       location.replace("/rests?language=" + language);
     }
   }
+
 </script>

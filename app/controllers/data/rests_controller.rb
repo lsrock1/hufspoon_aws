@@ -12,8 +12,7 @@ class Data::RestsController < ApplicationController
   end
   
   def new
-    @restCategory=restCategoryHash.keys.map{|key| [key, key]}
-    @rest=Rest.new
+    @rest = Rest.new
   end
   
   def create
@@ -71,7 +70,6 @@ class Data::RestsController < ApplicationController
   
   def edit
     @rest=Rest.find(params[:id])
-    @restCategory=restCategoryHash.keys.map{|key| [key, key]}
   end
 
   def update

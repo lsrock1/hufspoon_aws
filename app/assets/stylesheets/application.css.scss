@@ -233,6 +233,47 @@ body.around .form{
 body.around #map{
   height: 300px;
 }
+
+.clickTable .cube{
+  width: 33%;
+  float: left;
+  margin-bottom: 0px;
+}
+
+.clickTable{
+  height: 390px;
+}
+
+.clickTable .package{
+  width: 33%;
+  float: left;
+  margin-right: 2px;
+  line-height: 100%; 
+}
+
+.package td{
+  width: 33%;
+  padding: 0px;
+}
+
+.package{
+  height: 110px;
+  margin-bottom: 0px;
+  font-size: 3px;
+}
+
+.package tr{
+  height: 33%;
+}
+
+.package tr:nth-child(1), .package tr:nth-child(2){
+  border-bottom: 1px solid #A0A0A0;
+}
+
+.package tr td:nth-child(1), .package tr td:nth-child(2){
+  border-right: 1px solid #A0A0A0;
+}
+
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.

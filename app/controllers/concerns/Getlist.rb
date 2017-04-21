@@ -1,16 +1,52 @@
 module Getlist
   extend ActiveSupport::Concern
   def languageHash
-    return {#숫자 => 언어, db 컬럼이름, 언어풀네임(영어로)
-        4 => ["한국어", "kname", "korean"],
-        2 => ["汉语", "cname", "chinese"],
-        7 => ["Deutsch", "germany", "germany"],
-        0 => ["English", "ename", " english"],
-        6 => ["Español", "spanish", "spanish"],
-        11 => ["Esperanto", "esperanto", "esperanto"],
-        10 => ["Français", "french", "france"],
-        8 => ["Italiano", "italia", "italia"],
-        9 => ["Português", "portugal", "portugal"],
+    return {
+        4 => {
+          "showName" => "한국어",
+          "dbName" => "kname",
+          "dataTransName" => "korean"
+        },
+        2 => {
+          "showName" => "汉语",
+          "dbName" => "cname",
+          "dataTransName" => "chinese"
+        },
+        7 => {
+          "showName" => "Deutsch",
+          "dbName" => "germany",
+          "dataTransName" => "germany"
+        },
+        0 => {
+          "showName" => "English",
+          "dbName" => "ename",
+          "dataTransName" => "english"
+        },
+        6 => {
+          "showName" => "Español",
+          "dbName" => "spanish",
+          "dataTransName" => "spanish"
+        },
+        11 => {
+          "showName" => "Esperanto",
+          "dbName" => "esperanto",
+          "dataTransName" => "esperanto"
+        },
+        10 => {
+          "showName" => "Français",
+          "dbName" => "french",
+          "dataTransName" => "france"
+        },
+        8 => {
+          "showName" => "Italiano",
+          "dbName" => "italia",
+          "dataTransName" => "italia"
+        },
+        9 => {
+          "showName" => "Português",
+          "dbName" => "portugal",
+          "dataTransName" => "portugal"
+        },
       }
   end
   
@@ -23,9 +59,18 @@ module Getlist
   
   def oLanguageHash
     return {
-        0 => ["English", "english"],
-        4 => ["한국어", "korean"],
-        2 => ["汉语", "chinese"]
+        0 => {
+          "showName" => "English",
+          "dataTransName" => "english"
+        },
+        4 => {
+          "showName" => "한국어",
+          "dataTransName" => "korean"
+        },
+        2 => {
+          "showName" => "汉语",
+          "dataTransName" => "chinese"
+        }
       }
   end
 end

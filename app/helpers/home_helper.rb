@@ -12,12 +12,12 @@ module HomeHelper
       0 =>[['AroundHUFS'], ['MENU_Preview']],
       6 =>[['humanities']]
     }
-    hash[@w] = hash[@w] ? hash[@w] : [['humanities','active'],['faculty'],['skylounge']]
+    array = hash[@w] ? hash[@w] : [['humanities','active'],['faculty'],['skylounge']]
     content_tag(:div, class: "toolbar z-depth-2") do
       content_tag(:ul, class: :tabs) do
-        hash[@w].collect{|name|
+        array.collect{|name|
           concat (content_tag(:li, class: :tab) do
-            content_tag(:a, class: "#{name[1]}", href: "##{name[0]}", onclick: "ga('send', 'event', 'click', #{name[0]}');") do
+            content_tag(:a, class: "#{name[1]}", href: "##{name[0]}", onclick: "ga('send', 'event', 'click', '#{name[0]}');") do
               concat content_tag(:i, "restaurant", class: "material-icons")
               concat tag(:br)
               concat content_tag(:span, name[0].titleize)
@@ -36,10 +36,10 @@ module HomeHelper
   end
   
   def lan_collection
-    @languageHash[@id].append("active")
+    @languageHash[@id]["active"] = "active"
     content_tag(:div, class: :collection) do 
       @languageHash.collect do |key, item|
-        concat content_tag(:a, item[0], class: "collection-item #{item[3]}", onclick: "languageChange(#{key}, #{@day})")
+        concat content_tag(:a, item["showName"], class: "collection-item #{item["active"]}", onclick: "languageChange(#{key}, #{@day})")
       end
       if admin_signed_in?
         concat content_tag(:a, "새로고침",class: "collection-item", href: "/refresh/#{@day}")
@@ -48,7 +48,7 @@ module HomeHelper
   end
   
   def card_top(menu)
-    content_tag(:div,class: 'card-content card_top') do
+    content_tag(:div, class: 'card-content card_top') do
       concat content_tag(:div, menu['name'].titleize,class: 'card-title')
       concat content_tag(:span,"#{menu['time']} / #{menu['price']}",class: "grey-text")
     end
