@@ -121,7 +121,8 @@
     var lastScrollTop = 0,
       $main = $(".main"),
       $btnTable = $("#btnTable"),
-      $form = $(".form");
+      $form = $(".form"),
+      $all = $(".all");
 
     $btnTable.velocity({scaleX: 3, scaleY: 3});
     
@@ -143,7 +144,8 @@
       
       if ($this.hasClass("move")){
         dataToMap(data, html);
-        $(".collection > :not(." + html + ")").fadeOut();
+        $all.show();
+        $(".collection.with-header > :not(." + html + ")").fadeOut();
       }
     })
     
@@ -158,7 +160,7 @@
         }
       )
       dataToMap(data);
-      $(".all").fadeIn();
+      $all.fadeIn();
     })
 
     $('.modal').modal({
@@ -190,11 +192,11 @@
         $this.show();
         if(window.Hybrid.favoriteInit($this.data("id"), $this.data("name")) === "1"){
           $this.removeClass('grey-text').find('i').html('star');
-          $( "ul.collection > li:nth-child("+count+")" ).before($this.parent());
+          $( "ul.collection.with-header > li:nth-child("+count+")" ).before($this.parent());
           count = count + 1;
         }
       })
-      $(".collection").on("click", ".favorite",function(){
+      $(".collection.with-header").on("click", ".favorite",function(){
         var $this = $(this);
         if($this.hasClass('grey-text')){
           $this.removeClass('grey-text').find('i').html("star");
@@ -206,32 +208,89 @@
         }
       })
     }
-  })
+    
+    $("#searchForm").submit(function (e) {
+      e.preventDefault();
+      var q = $('#search').val().replace(/(^\s*)|(\s*$)/g,"");
   
-  $("#searchForm").submit(function (e) {
-    e.preventDefault();
-    var q = $('#search').val().replace(/(^\s*)|(\s*$)/g,"");
+      if (q != "") {
 
-    if (q != "") {
-
-      $.ajax({
-        type : 'get',
-        url : '/rests/search.json',
-        data : {q: q, language: "<%=@current_language%>"},
-        dataType : 'json',
-        success : function(json){
-          var count = 1;
-          $(".all").hide();
-          $(".query").remove();
-          json[0].forEach(function(element){
-            collectionItem(element, q, count);
-          })
-          dataToMap(json[1]);
-          $(".closer").trigger("click");
-        },
-      });
-    }
-  });
+        $.ajax({
+          type : 'get',
+          url : '/rests/search.json',
+          data : {q: q, language: "<%=@current_language%>"},
+          dataType : 'json',
+          success : function(json){
+            var count = 1;
+            $all.hide();
+            $(".query").remove();
+            json[0].forEach(function(element){
+              collectionItem(element, q, count);
+            })
+            dataToMap(json[1]);
+            $(".closer").trigger("click");
+          },
+        });
+      }
+    });
+    
+    function dataToMap(data, select){
+      var latlonToRest = {},
+        arr = null,
+        titleStr = "";
+      
+      easyMap.markerRemove(markers);
+      overlays.forEach(function(element){
+        element.close();
+      })
+    
+      markers = [];
+      overlays = [];
+  
+      if (select === undefined){
+        arr = Object.keys(data);
+      }
+      else{
+        arr = [select];
+      }
+      
+      arr.forEach(function(element){
+        data[element].forEach(function(element){
+          if (latlonToRest[[element.lat, element.lon]] === undefined){
+            latlonToRest[[element.lat, element.lon]] = [{name: element.name, id: element.id}];
+          }
+          else{
+            latlonToRest[[element.lat, element.lon]].push({name: element.name, id: element.id});
+          }
+        })
+      })
+    
+      for(var key in latlonToRest){
+        titleStr = '';
+  
+        latlonToRest[key].forEach(function(element){
+          titleStr += '<a class="ptitle" href="/rests/' + element.id + '">' + element.name + '</a>';
+        });
+        
+        markers.push(new own.Marker({
+          position: [key.split(",")[0], key.split(",")[1]],
+          map: map,
+          clickable: true
+        }));
+        overlays.push(new own.CustomOverlay({
+          content: '<div class="placeinfo_wrap"><div class="placeinfo">' +
+                    titleStr +
+                    '<span>'+
+                    '<span style="text-align: right;" class="material-icons close" aria-hidden="true">clear</span>'+
+                    '</span></div>'+
+                    '<div class="after"></div></div>',
+          clickable: true
+          }));
+        }
+        easyMap.customOverlayOnClose(overlays, 'overlays');
+        easyMap.markerClickOpen(markers, overlays);
+      }
+  })
   
   var data = {
       <%@category.each do |key, values|%>
@@ -253,63 +312,6 @@
 	  markers = [],
 	  overlays = [],
 	  map = new own.DaumMap(container, option);
-  
-  function dataToMap(data, select){
-    var latlonToRest = {},
-      arr = null,
-      titleStr = "";
-    
-    easyMap.markerRemove(markers);
-    overlays.forEach(function(element){
-      element.close();
-    })
-    
-    markers = [];
-    overlays = [];
-
-    if (select === undefined){
-      arr = Object.keys(data);
-    }
-    else{
-      arr = [select];
-    }
-    
-    arr.forEach(function(element){
-      data[element].forEach(function(element){
-        if (latlonToRest[[element.lat, element.lon]] === undefined){
-          latlonToRest[[element.lat, element.lon]] = [{name: element.name, id: element.id}];
-        }
-        else{
-          latlonToRest[[element.lat, element.lon]].push({name: element.name, id: element.id});
-        }
-      })
-    })
-    
-    for(var key in latlonToRest){
-      titleStr = '';
-
-      latlonToRest[key].forEach(function(element){
-        titleStr += '<a class="ptitle" href="/rests/' + element.id + '">' + element.name + '</a>';
-      });
-      
-      markers.push(new own.Marker({
-        position: [key.split(",")[0], key.split(",")[1]],
-        map: map,
-        clickable: true
-      }));
-      overlays.push(new own.CustomOverlay({
-        content: '<div class="placeinfo_wrap"><div class="placeinfo">' +
-                  titleStr +
-                  '<span>'+
-                  '<span style="text-align: right;" class="material-icons close" aria-hidden="true">clear</span>'+
-                  '</span></div>'+
-                  '<div class="after"></div></div>',
-        clickable: true
-      }));
-    }
-    easyMap.customOverlayOnClose(overlays, 'overlays');
-    easyMap.markerClickOpen(markers, overlays);
-  }
   
   function collectionItem(rest, q, count){
     var str = '<li class="collection-item avatar query">',
@@ -349,11 +351,11 @@
     if(window.Hybrid&&window.Hybrid.favoriteInit&&window.Hybrid.favoriteInit(rest.id, name) === "1"){
       str = str +
       '<div class="secondary-content favorite" data-id="' + rest.id + '" data-name="' + name + '" ><i class="material-icons">star</i></div>';
-      $( "ul.collection > li:nth-child("+count+")" ).before(str);
+      $( "ul.collection.with-header > li:nth-child("+count+")" ).before(str);
       count = count + 1;
     }
     else{
-      $("ul.collection").append(str);
+      $("ul.collection.with-header").append(str);
     }
     
     return count;
