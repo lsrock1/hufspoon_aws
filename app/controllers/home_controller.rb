@@ -84,13 +84,13 @@ class HomeController < ApplicationController
 
     begin
       if @w == 0
-        r_all = Rest.all
+        rest = Rest.all
         len = r_all.length
         begin
-        seed_id = rand(0..len-1)
-        @ran_rest = r_all[seed_id]
+          seed_id = rand(0..len-1)
+          @ran_rest = rest[seed_id]
         rescue
-        @ran_rest = nil
+          @ran_rest = nil
         end
       elsif (@w != 6 && (check == nil || checkf == nil || checks == nil)) || (@w == 6 && check == nil)
         parsing_func(@day)
@@ -105,7 +105,7 @@ class HomeController < ApplicationController
       @dayOfWeek = [@time+1,@time+2,@time+3,@time+4,@time+5].map{|time| time.strftime("%^A")}
 
       dateList.each do |d|
-        @list.push([Breakfast,Lunch1,Lunch2,Lunchnoodle,Dinner].map{|l| [l.getname,l.make_list(d,@id)]}.select{|l| l[1]['main']})
+        @list.push([Breakfast,Lunch1,Lunch2,Lunchnoodle,Dinner].map{|l| [l.getname, l.make_list(d, @id)]}.select{|l| l[1]['main']})
       end
     else
       @menulist = [Breakfast,Lunch1,Lunch2,Lunchnoodle,Dinner,Snack,Flunch,Fdinner,Menua,Menub].map do |data|

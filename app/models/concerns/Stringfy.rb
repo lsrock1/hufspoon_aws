@@ -65,15 +65,15 @@ module Stringfy
         end
       end
       return {
-        'name' => self.getname,
-        'time' => time,
-        'kcal' => kcal,
-        'price' => price,
-        'ingre' => ingre.uniq,
-        'menu' => menu_list,
-        'main' => main,
-        'update' => update,
-        'id' => id
+        "name" => self.getname,
+        "time" => time,
+        "kcal" => kcal,
+        "price" => price,
+        "ingre" => ingre.uniq,
+        "menu" => menu_list,
+        "main" => main,
+        "update" => update,
+        "id" => id
       }
     end
     
