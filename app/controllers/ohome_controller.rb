@@ -1,4 +1,3 @@
-require 'Getlist'
 class OhomeController < ApplicationController
   before_action :banned_user, :randomToken, :ohomecookie, except: [:search]
   
@@ -28,62 +27,12 @@ class OhomeController < ApplicationController
   end
   
   def index
-    @category = Hash.new{ |hash, key| hash[key] = Array.new }
-    @rest = Rest.all.sort_by{|a| a.name}
-    @rest.each do |rest|
-      @category[rest.food].append(rest)
-    end
-    @categoryKeys = @category.keys
-    if @categoryKeys.length < 8
-      @categoryKeys.concat(Array.new(8 - @categoryKeys.length))
-    end
-    @map = Hash.new{ |hash, key| hash[key] = Array.new }
-
+    @q=params[:q] ? params[:q] : "한식" #음식종류별 화면
+    @all=Hash.new{ |hash, key| hash[key] = Array.new }
     @restCategoryHash = restCategoryHash
     @languageHash = oLanguageHash
-    @current_language = @languageHash[@language]["dataTransName"]
-  end
-
-  def search
-    @q = params[:q]
-    language = params[:language]
-    
-    collection = []
-    map = {@q => []}
-    rests = Rest.search(@q).sort_by{|a| a.name}
-    rests.each do |rest|
-      data = {
-        name: rest.name, 
-        category: rest.food,
-        id: rest.id,
-        picture: rest.picture
-      }
-      if rest.name.include? @q or rest.food.include? @q
-        if language == "english"
-          data[:english] = rest.ere_menu
-        elsif language == "korean"
-          data[:korean] = rest.re_menu
-        else
-          data[:chinese] = rest.chinese
-        end
-      else
-        temp = rest.rmenu.where("lower(menuname) like ? or lower(emenuname) like ? or lower(cmenuname) like ?","%#{@q.to_s.downcase}%","%#{@q.to_s.downcase}%","%#{@q.to_s.downcase}%").order(:pagenum)
-        if temp.length > 0
-          if temp[0].menuname.downcase.include? @q.downcase
-            data[:korean] = temp[0].menuname.downcase
-          elsif temp[0].emenuname.downcase.include? @q.downcase
-            data[:english] = temp[0].emenuname.downcase
-          else
-            data[:chinese] = temp[0].cmenuname.downcase
-          end
-        end
-      end
-      collection.push(data)
-      map[@q].push({id: rest.id, name: rest.name, lat: rest.map.lat, lon: rest.map.lon})
-    end
-    respond_to do |format|
-      format.json { render :json => [collection, map] }
-    end
+    @current_language = @languageHash[@language][1]
+    @list=Rest.search(@q).sort_by{|a| a.name}
   end
   
   private

@@ -11,7 +11,7 @@
         <div class="card-image">
           <%if @ran_rest.picture != "" && @ran_rest.picture%>
           <div class="carousel carousel-slider" style="max-width: 100%; height: 200px;">
-            <% @ran_rest.picture.split('http')[1..-1].each do |p|%>
+            <% @ran_rest.picture.split("http")[1..-1].each do |p|%>
               <a class="carousel-item"><img src="http<%=p%>" height="200"></a>
             <%end%>
           </div>
@@ -41,11 +41,11 @@
           <div class="collapsible-body" style="padding: 0px;">
             <ul class="collection">
               <%if !var.blank? %>
-                <%cache list_cache_key(var,var[0][1]['id']) do%>
+                <%cache list_cache_key(var, var[0][1][:id]) do%>
                 <%var.each do |content|%>
                 <li class="collection-item">
-                  <div><%=content[0].titleize%>: <%if content[1]['main']%><%=content[1]['menu'][0]%><%else%>Not Yet!<%end%>
-                    <div class="secondary-content alarm grey-text" style="display: none;" data-language="<%=@current_language%>" data-id="<%=content[1]['main'].id%>" data-name="<%=content[1]['menu'][0]%>">
+                  <div><%=content[0].titleize%>: <%if content[1][:main]%><%=content[1][:menu][0]%><%else%>Not Yet!<%end%>
+                    <div class="secondary-content alarm grey-text" style="display: none;" data-language="<%=@current_language%>" data-id="<%=content[1][:main].id%>" data-name="<%=content[1][:menu][0]%>">
                       <i class="material-icons">alarm</i>
                     </div>
                   </div>
@@ -64,10 +64,10 @@
   <%else%>
     <div id="humanities" class="col s12">
       <%@menulist[0..4].each_with_index do |menu,num|%>
-      <%if (menu["price"])||(menu["kcal"]) %>
+      <%if (menu[:price])||(menu[:kcal]) %>
       <div class="col s12 m8 offset-m2 l6 offset-l3">
         <%=curate(@nowC[num])%>
-        <div class="card" id="<%=menu["name"]%>">
+        <div class="card" id="<%=menu[:name]%>">
           <%cache menu_cache_key(menu) do%>
             <%=card_top(menu)%>
     			  <%=card_img(menu)%>
@@ -83,7 +83,7 @@
       <%end%>
       <%end%>
       
-      <%if @menulist[5]['menu']==nil%>
+      <%if @menulist[5][:menu]==nil%>
         <div class="col s12 m8 offset-m2 l6 offset-l3">
           <%unless @nowC[6].blank?%>
           <%@nowC[6].each do |n|%>
@@ -112,7 +112,7 @@
                 <div class="divider"></div>
                 <br>
                 <p class="caf_menu">
-      					<%=card_content(@menulist[5]['menu'])%>
+      					<%=card_content(@menulist[5][:menu])%>
       	    	  </p>
             </div>
           </div>
@@ -124,9 +124,9 @@
     
     <div id="faculty" class="col s12">
       <%@menulist[6..7].each do |menu|%>
-      <%if (menu["price"])||(menu["kcal"]) %>
+      <%if (menu[:price])||(menu[:kcal]) %>
       <div class="col s12 m8 offset-m2 l6 offset-l3">
-        <div class="card" id="<%=menu["name"]%>">
+        <div class="card" id="<%=menu[:name]%>">
           <%cache menu_cache_key(menu) do%>
             <%=card_top(menu)%>
             <div class="divider"></div>
@@ -141,9 +141,9 @@
     
     <div id="skylounge" class="col s12">
       <%@menulist[8..9].each do |menu|%>
-      <%if (menu["price"])||(menu["kcal"]) %>
+      <%if (menu[:price])||(menu[:kcal]) %>
       <div class="col s12 m8 offset-m2 l6 offset-l3">
-        <div class="card" id="<%=menu["name"]%>">
+        <div class="card" id="<%=menu[:name]%>">
           <%cache menu_cache_key(menu) do%>
             <%=card_top(menu)%>
             <div class="divider"></div>

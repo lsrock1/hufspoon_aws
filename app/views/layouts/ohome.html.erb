@@ -34,13 +34,8 @@
     <%= csrf_meta_tags %>
   </head>
   <body class="around">
-    <div class="navbar-fixed main">
-      <nav>
-        <div class="nav-wrapper">
-          <%= yield :nav%>
-        </div>
-      </nav>
-    </div>
+    <%= yield :nav%>
+    <%= yield :extendNav%>
     <%= yield :form %>
     <%= yield :tabs%>
   <%= yield %>

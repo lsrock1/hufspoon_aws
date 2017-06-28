@@ -234,6 +234,11 @@ body.around #map{
   height: 300px;
 }
 
+body.around .tabs a{
+  color: #ef9a9a !important;
+  font-size: 0.7rem;
+}
+
 .clickTable .cube{
   width: 33%;
   float: left;

@@ -1,11 +1,17 @@
 <%content_for :nav do%>
-<ul class="left">
-  <li><a href="<%if @back=="backhome"%>/<%elsif @back == nil%>/rests<%else%>/rests?q=<%=@back%><%end%>"><i class="material-icons black-text">undo</i></a></li>
-</ul>
-<ul class="right">
-  <li><a id="kakao-link-btn" href="javascript:;" style="height: 56px;" class="waves-effect waves-light right"><img style = "height: 40px; vertical-align: middle;" src="//dev.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_small.png"/></a></li>
-  <li><a><i class="material-icons opener black-text">search</i></a></li>
-</ul>
+<div class="navbar-fixed main">
+  <nav>
+    <div class="nav-wrapper">
+      <ul class="left">
+        <li><a href="<%if @back=="backhome"%>/<%elsif @back == nil%>/rests<%else%>/rests?q=<%=@back%><%end%>"><i class="material-icons black-text">undo</i></a></li>
+      </ul>
+      <ul class="right">
+        <li><a id="kakao-link-btn" href="javascript:;" style="height: 56px;" class="waves-effect waves-light right"><img style = "height: 40px; vertical-align: middle;" src="//dev.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_small.png"/></a></li>
+        <li><a><i class="material-icons opener black-text">search</i></a></li>
+      </ul>
+    </div>
+  </nav>
+</div>
 <%end%>
 
 <%content_for :form do%>

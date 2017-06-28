@@ -1,4 +1,3 @@
-require "Getlist"
 class Menulist < ActiveRecord::Base
   include Getlist
   def self.gettrans kname, id
@@ -16,9 +15,9 @@ class Menulist < ActiveRecord::Base
       menulist.save
       return [kname, menulist.updated_at.to_i]
     else
-      word = menu[Menulist.new.languageHash[id]["dbName"]]
+      word = menu[Menulist.new.languageHash[id][:dbName]]
       if word == "" || word == nil
-        menu[Menulist.new.languageHash[id]["dbName"]] = kname
+        menu[Menulist.new.languageHash[id][:dbName]] = kname
         menu.save
         return [kname, menu.updated_at.to_i]
       else

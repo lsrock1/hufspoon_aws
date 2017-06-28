@@ -1,8 +1,7 @@
 module Getlist
   extend ActiveSupport::Concern
   def languageHash
-    return 
-      {
+    return {
         4 => {
           showName: "한국어",
           dbName: "kname",
@@ -59,8 +58,7 @@ module Getlist
   end
   
   def oLanguageHash
-    return
-      {
+    return {
         0 => {
           showName: "English",
           dataTransName: "english"

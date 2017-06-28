@@ -1,6 +1,3 @@
-require "Parser"
-require "Getlist"
-
 class HomeController < ApplicationController
   include Parser
   include Getlist
@@ -60,6 +57,7 @@ class HomeController < ApplicationController
     
     @languageHash = languageHash
     @current_language = @languageHash[@id][:dataTransName]
+
     begin
       @time = Date.parse(@day)#get 파라미터로 날짜를 분석
     rescue
