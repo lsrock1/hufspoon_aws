@@ -1,3 +1,6 @@
+require "Parser"
+require "Getlist"
+
 class HomeController < ApplicationController
   include Parser
   include Getlist

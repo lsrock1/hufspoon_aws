@@ -94,7 +94,7 @@
   $(document).ready(function(){
     var lastScrollTop = 0,
       $nav_extended = $(".nav-extended"),
-      $form_nav = $(".form_nav"),
+      $form_nav = $("nav.form"),
       $toolbar = $(".toolbar"),
       $nav_content = $(".nav-content");
     
@@ -132,13 +132,13 @@
     $(".button-collapse").sideNav();
     
     $(".opener").click(function(){
-      $navbar_extended_fixed.velocity({translateY: -56},{duration: 800});
+      $nav_extended.velocity({translateY: -56},{duration: 800});
       $form_nav.fadeIn();
       document.getElementById("search").focus();
     })
     $(".closer").click(function(){
       $form_nav.fadeOut();
-      $navbar_extended_fixed.velocity({translateY: 0},{duration: 800});
+      $nav_extended.velocity({translateY: 0},{duration: 800});
     })
     
     $("ul.tabs").tabs();
