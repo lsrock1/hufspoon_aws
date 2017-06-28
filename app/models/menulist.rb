@@ -1,3 +1,5 @@
+require "Getlist"
+
 class Menulist < ActiveRecord::Base
   include Getlist
   def self.gettrans kname, id

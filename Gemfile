@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 gem 'search_cop'
 gem 'rails_12factor', group: :production
+gem 'rspec-rails', group: :development
 gem 'nokogiri'
 gem 'devise'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

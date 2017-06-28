@@ -1,9 +1,11 @@
 require "Parser"
 require "Stringfy"
+require "Getlist"
 
 class ChatbotController < ApplicationController
   include Parser
   include Stringfy
+  include Getlist
   
     def keyboard
       render json:
