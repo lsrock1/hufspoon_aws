@@ -11,7 +11,7 @@ class ChatbotController < ApplicationController
       render json:
       {
         type: "buttons",
-        buttons: ["Select Language", "Today Menu!"]
+        buttons: ["Choose Language", "Today Menu!"]
       }
     end
     
@@ -21,9 +21,9 @@ class ChatbotController < ApplicationController
       language = languageHash
       languageArray = language.map{|k, v| v[:showName]}
 
-      begin
-        user = User.find_by(key: user)
-      rescue
+      
+      user = User.find_by(key: user)
+      if user == nil
         user = User.new(key: user, count: 0, step: 0)
       end
 
@@ -73,7 +73,7 @@ class ChatbotController < ApplicationController
           },
           keyboard: {
             type: "buttons",
-            buttons: ["Select Language", "Today Menu!"]
+            buttons: ["Choose Language", "Today Menu!"]
           }
         }
       elsif content == "Today Menu!"
@@ -96,7 +96,7 @@ class ChatbotController < ApplicationController
             },
             keyboard: {
               type: "buttons",
-              buttons: ["Select Language"]
+              buttons: ["Choose Language"]
             }
           }
         end
@@ -157,7 +157,7 @@ class ChatbotController < ApplicationController
             },
             keyboard:{
               type: "buttons",
-              buttons: ["Select Language", "Today Menu!"]
+              buttons: ["Choose Language", "Today Menu!"]
             }
           }
         else
@@ -212,7 +212,7 @@ class ChatbotController < ApplicationController
             },
             keyboard:{
               type: "buttons",
-              buttons: ["Select Language","Today Menu!"]
+              buttons: ["Choose Language","Today Menu!"]
             }
           }
         end
@@ -224,7 +224,7 @@ class ChatbotController < ApplicationController
           },
           keyboard:{
             type: "buttons",
-            buttons: ["select Language", "Today Menu!"]
+            buttons: ["Choose Language", "Today Menu!"]
           }
         }
       end
