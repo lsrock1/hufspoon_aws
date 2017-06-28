@@ -146,7 +146,7 @@ class ChatbotController < ApplicationController
                 "Try eating outside!" + "\n" +
                 "How about" + @ran_rest.name + "?",
               photo: {
-                "url": "http#{@ran_rest.picture.split('http')[1]}",
+                "url": "http#{@ran_rest.picture.split("http")[1]}",
                 "width": 330,
                 "height": 300
               },
@@ -185,19 +185,23 @@ class ChatbotController < ApplicationController
               if meal[:menu] != []
                 info = info + "\n" + meal[:menu].join(",")
               end
+              
               if meal[:ingre] != []
                 info = info + "\n" + "\n" + meal[:ingre].join(",")
               else
                 info = info + "\n"
               end
+              
               if meal[:kcal] != nil
                info = info + "\n" + meal[:kcal]
               end
-              info = info + "\n"
+              if menulist[-1] != meal
+                info = info + "\n\n"
+              end
             end
           end
                 
-          render :json =>
+          render json:
           {
             message:{
               text: info,
@@ -213,7 +217,7 @@ class ChatbotController < ApplicationController
           }
         end
       else
-        render :json =>
+        render json:
         {
           message:{
             text: "Wrong access"
