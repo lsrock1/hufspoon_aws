@@ -1,19 +1,19 @@
-require 'csv'
+require "csv"
 class Data::RestsController < ApplicationController
   before_action :require_login
-  layout 'data'
+  layout "data"
   include Getlist
   
   def index
-    @page=params[:page] ? params[:page].to_i : 1
-    @rests=Rest.all
-    @num=(@rests.length/50)+1
-    @rest=@rests.all.sort{|a,b| a.name <=> b.name}[(@page-1)*50..50*(@page)-1]
+    @page = params[:page] ? params[:page].to_i : 1
+    @rests = Rest.all
+    @num = (@rests.length / 50) + 1
+    @rest = @rests.all.sort{|a,b| a.name <=> b.name}[(@page-1) * 50..50 * (@page-1)]
   end
   
   def new
-    @restCategory=restCategoryHash.keys.map{|key| [key, key]}
-    @rest=Rest.new
+    @restCategory = restCategoryHash.keys.map{|key| [key, key]}
+    @rest = Rest.new
   end
   
   def create

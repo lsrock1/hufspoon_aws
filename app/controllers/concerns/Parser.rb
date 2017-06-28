@@ -12,8 +12,8 @@ module Parser
           substring=string[string.index("(")..string.index(")")]
           string.sub!(substring,'$'+substring[1...-1])
         end
-        if string.index(",")&&string[-1]!='원'
-          string.sub!(",","$")
+        if string.index(",") && string[-1] != "원"
+          string.sub!(",", "$")
         end
         if string.index(":")&&(string.index("/")||string.index("&")||string.index("-")||string.index("*"))
           string.sub!(/ - | \/ | & | * /,"$")

@@ -5,6 +5,6 @@ class Dinner < ActiveRecord::Base
   include Stringfy
   
   def self.getname
-    return 'dinner'
+    return "dinner"
   end
 end

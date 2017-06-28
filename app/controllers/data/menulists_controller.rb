@@ -1,13 +1,13 @@
-require 'csv'
+require "csv"
 class Data::MenulistsController < ApplicationController
   before_action :require_login
-  layout 'data'
+  layout "data"
   
   def index
-    @search=true
-    @page=params[:page] ? params[:page].to_i : 1
-    @menulist=Menulist.all
-    @num=(@menulist.length/300)+1
+    @search = true
+    @page = params[:page] ? params[:page].to_i : 1
+    @menulist = Menulist.all
+    @num = (@menulist.length/300)+1
     if @page == 0
       @list = @menulist.select{|item| item.kname==item.ename}
     else
@@ -21,7 +21,7 @@ class Data::MenulistsController < ApplicationController
       if Menulist.find_by(:kname => params[:menulist][:kname])!=nil
         @menulist=Menulist.find_by(:kname => params[:menulist][:kname])
       else
-        unless (params[:menulist][:kname]=="")||(params[:menulist][:ename]=="")
+        unless (params[:menulist][:kname] == "") || (params[:menulist][:ename] == "")
           @menulist = Menulist.new(menulist_params)
           @menulist.save
         end
@@ -56,7 +56,7 @@ class Data::MenulistsController < ApplicationController
       delmenu.destroy
       redirect_to :back
     else
-      redirect_to :back, notice: '해당 번역을 사용하는 일반식당 메뉴가 있습니다!'
+      redirect_to :back, notice: "해당 번역을 사용하는 일반식당 메뉴가 있습니다!"
     end
   end
   
@@ -69,11 +69,12 @@ class Data::MenulistsController < ApplicationController
   def update
     @page=params[:menulist][:page]
     @intinfo=isint(@page)
-    if (params[:menulist][:kname]=="")||(params[:menulist][:ename]=="")
+    if (params[:menulist][:kname] == "")||(params[:menulist][:ename] == "")
       redirect_to :back
     else
-      @menulist=Menulist.find(params[:id])
+      @menulist = Menulist.find(params[:id])
       @menulist.update(menulist_params)
+      @menulist.touch
       if @intinfo!=nil
         if @intinfo>=0
           redirect_to "/data/menulists/?page="+@page

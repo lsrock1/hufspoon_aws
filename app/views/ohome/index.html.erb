@@ -46,14 +46,14 @@
         <%if params[:q]%><li class="collection-header"><h5><%if @restCategoryHash[@q]%><%=@restCategoryHash[@q][@language]%><%else%><%=@q%><%end%></h5></li><%end%>
         <%@list.each do |re|%>
         <li class="collection-item avatar">
-          <%if re.picture==nil||re.picture==""%><i class="material-icons red lighten-3 circle">restaurant</i><%else%><img src="<%='http'+re.picture.split('http')[1]%>" alt="" class="circle"><%end%>
+          <%if re.picture == nil || re.picture == ""%><i class="material-icons red lighten-3 circle">restaurant</i><%else%><img src="<%='http'+re.picture.split('http')[1]%>" alt="" class="circle"><%end%>
           <span class="title"><a href="/rests/<%=re.id%><%if params[:q]%>?index=<%=@q%><%end%>"><%=highlight(re.name,@q)%></a></span>
           <p>
             <%if (re.food.include? @q)||(re.name.include? @q)%>
               <%if re.re_menu%>
-                <%if @language==4%>
+                <%if @language == 4%>
                   <%=re.re_menu%>
-                <%elsif @language==0%>
+                <%elsif @language == 0%>
                   <%=re.ere_menu.titleize%>
                 <%else%>
                   <%=re.chinese%>
@@ -112,27 +112,6 @@
       );
     });
     
-    $(window).scroll(function(event){
-      var st = $(this).scrollTop();
-      if (st -lastScrollTop>14 &&$scaleBtn.hasClass('scrollUp')){
-        $scaleBtn.velocity({scaleX: 0,scaleY: 0},{duration: 10}).removeClass('scrollUp').addClass('scrollDown');
-        if($scaleBtn.parent().hasClass('active'))$scaleBtn.trigger('click').addClass('opened');
-        lastScrollTop = st;
-      }
-      else if(st-lastScrollTop< -14&&$scaleBtn.hasClass('scrollDown')){
-        var com = null;
-        if($scaleBtn.hasClass('opened')){
-          $scaleBtn.removeClass('opened');
-          com = function(){
-            $scaleBtn.trigger('click');
-          };
-        }
-        $scaleBtn.removeClass('scrollDown').addClass('scrollUp').velocity({scaleX: 1, scaleY: 1},{duration: 10,complete: com});
-        lastScrollTop = st;
-      }
-      if(st - lastScrollTop > 14 || st - lastScrollTop < -14) lastScrollTop=st;
-    });
-    
     $('.modal').modal({
       ready: function(){
         $('.button-collapse').sideNav('hide');
@@ -146,6 +125,7 @@
       $form.fadeIn();
       document.getElementById("search").focus();
     })
+
     $(".closer").click(function(){
       $form.fadeOut();
       $main.velocity({translateY: 0},{duration: 800});
@@ -158,10 +138,10 @@
       $('.favorite').each(function(){
         var $this=$(this);
         $this.show();
-        if(window.Hybrid.favoriteInit($this.data("id"),$this.data("name"))=="1"){
+        if(window.Hybrid.favoriteInit($this.data("id"),$this.data("name")) === "1"){
           $this.removeClass('grey-text').find('i').html('star');
-          $( "ul.collection > li:nth-child("+count+")" ).before($this.parent());
-          count=count+1;
+          $( "ul.collection > li.collection-item:nth-child("+count+")" ).before($this.parent());
+          count = count + 1;
         }
       })
       $(".favorite").click(function(){
