@@ -17,7 +17,7 @@ module HomeHelper
       content_tag(:ul, class: :tabs) do
         array.collect{|name|
           concat (content_tag(:li, class: :tab) do
-            content_tag(:a, class: "#{name[1]}", href: "##{name[0]}", onclick: "ga('send', 'event', 'click', #{name[0]}');") do
+            content_tag(:a, class: "#{name[1]}", href: "##{name[0]}", onclick: "ga('send', 'event', 'click', '#{name[0]}');") do
               concat content_tag(:i, "restaurant", class: "material-icons")
               concat tag(:br)
               concat content_tag(:span, name[0].titleize)

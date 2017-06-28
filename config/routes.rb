@@ -26,9 +26,9 @@ Rails.application.routes.draw do
     resources :diets,except: [:destroy, :show, :new], path_names: {edit: "/edit/:name"}
   end
   
+  get '/rests/search' => 'ohome#search'
   get '/rests' => 'ohome#index'
   get '/rests/:id' => 'ohome#show'
-  
   
   scope module: :board do
     resources :posts, except: [:edit,:update]
