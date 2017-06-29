@@ -28,7 +28,7 @@ module HomeHelper
           content_tag(:a, href: "#language", onclick: "ga('send', 'event', 'click', 'language');") do
             concat content_tag(:i, :translate, class: "material-icons")
             concat tag(:br)
-            concat content_tag(:span, "LANGUAGE")
+            concat content_tag(:span, "LANGUAGES")
           end
         end)
       end
