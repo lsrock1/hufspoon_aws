@@ -10,7 +10,7 @@ class Board::CommentsController < ApplicationController
   end
   
   def create
-    unless params[:content].include? "</a>"
+    unless params[:comment][:content].include? "</a>"
       
       @comment=Comment.new(comment_params)
       @comment.ip=request.remote_ip
