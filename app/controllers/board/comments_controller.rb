@@ -10,20 +10,23 @@ class Board::CommentsController < ApplicationController
   end
   
   def create
-    @comment=Comment.new(comment_params)
-    @comment.ip=request.remote_ip
-    if admin_signed_in?
-      @comment.name='admin'
-      @comment.num=0
-      if current_admin.email=='admin@hufs.ac.kr'
-        @comment.level="hufspoon"
-      else
-        @comment.level="인문관영양사"
-      end
-    end
-    @comment.save
+    unless params[:content].include? "</a>"
       
-    cookies[:comment]==nil ? cookies.permanent[:comment]=@comment.id : cookies.permanent[:comment]=cookies[:comment]+","+@comment.id.to_s
+      @comment=Comment.new(comment_params)
+      @comment.ip=request.remote_ip
+      if admin_signed_in?
+        @comment.name='admin'
+        @comment.num=0
+        if current_admin.email=='admin@hufs.ac.kr'
+          @comment.level="hufspoon"
+        else
+          @comment.level="인문관영양사"
+        end
+      end
+      @comment.save
+        
+      cookies[:comment]==nil ? cookies.permanent[:comment]=@comment.id : cookies.permanent[:comment]=cookies[:comment]+","+@comment.id.to_s
+    end
     redirect_to :back
   end
   
