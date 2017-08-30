@@ -10,9 +10,8 @@ module Parser
         string = x.text
         if string.index("(")
           substring = string[string.index("(")..string.index(")")]
-          string.sub!(substring, "$" + substring[1...-1])
-          put("주목목")
-          put(string)
+          menuString = menuString + "$" + substring[1...-1]
+          string.sub!(substring, "")
         end
         if string.index(",") && string[-1] != "원"
           string.gsub!(",", "$")

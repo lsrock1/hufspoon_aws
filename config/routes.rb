@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get '/refresh/:day' => 'systems#refresh'
   get'/out' =>'systems#out'
   get '/block/:identity/:id' => 'systems#block'
+  get '/newadmin' => 'home#newadmin'
   
   get '/keyboard' => 'chatbot#keyboard'
   post '/message' => 'chatbot#message'
