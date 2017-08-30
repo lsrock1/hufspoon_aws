@@ -30,7 +30,7 @@ module Stringfy
               price = l[0..-2] + " won"
             else
               xfood = l.strip
-              if xfood.index("&") || xfood.index("/") || xfood.index("-")
+              if xfood.index("&") || xfood.index("/") || xfood.index("-") || xfood.index("*")
                 menulist = spliter(xfood, id)
                 menu_list.push(menulist[0])
                 update = update + menulist[1]

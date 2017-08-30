@@ -16,11 +16,11 @@
   <%=form_for @menulist, url: data_menulist_path do |f|%>
     <%=f.text_field :page, value: @page, type: :hidden%>
     <div class="input-field">
-      <%=f.label "한글이름"%>
+      <%=f.label "KR"%>
       <%=f.text_field :kname%>
     </div>
     <div class="input-field">
-      <%=f.label "영어 뜻"%>
+      <%=f.label "EN"%>
       <%=f.text_field :ename%>
     </div>
     <div class="input-field">
@@ -28,23 +28,23 @@
       <%=f.text_field :ername%>
     </div>
     <div class="input-field">
-      <%=f.label "일어 훈독"%>
+      <%=f.label "JA"%>
       <%=f.text_field :jnamea%>
     </div>
     <div class="input-field">
-      <%=f.label "중국어 간체"%>
+      <%=f.label "CH"%>
       <%=f.text_field :cname%>
     </div>
     <div class="input-field">
-      <%=f.label "중국어 번체"%>
+      <%=f.label "번체"%>
       <%=f.text_field :cnameb%>
     </div>
     <div class="input-field">
-      <%=f.label "아랍어"%>
+      <%=f.label "AR"%>
       <%=f.text_field :aname%>
     </div>
     <div class="input-field">
-      <%=f.label "ES"%>
+      <%=f.label "SP"%>
       <%=f.text_field :spanish%>
     </div>
     <div class="input-field">
@@ -56,19 +56,15 @@
       <%=f.text_field :italia%>
     </div>
     <div class="input-field">
-      <%=f.label "PORTU"%>
+      <%=f.label "PO"%>
       <%=f.text_field :portugal%>
     </div>
     <div class="input-field">
-      <%=f.label "french"%>
+      <%=f.label "FR"%>
       <%=f.text_field :french%>
     </div>
     <div class="input-field">
-      <%=f.label "esperanto"%>
-      <%=f.text_field :esperanto%>
-    </div>
-    <div class="input-field">
-      <%=f.label "picture name"%>
+      <%=f.label "picture"%>
       <%=f.text_field :u_picture%>
     </div>
     <%=f.submit "저장",class: :btn%>

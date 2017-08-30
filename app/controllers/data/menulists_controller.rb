@@ -11,15 +11,15 @@ class Data::MenulistsController < ApplicationController
     if @page == 0
       @list = @menulist.select{|item| item.kname==item.ename}
     else
-      @list = @menulist.all.sort_by{|a| a.kname}[(@page-1)*300..300*(@page)-1]
+      @list = @menulist.all.sort_by{|a| a.kname}[(@page-1) * 300..300 * (@page)-1]
     end
   end
   
   def create
     if params[:menulist]
       @page=params[:page] ? params[:page] :params[:menulist][:page]
-      if Menulist.find_by(:kname => params[:menulist][:kname])!=nil
-        @menulist=Menulist.find_by(:kname => params[:menulist][:kname])
+      if Menulist.find_by(kname: params[:menulist][:kname])!=nil
+        @menulist=Menulist.find_by(kname: params[:menulist][:kname])
       else
         unless (params[:menulist][:kname] == "") || (params[:menulist][:ename] == "")
           @menulist = Menulist.new(menulist_params)
@@ -51,8 +51,8 @@ class Data::MenulistsController < ApplicationController
   end
   
   def destroy
-    delmenu=Menulist.find(params[:id])
-    if Rmenu.find_by(:menuname => delmenu.kname)==nil
+    delmenu = Menulist.find(params[:id])
+    if Rmenu.find_by(menuname: delmenu.kname) == nil
       delmenu.destroy
       redirect_to :back
     else
@@ -61,9 +61,9 @@ class Data::MenulistsController < ApplicationController
   end
   
   def edit
-    @menulist=Menulist.find(params[:id])
-    @page=params[:page] ? params[:page] : params[:menulist][:page]
-    @intinfo=isint(@page)
+    @menulist = Menulist.find(params[:id])
+    @page = params[:page] ? params[:page] : params[:menulist][:page]
+    @intinfo = isint(@page)
   end
   
   def update
@@ -77,12 +77,12 @@ class Data::MenulistsController < ApplicationController
       @menulist.touch
       if @intinfo!=nil
         if @intinfo>=0
-          redirect_to "/data/menulists/?page="+@page
+          redirect_to "/data/menulists/?page=" + @page
         else
-          redirect_to "/data/rests/"+((@intinfo*-1).to_s)
+          redirect_to "/data/rests/" + ((@intinfo*-1).to_s)
         end
       else
-        redirect_to search_data_menulists_path(page: 0,keyword: @page)
+        redirect_to search_data_menulists_path(page: 0, keyword: @page)
       end
     end
   end
@@ -93,10 +93,10 @@ class Data::MenulistsController < ApplicationController
   end
   
   def search
-    @search=true
-    @page=params[:page]
-    @keyword=params[:keyword]
-    @menulist=Menulist.where('kname Like ?', '%'+@keyword+'%').all
+    @search = true
+    @page = params[:page]
+    @keyword = params[:keyword]
+    @menulist = Menulist.where('kname Like ?', '%' + @keyword + '%').all
   end
   
   def top
@@ -110,7 +110,7 @@ class Data::MenulistsController < ApplicationController
   
   private
     def menulist_params
-      params.require(:menulist).permit(:kname,:ename,:ername,:jnamea,:cname,:cnameb,:aname,:spanish,:germany,:portugal,:italia,:french,:esperanto,:u_picture)
+      params.require(:menulist).permit(:kname, :ename, :ername, :jnamea, :cname, :cnameb, :aname,:spanish,:germany,:portugal,:italia,:french,:esperanto,:u_picture)
     end
     
     def csv_hash string, keys

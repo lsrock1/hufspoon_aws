@@ -183,7 +183,7 @@ class ChatbotController < ApplicationController
                 meal[:menu].shift.titleize
 
               if meal[:menu] != []
-                info = info + "\n" + meal[:menu].join(",")
+                info = info + "\n" + meal[:menu].join("\n")
               end
               
               if meal[:ingre] != []
@@ -196,7 +196,7 @@ class ChatbotController < ApplicationController
                info = info + "\n" + meal[:kcal]
               end
               if menulist[-1] != meal
-                info = info + "\n\n"
+                info = info + "\n\n" + "--------"
               end
             end
           end

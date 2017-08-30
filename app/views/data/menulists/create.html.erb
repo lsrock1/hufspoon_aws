@@ -1,5 +1,5 @@
 <%content_for :menu do%>
-  <li><%=link_to "돌아가기",data_menulists_path(:page => @page)%></li>
+  <li><%=link_to "돌아가기",data_menulists_path(page: @page)%></li>
 <%end%>
 
 <h2>존재하는 메뉴입니다</h2>
@@ -7,24 +7,24 @@
 <div class="table-responsive">
   <table class="table">
     <tr>
-      <th>한국</th>
-      <th>영어</th>
+      <th>KR</th>
+      <th>EN</th>
       <!--<th>독음</th>-->
-      <!--<th>일본어</th>-->
-      <th>간체</th>
+      <th>JA</th>
+      <th>CH</th>
       <!--<th>번체</th>-->
       <!--<th>아랍어</th>-->
-      <th>es</th>
-      <th>de</th>
-      <th>ita</th>
-      <th>po</th>
-      <th>fr</th>
+      <th>SP</th>
+      <th>DE</th>
+      <th>ITA</th>
+      <th>PO</th>
+      <th>FR</th>
     </tr>
     <tr>
       <td><%=@menulist.kname%></td>
       <td><%=@menulist.ename%></td>
       <!--<td><%=@menulist.ername%></td>-->
-      <!--<td><%=@menulist.jnamea%></td>-->
+      <td><%=@menulist.jnamea%></td>
       <td><%=@menulist.cname%></td>
       <!--<td><%=@menulist.cnameb%></td>-->
       <!--<td><%=@menulist.aname%></td>-->
@@ -33,11 +33,10 @@
       <td><%=@menulist.italia%></td>
       <td><%=@menulist.portugal%></td>
       <td><%=@menulist.french%></td>
-      <td><%=@menulist.esperanto%></td>
     </tr>
   </table>
 </div>
-<%=link_to "수정하기",edit_data_menulist_path(:id => @menulist.id,:page => @page),class: :btn%>
+<%=link_to "수정하기", edit_data_menulist_path(id: @menulist.id, page: @page), class: :btn%>
 <script>
   $(".button-collapse").sideNav();
 </script>

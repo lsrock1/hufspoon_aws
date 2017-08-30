@@ -28,18 +28,9 @@
 <div class="table-responsive">
   <table class="table">
     <tr>
-      <th>순번</th>
-      <th>한글</th>
-      <th>en</th>
-      <!--<th>독음</th>-->
-      <!--<th>일훈</th>-->
-      <th>간체</th>
-      <!--<th>번체</th>-->
-      <!--<th>아랍어</th>-->
-      <th>es</th>
-      <th>de</th>
-      <th>ita</th>
-      <th>po</th>
+      <th>ID</th>
+      <th>KR</th>
+      <th>EN</th>
       <th> </th>
       <th> </th>
     </tr>
@@ -49,15 +40,6 @@
           <td><%if @page!=0%><%=number+(@page-1)*300+1%><%else%><%=number+1%><%end%></td>
           <td><%=l.kname%></td>
           <td><%=l.ename%></td>
-          <!--<td><%=l.ername%></td>-->
-          <!--<td><%=l.jnamea%></td>-->
-          <td><%=l.cname%></td>
-          <!--<td><%=l.cnameb%></td>-->
-          <!--<td><%=l.aname%></td>-->
-          <td><%=l.spanish%></td>
-          <td><%=l.germany%></td>
-          <td><%=l.italia%></td>
-          <td><%=l.portugal%></td>
           <td><%=link_to '수정',edit_data_menulist_path(l, page: @page),{class: :btn, data: {confirm: '정말 수정 하시겠습니까?'}}%></td>
           <td><%=link_to '삭제',data_menulist_path(l), {class: :btn, method: :delete, data: {confirm: '정말 삭제 하시겠습니까?'}}%></td>
         </tr>
@@ -91,7 +73,7 @@
       </div>
       <%=submit_tag '업로드',class: :btn%>
     <%end%>
-    <a class="btn" href="/data/menulists/guide">업로드 행열가이드 파일 다운</a>
+    <a class="btn" href="/data/menulists/guide.csv">업로드 행렬가이드 파일 다운</a>
   </div>
 </div>
 <script>

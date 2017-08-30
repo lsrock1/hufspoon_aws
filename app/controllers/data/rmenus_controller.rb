@@ -59,7 +59,7 @@ class Data::RmenusController < ApplicationController
   def destroy
     @rmenu=Rmenu.find(params[:id])
     @rmenu.destroy
-    redirect_to "/data/rests/"+@rmenu.rest_id.to_s
+    redirect_to '/data/rests/' + @rmenu.rest_id.to_s
   end
   
   private

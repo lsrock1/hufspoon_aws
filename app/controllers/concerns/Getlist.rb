@@ -12,6 +12,11 @@ module Getlist
           dbName: "cname",
           dataTransName: "chinese"
         },
+        3 => {
+          showName: "日本語",
+          dbName: "jnamea",
+          dataTransName: "japanese"
+        },
         7 => {
           showName: "Deutsch",
           dbName: "germany",
@@ -26,11 +31,6 @@ module Getlist
           showName: "Español",
           dbName: "spanish",
           dataTransName: "spanish"
-        },
-        11 => {
-          showName: "Esperanto",
-          dbName: "esperanto",
-          dataTransName: "esperanto"
         },
         10 => {
           showName: "Français",

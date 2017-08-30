@@ -4,7 +4,6 @@ Rails.application.routes.draw do
   get '/refresh/:day' => 'systems#refresh'
   get'/out' =>'systems#out'
   get '/block/:identity/:id' => 'systems#block'
-  get '/newadmin' =>"home#newadmin"
   
   get '/keyboard' => 'chatbot#keyboard'
   post '/message' => 'chatbot#message'
@@ -21,7 +20,7 @@ Rails.application.routes.draw do
     resources :rests do
       delete '/picture/:number', on: :member, action: :destroy
     end
-    resources :rmenus, except: [:index,:show,:edit, :new]
+    resources :rmenus, except: [:index, :show, :edit, :new]
     resources :curates
     resources :diets,except: [:destroy, :show, :new], path_names: {edit: "/edit/:name"}
   end

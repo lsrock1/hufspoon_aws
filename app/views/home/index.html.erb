@@ -107,6 +107,7 @@
         <%cache menu_cache_key(@menulist[5]) do%>
           <div class="card">
             <div class="card-content">
+              <a class="btn btn-floating right" id="snackImage"><i class="material-icons">image</i></a>
               <span class="card-title">Snack</span>
                 <%if @w!=0&&@w!=6%><div>09:00~18:40</div><%end%>
                 <div class="divider"></div>
@@ -136,7 +137,6 @@
       </div>
       <%end%>
       <%end%>
-      
     </div>
     
     <div id="skylounge" class="col s12">
@@ -230,20 +230,35 @@
         <a>Italian Language Translator</a>
         <h5>Arianna Colciago</h5>
       </div>
+
       <div class="divider"></div>
       <div class="section">
         <a>Portuguese Language Translator</a>
         <h5>Laura Torelli</h5>
       </div>
+
       <div class="divider"></div>
       <div class="section">
         <a>Spanish Language Translator</a>
         <h5>Maria Jose Alejandra - Valencia Ramirez</h5>
       </div>
+
       <div class="divider"></div>
       <div class="section">
         <a>French Language Translator</a>
         <h5>Charline Zammit</h5>
+      </div>
+
+      <div class="divider"></div>
+      <div class="section">
+        <a>Japanese Language Translator</a>
+        <h5>日浦海</h5>
+      </div>
+
+      <div class="divider"></div>
+      <div class="section">
+        <a>Japanese Language Translator</a>
+        <h5>Heesuk Noh</h5>
       </div>
       <br>
     </div>
@@ -252,6 +267,12 @@
   <div id="modal2" class="modal">
     <div class="modal-content">
       <img class="responsive-img" src="https://s19.postimg.org/xpsdfz6tt/map.png">
+    </div>
+  </div>
+
+  <div id="modal3" class="modal">
+    <div class="modal-content">
+
     </div>
   </div>
 <script>
@@ -453,6 +474,10 @@
         }
       })
     };
+
+    $("#snackImage").click(function(){
+    });
+
     var $input =  $("#datepicker").pickadate({
       format: "yyyymmdd",
       onSet: function(e) {
@@ -470,10 +495,10 @@
 
   function languageChange(language, date){
     if(history.replaceState){
-      history.replaceState(null, document.title, "/"+ language + "/" + date);
+      history.replaceState(null, document.title, "/" + language + "/" + date);
       history.go(0);
     }else{
-      location.replace("/"+ language + "/" + date);
+      location.replace("/" + language + "/" + date);
     }
   }
 </script>
