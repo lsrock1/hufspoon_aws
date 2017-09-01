@@ -99,6 +99,10 @@ module HomeHelper
     return html.html_safe
   end
   
+  def snack_image menu
+    
+  end
+  
   def card_img menu
     if menu[:main].u_picture != nil && menu[:main].u_picture != ""
       content_tag(:div, class: "card-image c-image") do
