@@ -196,7 +196,7 @@ class ChatbotController < ApplicationController
           }
         end
       elsif content.include? "Image-"
-        content.delete! "Image- "
+        content.gsub("Image-", "")
         faculty = ["Flunch", "Fdinner"]
         humanities = ["Breakfast", "Lunch1", "Lunch2", "Lunchnoodle", "Dinner"]
         skylounge = ["Menua", "Menub"]
