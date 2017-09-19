@@ -197,9 +197,9 @@ class ChatbotController < ApplicationController
         end
       elsif content.include? "Image: "
         content = content.gsub("Image: ", "")
-        faculty = ["Lunch", "Dinner"]
-        humanities = ["Breakfast", "Lunch 1", "Lunch 2", "Lunch Noodle", "Dinner"]
-        skylounge = ["Menu A", "Menu B"]
+        faculty = ["Lunch(Faculty)", "Dinner(Faculty)"]
+        humanities = ["Breakfast(Humanities)", "Lunch 1(Humanities)", "Lunch 2(Humanities)", "Lunch Noodle(Humanities)", "Dinner(Humanities)"]
+        skylounge = ["Menu A(Sky Lounge)", "Menu B(Sky Lounge)"]
         
         @id = user.language.to_i
         time = Time.new.in_time_zone("Seoul")
@@ -217,44 +217,41 @@ class ChatbotController < ApplicationController
         @day = time.year.to_s + mm.to_s + dd.to_s
         
         if faculty.include? content
-          cafe = "(Faculty)"
-          button = faculty.map{|item| "Image: #{item}#{cafe}"}
+          button = faculty.map{|item| "Image: #{item}"}
   
         elsif humanities.include? content
-          cafe = "(Humanities)"
-          button = humanities.map{|item| "Image: #{item}#{cafe}"}
+          button = humanities.map{|item| "Image: #{item}"}
           
         else
-          cafe = "(Sky Lounge)"
-          button = skylounge.map{|item| "Image: #{item}#{cafe}"}
+          button = skylounge.map{|item| "Image: #{item}"}
           
         end
         
-        if content == "Breakfast#{cafe}"
+        if content == "Breakfast(Humanities)"
           model = Breakfast
         
-        elsif content == "Lunch 1#{cafe}"
+        elsif content == "Lunch 1(Humanities)"
           model = Lunch1
         
-        elsif content == "Lunch 2#{cafe}"
+        elsif content == "Lunch 2(Humanities)"
           model = Lunch2
           
-        elsif content == "Lunch Noodles#{cafe}"
+        elsif content == "Lunch Noodles(Humanities)"
           model = Lunchnoodle
           
-        elsif content == "Dinner#{cafe}"
+        elsif content == "Dinner(Humanities)"
           model = Dinner
           
-        elsif content == "Flunch#{cafe}"
+        elsif content == "Lunch(Faculty)"
           model = Flunch
           
-        elsif content == "Fdinner#{cafe}"
+        elsif content == "Dinner(Faculty)"
           model = Fdinner
         
-        elsif content == "Menu A#{cafe}"
+        elsif content == "Menu A(Sky Lounge)"
           model = Menua
         
-        elsif content == "Menu B#{cafe}"
+        elsif content == "Menu B(Sky Lounge)"
           model = Menub
         end
         
