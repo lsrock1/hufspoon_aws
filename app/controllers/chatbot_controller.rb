@@ -196,56 +196,69 @@ class ChatbotController < ApplicationController
           }
         end
       elsif content.include? "Image: "
-        content.gsub("Image: ", "")
+        content = content.gsub("Image: ", "")
         faculty = ["Lunch", "Dinner"]
         humanities = ["Breakfast", "Lunch 1", "Lunch 2", "Lunch Noodle", "Dinner"]
         skylounge = ["Menu A", "Menu B"]
         
+        @id = user.language.to_i
+        time = Time.new.in_time_zone("Seoul")
+        dd = time.day
+        mm = time.month
+
+        if dd < 10 
+          dd = "0" + dd.to_s
+        end
+          
+        if mm < 10 
+          mm = "0" + mm.to_s
+        end
+        
+        @day = time.year.to_s + mm.to_s + dd.to_s
+        
         if faculty.include? content
-          cafe = "Faculty"
-          button = faculty.map{|item| "Image: #{item}(#{cafe})"}
+          cafe = "(Faculty)"
+          button = faculty.map{|item| "Image: #{item}#{cafe}"}
   
         elsif humanities.include? content
-          cafe = "Humanities"
-          button = humanities.map{|item| "Image: #{item}(#{cafe})"}
+          cafe = "(Humanities)"
+          button = humanities.map{|item| "Image: #{item}#{cafe}"}
           
         else
-          cafe = "Sky Lounge"
-          button = skylounge.map{|item| "Image: #{item}(#{cafe})"}
+          cafe = "(Sky Lounge)"
+          button = skylounge.map{|item| "Image: #{item}#{cafe}"}
           
         end
         
-        content.gsub("(#{cafe})", "")
-        
-        if content == "Breakfast"
+        if content == "Breakfast#{cafe}"
           model = Breakfast
         
-        elsif content == "Lunch 1"
+        elsif content == "Lunch 1#{cafe}"
           model = Lunch1
         
-        elsif content == "Lunch 2"
+        elsif content == "Lunch 2#{cafe}"
           model = Lunch2
           
-        elsif content == "Lunch Noodles"
+        elsif content == "Lunch Noodles#{cafe}"
           model = Lunchnoodle
           
-        elsif content == "Dinner"
+        elsif content == "Dinner#{cafe}"
           model = Dinner
           
-        elsif content == "Flunch"
+        elsif content == "Flunch#{cafe}"
           model = Flunch
           
-        elsif content == "Fdinner"
+        elsif content == "Fdinner#{cafe}"
           model = Fdinner
         
-        elsif content == "Menua"
+        elsif content == "Menu A#{cafe}"
           model = Menua
         
-        elsif content == "Menub"
+        elsif content == "Menu B#{cafe}"
           model = Menub
         end
         
-        main = model.make_list[:main]
+        main = model.make_list(@day, @id)[:main]
         
         render json:
           {
