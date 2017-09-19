@@ -99,6 +99,7 @@ class ChatbotController < ApplicationController
         check = Lunch1.find_by(date: @day)
         checkf = Flunch.find_by(date: @day)
         checks = Menua.find_by(date: @day)
+
         begin
           if @w == 0
             rest = Rest.all
@@ -120,7 +121,7 @@ class ChatbotController < ApplicationController
           render json:
           {
             message: {
-              text: "Cafeteria is closed on sunday." + "\n" +
+              text: "The Cafeteria is closed on sunday." + "\n" +
                 "Try eating outside!" + "\n" +
                 "How about" + @ran_rest.name + "?",
               photo: {
@@ -135,7 +136,7 @@ class ChatbotController < ApplicationController
             },
             keyboard:{
               type: "buttons",
-              buttons: ["Choose Language", "Today Menu!"]
+              buttons: ["Today Menu", "Choose a Language"]
             }
           }
         else
@@ -143,10 +144,10 @@ class ChatbotController < ApplicationController
           info = ""
 
           if content == "Humanities"
-            menulist=[Breakfast, Lunch1, Lunch2, Lunchnoodle, Dinner].map{|data| data.make_list(@day, @id)}
+            menulist = [Breakfast, Lunch1, Lunch2, Lunchnoodle, Dinner].map{|data| data.make_list(@day, @id)}
               
           elsif content == "Faculty"
-            menulist=[Flunch, Fdinner, Menua, Menub].map{|data| data.make_list(@day, @id)}
+            menulist = [Flunch, Fdinner].map{|data| data.make_list(@day, @id)}
               
           else
             menulist = [Menua, Menub].map{|data| data.make_list(@day, @id)}
@@ -184,16 +185,90 @@ class ChatbotController < ApplicationController
             message:{
               text: info,
               message_button: {
-                label: "What's next?",
+                label: "Tomorrow Menus",
                 url: "http://www.hfspn.co"
               }
             },
             keyboard:{
               type: "buttons",
-              buttons: ["Choose Language","Today Menu!"]
+              buttons: ["Today Menu"] + menulist.map{|item| "Image-#{item.name.titleize}"} + ["Choose a Language"]
             }
           }
         end
+      elsif content.include? "Image-"
+        content.delete! "Image- "
+        faculty = ["Flunch", "Fdinner"]
+        humanities = ["Breakfast", "Lunch1", "Lunch2", "Lunchnoodle", "Dinner"]
+        skylounge = ["Menua", "Menub"]
+        
+        if faculty.include? content
+          button = faculty.map{|item| "Image-#{item}"}
+        elsif humanities.include? content
+          button = humanities.map{|item| "Image-#{item}"}
+        else
+          button = skylounge.map{|item| "Image-#{item}"}
+        end
+        
+          
+        
+        if content == "Breakfast"
+          model = Breakfast
+        
+        elsif content == "Lunch1"
+          model = Lunch1
+        
+        elsif content == "Lunch2"
+          model = Lunch2
+          
+        elsif content == "Lunchnoodle"
+          model = Lunchnoodle
+          
+        elsif content == "Dinner"
+          model = Dinner
+          
+        elsif content == "Flunch"
+          model = Flunch
+          
+        elsif content == "Fdinner"
+          model = Fdinner
+        
+        elsif content == "Menua"
+          model = Menua
+        
+        elsif content == "Menub"
+          model = Menub
+        end
+        
+        main = model.make_list[:main]
+        
+        render json:
+          {
+            message: {
+              "text": main[:menu][0].titleize,
+              "photo": {
+                "url": main.u_picture,
+                "width": 640,
+                "height": 480
+              }
+            },
+            keyboard:{
+              type: "buttons",
+              buttons: ["Back"] + button
+            }
+          }
+        
+      elsif content == "Back"
+        render json:
+        {
+          message:{
+            text: "Back"
+          },
+          keyboard:{
+            type: "buttons",
+            buttons: ["Today Menu", "Choose a Language"]
+          }
+        }
+      
       else
         render json:
         {
@@ -202,7 +277,7 @@ class ChatbotController < ApplicationController
           },
           keyboard:{
             type: "buttons",
-            buttons: ["Today Menu", "Choose Language"]
+            buttons: ["Today Menu", "Choose a Language"]
           }
         }
       end

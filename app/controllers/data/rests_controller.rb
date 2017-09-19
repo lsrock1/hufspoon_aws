@@ -8,7 +8,7 @@ class Data::RestsController < ApplicationController
     @page = params[:page] ? params[:page].to_i : 1
     @rests = Rest.all
     @num = (@rests.length / 50) + 1
-    @rest = @rests.all.sort{|a,b| a.name <=> b.name}[(@page-1) * 50..50 * (@page-1)]
+    @rests = @rests.all.sort{|a,b| a.name <=> b.name}[(@page-1) * 50..50 * (@page-1)]
   end
   
   def new
