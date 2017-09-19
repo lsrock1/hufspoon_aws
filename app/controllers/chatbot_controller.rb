@@ -255,14 +255,14 @@ class ChatbotController < ApplicationController
           model = Menub
         end
         
-        main = model.make_list(@day, @id)[:main]
+        list = model.make_list(@day, @id)
         
         render json:
           {
             message: {
-              "text": main[:menu][0].titleize,
+              "text": list[:menu][0].titleize,
               "photo": {
-                "url": main.u_picture,
+                "url": list[:main].u_picture,
                 "width": 640,
                 "height": 480
               }
