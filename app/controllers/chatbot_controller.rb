@@ -191,34 +191,42 @@ class ChatbotController < ApplicationController
             },
             keyboard:{
               type: "buttons",
-              buttons: ["Today Menu"] + menulist.map{|item| "Image-#{item[:name].titleize}"} + ["Choose a Language"]
+              buttons: ["Today Menu"] + menulist.map{|item| "Image: #{item[:name].titleize}(#{content})"} + ["Choose a Language"]
             }
           }
         end
-      elsif content.include? "Image-"
-        content.gsub("Image-", "")
-        faculty = ["Flunch", "Fdinner"]
-        humanities = ["Breakfast", "Lunch1", "Lunch2", "Lunchnoodle", "Dinner"]
-        skylounge = ["Menua", "Menub"]
+      elsif content.include? "Image: "
+        content.gsub("Image: ", "")
+        faculty = ["Lunch", "Dinner"]
+        humanities = ["Breakfast", "Lunch 1", "Lunch 2", "Lunch Noodle", "Dinner"]
+        skylounge = ["Menu A", "Menu B"]
         
         if faculty.include? content
-          button = faculty.map{|item| "Image-#{item}"}
+          cafe = "Faculty"
+          button = faculty.map{|item| "Image: #{item}(#{cafe})"}
+  
         elsif humanities.include? content
-          button = humanities.map{|item| "Image-#{item}"}
+          cafe = "Humanities"
+          button = humanities.map{|item| "Image: #{item}(#{cafe})"}
+          
         else
-          button = skylounge.map{|item| "Image-#{item}"}
+          cafe = "Sky Lounge"
+          button = skylounge.map{|item| "Image: #{item}(#{cafe})"}
+          
         end
+        
+        content.gsub("(#{cafe})", "")
         
         if content == "Breakfast"
           model = Breakfast
         
-        elsif content == "Lunch1"
+        elsif content == "Lunch 1"
           model = Lunch1
         
-        elsif content == "Lunch2"
+        elsif content == "Lunch 2"
           model = Lunch2
           
-        elsif content == "Lunchnoodle"
+        elsif content == "Lunch Noodles"
           model = Lunchnoodle
           
         elsif content == "Dinner"
