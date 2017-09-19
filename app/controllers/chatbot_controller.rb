@@ -11,7 +11,7 @@ class ChatbotController < ApplicationController
       render json:
       {
         type: "buttons",
-        buttons: ["Choose Language", "Today Menu!"]
+        buttons: ["Today Menu", "Choose a Language"]
       }
     end
     
@@ -30,12 +30,12 @@ class ChatbotController < ApplicationController
       user.count = user.count + 1
       user.save
 
-      if content == "Choose Language"
+      if content == "Choose a Language"
           
         render json:
         {
           message:{
-            text: "What language do you use?"  
+            text: "Which language do you speak?"  
           },
           
           keyboard: {
@@ -50,21 +50,7 @@ class ChatbotController < ApplicationController
             break
           end
         end
-        user.step = 1
-        user.save
           
-        render json:
-        {
-          message: {
-            text: "Where are you from?"  
-          }
-        }
-
-      elsif user.step == 1
-        user.country = content
-        user.step = 0
-        user.save
-        
         render json:
         {
           message: {
@@ -73,11 +59,14 @@ class ChatbotController < ApplicationController
           },
           keyboard: {
             type: "buttons",
-            buttons: ["Choose Language", "Today Menu!"]
+            buttons: ["Today Menu", "Choose a Language"]
           }
         }
-      elsif content == "Today Menu!"
-        if user.language != nil
+
+      elsif content == "Today Menu"
+        if user.language == nil
+          user.language = "한국어"
+        end
           render json:
           {
             message: {
@@ -88,18 +77,7 @@ class ChatbotController < ApplicationController
               buttons: ["Humanities", "Faculty", "Sky Lounge"]
             }
           }
-        else
-          render json:
-          {
-            message: {
-              text: "Please choose a language first!"
-            },
-            keyboard: {
-              type: "buttons",
-              buttons: ["Choose Language"]
-            }
-          }
-        end
+
       elsif content == "Humanities" || content == "Faculty" || content == "Sky Lounge"
           
         @id = user.language.to_i
@@ -224,7 +202,7 @@ class ChatbotController < ApplicationController
           },
           keyboard:{
             type: "buttons",
-            buttons: ["Choose Language", "Today Menu!"]
+            buttons: ["Today Menu", "Choose Language"]
           }
         }
       end
