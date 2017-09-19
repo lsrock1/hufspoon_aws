@@ -191,7 +191,7 @@ class ChatbotController < ApplicationController
             },
             keyboard:{
               type: "buttons",
-              buttons: ["Today Menu"] + menulist.map{|item| "Image-#{item.name.titleize}"} + ["Choose a Language"]
+              buttons: ["Today Menu"] + menulist.map{|item| "Image-#{item[:name].titleize}"} + ["Choose a Language"]
             }
           }
         end
@@ -208,8 +208,6 @@ class ChatbotController < ApplicationController
         else
           button = skylounge.map{|item| "Image-#{item}"}
         end
-        
-          
         
         if content == "Breakfast"
           model = Breakfast
