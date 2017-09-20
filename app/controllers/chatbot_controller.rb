@@ -50,7 +50,8 @@ class ChatbotController < ApplicationController
             break
           end
         end
-          
+        user.save
+        
         render json:
         {
           message: {
@@ -79,7 +80,7 @@ class ChatbotController < ApplicationController
           }
 
       elsif content == "Humanities" || content == "Faculty" || content == "Sky Lounge"
-          
+        imageButtons = []
         @id = user.language.to_i
         time = Time.new.in_time_zone("Seoul")
         dd = time.day
@@ -145,7 +146,7 @@ class ChatbotController < ApplicationController
 
           if content == "Humanities"
             menulist = [Breakfast, Lunch1, Lunch2, Lunchnoodle, Dinner].map{|data| data.make_list(@day, @id)}
-              
+            imageButtons = menulist.select{|item| !item[:main].u_picture.empty?}.map{|item| "Image: #{item[:name].titleize}"}
           elsif content == "Faculty"
             menulist = [Flunch, Fdinner].map{|data| data.make_list(@day, @id)}
               
@@ -191,15 +192,19 @@ class ChatbotController < ApplicationController
             },
             keyboard:{
               type: "buttons",
-              buttons: ["Today Menu"] + menulist.map{|item| "Image: #{item[:name].titleize}(#{content})"} + ["Choose a Language"]
+              buttons: ["Today Menu", "Choose a Language"] + imageButtons
             }
           }
         end
       elsif content.include? "Image: "
         content = content.gsub("Image: ", "")
-        faculty = ["Lunch(Faculty)", "Dinner(Faculty)"]
-        humanities = ["Breakfast(Humanities)", "Lunch 1(Humanities)", "Lunch 2(Humanities)", "Lunch Noodle(Humanities)", "Dinner(Humanities)"]
-        skylounge = ["Menu A(Sky Lounge)", "Menu B(Sky Lounge)"]
+        humanities = {
+          "Breakfast": Breakfast,
+          "Lunch 1": Lunch1,
+          "Lunch 2": Lunch2,
+          "Lunch Noodles": Lunchnoodle,
+          "Dinner": Dinner
+        }
         
         @id = user.language.to_i
         time = Time.new.in_time_zone("Seoul")
@@ -216,62 +221,38 @@ class ChatbotController < ApplicationController
         
         @day = time.year.to_s + mm.to_s + dd.to_s
         
-        if faculty.include? content
-          button = faculty.map{|item| "Image: #{item}"}
-  
-        elsif humanities.include? content
-          button = humanities.map{|item| "Image: #{item}"}
-          
-        else
-          button = skylounge.map{|item| "Image: #{item}"}
-          
-        end
-        
-        if content == "Breakfast(Humanities)"
-          model = Breakfast
-        
-        elsif content == "Lunch 1(Humanities)"
-          model = Lunch1
-        
-        elsif content == "Lunch 2(Humanities)"
-          model = Lunch2
-          
-        elsif content == "Lunch Noodles(Humanities)"
-          model = Lunchnoodle
-          
-        elsif content == "Dinner(Humanities)"
-          model = Dinner
-          
-        elsif content == "Lunch(Faculty)"
-          model = Flunch
-          
-        elsif content == "Dinner(Faculty)"
-          model = Fdinner
-        
-        elsif content == "Menu A(Sky Lounge)"
-          model = Menua
-        
-        elsif content == "Menu B(Sky Lounge)"
-          model = Menub
-        end
-        
+        buttons = humanities.keys.select{|item| !item[:main].u_picture.empty?}.map{|item| "Image: #{item[:name].titleize}"}
+        model = humanities[content]
         list = model.make_list(@day, @id)
         
-        render json:
+        unless list[:main].u_picture.empty?
+          render json:
+            {
+              message: {
+                "text": list[:menu][0].titleize,
+                "photo": {
+                  "url": list[:main].u_picture,
+                  "width": 640,
+                  "height": 480
+                }
+              },
+              keyboard:{
+                type: "buttons",
+                buttons: ["Back"] + buttons
+              }
+            }
+        else
+          render json:
           {
             message: {
-              "text": list[:menu][0].titleize,
-              "photo": {
-                "url": list[:main].u_picture,
-                "width": 640,
-                "height": 480
-              }
+              "text": "Sorry we don't have the image"
             },
             keyboard:{
               type: "buttons",
-              buttons: ["Back"] + button
+              buttons: ["Back"] + buttons
             }
           }
+        end
         
       elsif content == "Back"
         render json:
