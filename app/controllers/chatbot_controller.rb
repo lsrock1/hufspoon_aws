@@ -221,7 +221,7 @@ class ChatbotController < ApplicationController
         
         @day = time.year.to_s + mm.to_s + dd.to_s
         model = humanities.delete(content.to_sym)
-        buttons = humanities.values.map{|item| item.make_list(@day, @id)}.select{|item| !item[:main].nil?&&!item[:main].u_picture.empty?}.map{|item| "Image: #{item[:name].titleize}"}
+        buttons = humanities.values.map{|item| item.make_list(@day, @id)}.select{|item| !item[:main].nil?&&item[:main].u_picture&&!item[:main].u_picture.empty?}.map{|item| "Image: #{item[:name].titleize}"}
         list = model.make_list(@day, @id)
         
         unless list[:main].u_picture.empty?
