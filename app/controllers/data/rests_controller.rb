@@ -70,7 +70,8 @@ class Data::RestsController < ApplicationController
   end
   
   def edit
-    @rest=Rest.find(params[:id])
+    @restCategory = restCategoryHash.keys.map{|key| [key, key]}
+    @rest = Rest.find(params[:id])
   end
 
   def update
