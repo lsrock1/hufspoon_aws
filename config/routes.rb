@@ -2,8 +2,9 @@ Rails.application.routes.draw do
   devise_for :admins
   
   get '/refresh/:day' => 'systems#refresh'
-  get'/out' =>'systems#out'
+  get '/out' => 'systems#out'
   get '/block/:identity/:id' => 'systems#block'
+  get '/imagedomain' => 'systems#domain'
   get '/newadmin' => 'home#newadmin'
   
   get '/keyboard' => 'chatbot#keyboard'
@@ -23,7 +24,7 @@ Rails.application.routes.draw do
     end
     resources :rmenus, except: [:index, :show, :edit, :new]
     resources :curates
-    resources :diets,except: [:destroy, :show, :new], path_names: {edit: "/edit/:name"}
+    resources :diets, except: [:destroy, :show, :new], path_names: {edit: "/edit/:name"}
   end
   
   get '/rests/search' => 'ohome#search'
