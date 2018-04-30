@@ -26,7 +26,19 @@ class SystemsController < ApplicationController
   def domain
     Menulist.all.each do |menu|
       if menu.u_picture and menu.u_picture.include? '.org'
-        user.update(u_picture: menu.u_picture.sub('.org', '.cc'))
+        menu.update(u_picture: menu.u_picture.sub('org', 'cc'))
+      end
+    end
+    
+    Rmenu.all.each do |menu|
+      if menu.picture and menu.picture.include? 'org'
+        menu.update(picture: menu.picture.sub('org', 'cc'))
+      end
+    end
+    
+    Rest.all.each do |rest|
+      if rest.picture and rest.picture.include? 'org'
+        rest.update(picture: rest.picture.sub('org', 'cc'))
       end
     end
     
