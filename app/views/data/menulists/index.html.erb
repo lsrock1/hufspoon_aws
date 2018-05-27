@@ -52,7 +52,7 @@
   <ul class="pagination center-align">
     <%@num.times do|n|%>
       <%if @page==n+1%>
-        <li class="active"><%=link_to n+1,data_menulists_path(:page => n+1)%></li>
+        <li class="active"><%=link_to n+1, data_menulists_path(:page => n+1)%></li>
       <%else%>
         <li><%=link_to n+1,data_menulists_path(:page => n+1)%></li>
       <%end%>

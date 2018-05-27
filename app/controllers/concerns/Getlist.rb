@@ -47,6 +47,11 @@ module Getlist
           dbName: "portugal",
           dataTransName: "portugal"
         },
+        10 => {
+          showName: "Türkçe",
+          dbName: "turkish",
+          dataTransName: "turkish"
+        }
       }
   end
   

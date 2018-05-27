@@ -1,5 +1,8 @@
 require "csv"
+require "Getlist"
+
 class Data::MenulistsController < ApplicationController
+  include Getlist
   before_action :require_login
   layout "data"
   
@@ -9,7 +12,7 @@ class Data::MenulistsController < ApplicationController
     @menulist = Menulist.all
     @num = (@menulist.length/300)+1
     if @page == 0
-      @list = @menulist.select{|item| item.kname==item.ename}
+      @list = @menulist.select{|item| item.kname == item.ename}
     else
       @list = @menulist.all.sort_by{|a| a.kname}[(@page-1) * 300..300 * (@page)-1]
     end
@@ -64,6 +67,8 @@ class Data::MenulistsController < ApplicationController
     @menulist = Menulist.find(params[:id])
     @page = params[:page] ? params[:page] : params[:menulist][:page]
     @intinfo = isint(@page)
+    print(languageHash)
+    @languageList = languageHash.values
   end
   
   def update
@@ -110,7 +115,8 @@ class Data::MenulistsController < ApplicationController
   
   private
     def menulist_params
-      params.require(:menulist).permit(:kname, :ename, :ername, :jnamea, :cname, :cnameb, :aname,:spanish,:germany,:portugal,:italia,:french,:esperanto,:u_picture)
+      
+      params.require(:menulist).permit(languageHash.values.map{|v| v[:dbName]})
     end
     
     def csv_hash string, keys
