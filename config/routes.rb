@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get '/block/:identity/:id' => 'systems#block'
   get '/imagedomain' => 'systems#domain'
   get '/newadmin' => 'home#newadmin'
+  get '/private' => 'home#privat'
   
   get '/keyboard' => 'chatbot#keyboard'
   post '/message' => 'chatbot#message'

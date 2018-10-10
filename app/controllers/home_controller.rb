@@ -47,6 +47,10 @@ class HomeController < ApplicationController
     end
   end
   
+  def privat
+    
+  end
+  
   def index
     @id = params[:id].to_i
     @day = params[:day]
