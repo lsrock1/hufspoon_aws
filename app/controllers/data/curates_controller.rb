@@ -9,14 +9,15 @@ class Data::CuratesController < ApplicationController
     @num=(@curate.length/10)+1
     @languageHash = languageHash()
     if @id==0
-      @curate=@curate.select{|item| item.show!=0}
+      @curate = @curate.select{|item| item.show!=0}
     else
-      @curate=@curate.order('created_at DESC')[(@id-1)*10..10*(@id)-1]
+      @curate = @curate.order('created_at DESC')[(@id-1)*10..10*(@id)-1]
     end
   end
   
   def new
-    @language = languageHash().map{|key, value| [value[2], key]}
+	languages = languageHash()
+    @language = languages.map{|key, value| [value[:dataTransName], key]}
     @curate=Curate.new 
   end
   
@@ -41,7 +42,8 @@ class Data::CuratesController < ApplicationController
   end
   
   def edit
-    @language = languageHash().map{|key, value| [value[2], key]}
+	languages = languageHash()
+    @language = languages.map{|key, value| [value[:dataTransName], key]}
     @curate = Curate.find(params[:id])
   end
   
