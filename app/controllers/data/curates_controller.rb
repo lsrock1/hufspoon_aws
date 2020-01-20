@@ -7,7 +7,7 @@ class Data::CuratesController < ApplicationController
     @id=params[:id]? params[:id].to_i : 1
     @curate=Curate.all
     @num=(@curate.length/10)+1
-    @languageHash=languageHash()
+    @languageHash = languageHash()
     if @id==0
       @curate=@curate.select{|item| item.show!=0}
     else
@@ -16,7 +16,7 @@ class Data::CuratesController < ApplicationController
   end
   
   def new
-    @language = languageHash.map{|key, value| [value[2], key]}
+    @language = languageHash().map{|key, value| [value[2], key]}
     @curate=Curate.new 
   end
   
@@ -33,7 +33,7 @@ class Data::CuratesController < ApplicationController
   end
   
   def update
-    if params[:curate][:show].to_i<8&&params[:curate][:show].to_i>=0
+    if params[:curate][:show].to_i < 8 && params[:curate][:show].to_i >= 0
       @curate=Curate.find(params[:id])
       @curate.update(curate_params)
     end
@@ -41,7 +41,7 @@ class Data::CuratesController < ApplicationController
   end
   
   def edit
-    @language = languageHash.map{|key, value| [value[2], key]}
+    @language = languageHash().map{|key, value| [value[2], key]}
     @curate = Curate.find(params[:id])
   end
   
